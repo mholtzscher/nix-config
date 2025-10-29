@@ -1,9 +1,9 @@
-{ inputs, ... }:
+{ pkgs, inputs, lib, ... }:
 {
   programs = {
     ghostty = {
       enable = true;
-      package = null;
+      package = if pkgs.stdenv.isDarwin then null else pkgs.ghostty;
       settings = {
         # font-family = "GoMono Nerd Font";
         # font-family = "BlexMono Nerd Font Mono";
@@ -22,14 +22,14 @@
         background-opacity = 0.9;
         mouse-hide-while-typing = true;
         window-decoration = true;
-        keybind = "global:cmd+alt+/=toggle_quick_terminal";
-        macos-option-as-alt = true;
+        keybind = lib.mkIf pkgs.stdenv.isDarwin "global:cmd+alt+/=toggle_quick_terminal";
+        macos-option-as-alt = lib.mkIf pkgs.stdenv.isDarwin true;
 
         window-height = 60;
         window-width = 200;
         quick-terminal-position = "center";
         quick-terminal-size = "60%";
-        quick-terminal-screen = "macos-menu-bar";
+        quick-terminal-screen = lib.mkIf pkgs.stdenv.isDarwin "macos-menu-bar";
 
         custom-shader = [
           "${inputs.ghostty-shader-playground}/public/shaders/cursor_smear_rainbow.glsl"
