@@ -6,8 +6,8 @@ let
   yazi-flavors = pkgs.fetchFromGitHub {
     owner = "BennyOe";
     repo = "tokyo-night.yazi";
-    rev = "main";
-    sha256 = "sha256-+wZzxLPCttJ2WoDdI89sQ+CcZSFIA44HshxMoh4rJIs=";
+    rev = "5f56364";
+    sha256 = "sha256-4aNPlO5aXP8c7vks6bTlLCuyUQZ4Hx3GWtGlRmbhdto=";
   };
 in
 {
