@@ -1,0 +1,10 @@
+{
+  ...
+}:
+{
+  programs = {
+    navi = {
+      enable = true;
+    };
+  };
+}

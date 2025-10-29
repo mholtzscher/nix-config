@@ -1,0 +1,8 @@
+{ ... }:
+{
+  programs = {
+    uv = {
+      enable = true;
+    };
+  };
+}
