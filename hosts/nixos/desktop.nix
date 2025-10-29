@@ -1,4 +1,4 @@
-{ pkgs, inputs, ... }:
+{ pkgs, inputs, config, ... }:
 let
   user = "michael";
 in
@@ -80,6 +80,7 @@ in
     # Enable the X11 windowing system
     xserver = {
       enable = true;
+      videoDrivers = [ "nvidia" ];
       xkb = {
         layout = "us";
         variant = "";
@@ -93,6 +94,17 @@ in
     # Enable CUPS for printing
     printing.enable = true;
   };
+
+  # NVIDIA GPU support
+  hardware.nvidia = {
+    modesetting.enable = true;
+    powerManagement.enable = false;
+    powerManagement.finegrained = false;
+    open = false;
+    nvidiaSettings = true;
+    package = config.boot.kernelPackages.nvidiaPackages.stable;
+  };
+
   security.rtkit.enable = true;
 
   # Enable touchpad support (if applicable)
