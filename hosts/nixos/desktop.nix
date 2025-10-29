@@ -17,7 +17,7 @@ in
       "networkmanager" # Network management
       "docker" # Docker access (if enabled)
     ];
-    shell = pkgs.fish;
+    shell = pkgs.nushell;
   };
 
   # Home Manager configuration
