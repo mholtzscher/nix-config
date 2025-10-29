@@ -48,4 +48,7 @@
     man.enable = true;
     dev.enable = false;
   };
+
+  # Nix settings for download performance
+  nix.settings.download-buffer-size = 512 * 1024 * 1024; # 512 MB
 }
