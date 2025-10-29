@@ -23,8 +23,8 @@
           src = pkgs.fetchFromGitHub {
             owner = "catppuccin";
             repo = "bat";
-            rev = "main";
-            sha256 = "sha256-Q5B4NDrfCIK3UAMs94vdXnR42k4AXCqZz6sRn8bzmf4=";
+            rev = "6810349";
+            sha256 = "sha256-lJapSgRVENTrbmpVyn+UQabC9fpV1G1e+CdlJ090uvg=";
           };
           file = "themes/Catppuccin Mocha.tmTheme";
         };
