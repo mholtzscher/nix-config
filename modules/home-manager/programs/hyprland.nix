@@ -127,110 +127,107 @@ lib.mkIf pkgs.stdenv.isLinux {
       ];
     };
 
-    # Keybindings - using the bind attribute at module level
-    bind = [
-      # Program launches
-      "SUPER, Return, exec, ghostty"
-      "SUPER, D, exec, wofi --show drun"
-      "SUPER, E, exec, nautilus"
+    # Raw Hyprland configuration - all keybindings in extraConfig
+    extraConfig = ''
+      # Keybindings - Program launches
+      bind = SUPER, Return, exec, ghostty
+      bind = SUPER, D, exec, wofi --show drun
+      bind = SUPER, E, exec, nautilus
       
       # Window management
-      "SUPER, Q, killactive"
-      "SUPER SHIFT, Q, exit"
-      "SUPER, V, togglefloating"
-      "SUPER, F, fullscreen, 0"
-      "SUPER SHIFT, F, fakefullscreen"
-      "SUPER, P, pin"
+      bind = SUPER, Q, killactive
+      bind = SUPER SHIFT, Q, exit
+      bind = SUPER, V, togglefloating
+      bind = SUPER, F, fullscreen, 0
+      bind = SUPER SHIFT, F, fakefullscreen
+      bind = SUPER, P, pin
       
       # Focus movement
-      "SUPER, Left, movefocus, l"
-      "SUPER, Right, movefocus, r"
-      "SUPER, Up, movefocus, u"
-      "SUPER, Down, movefocus, d"
-      "SUPER, H, movefocus, l"
-      "SUPER, L, movefocus, r"
-      "SUPER, K, movefocus, u"
-      "SUPER, J, movefocus, d"
+      bind = SUPER, Left, movefocus, l
+      bind = SUPER, Right, movefocus, r
+      bind = SUPER, Up, movefocus, u
+      bind = SUPER, Down, movefocus, d
+      bind = SUPER, H, movefocus, l
+      bind = SUPER, L, movefocus, r
+      bind = SUPER, K, movefocus, u
+      bind = SUPER, J, movefocus, d
       
       # Window movement
-      "SUPER SHIFT, Left, movewindow, l"
-      "SUPER SHIFT, Right, movewindow, r"
-      "SUPER SHIFT, Up, movewindow, u"
-      "SUPER SHIFT, Down, movewindow, d"
-      "SUPER SHIFT, H, movewindow, l"
-      "SUPER SHIFT, L, movewindow, r"
-      "SUPER SHIFT, K, movewindow, u"
-      "SUPER SHIFT, J, movewindow, d"
+      bind = SUPER SHIFT, Left, movewindow, l
+      bind = SUPER SHIFT, Right, movewindow, r
+      bind = SUPER SHIFT, Up, movewindow, u
+      bind = SUPER SHIFT, Down, movewindow, d
+      bind = SUPER SHIFT, H, movewindow, l
+      bind = SUPER SHIFT, L, movewindow, r
+      bind = SUPER SHIFT, K, movewindow, u
+      bind = SUPER SHIFT, J, movewindow, d
       
       # Window resizing
-      "SUPER CTRL, Left, resizeactive, -50 0"
-      "SUPER CTRL, Right, resizeactive, 50 0"
-      "SUPER CTRL, Up, resizeactive, 0 -50"
-      "SUPER CTRL, Down, resizeactive, 0 50"
+      bind = SUPER CTRL, Left, resizeactive, -50 0
+      bind = SUPER CTRL, Right, resizeactive, 50 0
+      bind = SUPER CTRL, Up, resizeactive, 0 -50
+      bind = SUPER CTRL, Down, resizeactive, 0 50
       
       # Workspace switching
-      "SUPER, 1, workspace, 1"
-      "SUPER, 2, workspace, 2"
-      "SUPER, 3, workspace, 3"
-      "SUPER, 4, workspace, 4"
-      "SUPER, 5, workspace, 5"
-      "SUPER, 6, workspace, 6"
-      "SUPER, 7, workspace, 7"
-      "SUPER, 8, workspace, 8"
-      "SUPER, 9, workspace, 9"
-      "SUPER, 0, workspace, 10"
+      bind = SUPER, 1, workspace, 1
+      bind = SUPER, 2, workspace, 2
+      bind = SUPER, 3, workspace, 3
+      bind = SUPER, 4, workspace, 4
+      bind = SUPER, 5, workspace, 5
+      bind = SUPER, 6, workspace, 6
+      bind = SUPER, 7, workspace, 7
+      bind = SUPER, 8, workspace, 8
+      bind = SUPER, 9, workspace, 9
+      bind = SUPER, 0, workspace, 10
       
       # Move window to workspace
-      "SUPER SHIFT, 1, movetoworkspace, 1"
-      "SUPER SHIFT, 2, movetoworkspace, 2"
-      "SUPER SHIFT, 3, movetoworkspace, 3"
-      "SUPER SHIFT, 4, movetoworkspace, 4"
-      "SUPER SHIFT, 5, movetoworkspace, 5"
-      "SUPER SHIFT, 6, movetoworkspace, 6"
-      "SUPER SHIFT, 7, movetoworkspace, 7"
-      "SUPER SHIFT, 8, movetoworkspace, 8"
-      "SUPER SHIFT, 9, movetoworkspace, 9"
-      "SUPER SHIFT, 0, movetoworkspace, 10"
+      bind = SUPER SHIFT, 1, movetoworkspace, 1
+      bind = SUPER SHIFT, 2, movetoworkspace, 2
+      bind = SUPER SHIFT, 3, movetoworkspace, 3
+      bind = SUPER SHIFT, 4, movetoworkspace, 4
+      bind = SUPER SHIFT, 5, movetoworkspace, 5
+      bind = SUPER SHIFT, 6, movetoworkspace, 6
+      bind = SUPER SHIFT, 7, movetoworkspace, 7
+      bind = SUPER SHIFT, 8, movetoworkspace, 8
+      bind = SUPER SHIFT, 9, movetoworkspace, 9
+      bind = SUPER SHIFT, 0, movetoworkspace, 10
       
       # Workspace navigation
-      "SUPER, Page_Down, workspace, e+1"
-      "SUPER, Page_Up, workspace, e-1"
+      bind = SUPER, Page_Down, workspace, e+1
+      bind = SUPER, Page_Up, workspace, e-1
       
       # Layout switching
-      "SUPER, S, togglesplit"
+      bind = SUPER, S, togglesplit
       
       # Special workspace (scratchpad)
-      "SUPER, Grave, togglespecialworkspace, magic"
-      "SUPER SHIFT, Grave, movetoworkspace, special:magic"
+      bind = SUPER, grave, togglespecialworkspace, magic
+      bind = SUPER SHIFT, grave, movetoworkspace, special:magic
       
       # Screenshots
-      "SUPER SHIFT, S, exec, grim -g \"$(slurp)\" - | wl-copy"
-      "SUPER SHIFT, C, exec, grim - | wl-copy"
+      bind = SUPER SHIFT, S, exec, grim -g "$(slurp)" - | wl-copy
+      bind = SUPER SHIFT, C, exec, grim - | wl-copy
       
       # Reload Hyprland config
-      "SUPER CTRL, R, exec, hyprctl reload"
-    ];
-
-    binde = [
-      # Scrolling through workspaces without repeating keybinds
-      "SUPER, mouse_down, workspace, e-1"
-      "SUPER, mouse_up, workspace, e+1"
+      bind = SUPER CTRL, R, exec, hyprctl reload
+      
+      # Continuous keybindings (repeat when held)
+      binde = SUPER, mouse_down, workspace, e-1
+      binde = SUPER, mouse_up, workspace, e+1
       
       # Volume control (if using PipeWire)
-      ", XF86AudioRaiseVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+"
-      ", XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
-      ", XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
+      binde = , XF86AudioRaiseVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+
+      binde = , XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-
+      binde = , XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
       
       # Brightness control
-      ", XF86MonBrightnessUp, exec, brightnessctl s 10%+"
-      ", XF86MonBrightnessDown, exec, brightnessctl s 10%-"
-    ];
-
-    bindm = [
-      "SUPER, mouse:272, movewindow"
-      "SUPER, mouse:273, resizewindow"
-      "SUPER, mouse:274, movewindow"
-    ];
+      binde = , XF86MonBrightnessUp, exec, brightnessctl s 10%+
+      binde = , XF86MonBrightnessDown, exec, brightnessctl s 10%-
+      
+      # Mouse bindings
+      bindm = SUPER, mouse:272, movewindow
+      bindm = SUPER, mouse:273, resizewindow
+      bindm = SUPER, mouse:274, movewindow
+    '';
   };
 
   # Home packages needed for Hyprland
