@@ -28,6 +28,9 @@
       url = "github:KroneCorylus/ghostty-shader-playground";
       flake = false;
     };
+    nix-colors = {
+      url = "github:misterio77/nix-colors";
+    };
   };
 
   outputs =
@@ -41,6 +44,7 @@
       topiaryNushell,
       tokyonight,
       ghostty-shader-playground,
+      nix-colors,
     }:
     let
       # Import lib helpers for creating system configurations (reserved for future use)
