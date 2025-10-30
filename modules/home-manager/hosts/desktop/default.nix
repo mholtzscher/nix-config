@@ -5,8 +5,8 @@
 
   # Desktop-specific imports
   imports = [
-    ../programs/hyprland.nix
-    ../programs/waybar.nix
+    ./hyprland.nix
+    ./waybar.nix
   ];
 
   # Desktop-specific programs and packages

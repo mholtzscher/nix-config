@@ -33,7 +33,7 @@ in
       {
         imports = [
           ../../modules/home-manager/home.nix
-          ../../modules/home-manager/hosts/desktop.nix
+          ../../modules/home-manager/hosts/desktop/default.nix
         ];
       };
   };
