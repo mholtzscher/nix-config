@@ -75,11 +75,11 @@
             description = "Enterprise Research Assistant named \"Claudette\" that autonomously conducts comprehensive research with rigorous source verification and synthesis.";
             prompt = "{file:${../files/opencode/agents/research.md}}";
           };
-          claudette = {
-            mode = "primary";
-            description = "Claudette Coding Agent v5.2.1 (Optimized for Autonomous Execution)";
-            prompt = "{file:${../files/opencode/agents/claudette.md}}";
-          };
+          # claudette = {
+          #   mode = "primary";
+          #   description = "Claudette Coding Agent v5.2.1 (Optimized for Autonomous Execution)";
+          #   prompt = "{file:${../files/opencode/agents/claudette.md}}";
+          # };
 
           # "plankton" = {
           #   description = "Plan mode agent for creating structured implementation plans";
