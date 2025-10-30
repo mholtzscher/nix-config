@@ -1,7 +1,7 @@
 { ... }:
 {
   imports = [
-    ./aerospace.nix  # macOS-only (has platform guard inside)
+    ./aerospace.nix # macOS-only (has platform guard inside)
     ./atuin.nix
     ./bat.nix
     ./bottom.nix
@@ -32,7 +32,7 @@
     ./starship.nix
     ./uv.nix
     ./wezterm.nix
-    ./wofi.nix  # Linux-only (has platform guard inside)
+    ./wofi.nix # Linux-only (has platform guard inside)
     ./yazi.nix
     ./zed.nix
     ./zellij.nix
