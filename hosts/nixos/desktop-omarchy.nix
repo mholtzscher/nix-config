@@ -1,4 +1,4 @@
-{ pkgs, inputs, config, ... }:
+{ pkgs, inputs, config, lib, ... }:
 let
   user = "michael";
 in
@@ -77,23 +77,20 @@ in
       pulse.enable = true;
     };
 
-    # Enable the X11 windowing system
-    xserver = {
-      enable = true;
-      videoDrivers = [ "nvidia" ];
-      xkb = {
-        layout = "us";
-        variant = "";
-      };
-      # Enable Wayland for Hyprland
-      displayManager.gdm.wayland = true;
-    };
-
-    # Display manager for Hyprland
-    displayManager.gdm.enable = true;
-
+    # Display manager is handled by omarchy-nix (uses greetd)
+    
     # Enable CUPS for printing
     printing.enable = true;
+  };
+
+  # Enable the X11 windowing system for compatibility
+  services.xserver = {
+    enable = true;
+    videoDrivers = [ "nvidia" ];
+    xkb = {
+      layout = "us";
+      variant = "";
+    };
   };
 
   # NVIDIA GPU support
@@ -111,7 +108,7 @@ in
   # Enable touchpad support (if applicable)
   # services.xserver.libinput.enable = true;
 
-  # System packages specific to this host
+  # System packages specific to this host (omarchy-nix handles most packages)
   environment.systemPackages = with pkgs; [
     vim
     git
@@ -122,6 +119,8 @@ in
 
   # Enable firefox
   programs.firefox.enable = true;
+
+  # XDG portals are handled by omarchy-nix
 
   # This value determines the NixOS release compatibility.
   # Don't change this without reading the release notes.

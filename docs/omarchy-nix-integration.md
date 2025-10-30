@@ -77,9 +77,11 @@ omarchy = {
 ### System Components
 - Hyprland window manager
 - Wayland compositor
+- greetd display manager (minimal TUI login)
 - NVIDIA GPU support
 - Pipewire audio
 - NetworkManager
+- Bluetooth support
 
 ### Desktop Environment
 - Hyprland with tiling window management
@@ -88,6 +90,9 @@ omarchy = {
 - Application launcher (Rofi or Wofi)
 - File manager (Yazi or similar)
 - Development tools and editors
+
+### Login Manager
+Omarchy-nix uses **greetd** with **tuigreet** instead of GDM. This provides a minimal, fast TUI-based login experience. After boot, you'll see a terminal-based login screen where you can enter your credentials and Hyprland will start automatically.
 
 ### Theming
 - Consistent color scheme across all applications
@@ -134,12 +139,24 @@ modules/home-manager/hosts/
    sudo reboot
    ```
 
+6. **Login using greetd**:
+   - After boot, you'll see a terminal-based login screen (not GDM)
+   - Enter your username (michael) and password
+   - Hyprland will start automatically
+
 ## Troubleshooting
 
 ### Hyprland doesn't start
 - Ensure NVIDIA drivers are properly configured
-- Check that Wayland is enabled in GDM
+- Check that greetd service is running: `systemctl status greetd`
 - Verify hardware acceleration is working
+- Check Hyprland logs: `journalctl -u greetd -b`
+
+### No graphical login screen
+- Omarchy-nix uses greetd (TUI) not GDM (GUI)
+- You should see a terminal-based login prompt after boot
+- Enter username and password, Hyprland will start automatically
+- If greetd fails, check: `systemctl status greetd`
 
 ### Theme issues
 - Rebuild configuration after changing themes
