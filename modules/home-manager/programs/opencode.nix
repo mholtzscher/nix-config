@@ -1,9 +1,9 @@
-{ ... }:
+{ pkgs, ... }:
 {
   programs = {
     opencode = {
       enable = true;
-      package = null; # use null to force using homebrew package to stay on latest releases
+      package = if pkgs.stdenv.isDarwin then null else pkgs.opencode;
       settings = {
         theme = "system";
         # model = "anthropic/claude-haiku-4.5";
