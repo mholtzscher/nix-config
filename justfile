@@ -18,8 +18,8 @@ validate:
     @echo "Building work-mac configuration..."
     darwin-rebuild build --flake .#Michael-Holtzscher-Work
     @echo ""
-    @echo "Building desktop configuration..."
-    nix build .#nixosConfigurations.desktop.config.system.build.toplevel
+	@echo "Building nixos desktop configuration..."
+	nix build .#nixosConfigurations.nixos.config.system.build.toplevel --system x86_64-linux
     @echo ""
     @echo "✓ All configurations are valid!"
 
@@ -35,8 +35,8 @@ validate-work:
 
 # Validate NixOS desktop configuration
 validate-desktop:
-    @echo "Validating desktop configuration..."
-    nix build .#nixosConfigurations.desktop.config.system.build.toplevel
+	@echo "Validating nixos desktop configuration..."
+	nix build .#nixosConfigurations.nixos.config.system.build.toplevel --system x86_64-linux
 
 # Check flake inputs and show updates available
 check-updates:
