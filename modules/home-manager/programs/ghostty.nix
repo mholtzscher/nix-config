@@ -1,4 +1,9 @@
-{ pkgs, inputs, lib, ... }:
+{
+  pkgs,
+  inputs,
+  lib,
+  ...
+}:
 {
   programs = {
     ghostty = {
@@ -16,7 +21,7 @@
         #font-family-bold-italic = "Iosevka NFM Bold Italic"
         font-size = "13";
 
-        theme = "Tokyonight Night";
+        theme = "TokyoNight Night";
 
         background-blur-radius = 20;
         background-opacity = 0.9;
