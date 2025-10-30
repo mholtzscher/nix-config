@@ -255,7 +255,7 @@ lib.mkIf pkgs.stdenv.isLinux {
     cliphist
     
     # Volume and brightness
-    wpctl
+    wireplumber  # Provides wpctl command
     brightnessctl
     
     # Misc
