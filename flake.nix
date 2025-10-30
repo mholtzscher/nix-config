@@ -28,6 +28,11 @@
       url = "github:KroneCorylus/ghostty-shader-playground";
       flake = false;
     };
+    omarchy-nix = {
+      url = "github:henrysipp/omarchy-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.home-manager.follows = "home-manager";
+    };
   };
 
   outputs =
@@ -41,6 +46,7 @@
       topiaryNushell,
       tokyonight,
       ghostty-shader-playground,
+      omarchy-nix,
     }:
     let
       # Import lib helpers for creating system configurations (reserved for future use)
@@ -89,7 +95,7 @@
       };
 
       nixosConfigurations = {
-        # NixOS Desktop
+        # NixOS Desktop (GNOME)
         nixos = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
           specialArgs = {
@@ -100,6 +106,32 @@
             ./modules/nixos
             ./modules/shared
             inputs.home-manager.nixosModules.home-manager
+          ];
+        };
+
+        # NixOS Desktop with Omarchy (Hyprland)
+        nixos-omarchy = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          specialArgs = {
+            inherit inputs self;
+          };
+          modules = [
+            ./hosts/nixos/desktop-omarchy.nix
+            ./modules/nixos
+            ./modules/shared
+            inputs.omarchy-nix.nixosModules.default
+            inputs.home-manager.nixosModules.home-manager
+            {
+              omarchy = {
+                full_name = "Michael Holtzscher";
+                email_address = "michael@holtzscher.org";
+                theme = "tokyo-night";
+              };
+
+              home-manager.users.michael = {
+                imports = [ inputs.omarchy-nix.homeManagerModules.default ];
+              };
+            }
           ];
         };
       };
