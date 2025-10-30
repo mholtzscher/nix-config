@@ -117,113 +117,7 @@ lib.mkIf pkgs.stdenv.isLinux {
         "workspace 3, class:^(discord)$"
       ];
 
-      # Keybindings
-      bind = [
-        # Program launches
-        "SUPER, Return, exec, ghostty"
-        "SUPER, D, exec, wofi --show drun"
-        "SUPER, E, exec, nautilus"
-        
-        # Window management
-        "SUPER, Q, killactive"
-        "SUPER SHIFT, Q, exit"
-        "SUPER, V, togglefloating"
-        "SUPER, F, fullscreen, 0"
-        "SUPER SHIFT, F, fakefullscreen"
-        "SUPER, P, pin"
-        
-        # Focus movement
-        "SUPER, Left, movefocus, l"
-        "SUPER, Right, movefocus, r"
-        "SUPER, Up, movefocus, u"
-        "SUPER, Down, movefocus, d"
-        "SUPER, H, movefocus, l"
-        "SUPER, L, movefocus, r"
-        "SUPER, K, movefocus, u"
-        "SUPER, J, movefocus, d"
-        
-        # Window movement
-        "SUPER SHIFT, Left, movewindow, l"
-        "SUPER SHIFT, Right, movewindow, r"
-        "SUPER SHIFT, Up, movewindow, u"
-        "SUPER SHIFT, Down, movewindow, d"
-        "SUPER SHIFT, H, movewindow, l"
-        "SUPER SHIFT, L, movewindow, r"
-        "SUPER SHIFT, K, movewindow, u"
-        "SUPER SHIFT, J, movewindow, d"
-        
-        # Window resizing
-        "SUPER CTRL, Left, resizeactive, -50 0"
-        "SUPER CTRL, Right, resizeactive, 50 0"
-        "SUPER CTRL, Up, resizeactive, 0 -50"
-        "SUPER CTRL, Down, resizeactive, 0 50"
-        
-        # Workspace switching
-        "SUPER, 1, workspace, 1"
-        "SUPER, 2, workspace, 2"
-        "SUPER, 3, workspace, 3"
-        "SUPER, 4, workspace, 4"
-        "SUPER, 5, workspace, 5"
-        "SUPER, 6, workspace, 6"
-        "SUPER, 7, workspace, 7"
-        "SUPER, 8, workspace, 8"
-        "SUPER, 9, workspace, 9"
-        "SUPER, 0, workspace, 10"
-        
-        # Move window to workspace
-        "SUPER SHIFT, 1, movetoworkspace, 1"
-        "SUPER SHIFT, 2, movetoworkspace, 2"
-        "SUPER SHIFT, 3, movetoworkspace, 3"
-        "SUPER SHIFT, 4, movetoworkspace, 4"
-        "SUPER SHIFT, 5, movetoworkspace, 5"
-        "SUPER SHIFT, 6, movetoworkspace, 6"
-        "SUPER SHIFT, 7, movetoworkspace, 7"
-        "SUPER SHIFT, 8, movetoworkspace, 8"
-        "SUPER SHIFT, 9, movetoworkspace, 9"
-        "SUPER SHIFT, 0, movetoworkspace, 10"
-        
-        # Workspace navigation
-        "SUPER, Page_Down, workspace, e+1"
-        "SUPER, Page_Up, workspace, e-1"
-        
-        # Layout switching
-        "SUPER, S, togglesplit"
-        
-        # Special workspace (scratchpad)
-        "SUPER, Grave, togglespecialworkspace, magic"
-        "SUPER SHIFT, Grave, movetoworkspace, special:magic"
-        
-        # Screenshots
-        "SUPER SHIFT, S, exec, grim -g \"$(slurp)\" - | wl-copy"
-        "SUPER SHIFT, C, exec, grim - | wl-copy"
-        
-        # Reload Hyprland config
-        "SUPER CTRL, R, exec, hyprctl reload"
-      ];
-
-      binde = [
-        # Scrolling through workspaces without repeating keybinds
-        "SUPER, mouse_down, workspace, e-1"
-        "SUPER, mouse_up, workspace, e+1"
-        
-        # Volume control (if using PipeWire)
-        ", XF86AudioRaiseVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+"
-        ", XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
-        ", XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
-        
-        # Brightness control
-        ", XF86MonBrightnessUp, exec, brightnessctl s 10%+"
-        ", XF86MonBrightnessDown, exec, brightnessctl s 10%-"
-      ];
-
-      # Mouse bindings
-      bindm = [
-        "SUPER, mouse:272, movewindow"
-        "SUPER, mouse:273, resizewindow"
-        "SUPER, mouse:274, movewindow"
-      ];
-
-      # Exec at launch
+      # Startup applications
       exec-once = [
         "waybar"
         "swww init"
@@ -233,13 +127,8 @@ lib.mkIf pkgs.stdenv.isLinux {
       ];
     };
 
-      windowrulev2 = [
-        # Force apps to specific workspaces
-        "workspace 3, class:^(discord)$"
-      ];
-
-      # Keybindings
-      bind = [
+    # Keybindings - using the bind attribute at module level
+    bind = [
       # Program launches
       "SUPER, Return, exec, ghostty"
       "SUPER, D, exec, wofi --show drun"
@@ -337,20 +226,10 @@ lib.mkIf pkgs.stdenv.isLinux {
       ", XF86MonBrightnessDown, exec, brightnessctl s 10%-"
     ];
 
-    # Mouse bindings
     bindm = [
       "SUPER, mouse:272, movewindow"
       "SUPER, mouse:273, resizewindow"
       "SUPER, mouse:274, movewindow"
-    ];
-
-    # Exec at launch
-    exec-once = [
-      "waybar"
-      "swww init"
-      "dunst"
-      "wl-paste --type text/plain --watch cliphist store"
-      "wl-paste --type image/png --watch cliphist store"
     ];
   };
 
