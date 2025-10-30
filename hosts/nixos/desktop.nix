@@ -87,15 +87,26 @@ in
       };
     };
 
-    # Display manager and desktop environment
-    displayManager.gdm.enable = true;
+     # Display manager with Wayland support
+    displayManager.gdm = {
+      enable = true;
+      wayland = true;
+    };
+    
+    # Desktop environment
     desktopManager.gnome.enable = true;
 
     # Enable CUPS for printing
     printing.enable = true;
   };
 
-  # NVIDIA GPU support
+  # Hyprland configuration
+  programs.hyprland = {
+    enable = true;
+    xwayland.enable = true;
+  };
+
+  # NVIDIA GPU support with Hyprland optimizations
   hardware.nvidia = {
     modesetting.enable = true;
     powerManagement.enable = false;
@@ -103,6 +114,21 @@ in
     open = false;
     nvidiaSettings = true;
     package = config.boot.kernelPackages.nvidiaPackages.stable;
+  };
+
+  # Kernel parameters for NVIDIA + Wayland
+  boot.kernelParams = [ "nvidia-drm.modeset=1" ];
+
+  # Environment variables for NVIDIA + Hyprland
+  environment.sessionVariables = {
+    WLR_NO_HARDWARE_CURSORS = "1";
+    NIXOS_OZONE_WL = "1";
+  };
+
+  # XDG portals for Wayland
+  xdg.portal = {
+    enable = true;
+    extraPortals = [ pkgs.xdg-desktop-portal-hyprland ];
   };
 
   security.rtkit.enable = true;
@@ -114,6 +140,16 @@ in
   environment.systemPackages = with pkgs; [
     vim
     git
+    
+    # Hyprland ecosystem
+    waybar
+    wofi
+    dunst
+    swww
+    grim
+    slurp
+    wl-clipboard
+    xdg-desktop-portal-hyprland
   ];
 
   # Allow unfree packages
