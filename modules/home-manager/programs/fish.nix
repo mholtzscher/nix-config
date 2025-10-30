@@ -10,7 +10,7 @@ in
       shellAbbrs = sharedAliases.shellAliases // { };
 
       interactiveShellInit = ''
-          ${brew_setup}
+          # ${brew_setup}
 
           # Enable fish vi mode
           set -g fish_key_bindings fish_vi_key_bindings
