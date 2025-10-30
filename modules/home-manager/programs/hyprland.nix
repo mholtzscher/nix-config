@@ -153,48 +153,36 @@ lib.mkIf pkgs.stdenv.isLinux {
       ];
     };
 
-    # Raw Hyprland configuration - all keybindings in extraConfig
+# Raw Hyprland configuration - all keybindings in extraConfig
     extraConfig = ''
       # Keybindings - Program launches
+      bind = SUPER, space, exec, wofi --show drun --sort-order=alphabetical
       bind = SUPER, Return, exec, ghostty
-      bind = SUPER, D, exec, wofi --show drun
       bind = SUPER, E, exec, nautilus
       
       # Window management
-      bind = SUPER, Q, killactive
-      bind = SUPER SHIFT, Q, exit
-      bind = SUPER, V, togglefloating
-      bind = SUPER, F, fullscreen, 0
-      bind = SUPER SHIFT, F, fakefullscreen
-      bind = SUPER, P, pin
+      bind = SUPER, W, killactive,
+      bind = SUPER, Backspace, killactive,
       
-      # Focus movement
-      bind = SUPER, Left, movefocus, l
-      bind = SUPER, Right, movefocus, r
-      bind = SUPER, Up, movefocus, u
-      bind = SUPER, Down, movefocus, d
-      bind = SUPER, H, movefocus, l
-      bind = SUPER, L, movefocus, r
-      bind = SUPER, K, movefocus, u
-      bind = SUPER, J, movefocus, d
+      # End active session
+      bind = SUPER, ESCAPE, exec, hyprlock
+      bind = SUPER SHIFT, ESCAPE, exit,
+      bind = SUPER CTRL, ESCAPE, exec, reboot
+      bind = SUPER SHIFT CTRL, ESCAPE, exec, systemctl poweroff
       
-      # Window movement
-      bind = SUPER SHIFT, Left, movewindow, l
-      bind = SUPER SHIFT, Right, movewindow, r
-      bind = SUPER SHIFT, Up, movewindow, u
-      bind = SUPER SHIFT, Down, movewindow, d
-      bind = SUPER SHIFT, H, movewindow, l
-      bind = SUPER SHIFT, L, movewindow, r
-      bind = SUPER SHIFT, K, movewindow, u
-      bind = SUPER SHIFT, J, movewindow, d
+      # Control tiling
+      bind = SUPER, J, togglesplit, # dwindle
+      bind = SUPER, P, pseudo, # dwindle
+      bind = SUPER, V, togglefloating,
+      bind = SUPER SHIFT, Plus, fullscreen,
       
-      # Window resizing
-      bind = SUPER CTRL, Left, resizeactive, -50 0
-      bind = SUPER CTRL, Right, resizeactive, 50 0
-      bind = SUPER CTRL, Up, resizeactive, 0 -50
-      bind = SUPER CTRL, Down, resizeactive, 0 50
+      # Move focus with mainMod + arrow keys
+      bind = SUPER, left, movefocus, l
+      bind = SUPER, right, movefocus, r
+      bind = SUPER, up, movefocus, u
+      bind = SUPER, down, movefocus, d
       
-      # Workspace switching
+      # Switch workspaces with mainMod + [0-9]
       bind = SUPER, 1, workspace, 1
       bind = SUPER, 2, workspace, 2
       bind = SUPER, 3, workspace, 3
@@ -206,7 +194,10 @@ lib.mkIf pkgs.stdenv.isLinux {
       bind = SUPER, 9, workspace, 9
       bind = SUPER, 0, workspace, 10
       
-      # Move window to workspace
+      bind = SUPER, comma, workspace, -1
+      bind = SUPER, period, workspace, +1
+      
+      # Move active window to a workspace with mainMod + SHIFT + [0-9]
       bind = SUPER SHIFT, 1, movetoworkspace, 1
       bind = SUPER SHIFT, 2, movetoworkspace, 2
       bind = SUPER SHIFT, 3, movetoworkspace, 3
@@ -218,41 +209,60 @@ lib.mkIf pkgs.stdenv.isLinux {
       bind = SUPER SHIFT, 9, movetoworkspace, 9
       bind = SUPER SHIFT, 0, movetoworkspace, 10
       
-      # Workspace navigation
-      bind = SUPER, Page_Down, workspace, e+1
-      bind = SUPER, Page_Up, workspace, e-1
+      # Swap active window with the one next to it with mainMod + SHIFT + arrow keys
+      bind = SUPER SHIFT, left, swapwindow, l
+      bind = SUPER SHIFT, right, swapwindow, r
+      bind = SUPER SHIFT, up, swapwindow, u
+      bind = SUPER SHIFT, down, swapwindow, d
       
-      # Layout switching
-      bind = SUPER, S, togglesplit
+      # Resize active window
+      bind = SUPER, minus, resizeactive, -100 0
+      bind = SUPER, equal, resizeactive, 100 0
+      bind = SUPER SHIFT, minus, resizeactive, 0 -100
+      bind = SUPER SHIFT, equal, resizeactive, 0 100
       
-      # Special workspace (scratchpad)
-      bind = SUPER, grave, togglespecialworkspace, magic
-      bind = SUPER SHIFT, grave, movetoworkspace, special:magic
+      # Scroll through existing workspaces with mainMod + scroll
+      bind = SUPER, mouse_down, workspace, e+1
+      bind = SUPER, mouse_up, workspace, e-1
+      
+      # Super workspace floating layer
+      bind = SUPER, S, togglespecialworkspace, magic
+      bind = SUPER SHIFT, S, movetoworkspace, special:magic
       
       # Screenshots
-      bind = SUPER SHIFT, S, exec, grim -g "$(slurp)" - | wl-copy
-      bind = SUPER SHIFT, C, exec, grim - | wl-copy
+      bind = , PRINT, exec, grim -g \"$(slurp)\" - | wl-copy
+      bind = SHIFT, PRINT, exec, grim - | wl-copy
+      bind = CTRL, PRINT, exec, grim - | wl-copy
       
-      # Reload Hyprland config
-      bind = SUPER CTRL, R, exec, hyprctl reload
+      # Color picker
+      bind = SUPER, PRINT, exec, hyprpicker -a
       
-      # Continuous keybindings (repeat when held)
-      binde = SUPER, mouse_down, workspace, e-1
-      binde = SUPER, mouse_up, workspace, e+1
+      # Clipse
+      bind = CTRL SUPER, V, exec, ghostty --class clipse -e clipse
       
-      # Volume control (if using PipeWire)
-      binde = , XF86AudioRaiseVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+
-      binde = , XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-
-      binde = , XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
+      # Laptop multimedia keys for volume and LCD brightness
+      bindel = [
+        , XF86AudioRaiseVolume, exec, wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+
+        , XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-
+        , XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
+        , XF86AudioMicMute, exec, wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle
+        , XF86MonBrightnessUp, exec, brightnessctl -e4 -n2 set 5%+
+        , XF86MonBrightnessDown, exec, brightnessctl -e4 -n2 set 5%-
+      ];
       
-      # Brightness control
-      binde = , XF86MonBrightnessUp, exec, brightnessctl s 10%+
-      binde = , XF86MonBrightnessDown, exec, brightnessctl s 10%-
+      # Requires playerctl
+      bindl = [
+        , XF86AudioNext, exec, playerctl next
+        , XF86AudioPause, exec, playerctl play-pause
+        , XF86AudioPlay, exec, playerctl play-pause
+        , XF86AudioPrev, exec, playerctl previous
+      ];
       
-      # Mouse bindings
-      bindm = SUPER, mouse:272, movewindow
-      bindm = SUPER, mouse:273, resizewindow
-      bindm = SUPER, mouse:274, movewindow
+      # Move/resize windows with mainMod + LMB/RMB and dragging
+      bindm = [
+        SUPER, mouse:272, movewindow
+        SUPER, mouse:273, resizewindow
+      ];
     '';
   };
 
