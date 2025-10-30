@@ -100,6 +100,11 @@ lib.mkIf pkgs.stdenv.isLinux {
         "SUPER, mouse:272, movewindow"
         "SUPER, mouse:273, resizewindow"
       ];
+
+      # Autostart programs
+      exec-once = [
+        "waybar"
+      ];
     };
   };
 
