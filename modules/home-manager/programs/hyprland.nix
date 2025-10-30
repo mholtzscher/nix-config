@@ -52,6 +52,11 @@ lib.mkIf pkgs.stdenv.isLinux {
         enabled = false;
       };
 
+      # Disable news
+      ecosystem = {
+        no_update_news = true;
+      };
+
       # Dwindle layout
       dwindle = {
         pseudotile = true;
