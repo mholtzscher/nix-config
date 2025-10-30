@@ -1,7 +1,13 @@
-{ pkgs, lib, ... }:
+{ pkgs, ... }:
 {
   # NixOS Desktop-specific home-manager configuration
   # This file contains programs and settings unique to the NixOS desktop
+
+  # Desktop-specific imports
+  imports = [
+    ../programs/hyprland.nix
+    ../programs/waybar.nix
+  ];
 
   # Desktop-specific programs and packages
   home.packages = with pkgs; [
@@ -15,9 +21,4 @@
     brightnessctl     # Brightness control
     pavucontrol       # Audio control GUI
   ];
-
-  # Linux-specific configurations
-  # Hyprland configured in programs/hyprland.nix with platform guard
-  # Waybar configured in programs/waybar.nix with platform guard
-  # Wofi configured in programs/wofi.nix with platform guard
 }

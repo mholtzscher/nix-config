@@ -17,7 +17,6 @@
     ./git.nix
     ./go.nix
     ./helix.nix
-    ./hyprland.nix  # Linux-only (has platform guard inside)
     ./jujutsu.nix
     ./jq.nix
     ./k9s.nix
@@ -32,7 +31,6 @@
     ./ssh.nix
     ./starship.nix
     ./uv.nix
-    ./waybar.nix  # Linux-only (has platform guard inside)
     ./wezterm.nix
     ./wofi.nix  # Linux-only (has platform guard inside)
     ./yazi.nix
