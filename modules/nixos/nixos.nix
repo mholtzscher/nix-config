@@ -20,7 +20,7 @@
     curl
     htop
     tree
-    
+
     # System utilities
     lshw
     pciutils

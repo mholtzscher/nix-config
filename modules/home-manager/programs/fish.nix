@@ -4,6 +4,7 @@ let
   sharedAliases = import ../shared-aliases.nix;
 in
 {
+  # TODO: remove fish and use nushell everywhere else
   programs = {
     fish = {
       enable = true;

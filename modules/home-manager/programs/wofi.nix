@@ -1,5 +1,11 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
+# TODO: move to nixos home-manager
 lib.mkIf pkgs.stdenv.isLinux {
   programs.wofi = {
     enable = true;
