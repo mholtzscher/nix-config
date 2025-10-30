@@ -11,5 +11,10 @@
   # Personal Mac-specific programs and packages
   home.packages = with pkgs; [
     discord  # Personal communication
+    
+    # macOS-only packages
+    aerospace
+    mkalias
+    pokemon-colorscripts-mac
   ];
 }

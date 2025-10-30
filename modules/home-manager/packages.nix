@@ -54,9 +54,3 @@ with pkgs;
   wget
   yq
 ]
-++ pkgs.lib.optionals pkgs.stdenv.isDarwin [
-  # macOS-only packages
-  aerospace
-  mkalias
-  pokemon-colorscripts-mac
-]
