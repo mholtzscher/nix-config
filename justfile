@@ -7,21 +7,21 @@ default:
 
 # Validate all configurations without applying them
 validate:
-    @echo "Validating all Nix configurations..."
-    @echo ""
-    @echo "Checking flake syntax..."
-    nix flake check
-    @echo ""
-    @echo "Building personal-mac configuration..."
-    darwin-rebuild build --flake .#Michaels-M1-Max
-    @echo ""
-    @echo "Building work-mac configuration..."
-    darwin-rebuild build --flake .#Michael-Holtzscher-Work
-    @echo ""
+	@echo "Validating all Nix configurations..."
+	@echo ""
+	@echo "Checking flake syntax..."
+	nix flake check
+	@echo ""
+	@echo "Building personal-mac configuration..."
+	darwin-rebuild build --flake .#Michaels-M1-Max
+	@echo ""
+	@echo "Building work-mac configuration..."
+	darwin-rebuild build --flake .#Michael-Holtzscher-Work
+	@echo ""
 	@echo "Building nixos desktop configuration..."
 	nix build .#nixosConfigurations.nixos.config.system.build.toplevel --system x86_64-linux
-    @echo ""
-    @echo "✓ All configurations are valid!"
+	@echo ""
+	@echo "✓ All configurations are valid!"
 
 # Validate personal Mac configuration
 validate-personal:
@@ -36,7 +36,7 @@ validate-work:
 # Validate NixOS desktop configuration
 validate-desktop:
 	@echo "Validating nixos desktop configuration..."
-	nix build .#nixosConfigurations.nixos.config.system.build.toplevel --system x86_64-linux
+	nix build '.#nixosConfigurations.nixos.config.system.build.toplevel' --system x86_64-linux
 
 # Check flake inputs and show updates available
 check-updates:
