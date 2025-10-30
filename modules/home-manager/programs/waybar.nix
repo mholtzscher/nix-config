@@ -1,11 +1,14 @@
-inputs:
 {
   config,
   pkgs,
+  inputs,
   ...
 }:
 let
-  palette = config.colorScheme.palette;
+  palette = config.colorScheme.palette or {
+    base00 = "1a1a1a";
+    base05 = "c0c0c0";
+  };
   convert = inputs.nix-colors.lib.conversions.hexToRGBString;
   backgroundRgb = "rgb(${convert ", " palette.base00})";
   foregroundRgb = "rgb(${convert ", " palette.base05})";
