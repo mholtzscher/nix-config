@@ -3,7 +3,7 @@
 lib.mkIf pkgs.stdenv.isLinux {
   home.file = {
     ".config/waybar/" = {
-      source = ../files/waybar;
+      source = ../../files/waybar;
       recursive = true;
     };
   };
