@@ -14,7 +14,7 @@ lib.mkIf pkgs.stdenv.isLinux {
 
       # Monitor configuration
       # monitor = ",preferred,auto,1";
-      monitor = "DP1,5120x1440@144, 0x0, 1";
+      monitor = "DP1, 5120x1440@120, 0x0, 1";
 
       # Environment variables - basics only
       env = [
