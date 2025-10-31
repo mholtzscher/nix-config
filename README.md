@@ -16,7 +16,8 @@ A comprehensive, multi-platform Nix flake managing both macOS (Darwin) and NixOS
 - **Multi-Platform Support** - Single flake manages both macOS and NixOS
 - **Host-Specific Configs** - Per-host customization (git email, programs, etc.)
 - **Platform Guards** - Conditional config for macOS-only or Linux-only features
-- **41+ Program Configs** - Extensive home-manager program configurations
+- **37+ Cross-Platform Programs** - Extensive home-manager program configurations
+- **Desktop Environment Configs** - Hyprland, Waybar, Wofi in host-specific directory
 - **Shared Modules** - DRY principle with reusable cross-platform modules
 - **Automatic GC** - Weekly garbage collection (Sundays 2AM, 30-day retention)
 
@@ -47,8 +48,12 @@ A comprehensive, multi-platform Nix flake managing both macOS (Darwin) and NixOS
 │       ├── hosts/               # Host-specific configs
 │       │   ├── personal-mac.nix
 │       │   ├── work-mac.nix
-│       │   └── desktop.nix
-│       ├── programs/            # 41+ program configurations
+│       │   └── desktop/         # NixOS desktop-specific configs
+│       │       ├── default.nix
+│       │       ├── hyprland.nix  # Hyprland compositor
+│       │       ├── waybar.nix    # Status bar
+│       │       └── wofi.nix      # Application launcher
+│       ├── programs/            # 37 cross-platform programs
 │       └── files/               # Dotfiles
 ```
 
@@ -249,6 +254,19 @@ home.packages = with pkgs; [
 **Both**: Can be both platform AND host-specific
 - Example: Aerospace (macOS + personal Mac only)
 
+### Desktop Environment vs Cross-Platform Programs
+
+**Desktop Environment Configs** (host-specific):
+- Configs specific to a particular desktop environment like Hyprland
+- Located in `modules/home-manager/hosts/desktop/` for NixOS desktop
+- Include full setup (compositor, status bar, app launcher)
+- No platform guards needed (already in host directory)
+
+**Cross-Platform Programs** (programs/):
+- Tools that work across macOS and NixOS with minimal differences
+- Located in `modules/home-manager/programs/`
+- Use platform guards if behavior differs significantly
+
 ### Host Differences
 
 | Feature | Personal Mac | Work Mac | Desktop |
@@ -290,7 +308,7 @@ nf <file>.nix         # Format nix file
 
 ## 🎨 Included Configurations
 
-### Programs (41+)
+### Cross-Platform Programs (37)
 - **Shells**: fish, zsh, nushell
 - **Editors**: helix, neovim, vim, zed
 - **Git**: git, gh, gh-dash, jujutsu, lazygit, delta
@@ -298,6 +316,11 @@ nf <file>.nix         # Format nix file
 - **Dev Tools**: go, poetry, pyenv, uv
 - **Utils**: atuin, bat, bottom, eza, fd, fzf, jq, k9s, lazydocker, ripgrep, yazi, zoxide
 - **macOS**: aerospace (window manager)
+
+### Desktop Environment (NixOS Desktop Host)
+- **Hyprland**: Wayland compositor with keybindings
+- **Waybar**: Status bar with workspace info and system tray
+- **Wofi**: Application launcher with fuzzy search
 
 ### System Configs
 - **macOS**: Dock, Finder, Trackpad settings via nix-darwin
