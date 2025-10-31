@@ -1,31 +1,32 @@
 {
   pkgs,
   lib,
-  config,
   ...
 }:
 {
-  # NixOS-specific system configuration
-  # This module contains settings that apply to all NixOS hosts
+  programs = {
+    # NixOS-specific system configuration
+    # This module contains settings that apply to all NixOS hosts
 
-  # Enable nix-command and flakes (inherited from shared/nix-settings.nix)
-  # Additional NixOS-specific nix settings can go here
+    # Enable nix-command and flakes (inherited from shared/nix-settings.nix)
+    # Additional NixOS-specific nix settings can go here
 
-  # Enable fish shell system-wide
-  programs.fish.enable = true;
+    # Enable fish shell system-wide
+    fish.enable = true;
 
-  # Enable zsh shell system-wide
-  programs.zsh.enable = true;
+    # Enable zsh shell system-wide
+    zsh.enable = true;
 
-  # Enable git system-wide
-  programs.git.enable = true;
+    # Enable git system-wide
+    git.enable = true;
 
-  programs._1password = {
-    enable = true;
-  };
-  programs._1password-gui = {
-    enable = true;
-    polkitPolicyOwners = [ "michael" ];
+    _1password = {
+      enable = true;
+    };
+    _1password-gui = {
+      enable = true;
+      polkitPolicyOwners = [ "michael" ];
+    };
   };
 
   # Common system packages for all NixOS hosts
