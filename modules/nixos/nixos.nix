@@ -1,4 +1,9 @@
-{ pkgs, lib, ... }:
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}:
 {
   # NixOS-specific system configuration
   # This module contains settings that apply to all NixOS hosts
@@ -14,6 +19,14 @@
 
   # Enable git system-wide
   programs.git.enable = true;
+
+  programs._1password = {
+    enable = true;
+  };
+  programs._1password-gui = {
+    enable = true;
+    polkitPolicyOwners = [ "michael" ];
+  };
 
   # Common system packages for all NixOS hosts
   environment.systemPackages = with pkgs; [
