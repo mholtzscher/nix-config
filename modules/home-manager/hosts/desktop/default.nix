@@ -35,4 +35,20 @@
     brightnessctl # Brightness control
     pavucontrol # Audio control GUI
   ];
+
+  systemd.user.services."1password" = {
+    Unit = {
+      Description = "1Password";
+      After = [ "graphical-session-pre.target" ];
+      PartOf = [ "graphical-session.target" ];
+    };
+    Service = {
+      Type = "simple";
+      ExecStart = "${pkgs._1password-gui}/bin/1password --silent";
+      Restart = "on-failure";
+    };
+    Install = {
+      WantedBy = [ "graphical-session.target" ];
+    };
+  };
 }
