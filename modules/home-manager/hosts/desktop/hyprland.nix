@@ -13,9 +13,9 @@ lib.mkIf pkgs.stdenv.isLinux {
       "$browser" = "chromium";
 
       # Monitor configuration
-      # monitor = ",highres,auto,1";
-      # monitor = "DP1, 5120x1440@120, 0x0, 1";
-      monitor = "DP-1, 5120x1440@240.0, 0x0, 1.0, bitdepth, 10, cm, hdr";
+       # monitor = ",highres,auto,1";
+       # monitor = "DP1, 5120x1440@120, 0x0, 1";
+       monitor = "DP-1, 5120x1440@240.0, 0x0, 1.0";
       # Environment variables - basics only
       env = [
         "XCURSOR_SIZE,24"
@@ -38,6 +38,7 @@ lib.mkIf pkgs.stdenv.isLinux {
         "col.active_border" = "rgba(33ccffff)";
         "col.inactive_border" = "rgba(595959ff)";
         layout = "dwindle";
+        allow_tearing = false;
       };
 
       # Basic decoration
@@ -64,6 +65,13 @@ lib.mkIf pkgs.stdenv.isLinux {
         preserve_split = true;
       };
 
+      # Miscellaneous settings for KVM and monitor handling
+      misc = {
+        enable_swallow = false;
+        focus_on_activate = true;
+        mouse_move_focuses_monitor = true;
+      };
+
       # Window rules - minimal
       windowrule = [
         "suppressevent maximize, class:.*"
@@ -75,6 +83,7 @@ lib.mkIf pkgs.stdenv.isLinux {
         "SUPER, W, killactive,"
         "SUPER, ESCAPE, exec, hyprlock"
         "SUPER SHIFT, ESCAPE, exit,"
+        "SUPER, R, exec, hyprctl reload"  # Reload Hyprland config (useful for KVM switching)
         # Workspace switching
         "SUPER, 1, workspace, 1"
         "SUPER, 2, workspace, 2"

@@ -64,6 +64,12 @@ in
     LC_TELEPHONE = "en_US.UTF-8";
     LC_TIME = "en_US.UTF-8";
   };
+  # Disable DPMS to prevent screen blanking issues with KVM switching
+  services.logind.settings.Login = {
+    HandlePowerKey = "ignore";
+    HandleLidSwitch = "ignore";
+  };
+
   services = {
 
     # Enable sound with pipewire
