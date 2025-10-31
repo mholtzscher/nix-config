@@ -13,9 +13,9 @@ lib.mkIf pkgs.stdenv.isLinux {
       "$browser" = "chromium";
 
       # Monitor configuration
-      # monitor = ",preferred,auto,1";
-      monitor = "DP1, 5120x1440@120, 0x0, 1";
-
+      # monitor = ",highres,auto,1";
+      # monitor = "DP1, 5120x1440@120, 0x0, 1";
+      monitor = "DP-1, 5120x1440@240.0, 0x0, 1.0, bitdepth, 10, cm, hdr";
       # Environment variables - basics only
       env = [
         "XCURSOR_SIZE,24"
