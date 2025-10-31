@@ -83,7 +83,7 @@ in
       # Master layout
       master = {
         # always_center_master = true;
-        slave_count_for_center_master = 1;
+        slave_count_for_center_master = 0;
         orientation = "center";
         mfact = 0.60;
       };
