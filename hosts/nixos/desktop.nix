@@ -10,7 +10,7 @@ let
   # KVM EDID Override Configuration
   # Set to true after capturing EDID file and adding it to git
   # See modules/home-manager/files/hyprland/README-EDID-Override.md for instructions
-  enableEdidOverride = false;  # Set to true when dp1.bin exists
+  enableEdidOverride = true; # Set to true when dp1.bin exists
   edidBinPath = ../../modules/home-manager/files/hyprland/edid/dp1.bin;
 in
 {
