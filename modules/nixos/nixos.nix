@@ -9,6 +9,9 @@
   # Enable fish shell system-wide
   programs.fish.enable = true;
 
+  # Enable zsh shell system-wide
+  programs.zsh.enable = true;
+
   # Enable git system-wide
   programs.git.enable = true;
 
