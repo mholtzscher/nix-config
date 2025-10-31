@@ -19,7 +19,7 @@
         #font-family-bold = "Iosevka NFM Bold"
         #font-family-italic = "Iosevka NFM Italic"
         #font-family-bold-italic = "Iosevka NFM Bold Italic"
-        font-size = "13";
+        font-size = if pkgs.stdenv.isDarwin then "13" else "11";
 
         theme = "TokyoNight Night";
 
