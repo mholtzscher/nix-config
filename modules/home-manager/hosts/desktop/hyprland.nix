@@ -79,8 +79,6 @@ in
         enable_swallow = false;
         focus_on_activate = true;
         mouse_move_focuses_monitor = true;
-        # Disable DPMS (screen blanking) to prevent issues with KVM switching
-        disable_dpms = true;
       };
 
       # Window rules - minimal
