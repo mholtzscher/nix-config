@@ -10,8 +10,8 @@
         share = "disabled";
         username = "mholtzscher";
         keybinds = {
-          session_child_cycle = "shift+right";
-          session_child_cycle_reverse = "shift+left";
+          # session_child_cycle = "shift+right";
+          # session_child_cycle_reverse = "shift+left";
         };
         lsp = {
           nushell = {

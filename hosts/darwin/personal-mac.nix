@@ -13,19 +13,21 @@ in
     useUserPackages = true;
     backupFileExtension = "backup";
     extraSpecialArgs = { inherit inputs; };
-    users.${user} = { ... }: {
-      imports = [
-        ../../modules/home-manager/home.nix
-        ../../modules/home-manager/hosts/personal-mac.nix
-      ];
-    };
+    users.${user} =
+      { ... }:
+      {
+        imports = [
+          ../../modules/home-manager/home.nix
+          ../../modules/home-manager/hosts/personal-mac.nix
+        ];
+      };
   };
 
   homebrew = {
     taps = [
     ];
     brews = [
-      "gemini-cli"
+      # "gemini-cli"
       "hashicorp/tap/terraform"
       "mockery"
       "pyenv-virtualenv"
