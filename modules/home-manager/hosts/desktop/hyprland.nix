@@ -125,6 +125,8 @@ in
         "SUPER SHIFT, 5, movetoworkspace, 5"
         # Floating
         "SUPER, V, togglefloating,"
+        # Master layout - set focused window as primary
+        "SUPER, M, layoutmsg, swapwithmaster master"
       ];
 
       # Mouse bindings
