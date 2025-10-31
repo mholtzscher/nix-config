@@ -15,7 +15,11 @@ lib.mkIf pkgs.stdenv.isLinux {
       # Monitor configuration
        # monitor = ",highres,auto,1";
        # monitor = "DP1, 5120x1440@120, 0x0, 1";
-       monitor = "DP-1, 5120x1440@240.0, 0x0, 1.0";
+       monitor = [
+         "DP-1, 5120x1440@240, 0x0, 1.0, bitdepth, 10"
+         # Fallback for any disconnected/reconnected monitors
+         ",preferred,auto,1"
+       ];
       # Environment variables - basics only
       env = [
         "XCURSOR_SIZE,24"
@@ -70,6 +74,8 @@ lib.mkIf pkgs.stdenv.isLinux {
         enable_swallow = false;
         focus_on_activate = true;
         mouse_move_focuses_monitor = true;
+        # Disable DPMS (screen blanking) to prevent issues with KVM switching
+        disable_dpms = true;
       };
 
       # Window rules - minimal
@@ -84,6 +90,7 @@ lib.mkIf pkgs.stdenv.isLinux {
         "SUPER, ESCAPE, exec, hyprlock"
         "SUPER SHIFT, ESCAPE, exit,"
         "SUPER, R, exec, hyprctl reload"  # Reload Hyprland config (useful for KVM switching)
+        "SUPER SHIFT, R, exec, hyprctl keyword monitor \"DP-1, 5120x1440@240, 0x0, 1.0, bitdepth, 10\""  # Fix monitor resolution after KVM switch
         # Workspace switching
         "SUPER, 1, workspace, 1"
         "SUPER, 2, workspace, 2"
