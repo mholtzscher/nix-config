@@ -18,13 +18,13 @@ in
       "$browser" = "chromium";
 
       # Monitor configuration
-       # monitor = ",highres,auto,1";
-       # monitor = "DP1, 5120x1440@120, 0x0, 1";
-       monitor = [
-         monitorConfig
-         # Fallback for any disconnected/reconnected monitors
-         ",preferred,auto,1"
-       ];
+      # monitor = ",highres,auto,1";
+      # monitor = "DP1, 5120x1440@120, 0x0, 1";
+      monitor = [
+        monitorConfig
+        # Fallback for any disconnected/reconnected monitors
+        ",preferred,auto,1"
+      ];
       # Environment variables - basics only
       env = [
         "XCURSOR_SIZE,24"
@@ -33,16 +33,16 @@ in
         "SDL_VIDEODRIVER,wayland"
       ];
 
-        # Input configuration
-        input = {
-          kb_layout = "us";
-          follow_mouse = 1;
-          scroll_factor = 1.0;
-          scroll_method = "2fa";
-          touchpad = {
-            natural_scroll = false;
-          };
+      # Input configuration
+      input = {
+        kb_layout = "us";
+        follow_mouse = 1;
+        scroll_factor = 1.0;
+        scroll_method = "2fa";
+        touchpad = {
+          natural_scroll = false;
         };
+      };
 
       # General settings - minimal
       general = {
@@ -79,9 +79,8 @@ in
         preserve_split = true;
       };
 
-      # Miscellaneous settings for KVM and monitor handling
       misc = {
-        enable_swallow = false;
+        # enable_swallow = false;
         focus_on_activate = true;
         mouse_move_focuses_monitor = true;
       };

@@ -75,11 +75,11 @@ in
     LC_TELEPHONE = "en_US.UTF-8";
     LC_TIME = "en_US.UTF-8";
   };
-  # Disable DPMS to prevent screen blanking issues with KVM switching
-  services.logind.settings.Login = {
-    HandlePowerKey = "ignore";
-    HandleLidSwitch = "ignore";
-  };
+  # # Disable DPMS to prevent screen blanking issues with KVM switching
+  # services.logind.settings.Login = {
+  #   HandlePowerKey = "ignore";
+  #   HandleLidSwitch = "ignore";
+  # };
 
   services = {
 
@@ -162,8 +162,8 @@ in
 
   security.rtkit.enable = true;
 
-   # Enable mouse/touchpad input support
-   services.libinput.enable = true;
+  # Enable mouse/touchpad input support
+  services.libinput.enable = true;
 
   # System packages specific to this host
   environment.systemPackages = with pkgs; [
