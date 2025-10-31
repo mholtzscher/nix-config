@@ -56,12 +56,13 @@ in
           (builtins.readFile ./files/topiary/languages.ncl);
       "${config.xdg.configHome}/topiary/languages/nu.scm".source =
         "${inputs.topiaryNushell}/languages/nu.scm";
+      "${config.xdg.configHome}/1Password/ssh/agent.toml".source = ./files/1password-agent.toml;
     }
     # macOS-specific config files
     // lib.optionalAttrs pkgs.stdenv.isDarwin {
       "Library/Application Support/eza/theme.yml".source =
         "${inputs.tokyonight}/extras/eza/tokyonight.yml";
-      
+
       "${config.xdg.configHome}/borders/bordersrc" = {
         source = ./files/bordersrc;
         executable = true;
@@ -84,8 +85,6 @@ in
         source = ./files/raycast/aerospace-workspace-size-decrement.sh;
         executable = true;
       };
-
-      "${config.xdg.configHome}/1Password/ssh/agent.toml".source = ./files/1password-agent.toml;
     };
 
     # macOS-only activation scripts
