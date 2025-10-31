@@ -9,6 +9,12 @@
     ./waybar.nix
     ./wofi.nix
   ];
+  
+  # Install EDID capture script for KVM troubleshooting
+  home.file.".local/bin/capture-edid" = {
+    source = ../../files/hyprland/capture-edid.sh;
+    executable = true;
+  };
 
   # Desktop-specific programs and packages
   home.packages = with pkgs; [
