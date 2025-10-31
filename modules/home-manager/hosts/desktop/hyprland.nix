@@ -33,11 +33,16 @@ in
         "SDL_VIDEODRIVER,wayland"
       ];
 
-      # Input configuration
-      input = {
-        kb_layout = "us";
-        follow_mouse = 1;
-      };
+        # Input configuration
+        input = {
+          kb_layout = "us";
+          follow_mouse = 1;
+          scroll_factor = 1.0;
+          scroll_method = "2fa";
+          touchpad = {
+            natural_scroll = false;
+          };
+        };
 
       # General settings - minimal
       general = {

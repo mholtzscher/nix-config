@@ -162,8 +162,8 @@ in
 
   security.rtkit.enable = true;
 
-  # Enable touchpad support (if applicable)
-  # services.xserver.libinput.enable = true;
+   # Enable mouse/touchpad input support
+   services.libinput.enable = true;
 
   # System packages specific to this host
   environment.systemPackages = with pkgs; [
