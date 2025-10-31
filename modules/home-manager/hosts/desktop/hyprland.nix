@@ -5,7 +5,7 @@ lib.mkIf pkgs.stdenv.isLinux {
   wayland.windowManager.hyprland = {
     enable = true;
     systemd.enable = true;
-    
+
     settings = {
       # Default applications
       "$terminal" = "ghostty";
@@ -13,7 +13,8 @@ lib.mkIf pkgs.stdenv.isLinux {
       "$browser" = "chromium";
 
       # Monitor configuration
-      monitor = ",preferred,auto,1";
+      # monitor = ",preferred,auto,1";
+      monitor = "DP1,5120x1440@144, 0x0, 1";
 
       # Environment variables - basics only
       env = [
