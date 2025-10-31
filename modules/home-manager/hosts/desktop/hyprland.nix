@@ -1,49 +1,8 @@
 { pkgs, ... }:
 
 let
-  # Monitor configuration for KVM setup
+  # Monitor configuration for KVM setup with EDID override
   monitorConfig = "DP-1,5120x1440@240,0x0,1.0,bitdepth,10";
-  
-  # Script to reset monitor resolution after KVM switching
-  # This creates a custom modeline since KVMs often don't pass EDID properly
-  resetMonitorScript = pkgs.writeShellScript "hypr-reset-monitor" ''
-    #!/usr/bin/env bash
-    
-    echo "=== Hyprland Monitor Reset for KVM ==="
-    
-    # Get DRM card and connector info
-    CARD=$(ls /sys/class/drm/ | grep "^card[0-9]$" | head -1)
-    
-    if [ -n "$CARD" ]; then
-      echo "Found DRM card: $CARD"
-      
-      # List connectors
-      echo "Available connectors:"
-      ls /sys/class/drm/$CARD-* 2>/dev/null | head -5
-    fi
-    
-    # Force disable then re-enable to trigger detection
-    echo "Disabling monitor..."
-    ${pkgs.hyprland}/bin/hyprctl keyword monitor "DP-1,disable"
-    
-    sleep 2
-    
-    # Try with custom modeline (bypasses EDID)
-    echo "Enabling with custom mode..."
-    ${pkgs.hyprland}/bin/hyprctl keyword monitor "DP-1,5120x1440@240.00,0x0,1.0,bitdepth,10"
-    
-    sleep 1
-    
-    # If that didn't work, try without decimal refresh rate
-    ${pkgs.hyprland}/bin/hyprctl keyword monitor "DP-1,5120x1440@240,0x0,1.0,bitdepth,10"
-    
-    # Show result
-    echo ""
-    echo "=== Monitor Status ==="
-    ${pkgs.hyprland}/bin/hyprctl monitors | grep -A 10 "Monitor DP-1"
-    
-    ${pkgs.libnotify}/bin/notify-send "Monitor Reset" "Check terminal for results" || true
-  '';
 in
 
 {
@@ -133,8 +92,7 @@ in
         "SUPER, W, killactive,"
         "SUPER, ESCAPE, exec, hyprlock"
         "SUPER SHIFT, ESCAPE, exit,"
-        "SUPER, R, exec, hyprctl reload"  # Reload Hyprland config (useful for KVM switching)
-        "SUPER SHIFT, R, exec, ${resetMonitorScript}"  # Fix monitor resolution after KVM switch
+        "SUPER, R, exec, hyprctl reload"
         # Workspace switching
         "SUPER, 1, workspace, 1"
         "SUPER, 2, workspace, 2"

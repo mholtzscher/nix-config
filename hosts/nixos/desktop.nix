@@ -8,11 +8,10 @@ let
   user = "michael";
 
   # KVM EDID Override Configuration
-  # Set to true after capturing EDID with capture-edid script
-  enableEdidOverride = true;
-
-  # Path to captured EDID file (after running capture-edid and copying to config)
-  edidBin = ../../modules/home-manager/files/hyprland/edid/dp1.bin;
+  # Set to true after capturing EDID file and adding it to git
+  # See modules/home-manager/files/hyprland/README-EDID-Override.md for instructions
+  enableEdidOverride = false;  # Set to true when dp1.bin exists
+  edidBinPath = ../../modules/home-manager/files/hyprland/edid/dp1.bin;
 in
 {
   imports = [
@@ -140,18 +139,12 @@ in
   ]
   ++ pkgs.lib.optional enableEdidOverride "drm.edid_firmware=DP-1:edid/dp1.bin";
 
-  # Enable DRM polling for better KVM hot-plug detection
-  boot.kernelModules = [ "drm_kms_helper" ];
-  boot.extraModprobeConfig = ''
-    options drm_kms_helper poll=1
-  '';
-
-  # Copy EDID firmware file to kernel firmware directory
-  # Enable by setting enableEdidOverride = true after capturing EDID
+  # EDID override for KVM - forces kernel to use captured EDID
+  # instead of relying on KVM to pass through monitor capabilities
   hardware.firmware = pkgs.lib.optionals enableEdidOverride [
     (pkgs.runCommand "edid-firmware" { } ''
       mkdir -p $out/lib/firmware/edid
-      cp ${edidBin} $out/lib/firmware/edid/dp1.bin
+      cp ${edidBinPath} $out/lib/firmware/edid/dp1.bin
     '')
   ];
 
@@ -186,10 +179,6 @@ in
     slurp
     wl-clipboard
     xdg-desktop-portal-hyprland
-
-    # Monitor/EDID tools for KVM troubleshooting
-    edid-decode
-    read-edid
   ];
 
   # Allow unfree packages
