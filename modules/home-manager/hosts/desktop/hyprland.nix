@@ -2,7 +2,14 @@
 
 let
   # Monitor configuration for KVM setup
-  monitorConfig = "DP-1, 5120x1440@240, 0x0, 1.0, bitdepth, 10";
+  monitorConfig = "DP-1,5120x1440@240,0x0,1.0,bitdepth,10";
+  
+  # Script to reset monitor resolution after KVM switching
+  resetMonitorScript = pkgs.writeShellScript "hypr-reset-monitor" ''
+    ${pkgs.hyprland}/bin/hyprctl keyword monitor "DP-1,disable"
+    sleep 0.5
+    ${pkgs.hyprland}/bin/hyprctl keyword monitor "${monitorConfig}"
+  '';
 in
 
 {
@@ -93,7 +100,7 @@ in
         "SUPER, ESCAPE, exec, hyprlock"
         "SUPER SHIFT, ESCAPE, exit,"
         "SUPER, R, exec, hyprctl reload"  # Reload Hyprland config (useful for KVM switching)
-        "SUPER SHIFT, R, exec, hyprctl keyword monitor \"${monitorConfig}\""  # Fix monitor resolution after KVM switch
+        "SUPER SHIFT, R, exec, ${resetMonitorScript}"  # Fix monitor resolution after KVM switch
         # Workspace switching
         "SUPER, 1, workspace, 1"
         "SUPER, 2, workspace, 2"
