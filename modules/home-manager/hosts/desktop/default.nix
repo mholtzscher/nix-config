@@ -14,6 +14,7 @@
   home.packages = with pkgs; [
     code-cursor  # AI code editor (personal use only)
     discord  # Personal communication (cross-platform)
+    zen-browser  # Firefox-based browser with vertical tabs
     
     # Linux desktop-specific GUI tools
     nautilus  # File manager
