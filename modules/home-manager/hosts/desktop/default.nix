@@ -9,7 +9,7 @@
     ./waybar.nix
     ./wofi.nix
   ];
-  
+
   # Install EDID capture script for KVM troubleshooting
   home.file.".local/bin/capture-edid" = {
     source = ../../files/hyprland/capture-edid.sh;
@@ -18,10 +18,6 @@
 
   # Desktop-specific programs and packages
   home.packages = with pkgs; [
-    python314
-    # python313Packages.debugpy
-    gcc
-
     _1password-gui
     _1password-cli
     code-cursor # AI code editor (personal use only)

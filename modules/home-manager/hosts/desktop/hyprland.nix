@@ -51,8 +51,8 @@ in
         border_size = 2;
         "col.active_border" = "rgba(33ccffff)";
         "col.inactive_border" = "rgba(595959ff)";
-        layout = "dwindle";
-        allow_tearing = false;
+        layout = "master";
+        # allow_tearing = false;
       };
 
       # Basic decoration
@@ -65,7 +65,7 @@ in
 
       # Disable animations
       animations = {
-        enabled = false;
+        enabled = true;
       };
 
       # Disable news
@@ -77,6 +77,15 @@ in
       dwindle = {
         pseudotile = true;
         preserve_split = true;
+        single_window_aspect_ratio = "16 9";
+      };
+
+      # Master layout
+      master = {
+        # always_center_master = true;
+        slave_count_for_center_master = 1;
+        orientation = "center";
+        mfact = 0.60;
       };
 
       misc = {
@@ -86,9 +95,9 @@ in
       };
 
       # Window rules - minimal
-      windowrule = [
-        "suppressevent maximize, class:.*"
-      ];
+      # windowrule = [
+      #   "suppressevent maximize, class:.*"
+      # ];
 
       # Basic keybindings
       bind = [

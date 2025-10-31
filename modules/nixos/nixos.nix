@@ -36,6 +36,13 @@
     curl
     htop
     tree
+    unzip
+
+    python314
+    # python313Packages.debugpy
+    rustc
+    cargo
+    gcc
 
     # System utilities
     lshw
