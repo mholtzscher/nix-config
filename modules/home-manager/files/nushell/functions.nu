@@ -326,6 +326,34 @@ def --env aws_export_envs [] {
   }
 }
 
+# Platform-aware Nix build/validate command
+# On macOS: darwin-rebuild build
+# On Linux: nix flake check
+export def nb [] {
+  if ($nu.os-info.name == "Linux") {
+    nix flake check --flake ~/.config/nix-config
+  } else if ($nu.os-info.name == "Macos") {
+    darwin-rebuild build --flake ~/.config/nix-config
+  } else {
+    log error "Unsupported OS: ($nu.os-info.name)"
+    return 1
+  }
+}
+
+# Platform-aware Nix apply/switch command
+# On macOS: sudo darwin-rebuild switch
+# On Linux: sudo nixos-rebuild switch --flake ~/.config/nix-config#desktop
+export def nup [] {
+  if ($nu.os-info.name == "Linux") {
+    sudo nixos-rebuild switch --flake ~/.config/nix-config#desktop
+  } else if ($nu.os-info.name == "Macos") {
+    sudo darwin-rebuild switch --flake ~/.config/nix-config
+  } else {
+    log error "Unsupported OS: ($nu.os-info.name)"
+    return 1
+  }
+}
+
 # Adjust aerospace workspace percentage by increment/decrement
 # Usage: aerospace_workspace_adjust 5       # Increment by 5%
 #        aerospace_workspace_adjust -5      # Decrement by 5%

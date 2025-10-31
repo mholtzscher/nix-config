@@ -1,10 +1,9 @@
 {
   shellAliases = {
     # Nix/Darwin management
-    nb = "darwin-rebuild build --flake ~/.config/nix-config";
+    # nb and nup are now platform-aware functions in nushell/functions.nu
     nfu = "nix flake update --flake ~/.config/nix-config";
     ngc = "nix-collect-garbage -d";
-    nup = "sudo darwin-rebuild switch --flake ~/.config/nix-config";
 
     # Navigation & development tools
     c = "clear";

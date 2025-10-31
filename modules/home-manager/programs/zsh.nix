@@ -12,6 +12,34 @@ in
         if [ -f /Users/michaelholtzcher/code/paytient/onboarding/engineering.sh ]; then
             source /Users/michaelholtzcher/code/paytient/onboarding/engineering.sh
         fi
+
+        # Platform-aware Nix build/validate command
+        # On macOS: darwin-rebuild build
+        # On Linux: nix flake check
+        nb() {
+          if [[ "$OSTYPE" == "linux-gnu"* ]]; then
+            nix flake check --flake ~/.config/nix-config
+          elif [[ "$OSTYPE" == "darwin"* ]]; then
+            darwin-rebuild build --flake ~/.config/nix-config
+          else
+            echo "Unsupported OS: $OSTYPE"
+            return 1
+          fi
+        }
+
+        # Platform-aware Nix apply/switch command
+        # On macOS: sudo darwin-rebuild switch
+        # On Linux: sudo nixos-rebuild switch --flake ~/.config/nix-config#desktop
+        nup() {
+          if [[ "$OSTYPE" == "linux-gnu"* ]]; then
+            sudo nixos-rebuild switch --flake ~/.config/nix-config#desktop
+          elif [[ "$OSTYPE" == "darwin"* ]]; then
+            sudo darwin-rebuild switch --flake ~/.config/nix-config
+          else
+            echo "Unsupported OS: $OSTYPE"
+            return 1
+          fi
+        }
       '';
       sessionVariables = {
         PATH = "$PATH:/Users/michael/.local/bin";
