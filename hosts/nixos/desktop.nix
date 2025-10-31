@@ -122,8 +122,14 @@ in
     package = config.boot.kernelPackages.nvidiaPackages.stable;
   };
 
-  # Kernel parameters for NVIDIA + Wayland
+  # Kernel parameters for NVIDIA + Wayland  
   boot.kernelParams = [ "nvidia-drm.modeset=1" ];
+  
+  # Enable DRM polling for better KVM hot-plug detection
+  boot.kernelModules = [ "drm_kms_helper" ];
+  boot.extraModprobeConfig = ''
+    options drm_kms_helper poll=1
+  '';
 
   # Environment variables for NVIDIA + Hyprland
   environment.sessionVariables = {

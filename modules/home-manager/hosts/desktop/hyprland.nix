@@ -6,9 +6,16 @@ let
   
   # Script to reset monitor resolution after KVM switching
   resetMonitorScript = pkgs.writeShellScript "hypr-reset-monitor" ''
-    ${pkgs.hyprland}/bin/hyprctl keyword monitor "DP-1,disable"
-    sleep 0.5
+    # Reload Hyprland config to force re-reading EDID
+    ${pkgs.hyprland}/bin/hyprctl reload
+    
+    sleep 2
+    
+    # Apply specific monitor configuration
     ${pkgs.hyprland}/bin/hyprctl keyword monitor "${monitorConfig}"
+    
+    # Show notification
+    ${pkgs.libnotify}/bin/notify-send "Monitor Reset" "Resolution set to 5120x1440@240Hz" || true
   '';
 in
 
