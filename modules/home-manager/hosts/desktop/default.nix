@@ -16,6 +16,8 @@
     # python313Packages.debugpy
     gcc
 
+    _1password-gui
+    _1password-cli
     code-cursor # AI code editor (personal use only)
     discord # Personal communication (cross-platform)
 
