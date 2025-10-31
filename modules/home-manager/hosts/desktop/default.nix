@@ -12,15 +12,19 @@
 
   # Desktop-specific programs and packages
   home.packages = with pkgs; [
-    code-cursor  # AI code editor (personal use only)
-    discord  # Personal communication (cross-platform)
-    
+    python314
+    # python313Packages.debugpy
+    gcc
+
+    code-cursor # AI code editor (personal use only)
+    discord # Personal communication (cross-platform)
+
     # Linux desktop-specific GUI tools
-    nautilus  # File manager
-    imv       # Image viewer
-    zathura   # PDF viewer
-    swaylock-effects  # Screen locker with effects
-    brightnessctl     # Brightness control
-    pavucontrol       # Audio control GUI
+    nautilus # File manager
+    imv # Image viewer
+    zathura # PDF viewer
+    swaylock-effects # Screen locker with effects
+    brightnessctl # Brightness control
+    pavucontrol # Audio control GUI
   ];
 }
