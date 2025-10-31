@@ -1,6 +1,11 @@
-{ lib, pkgs, ... }:
+{ pkgs, ... }:
 
-lib.mkIf pkgs.stdenv.isLinux {
+let
+  # Monitor configuration for KVM setup
+  monitorConfig = "DP-1, 5120x1440@240, 0x0, 1.0, bitdepth, 10";
+in
+
+{
   # Hyprland wayland compositor configuration
   wayland.windowManager.hyprland = {
     enable = true;
@@ -16,7 +21,7 @@ lib.mkIf pkgs.stdenv.isLinux {
        # monitor = ",highres,auto,1";
        # monitor = "DP1, 5120x1440@120, 0x0, 1";
        monitor = [
-         "DP-1, 5120x1440@240, 0x0, 1.0, bitdepth, 10"
+         monitorConfig
          # Fallback for any disconnected/reconnected monitors
          ",preferred,auto,1"
        ];
@@ -90,7 +95,7 @@ lib.mkIf pkgs.stdenv.isLinux {
         "SUPER, ESCAPE, exec, hyprlock"
         "SUPER SHIFT, ESCAPE, exit,"
         "SUPER, R, exec, hyprctl reload"  # Reload Hyprland config (useful for KVM switching)
-        "SUPER SHIFT, R, exec, hyprctl keyword monitor \"DP-1, 5120x1440@240, 0x0, 1.0, bitdepth, 10\""  # Fix monitor resolution after KVM switch
+        "SUPER SHIFT, R, exec, hyprctl keyword monitor \"${monitorConfig}\""  # Fix monitor resolution after KVM switch
         # Workspace switching
         "SUPER, 1, workspace, 1"
         "SUPER, 2, workspace, 2"
