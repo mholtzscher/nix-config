@@ -32,7 +32,6 @@
     ./starship.nix
     ./uv.nix
     ./wezterm.nix
-    ./wofi.nix # Linux-only (has platform guard inside)
     ./yazi.nix
     ./zed.nix
     ./zellij.nix

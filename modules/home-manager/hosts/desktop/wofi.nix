@@ -1,12 +1,7 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ pkgs, ... }:
 
-# TODO: move to nixos home-manager
-lib.mkIf pkgs.stdenv.isLinux {
+{
+  # Wofi application launcher for Hyprland
   programs.wofi = {
     enable = true;
     settings = {
@@ -121,8 +116,4 @@ lib.mkIf pkgs.stdenv.isLinux {
       }
     '';
   };
-
-  home.packages = with pkgs; [
-    wofi
-  ];
 }

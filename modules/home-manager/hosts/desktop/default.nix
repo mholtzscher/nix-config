@@ -7,6 +7,7 @@
   imports = [
     ./hyprland.nix
     ./waybar.nix
+    ./wofi.nix
   ];
 
   # Desktop-specific programs and packages

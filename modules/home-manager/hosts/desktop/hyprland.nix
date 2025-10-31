@@ -113,7 +113,6 @@ lib.mkIf pkgs.stdenv.isLinux {
     wayland
     libxkbcommon
     waybar
-    wofi
     xdg-desktop-portal-hyprland
   ];
 }
