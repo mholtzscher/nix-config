@@ -327,7 +327,7 @@ def --env aws_export_envs [] {
 }
 
 # Create directory and cd into it
-export def mkcd [path: string] {
+export def --env mkcd [path: string] {
   if not ($path | path exists) {
     mkdir $path
   }
