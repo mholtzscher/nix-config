@@ -326,6 +326,14 @@ def --env aws_export_envs [] {
   }
 }
 
+# Create directory and cd into it
+export def mkcd [path: string] {
+  if not ($path | path exists) {
+    mkdir $path
+  }
+  cd $path
+}
+
 # Platform-aware Nix build/validate command
 # On macOS: darwin-rebuild build
 # On Linux: nix flake check
@@ -344,9 +352,9 @@ export def nb [] {
 # On macOS: sudo darwin-rebuild switch
 # On Linux: sudo nixos-rebuild switch --flake ~/.config/nix-config#desktop
 export def nup [] {
-  if ($nu.os-info.name == "Linux") {
+  if ($nu.os-info.name == "linux") {
     sudo nixos-rebuild switch --flake ~/.config/nix-config#desktop
-  } else if ($nu.os-info.name == "Macos") {
+  } else if ($nu.os-info.name == "macos") {
     sudo darwin-rebuild switch --flake ~/.config/nix-config
   } else {
     log error "Unsupported OS: ($nu.os-info.name)"
