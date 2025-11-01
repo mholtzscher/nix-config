@@ -38,6 +38,7 @@
       };
       notifications = {
         show = true;
+        position = "top";
       };
     };
   };
