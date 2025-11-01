@@ -338,9 +338,9 @@ export def mkcd [path: string] {
 # On macOS: darwin-rebuild build
 # On Linux: nix flake check
 export def nb [] {
-  if ($nu.os-info.name == "Linux") {
+  if ($nu.os-info.name == "linux") {
     nix flake check --flake ~/.config/nix-config
-  } else if ($nu.os-info.name == "Macos") {
+  } else if ($nu.os-info.name == "macos") {
     darwin-rebuild build --flake ~/.config/nix-config
   } else {
     log error "Unsupported OS: ($nu.os-info.name)"
