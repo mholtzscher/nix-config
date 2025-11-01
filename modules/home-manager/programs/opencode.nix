@@ -5,7 +5,7 @@
       enable = true;
       package = if pkgs.stdenv.isDarwin then null else pkgs.opencode;
       settings = {
-        theme = "system";
+        theme = "tokyonight";
         # model = "anthropic/claude-haiku-4.5";
         share = "disabled";
         username = "mholtzscher";
