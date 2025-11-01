@@ -326,14 +326,6 @@ def --env aws_export_envs [] {
   }
 }
 
-# Create directory and cd into it
-export def --env mkcd [path: string] {
-  if not ($path | path exists) {
-    mkdir $path
-  }
-  cd $path
-}
-
 # Platform-aware Nix build/validate command
 # On macOS: darwin-rebuild build
 # On Linux: nix flake check
