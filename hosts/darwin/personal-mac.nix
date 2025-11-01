@@ -49,7 +49,7 @@ in
     # Apple Silicon Only
     enableRosetta = true;
     # User owning the Homebrew prefix
-    user = user;
+    inherit user;
 
     autoMigrate = true;
   };

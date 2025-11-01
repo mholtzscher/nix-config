@@ -9,10 +9,7 @@
         # model = "anthropic/claude-haiku-4.5";
         share = "disabled";
         username = "mholtzscher";
-        keybinds = {
-          # session_child_cycle = "shift+right";
-          # session_child_cycle_reverse = "shift+left";
-        };
+        keybinds = { };
         lsp = {
           nushell = {
             command = [
