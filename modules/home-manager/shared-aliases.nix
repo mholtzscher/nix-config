@@ -27,6 +27,7 @@
     clean = "git clean -Xdf";
 
     oc = "opencode";
+    ocb = "bunx opencode-ai";
 
     # Clipboard utilities
     pbj = "pbpaste | jq";
