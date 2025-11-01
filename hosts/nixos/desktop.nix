@@ -165,21 +165,20 @@ in
   # Enable mouse/touchpad input support
   services.libinput.enable = true;
 
-  # System packages specific to this host
-  environment.systemPackages = with pkgs; [
-    vim
-    git
+   # System packages specific to this host
+   environment.systemPackages = with pkgs; [
+     vim
+     git
 
-    # Hyprland ecosystem
-    waybar
-    wofi
-    dunst
-    swww
-    grim
-    slurp
-    wl-clipboard
-    xdg-desktop-portal-hyprland
-  ];
+     # Hyprland ecosystem
+     wofi
+     dunst
+     swww
+     grim
+     slurp
+     wl-clipboard
+     xdg-desktop-portal-hyprland
+   ];
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;

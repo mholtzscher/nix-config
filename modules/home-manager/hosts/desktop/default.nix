@@ -6,7 +6,7 @@
   # Desktop-specific imports
   imports = [
     ./hyprland.nix
-    ./waybar.nix
+    ./hyprpanel.nix
     ./wofi.nix
   ];
 

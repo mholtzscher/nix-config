@@ -17,7 +17,7 @@ A comprehensive, multi-platform Nix flake managing both macOS (Darwin) and NixOS
 - **Host-Specific Configs** - Per-host customization (git email, programs, etc.)
 - **Platform Guards** - Conditional config for macOS-only or Linux-only features
 - **37+ Cross-Platform Programs** - Extensive home-manager program configurations
-- **Desktop Environment Configs** - Hyprland, Waybar, Wofi in host-specific directory
+- **Desktop Environment Configs** - Hyprland, Hyprpanel, Wofi in host-specific directory
 - **Shared Modules** - DRY principle with reusable cross-platform modules
 - **Automatic GC** - Weekly garbage collection (Sundays 2AM, 30-day retention)
 
@@ -51,7 +51,7 @@ A comprehensive, multi-platform Nix flake managing both macOS (Darwin) and NixOS
 │       │   └── desktop/         # NixOS desktop-specific configs
 │       │       ├── default.nix
 │       │       ├── hyprland.nix  # Hyprland compositor
-│       │       ├── waybar.nix    # Status bar
+│       │       ├── hyprpanel.nix # Status bar
 │       │       └── wofi.nix      # Application launcher
 │       ├── programs/            # 37 cross-platform programs
 │       └── files/               # Dotfiles
@@ -319,7 +319,7 @@ nf <file>.nix         # Format nix file
 
 ### Desktop Environment (NixOS Desktop Host)
 - **Hyprland**: Wayland compositor with keybindings
-- **Waybar**: Status bar with workspace info and system tray
+- **Hyprpanel**: Status bar with workspace info and system tray
 - **Wofi**: Application launcher with fuzzy search
 
 ### System Configs

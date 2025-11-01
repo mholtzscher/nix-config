@@ -29,7 +29,7 @@ reboot
 
 After login, you'll see:
 - Empty desktop with dark background
-- **Waybar** status bar at the bottom (showing workspaces, clock, battery, volume)
+- **Hyprpanel** status bar at the bottom (showing workspaces, clock, system info)
 - Ready to use!
 
 ## First Steps
@@ -140,29 +140,23 @@ Hyprland has 10 workspaces by default:
 | `Super+Mouse Left Click` | Move window |
 | `Super+Mouse Right Click` | Resize window |
 
-## Waybar (Status Bar)
+## Hyprpanel (Status Bar)
 
-The bottom panel shows:
+The top panel shows:
 
 - **Left side:** Workspace buttons (click to switch)
   - Colored button = active workspace
   - Dark buttons = inactive workspaces
-  - Hover for workspace number
 
-- **Center:** Current window title
+- **Center:** Clock display
 
-- **Right side:** System information
-  - **Tray icons** - System app icons
-  - **Clock** - Current time (click for calendar)
-  - **Battery** - Battery percentage and status
-  - **Volume** - Audio volume (click to open mixer)
+- **Right side:** System information and tray icons
 
-### Waybar Interactions
+### Hyprpanel Interactions
 
 - Click workspace buttons to switch
-- Click clock to see calendar
-- Click volume icon to open PulseAudio mixer
-- Scroll on workspace buttons to navigate
+- Right-click for workspace menu
+- System tray icons for application notifications
 
 ## Useful Applications
 
@@ -333,7 +327,7 @@ The configuration already includes:
 
 If you want to temporarily use GNOME:
 
-1. Log out (Super+Shift+Q or click power button in top-right of Waybar)
+1. Log out (Super+Shift+Q or Super+Shift+Escape)
 2. At GDM login, click **gear icon ⚙️**
 3. Select **GNOME**
 4. Log in
@@ -347,7 +341,7 @@ To switch back to Hyprland, repeat with selecting **Hyprland**.
 Edit `hyprland.nix` and add to `exec-once`:
 ```nix
 exec-once = [
-  "waybar"
+  "hyprpanel"
   "swww init"
   "dunst"
   # Your custom startup commands here
@@ -411,7 +405,7 @@ nup
 1. **Explore the window manager** - Get familiar with the tiling workflow
 2. **Customize keybindings** - Make them match your muscle memory
 3. **Set up workspaces** - Organize apps by workspace (e.g., workspace 1: terminals, workspace 2: browser, etc.)
-4. **Explore Waybar** - Click elements to see what they do
+4. **Explore Hyprpanel** - Customize the panel in the configuration
 5. **Configure monitor layout** - If using multiple monitors
 
 Enjoy your Hyprland setup! 🎉

@@ -137,7 +137,7 @@ in
 
       # Autostart programs
       exec-once = [
-        "waybar"
+        "hyprpanel"
       ];
     };
   };
@@ -146,7 +146,6 @@ in
   home.packages = with pkgs; [
     wayland
     libxkbcommon
-    waybar
     xdg-desktop-portal-hyprland
   ];
 }
