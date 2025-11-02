@@ -7,7 +7,7 @@
   imports = [
     ./hyprland.nix
     ./hyprpanel.nix
-    ./wofi.nix
+    # ./wofi.nix # Replaced by Vicinae (configured in programs/vicinae.nix)
   ];
 
   # Install EDID capture script for KVM troubleshooting

@@ -31,6 +31,9 @@
     nix-colors = {
       url = "github:misterio77/nix-colors";
     };
+    vicinae = {
+      url = "github:vicinaehq/vicinae";
+    };
   };
 
   outputs =
@@ -45,6 +48,7 @@
       tokyonight,
       ghostty-shader-playground,
       nix-colors,
+      vicinae,
     }:
     let
       # Import lib helpers for creating system configurations (reserved for future use)

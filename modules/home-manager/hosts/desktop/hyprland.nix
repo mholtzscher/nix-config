@@ -102,7 +102,7 @@ in
       # Basic keybindings
       bind = [
         "SUPER, return, exec, ghostty"
-        "SUPER, space, exec, wofi --show drun"
+        "SUPER, space, exec, vicinae toggle"
         "SUPER, W, killactive,"
         "SUPER, ESCAPE, exec, hyprlock"
         "SUPER SHIFT, ESCAPE, exit,"
@@ -138,7 +138,15 @@ in
 
       # Autostart programs
       exec-once = [
+        "vicinae server"
         "hyprpanel"
+      ];
+      
+      # Layer rules for Vicinae
+      layerrule = [
+        "blur,vicinae"
+        "ignorealpha 0,vicinae"
+        "noanim,vicinae"
       ];
     };
   };

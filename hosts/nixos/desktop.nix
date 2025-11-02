@@ -43,6 +43,7 @@ in
       { ... }:
       {
         imports = [
+          inputs.vicinae.homeManagerModules.default
           ../../modules/home-manager/home.nix
           ../../modules/home-manager/hosts/desktop/default.nix
         ];
