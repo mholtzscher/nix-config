@@ -345,7 +345,7 @@ export def nb [] {
 # On Linux: sudo nixos-rebuild switch --flake ~/.config/nix-config#desktop
 export def nup [] {
   if ($nu.os-info.name == "linux") {
-    sudo nixos-rebuild switch --flake ~/.config/nix-config#desktop
+    nixos-rebuild switch --sudo --flake ~/.config/nix-config#desktop
   } else if ($nu.os-info.name == "macos") {
     sudo darwin-rebuild switch --flake ~/.config/nix-config
   } else {

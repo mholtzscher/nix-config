@@ -35,7 +35,7 @@
       * {
         border: none;
         border-radius: 0;
-        font-family: "FiraCode Nerd Font", monospace;
+        font-family: "Iosevka Nerd Font", monospace;
         font-size: 14px;
         margin: 0;
         padding: 0;
