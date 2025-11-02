@@ -29,12 +29,12 @@ in
 
         # Platform-aware Nix apply/switch command
         # On macOS: sudo darwin-rebuild switch
-        # On Linux: sudo nixos-rebuild switch --flake ~/.config/nix-config#desktop
+        # On Linux: sudo nixos-rebuild switch --flake ~/nix-config
         nup() {
           if [[ "$OSTYPE" == "linux-gnu"* ]]; then
-            nixos-rebuild switch --sudo --flake ~/.config/nix-config#desktop
+            nixos-rebuild switch --sudo --flake ~/nix-config
           elif [[ "$OSTYPE" == "darwin"* ]]; then
-            sudo darwin-rebuild switch --flake ~/.config/nix-config
+            sudo darwin-rebuild switch --flake ~/nix-config
           else
             echo "Unsupported OS: $OSTYPE"
             return 1
@@ -51,7 +51,7 @@ in
             --multi";
       };
       antidote = {
-        enable = true;
+        enable = false;
         plugins = [
           "zsh-users/zsh-syntax-highlighting"
           "zsh-users/zsh-completions"
