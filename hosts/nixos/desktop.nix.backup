@@ -104,16 +104,14 @@ in
       };
     };
 
-    # Greetd display manager with tuigreet greeter
-    greetd = {
+    # Display manager with Wayland support
+    displayManager.gdm = {
       enable = true;
-      settings = {
-        default_session = {
-          command = "${pkgs.tuigreet}/bin/tuigreet --time --remember --cmd Hyprland";
-          user = "greeter";
-        };
-      };
+      wayland = true;
     };
+
+    # Desktop environment
+    desktopManager.gnome.enable = true;
 
     # Enable CUPS for printing
     printing.enable = true;
@@ -159,10 +157,7 @@ in
   # XDG portals for Wayland
   xdg.portal = {
     enable = true;
-    extraPortals = [
-      pkgs.xdg-desktop-portal-hyprland
-      pkgs.xdg-desktop-portal-gtk # For better GTK/GNOME app compatibility
-    ];
+    extraPortals = [ pkgs.xdg-desktop-portal-hyprland ];
   };
 
   security.rtkit.enable = true;
