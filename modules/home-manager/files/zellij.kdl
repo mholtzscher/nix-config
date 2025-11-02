@@ -631,5 +631,5 @@ default_mode "locked"
 default_shell "nu"
 scrollback_editor "nvim"
 show_release_notes true
- // pane_frames false
+pane_frames false
 
