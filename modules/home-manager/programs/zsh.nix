@@ -18,7 +18,7 @@ in
         # On Linux: nix flake check
         nb() {
           if [[ "$OSTYPE" == "linux-gnu"* ]]; then
-            nix flake check --flake ~/.config/nix-config
+            nix flake check --flake ~/nix-config
           elif [[ "$OSTYPE" == "darwin"* ]]; then
             darwin-rebuild build --flake ~/.config/nix-config
           else
@@ -32,7 +32,7 @@ in
         # On Linux: sudo nixos-rebuild switch --flake ~/.config/nix-config#desktop
         nup() {
           if [[ "$OSTYPE" == "linux-gnu"* ]]; then
-            sudo nixos-rebuild switch --flake ~/.config/nix-config#desktop
+            nixos-rebuild switch --sudo --flake ~/.config/nix-config#desktop
           elif [[ "$OSTYPE" == "darwin"* ]]; then
             sudo darwin-rebuild switch --flake ~/.config/nix-config
           else
