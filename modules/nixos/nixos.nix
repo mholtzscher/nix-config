@@ -11,14 +11,8 @@
     # Enable nix-command and flakes (inherited from shared/nix-settings.nix)
     # Additional NixOS-specific nix settings can go here
 
-    # Enable fish shell system-wide
-    fish.enable = true;
-
     # Enable zsh shell system-wide
     zsh.enable = true;
-
-    # Enable git system-wide
-    git.enable = true;
 
     _1password = {
       enable = true;
@@ -32,10 +26,7 @@
   # Common system packages for all NixOS hosts
   environment.systemPackages = with pkgs; [
     # Essential CLI tools
-    vim
-    wget
     curl
-    htop
     tree
     unzip
 

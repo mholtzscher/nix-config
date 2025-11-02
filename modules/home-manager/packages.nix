@@ -16,31 +16,24 @@ with pkgs;
   # asdf-vm # really out of date
   #awscli2
   buf
-  chezmoi
-  cowsay
-  discordo
   dive
   dust
-  figlet
   gnused
   grpcurl
   gum
   hey
   httpie
-  hugo
   jc
   just
   kdlfmt
   ko
   kubernetes-helm
-  # lolcat
   nixfmt-rfc-style
   neovim
   nil
   oras
   procs
   rm-improved
-  sl
   slides
   sops
   statix

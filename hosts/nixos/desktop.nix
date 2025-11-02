@@ -75,16 +75,9 @@ in
     LC_TELEPHONE = "en_US.UTF-8";
     LC_TIME = "en_US.UTF-8";
   };
-  # # Disable DPMS to prevent screen blanking issues with KVM switching
-  # services.logind.settings.Login = {
-  #   HandlePowerKey = "ignore";
-  #   HandleLidSwitch = "ignore";
-  # };
 
   services = {
-
     # Enable sound with pipewire
-    pulseaudio.enable = false;
     pipewire = {
       enable = true;
       alsa = {
@@ -170,20 +163,11 @@ in
   # Enable mouse/touchpad input support
   services.libinput.enable = true;
 
-   # System packages specific to this host
-   environment.systemPackages = with pkgs; [
-     vim
-     git
-
-     # Hyprland ecosystem
-     wofi
-     dunst
-     swww
-     grim
-     slurp
-     wl-clipboard
-     xdg-desktop-portal-hyprland
-   ];
+  # System packages specific to this host
+  environment.systemPackages = with pkgs; [
+    # Clipboard utility for Wayland
+    wl-clipboard
+  ];
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;

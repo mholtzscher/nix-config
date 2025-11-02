@@ -18,8 +18,6 @@
 
   # Desktop-specific programs and packages
   home.packages = with pkgs; [
-    _1password-gui
-    _1password-cli
     code-cursor # AI code editor (personal use only)
     discord # Personal communication (cross-platform)
 
