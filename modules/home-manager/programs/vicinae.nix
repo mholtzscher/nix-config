@@ -14,7 +14,10 @@
         faviconService = "twenty"; # twenty | google | none
 
         # Font configuration
-        font.size = 11;
+        font = {
+          family = "Iosevka Nerd Font";
+          size = 11;
+        };
 
         # Navigation behavior
         popToRootOnClose = false;
@@ -23,8 +26,8 @@
         rootSearch.searchFiles = true;
 
         # Theme selection - matches existing aesthetic
-        # Available: gruvbox-dark, catppuccin-mocha, kanagawa, nord, dracula, tokyo-night-storm
-        theme.name = "gruvbox-dark";
+        # Available: gruvbox-dark, catppuccin-mocha, kanagawa, nord, dracula, tokyo-night, tokyo-night-storm
+        theme.name = "tokyo-night";
 
         # Window appearance
         window = {
