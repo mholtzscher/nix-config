@@ -101,6 +101,7 @@ in
 
       # Basic keybindings
       bind = [
+        "SUPER, return, exec, ghostty"
         "SUPER, space, exec, wofi --show drun"
         "SUPER, W, killactive,"
         "SUPER, ESCAPE, exec, hyprlock"
