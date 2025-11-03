@@ -32,6 +32,7 @@
     ./starship.nix
     ./uv.nix
     # ./vicinae.nix # NixOS-only (imported directly in desktop.nix)
+    ./webapps.nix # NixOS-only (has platform guard inside)
     ./wezterm.nix
     ./yazi.nix
     ./zed.nix
