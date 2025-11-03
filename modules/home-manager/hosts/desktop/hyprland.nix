@@ -144,7 +144,7 @@ in
         "hyprpanel"
         "${pkgs.hyprpolkitagent}/libexec/hyprpolkitagent"
       ];
-      
+
       # Layer rules for Vicinae
       layerrule = [
         "blur,vicinae"
