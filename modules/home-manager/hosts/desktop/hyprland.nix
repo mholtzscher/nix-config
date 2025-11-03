@@ -140,6 +140,7 @@ in
       exec-once = [
         "vicinae server"
         "hyprpanel"
+        "${pkgs.hyprpolkitagent}/libexec/hyprpolkitagent"
       ];
       
       # Layer rules for Vicinae
@@ -156,5 +157,6 @@ in
     wayland
     libxkbcommon
     xdg-desktop-portal-hyprland
+    hyprpolkitagent # PolKit authentication agent for 1Password and other apps
   ];
 }
