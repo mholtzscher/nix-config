@@ -11,7 +11,7 @@
       {
         name = "WhatsApp";
         url = "https://web.whatsapp.com";
-        browser = "firefox";
+        browser = "chromium";
         comment = "WhatsApp Web Client";
         # mimeType = "x-scheme-handler/mailto";
         categories = [

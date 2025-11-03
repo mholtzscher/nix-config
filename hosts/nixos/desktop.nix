@@ -175,8 +175,9 @@ in
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
-  # Enable firefox
+  # Enable browsers
   programs.firefox.enable = true;
+  programs.chromium.enable = true;
 
   # This value determines the NixOS release compatibility.
   # Don't change this without reading the release notes.
