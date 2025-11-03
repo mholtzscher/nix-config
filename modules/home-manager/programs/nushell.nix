@@ -13,6 +13,14 @@ in
       extraConfig = ''
         use std/log;
 
+        # Configure asdf (macOS only via Homebrew)
+        if ($nu.os-info.name == "macos") {
+          if ("/opt/homebrew/opt/asdf/libexec" | path exists) {
+            $env.ASDF_NU_DIR = "/opt/homebrew/opt/asdf/libexec"
+            source "/opt/homebrew/opt/asdf/libexec/asdf.nu"
+          }
+        }
+
         # Import naws as a Nushell overlay
         # overlay use ${inputs.naws}/naws as naws
         use ${inputs.naws}/naws/
