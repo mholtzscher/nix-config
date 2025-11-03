@@ -46,7 +46,7 @@ in
         # FZF colors are managed by catppuccin (via fzf.nix)
       };
       antidote = {
-        enable = false;
+        enable = true;
         plugins = [
           "zsh-users/zsh-syntax-highlighting"
           "zsh-users/zsh-completions"
