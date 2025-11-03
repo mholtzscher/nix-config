@@ -170,6 +170,9 @@ in
   environment.systemPackages = with pkgs; [
     # Clipboard utility for Wayland
     wl-clipboard
+    
+    # Browsers
+    chromium
   ];
 
   # Allow unfree packages
@@ -177,7 +180,6 @@ in
 
   # Enable browsers
   programs.firefox.enable = true;
-  programs.chromium.enable = true;
 
   # This value determines the NixOS release compatibility.
   # Don't change this without reading the release notes.
