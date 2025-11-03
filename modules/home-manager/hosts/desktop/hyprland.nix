@@ -94,10 +94,12 @@ in
         mouse_move_focuses_monitor = true;
       };
 
-      # Window rules - minimal
-      # windowrule = [
-      #   "suppressevent maximize, class:.*"
-      # ];
+      # Window rules
+      windowrulev2 = [
+        # Force webapps (Chromium app mode) to tile
+        "tile, class:^(chromium-browser)$"
+        "tile, title:^(.*)(WhatsApp|Gmail|Calendar|Notion|ChatGPT|Linear)(.*)$"
+      ];
 
       # Basic keybindings
       bind = [
