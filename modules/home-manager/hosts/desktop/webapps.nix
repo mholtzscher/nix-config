@@ -8,6 +8,18 @@
     apps = [
       # Example configurations - uncomment and customize as needed:
 
+      {
+        name = "WhatsApp";
+        url = "https://web.whatsapp.com";
+        browser = "firefox";
+        comment = "WhatsApp Web Client";
+        # mimeType = "x-scheme-handler/mailto";
+        categories = [
+          "Network"
+          "Chat"
+        ];
+      }
+
       # {
       #   name = "Gmail";
       #   url = "https://mail.google.com";
