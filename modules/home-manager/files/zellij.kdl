@@ -611,22 +611,22 @@ default_layout "compact"
 // Choose the theme that is specified in the themes section.
 // Default: default
 //
-// themes {
-//     catppuccin-mocha {
-//         fg "#cdd6f4"
-//         bg "#181825"
-//         black "#11111b"
-//         red "#f38ba8"
-//         green "#a6e3a1"
-//         yellow "#f9e2af"
-//         blue "#89b4fa"
-//         magenta "#cba6f7"
-//         cyan "#94e2d5"
-//         white "#bac2de"
-//         orange "#fab387"
-//     }
-// }
-// theme "catppuccin-mocha"
+themes {
+    catppuccin-mocha {
+        bg "#585b70"
+        fg "#cdd6f4"
+        red "#f38ba8"
+        green "#a6e3a1"
+        blue "#89b4fa"
+        yellow "#f9e2af"
+        magenta "#f5c2e7"
+        orange "#fab387"
+        cyan "#89dceb"
+        black "#181825"
+        white "#cdd6f4"
+    }
+}
+theme "catppuccin-mocha"
 default_mode "locked"
 default_shell "nu"
 scrollback_editor "nvim"
