@@ -7,6 +7,7 @@
   imports = [
     ./hyprland.nix
     ./hyprpanel.nix
+    ./theme.nix # GTK/Qt dark mode theming
     ./vicinae.nix # NixOS-only launcher (requires vicinae module from hosts/nixos/desktop.nix)
     ./webapps.nix # Web apps as native applications
     # ./wofi.nix # Replaced by Vicinae

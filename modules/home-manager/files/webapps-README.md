@@ -5,7 +5,7 @@ This system allows you to install web applications as native desktop application
 ## Overview
 
 The web app system consists of:
-- **Launcher script** (`omarchy-launch-webapp`) - Opens URLs in browser windows
+- **Launcher script** (`nixos-launch-webapp`) - Opens URLs in browser windows
 - **NixOS module** (`programs.webapps`) - Declaratively configure web apps
 - **Desktop entries** - Apps appear in your application launcher (Wofi, Rofi, etc.)
 
@@ -143,7 +143,7 @@ apps = [
 You can also launch web apps manually from the terminal:
 
 ```bash
-omarchy-launch-webapp https://example.com firefox
+nixos-launch-webapp https://example.com firefox
 ```
 
 ## Troubleshooting

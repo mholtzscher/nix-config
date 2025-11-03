@@ -79,7 +79,7 @@ let
         Version=1.0
         Name=${app.name}
         Comment=${if app.comment != "" then app.comment else app.name}
-        Exec=${config.home.homeDirectory}/.local/bin/omarchy-launch-webapp ${app.url} ${app.browser}
+        Exec=${config.home.homeDirectory}/.local/bin/nixos-launch-webapp ${app.url} ${app.browser}
         Terminal=false
         Type=Application
         ${optionalString (iconPath != "") "Icon=${iconPath}"}
@@ -114,8 +114,8 @@ in
 
   config = mkIf (cfg.enable && pkgs.stdenv.isLinux) {
     # Install launcher script
-    home.file.".local/bin/omarchy-launch-webapp" = {
-      source = ../files/omarchy-launch-webapp;
+    home.file.".local/bin/nixos-launch-webapp" = {
+      source = ../files/nixos-launch-webapp;
       executable = true;
     };
 

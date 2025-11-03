@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-# omarchy-launch-webapp - Launch web URLs as standalone applications
-# Usage: omarchy-launch-webapp <url> [browser-name]
+# nixos-launch-webapp - Launch web URLs as standalone applications
+# Usage: nixos-launch-webapp <url> [browser-name]
 
 set -euo pipefail
 
@@ -9,7 +9,7 @@ BROWSER="${2:-firefox}"
 
 if [[ -z "$URL" ]]; then
     echo "Error: No URL provided"
-    echo "Usage: omarchy-launch-webapp <url> [browser]"
+    echo "Usage: nixos-launch-webapp <url> [browser]"
     exit 1
 fi
 
@@ -22,17 +22,23 @@ case "$BROWSER" in
         ;;
     chromium)
         if command -v chromium &> /dev/null; then
-            exec chromium --app="$URL"
+            exec chromium --app="$URL" \
+                --enable-features=WebUIDarkMode,WebContentsForceDark \
+                --force-dark-mode
         fi
         ;;
     google-chrome)
         if command -v google-chrome-stable &> /dev/null; then
-            exec google-chrome-stable --app="$URL"
+            exec google-chrome-stable --app="$URL" \
+                --enable-features=WebUIDarkMode,WebContentsForceDark \
+                --force-dark-mode
         fi
         ;;
     brave)
         if command -v brave &> /dev/null; then
-            exec brave --app="$URL"
+            exec brave --app="$URL" \
+                --enable-features=WebUIDarkMode,WebContentsForceDark \
+                --force-dark-mode
         fi
         ;;
     *)
@@ -45,7 +51,9 @@ esac
 if command -v firefox &> /dev/null; then
     exec firefox --new-window "$URL"
 elif command -v chromium &> /dev/null; then
-    exec chromium --app="$URL"
+    exec chromium --app="$URL" \
+        --enable-features=WebUIDarkMode,WebContentsForceDark \
+        --force-dark-mode
 elif command -v xdg-open &> /dev/null; then
     exec xdg-open "$URL"
 else
