@@ -53,7 +53,6 @@ in
 
     file = {
       # Cross-platform config files
-      "${config.xdg.configHome}/zellij/config.kdl".source = ./files/zellij.kdl;
       ".asdfrc".source = ./files/asdfrc;
       "${config.xdg.configHome}/kafkactl/config.yml".source = ./files/kafkactl.yaml;
       "${config.xdg.configHome}/fish/functions/update.fish".source = ./files/fish/functions/update.fish;
