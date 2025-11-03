@@ -98,6 +98,8 @@ in
       };
     };
 
+    desktopManager.gnome.enable = true;
+
     # Greetd display manager with tuigreet greeter
     greetd = {
       enable = true;
