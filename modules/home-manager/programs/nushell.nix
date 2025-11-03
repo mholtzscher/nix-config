@@ -1,10 +1,20 @@
 {
   pkgs,
   inputs,
+  lib,
   ...
 }:
 let
   sharedAliases = import ../shared-aliases.nix;
+  
+  # macOS-specific asdf configuration
+  asdfConfig = lib.optionalString pkgs.stdenv.isDarwin ''
+    # Configure asdf (macOS only via Homebrew)
+    if ("/opt/homebrew/opt/asdf/libexec/asdf.nu" | path exists) {
+      $env.ASDF_NU_DIR = "/opt/homebrew/opt/asdf/libexec"
+      source "/opt/homebrew/opt/asdf/libexec/asdf.nu"
+    }
+  '';
 in
 {
   programs = {
@@ -13,13 +23,7 @@ in
       extraConfig = ''
         use std/log;
 
-        # Configure asdf (macOS only via Homebrew)
-        if ($nu.os-info.name == "macos") {
-          if ("/opt/homebrew/opt/asdf/libexec" | path exists) {
-            $env.ASDF_NU_DIR = "/opt/homebrew/opt/asdf/libexec"
-            source "/opt/homebrew/opt/asdf/libexec/asdf.nu"
-          }
-        }
+        ${asdfConfig}
 
         # Import naws as a Nushell overlay
         # overlay use ${inputs.naws}/naws as naws

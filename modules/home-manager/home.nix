@@ -53,7 +53,6 @@ in
 
     file = {
       # Cross-platform config files
-      ".asdfrc".source = ./files/asdfrc;
       "${config.xdg.configHome}/kafkactl/config.yml".source = ./files/kafkactl.yaml;
       "${config.xdg.configHome}/fish/functions/update.fish".source = ./files/fish/functions/update.fish;
       ".ideavimrc".source = ./files/ideavimrc;
@@ -69,6 +68,7 @@ in
     }
     # macOS-specific config files
     // lib.optionalAttrs pkgs.stdenv.isDarwin {
+      ".asdfrc".source = ./files/asdfrc;
       "${config.xdg.configHome}/borders/bordersrc" = {
         source = ./files/bordersrc;
         executable = true;
