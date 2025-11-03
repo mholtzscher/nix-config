@@ -35,7 +35,17 @@ in
 {
   imports = [
     ./programs
+    inputs.catppuccin.homeModules.catppuccin
   ];
+
+  # Enable Catppuccin Mocha theme globally
+  catppuccin = {
+    enable = true;
+    flavor = "mocha";
+    # Disable for programs with custom configs
+    zellij.enable = false; # Has extensive custom keybindings in zellij.kdl
+  };
+
   home = {
     stateVersion = "24.11";
     # xdg.enable = true;
@@ -60,9 +70,6 @@ in
     }
     # macOS-specific config files
     // lib.optionalAttrs pkgs.stdenv.isDarwin {
-      "Library/Application Support/eza/theme.yml".source =
-        "${inputs.tokyonight}/extras/eza/tokyonight.yml";
-
       "${config.xdg.configHome}/borders/bordersrc" = {
         source = ./files/bordersrc;
         executable = true;

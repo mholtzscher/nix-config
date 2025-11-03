@@ -4,6 +4,18 @@
   ...
 }:
 {
+  # Enable Catppuccin Mocha theme for NixOS system-level components
+  # This themes:
+  # - TTY/Console colors (fallback terminal)
+  # - Boot loaders (GRUB, Limine - if enabled)
+  # - Plymouth boot splash (if enabled)
+  # - Display managers like SDDM (if used instead of greetd)
+  # Note: User-level apps (terminals, editors, etc.) are themed via home-manager
+  catppuccin = {
+    enable = true;
+    flavor = "mocha";
+  };
+
   programs = {
     # NixOS-specific system configuration
     # This module contains settings that apply to all NixOS hosts

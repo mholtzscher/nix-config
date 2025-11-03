@@ -43,74 +43,8 @@ in
               set -gx KUBECONFIG "$kubeconfigFile:$KUBECONFIG"
           end
 
-          # FZF catppuccin theme
-          # set -Ux FZF_DEFAULT_OPTS "\
-          # --color=bg+:#313244,bg:#1e1e2e,spinner:#f5e0dc,hl:#f38ba8 \
-          # --color=fg:#cdd6f4,header:#f38ba8,info:#cba6f7,pointer:#f5e0dc \
-          # --color=marker:#b4befe,fg+:#cdd6f4,prompt:#cba6f7,hl+:#f38ba8 \
-          # --color=selected-bg:#45475a \
-          # --multi"
-
-          # FZF tokyonight_night theme
-          set -Ux FZF_DEFAULT_OPTS " \
-          --highlight-line \
-          --info=inline-right \
-          --ansi \
-          --layout=reverse \
-          --border=none \
-          --color=bg+:#283457 \
-          --color=bg:#16161e \
-          --color=border:#27a1b9 \
-          --color=fg:#c0caf5 \
-          --color=gutter:#16161e \
-          --color=header:#ff9e64 \
-          --color=hl+:#2ac3de \
-          --color=hl:#2ac3de \
-          --color=info:#545c7e \
-          --color=marker:#ff007c \
-          --color=pointer:#ff007c \
-          --color=prompt:#2ac3de \
-          --color=query:#c0caf5:regular \
-          --color=scrollbar:#27a1b9 \
-          --color=separator:#ff9e64 \
-          --color=spinner:#ff007c \
-        "
-
-        # Fish TokyoNight Color Palette
-        set -l foreground c0caf5
-        set -l selection 283457
-        set -l comment 565f89
-        set -l red f7768e
-        set -l orange ff9e64
-        set -l yellow e0af68
-        set -l green 9ece6a
-        set -l purple 9d7cd8
-        set -l cyan 7dcfff
-        set -l pink bb9af7
-
-        # Syntax Highlighting Colors
-        set -g fish_color_normal $foreground
-        set -g fish_color_command $cyan
-        set -g fish_color_keyword $pink
-        set -g fish_color_quote $yellow
-        set -g fish_color_redirection $foreground
-        set -g fish_color_end $orange
-        set -g fish_color_option $pink
-        set -g fish_color_error $red
-        set -g fish_color_param $purple
-        set -g fish_color_comment $comment
-        set -g fish_color_selection --background=$selection
-        set -g fish_color_search_match --background=$selection
-        set -g fish_color_operator $green
-        set -g fish_color_escape $pink
-        set -g fish_color_autosuggestion $comment
-
-        # Completion Pager Colors
-        set -g fish_pager_color_progress $comment
-        set -g fish_pager_color_prefix $cyan
-        set -g fish_pager_color_completion $foreground
-        set -g fish_pager_color_description $comment
-        set -g fish_pager_color_selected_background --background=$selection
+          # FZF colors managed by catppuccin (via fzf.nix)
+          # Fish colors managed by catppuccin
       '';
 
       functions = {

@@ -4,7 +4,7 @@
     helix = {
       enable = true;
       settings = {
-        theme = "catppuccin_mocha";
+        # Theme is managed by catppuccin
         editor = {
           line-number = "relative";
           lsp.display-messages = true;

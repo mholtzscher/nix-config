@@ -31,7 +31,7 @@
     ./ssh.nix
     ./starship.nix
     ./uv.nix
-    ./vicinae.nix # NixOS-only (has platform guard inside)
+    # ./vicinae.nix # NixOS-only (imported directly in desktop.nix)
     ./wezterm.nix
     ./yazi.nix
     ./zed.nix

@@ -5,6 +5,7 @@
   ...
 }:
 {
+  # Catppuccin theme is automatically managed by catppuccin/nix module
   programs = {
     ghostty = {
       enable = true;
@@ -21,7 +22,7 @@
         #font-family-bold-italic = "Iosevka NFM Bold Italic"
         font-size = if pkgs.stdenv.isDarwin then "13" else "11";
 
-        theme = "TokyoNight Night";
+        # theme = "catppuccin-mocha";
 
         background-blur-radius = 20;
         background-opacity = 0.9;

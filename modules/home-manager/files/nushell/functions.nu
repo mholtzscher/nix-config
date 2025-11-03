@@ -331,7 +331,7 @@ def --env aws_export_envs [] {
 # On Linux: nix flake check
 export def nb [] {
   if ($nu.os-info.name == "linux") {
-    nix flake check --flake ~/.config/nix-config
+    nix flake check --flake ~/nix-config
   } else if ($nu.os-info.name == "macos") {
     darwin-rebuild build --flake ~/.config/nix-config
   } else {
@@ -347,7 +347,7 @@ export def nup [] {
   if ($nu.os-info.name == "linux") {
     nixos-rebuild switch --sudo --flake ~/nix-config
   } else if ($nu.os-info.name == "macos") {
-    sudo darwin-rebuild switch --flake ~/nix-config
+    sudo darwin-rebuild switch --flake ~/.config/nix-config
   } else {
     log error "Unsupported OS: ($nu.os-info.name)"
     return 1
@@ -478,99 +478,99 @@ export def aerospace_workspace_size [percentage?: int] {
   return "Completed."
 }
 
-# Theme settings
-$env.config.color_config =  {
-  binary: '#bb9af7'
-  block: '#7aa2f7'
-  cell-path: '#a9b1d6'
-  closure: '#7dcfff'
-  custom: '#c0caf5'
-  duration: '#e0af68'
-  float: '#f7768e'
-  glob: '#c0caf5'
-  int: '#bb9af7'
-  list: '#7dcfff'
-  nothing: '#f7768e'
-  range: '#e0af68'
-  record: '#7dcfff'
-  string: '#9ece6a'
-
-  bool: {|| if $in { '#7dcfff' } else { '#e0af68' } }
-
-  datetime: {||
-    (date now) - $in | if $in < 1hr {
-      {fg: '#f7768e' attr: 'b'}
-    } else if $in < 6hr {
-      '#f7768e'
-    } else if $in < 1day {
-      '#e0af68'
-    } else if $in < 3day {
-      '#9ece6a'
-    } else if $in < 1wk {
-      {fg: '#9ece6a' attr: 'b'}
-    } else if $in < 6wk {
-      '#7dcfff'
-    } else if $in < 52wk {
-      '#7aa2f7'
-    } else { 'dark_gray' }
-  }
-
-  filesize: {|e|
-    if $e == 0b {
-      '#a9b1d6'
-    } else if $e < 1mb {
-      '#7dcfff'
-    } else { {fg: '#7aa2f7'} }
-  }
-
-  shape_and: {fg: '#bb9af7' attr: 'b'}
-  shape_binary: {fg: '#bb9af7' attr: 'b'}
-  shape_block: {fg: '#7aa2f7' attr: 'b'}
-  shape_bool: '#7dcfff'
-  shape_closure: {fg: '#7dcfff' attr: 'b'}
-  shape_custom: '#9ece6a'
-  shape_datetime: {fg: '#7dcfff' attr: 'b'}
-  shape_directory: '#7dcfff'
-  shape_external: '#7dcfff'
-  shape_external_resolved: '#7dcfff'
-  shape_externalarg: {fg: '#9ece6a' attr: 'b'}
-  shape_filepath: '#7dcfff'
-  shape_flag: {fg: '#7aa2f7' attr: 'b'}
-  shape_float: {fg: '#f7768e' attr: 'b'}
-  shape_garbage: {fg: '#FFFFFF' bg: '#FF0000' attr: 'b'}
-  shape_glob_interpolation: {fg: '#7dcfff' attr: 'b'}
-  shape_globpattern: {fg: '#7dcfff' attr: 'b'}
-  shape_int: {fg: '#bb9af7' attr: 'b'}
-  shape_internalcall: {fg: '#7dcfff' attr: 'b'}
-  shape_keyword: {fg: '#bb9af7' attr: 'b'}
-  shape_list: {fg: '#7dcfff' attr: 'b'}
-  shape_literal: '#7aa2f7'
-  shape_match_pattern: '#9ece6a'
-  shape_matching_brackets: {attr: 'u'}
-  shape_nothing: '#f7768e'
-  shape_operator: '#e0af68'
-  shape_or: {fg: '#bb9af7' attr: 'b'}
-  shape_pipe: {fg: '#bb9af7' attr: 'b'}
-  shape_range: {fg: '#e0af68' attr: 'b'}
-  shape_raw_string: {fg: '#c0caf5' attr: 'b'}
-  shape_record: {fg: '#7dcfff' attr: 'b'}
-  shape_redirection: {fg: '#bb9af7' attr: 'b'}
-  shape_signature: {fg: '#9ece6a' attr: 'b'}
-  shape_string: '#9ece6a'
-  shape_string_interpolation: {fg: '#7dcfff' attr: 'b'}
-  shape_table: {fg: '#7aa2f7' attr: 'b'}
-  shape_vardecl: {fg: '#7aa2f7' attr: 'u'}
-  shape_variable: '#bb9af7'
-
-  foreground: '#c0caf5'
-  background: '#1a1b26'
-  cursor: '#c0caf5'
-
-  empty: '#7aa2f7'
-  header: {fg: '#9ece6a' attr: 'b'}
-  hints: '#414868'
-  leading_trailing_space_bg: {attr: 'n'}
-  row_index: {fg: '#9ece6a' attr: 'b'}
-  search_result: {fg: '#f7768e' bg: '#a9b1d6'}
-  separator: '#a9b1d6'
-}
+# Theme settings - Catppuccin Mocha
+# $env.config.color_config =  {
+#   binary: '#cba6f7'
+#   block: '#89b4fa'
+#   cell-path: '#bac2de'
+#   closure: '#94e2d5'
+#   custom: '#cdd6f4'
+#   duration: '#f9e2af'
+#   float: '#f38ba8'
+#   glob: '#cdd6f4'
+#   int: '#cba6f7'
+#   list: '#94e2d5'
+#   nothing: '#f38ba8'
+#   range: '#f9e2af'
+#   record: '#94e2d5'
+#   string: '#a6e3a1'
+#
+#   bool: {|| if $in { '#94e2d5' } else { '#f9e2af' } }
+#
+#   datetime: {||
+#     (date now) - $in | if $in < 1hr {
+#       {fg: '#f38ba8' attr: 'b'}
+#     } else if $in < 6hr {
+#       '#f38ba8'
+#     } else if $in < 1day {
+#       '#f9e2af'
+#     } else if $in < 3day {
+#       '#a6e3a1'
+#     } else if $in < 1wk {
+#       {fg: '#a6e3a1' attr: 'b'}
+#     } else if $in < 6wk {
+#       '#94e2d5'
+#     } else if $in < 52wk {
+#       '#89b4fa'
+#     } else { 'dark_gray' }
+#   }
+#
+#   filesize: {|e|
+#     if $e == 0b {
+#       '#bac2de'
+#     } else if $e < 1mb {
+#       '#94e2d5'
+#     } else { {fg: '#89b4fa'} }
+#   }
+#
+#   shape_and: {fg: '#cba6f7' attr: 'b'}
+#   shape_binary: {fg: '#cba6f7' attr: 'b'}
+#   shape_block: {fg: '#89b4fa' attr: 'b'}
+#   shape_bool: '#94e2d5'
+#   shape_closure: {fg: '#94e2d5' attr: 'b'}
+#   shape_custom: '#a6e3a1'
+#   shape_datetime: {fg: '#94e2d5' attr: 'b'}
+#   shape_directory: '#94e2d5'
+#   shape_external: '#94e2d5'
+#   shape_external_resolved: '#94e2d5'
+#   shape_externalarg: {fg: '#a6e3a1' attr: 'b'}
+#   shape_filepath: '#94e2d5'
+#   shape_flag: {fg: '#89b4fa' attr: 'b'}
+#   shape_float: {fg: '#f38ba8' attr: 'b'}
+#   shape_garbage: {fg: '#FFFFFF' bg: '#FF0000' attr: 'b'}
+#   shape_glob_interpolation: {fg: '#94e2d5' attr: 'b'}
+#   shape_globpattern: {fg: '#94e2d5' attr: 'b'}
+#   shape_int: {fg: '#cba6f7' attr: 'b'}
+#   shape_internalcall: {fg: '#94e2d5' attr: 'b'}
+#   shape_keyword: {fg: '#cba6f7' attr: 'b'}
+#   shape_list: {fg: '#94e2d5' attr: 'b'}
+#   shape_literal: '#89b4fa'
+#   shape_match_pattern: '#a6e3a1'
+#   shape_matching_brackets: {attr: 'u'}
+#   shape_nothing: '#f38ba8'
+#   shape_operator: '#f9e2af'
+#   shape_or: {fg: '#cba6f7' attr: 'b'}
+#   shape_pipe: {fg: '#cba6f7' attr: 'b'}
+#   shape_range: {fg: '#f9e2af' attr: 'b'}
+#   shape_raw_string: {fg: '#cdd6f4' attr: 'b'}
+#   shape_record: {fg: '#94e2d5' attr: 'b'}
+#   shape_redirection: {fg: '#cba6f7' attr: 'b'}
+#   shape_signature: {fg: '#a6e3a1' attr: 'b'}
+#   shape_string: '#a6e3a1'
+#   shape_string_interpolation: {fg: '#94e2d5' attr: 'b'}
+#   shape_table: {fg: '#89b4fa' attr: 'b'}
+#   shape_vardecl: {fg: '#89b4fa' attr: 'u'}
+#   shape_variable: '#cba6f7'
+#
+#   foreground: '#cdd6f4'
+#   background: '#1e1e2e'
+#   cursor: '#cdd6f4'
+#
+#   empty: '#89b4fa'
+#   header: {fg: '#a6e3a1' attr: 'b'}
+#   hints: '#45475a'
+#   leading_trailing_space_bg: {attr: 'n'}
+#   row_index: {fg: '#a6e3a1' attr: 'b'}
+#   search_result: {fg: '#f38ba8' bg: '#bac2de'}
+#   separator: '#bac2de'
+# }

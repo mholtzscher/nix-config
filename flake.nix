@@ -20,10 +20,6 @@
       url = "github:blindFS/topiary-nushell";
       flake = false;
     };
-    tokyonight = {
-      url = "github:folke/tokyonight.nvim";
-      flake = false;
-    };
     ghostty-shader-playground = {
       url = "github:KroneCorylus/ghostty-shader-playground";
       flake = false;
@@ -34,6 +30,7 @@
     vicinae = {
       url = "github:vicinaehq/vicinae";
     };
+    catppuccin.url = "github:catppuccin/nix";
   };
 
   outputs =
@@ -45,10 +42,10 @@
       home-manager,
       naws,
       topiaryNushell,
-      tokyonight,
       ghostty-shader-playground,
       nix-colors,
       vicinae,
+      catppuccin,
     }:
     let
       # Import lib helpers for creating system configurations (reserved for future use)
