@@ -13,12 +13,14 @@ in
     useUserPackages = true;
     backupFileExtension = "backup";
     extraSpecialArgs = { inherit inputs; };
-    users.${user} = { ... }: {
-      imports = [
-        ../../modules/home-manager/home.nix
-        ../../modules/home-manager/hosts/work-mac.nix
-      ];
-    };
+    users.${user} =
+      { ... }:
+      {
+        imports = [
+          ../../modules/home-manager/home.nix
+          ../../modules/home-manager/hosts/work-mac.nix
+        ];
+      };
   };
 
   homebrew = {
@@ -41,7 +43,7 @@ in
     # Apple Silicon Only
     enableRosetta = true;
     # User owning the Homebrew prefix
-    user = user;
+    inherit user;
 
     autoMigrate = true;
   };
