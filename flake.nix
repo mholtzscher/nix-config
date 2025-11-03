@@ -104,6 +104,7 @@
             ./hosts/nixos/desktop.nix
             ./modules/nixos
             ./modules/shared
+            inputs.catppuccin.nixosModules.catppuccin
             inputs.home-manager.nixosModules.home-manager
           ];
         };
