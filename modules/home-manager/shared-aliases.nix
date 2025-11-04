@@ -49,5 +49,8 @@
 
     # UVX
     specify = "uvx --from git+https://github.com/github/spec-kit.git specify";
+
+    # Zellij
+    zel = "zellij";
   };
 }
