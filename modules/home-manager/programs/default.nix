@@ -9,7 +9,6 @@
     ./delta.nix
     ./eza.nix
     ./fd.nix
-    ./fish.nix
     ./fzf.nix
     ./gh-dash.nix
     ./gh.nix

@@ -289,7 +289,7 @@ Some configurations need both levels of conditional logic.
 
 ### Cross-Platform (Goes in shared/ or home-manager/)
 - Nix settings (experimental-features, gc, etc.)
-- Most CLI programs (git, fish, helix, etc.)
+- Most CLI programs (git, helix, nushell, etc.)
 - User environment variables
 - Shell configurations
 - Development tools
@@ -297,7 +297,7 @@ Some configurations need both levels of conditional logic.
 ## Home Manager Programs Review
 
 ### Already Cross-Platform (No Changes Needed)
-- atuin, bat, bottom, carapace, delta, eza, fd, fish, fzf
+- atuin, bat, bottom, carapace, delta, eza, fd, fzf
 - gh, gh-dash, git, go, helix, jq, jujutsu, k9s
 - lazydocker, lazygit, navi, nushell, poetry, pyenv
 - ripgrep, ssh, starship, uv, yazi, zed, zellij, zoxide, zsh

@@ -16,7 +16,7 @@ A comprehensive, multi-platform Nix flake managing both macOS (Darwin) and NixOS
 - **Multi-Platform Support** - Single flake manages both macOS and NixOS
 - **Host-Specific Configs** - Per-host customization (git email, programs, etc.)
 - **Platform Guards** - Conditional config for macOS-only or Linux-only features
-- **37+ Cross-Platform Programs** - Extensive home-manager program configurations
+- **36+ Cross-Platform Programs** - Extensive home-manager program configurations
 - **Desktop Environment Configs** - Hyprland, Hyprpanel, Wofi in host-specific directory
 - **Shared Modules** - DRY principle with reusable cross-platform modules
 - **Automatic GC** - Weekly garbage collection (Sundays 2AM, 30-day retention)
@@ -53,7 +53,7 @@ A comprehensive, multi-platform Nix flake managing both macOS (Darwin) and NixOS
 │       │       ├── hyprland.nix  # Hyprland compositor
 │       │       ├── hyprpanel.nix # Status bar
 │       │       └── wofi.nix      # Application launcher
-│       ├── programs/            # 37 cross-platform programs
+│       ├── programs/            # 36 cross-platform programs
 │       └── files/               # Dotfiles
 ```
 
@@ -308,8 +308,8 @@ nf <file>.nix         # Format nix file
 
 ## 🎨 Included Configurations
 
-### Cross-Platform Programs (37)
-- **Shells**: fish, zsh, nushell
+### Cross-Platform Programs (36)
+- **Shells**: zsh, nushell
 - **Editors**: helix, neovim, vim, zed
 - **Git**: git, gh, gh-dash, jujutsu, lazygit, delta
 - **Terminal**: ghostty, wezterm, zellij, starship

@@ -54,7 +54,6 @@ in
     file = {
       # Cross-platform config files
       "${config.xdg.configHome}/kafkactl/config.yml".source = ./files/kafkactl.yaml;
-      "${config.xdg.configHome}/fish/functions/update.fish".source = ./files/fish/functions/update.fish;
       ".ideavimrc".source = ./files/ideavimrc;
       ".idea-lazy.vim".source = lazyIdeaVim;
 
