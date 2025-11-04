@@ -6,14 +6,39 @@
 }:
 let
   sharedAliases = import ../shared-aliases.nix;
-  
+
   # macOS-specific asdf configuration
   asdfConfig = lib.optionalString pkgs.stdenv.isDarwin ''
+    $env.ASDF_NU_DIR = "/opt/homebrew/opt/asdf/libexec"
+    $env.ASDF_DIR = (
+      if ($env | get --optional ASDF_NU_DIR | is-empty) == false {
+        $env.ASDF_NU_DIR
+      }
+      else if ($env | get --optional ASDF_DIR | is-empty) == false {
+        $env.ASDF_DIR
+      } else {
+        print --stderr "asdf: Either ASDF_NU_DIR or ASDF_DIR must not be empty"
+        return
+      }
+    )
+
+    let shims_dir = (
+      if ( $env | get --optional ASDF_DATA_DIR | is-empty ) {
+        $env.HOME | path join '.asdf'
+      } else {
+        $env.ASDF_DATA_DIR
+      } | path join 'shims'
+    )
+    let asdf_bin_dir = ( $env.ASDF_DIR | path join 'bin' )
+
+    $env.PATH = ( $env.PATH | split row (char esep) | where { |p| $p != $shims_dir } | prepend $shims_dir )
+    $env.PATH = ( $env.PATH | split row (char esep) | where { |p| $p != $asdf_bin_dir } | prepend $asdf_bin_dir )
+
     # Configure asdf (macOS only via Homebrew)
-    if ("/opt/homebrew/opt/asdf/libexec/asdf.nu" | path exists) {
-      $env.ASDF_NU_DIR = "/opt/homebrew/opt/asdf/libexec"
-      source "/opt/homebrew/opt/asdf/libexec/asdf.nu"
-    }
+    # if ("/opt/homebrew/opt/asdf/libexec/asdf.nu" | path exists) {
+    #   $env.ASDF_NU_DIR = "/opt/homebrew/opt/asdf/libexec"
+    #   source "/opt/homebrew/opt/asdf/libexec/asdf.nu"
+    # }
   '';
 in
 {
