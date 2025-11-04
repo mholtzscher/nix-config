@@ -9,7 +9,7 @@ A comprehensive, multi-platform Nix flake managing both macOS (Darwin) and NixOS
 - **Work Mac** (`Michael-Holtzscher-Work`) - Work machine
 
 ### NixOS
-- **Desktop** (`desktop`) - NixOS desktop configuration
+- **Desktop** (`nixos`) - NixOS desktop configuration
 
 ## ✨ Features
 
@@ -17,7 +17,7 @@ A comprehensive, multi-platform Nix flake managing both macOS (Darwin) and NixOS
 - **Host-Specific Configs** - Per-host customization (git email, programs, etc.)
 - **Platform Guards** - Conditional config for macOS-only or Linux-only features
 - **36+ Cross-Platform Programs** - Extensive home-manager program configurations
-- **Desktop Environment Configs** - Hyprland, Hyprpanel, Wofi in host-specific directory
+- **Desktop Environment Configs** - Hyprland, Hyprpanel, Vicinae (replaces Wofi) in host-specific directory
 - **Shared Modules** - DRY principle with reusable cross-platform modules
 - **Automatic GC** - Weekly garbage collection (Sundays 2AM, 30-day retention)
 
@@ -52,7 +52,10 @@ A comprehensive, multi-platform Nix flake managing both macOS (Darwin) and NixOS
 │       │       ├── default.nix
 │       │       ├── hyprland.nix  # Hyprland compositor
 │       │       ├── hyprpanel.nix # Status bar
-│       │       └── wofi.nix      # Application launcher
+│       │       ├── theme.nix     # Theming (GTK/Qt)
+│       │       ├── vicinae.nix   # App launcher (replaces Wofi)
+│       │       ├── webapps.nix   # Web apps as native apps
+│       │       └── wofi.nix      # Application launcher (legacy)
 │       ├── programs/            # 36 cross-platform programs
 │       └── files/               # Dotfiles
 ```
@@ -63,14 +66,11 @@ A comprehensive, multi-platform Nix flake managing both macOS (Darwin) and NixOS
 
 ```bash
 # Validate configuration
-darwin-rebuild build --flake ~/.config/nix-darwin
+darwin-rebuild build --flake ~/.config/nix-config
 
-# Apply changes (after validation)
-darwin-rebuild switch --flake ~/.config/nix-darwin
-
-# Using aliases (if configured)
+# Using aliases
 nb   # Validate
-nup  # Apply
+nup  # Apply (preferred; do not use switch directly)
 ```
 
 ### NixOS
@@ -80,10 +80,10 @@ nup  # Apply
 nix flake check
 
 # Build configuration
-nixos-rebuild build --flake ~/.config/nix-darwin#desktop
+nixos-rebuild build --flake ~/.config/nix-config#nixos
 
 # Apply changes
-sudo nixos-rebuild switch --flake ~/.config/nix-darwin#desktop
+sudo nixos-rebuild switch --flake ~/.config/nix-config#nixos
 ```
 
 ## 📦 Adding Programs
@@ -252,7 +252,7 @@ home.packages = with pkgs; [
 - Example: Git email, Discord (personal only), work tools
 
 **Both**: Can be both platform AND host-specific
-- Example: Aerospace (macOS + personal Mac only)
+- Example: Aerospace (macOS, both Macs)
 
 ### Desktop Environment vs Cross-Platform Programs
 
@@ -271,7 +271,7 @@ home.packages = with pkgs; [
 
 | Feature | Personal Mac | Work Mac | Desktop |
 |---------|-------------|----------|---------|
-| Aerospace | ✅ | ❌ | ❌ |
+| Aerospace (WM config) | ✅ | ✅ | ❌ |
 | Discord | ✅ | ❌ | ✅ |
 | Git Email | Personal | Work | Personal |
 | Platform | macOS | macOS | Linux |
@@ -290,7 +290,7 @@ nix flake check       # Check all platforms
 
 # Apply
 nup                   # Darwin switch (user only)
-sudo nixos-rebuild switch --flake .#desktop  # NixOS
+sudo nixos-rebuild switch --flake .#nixos    # NixOS
 
 # Update
 nfu                   # Update flake inputs
@@ -301,7 +301,7 @@ nf <file>.nix         # Format nix file
 
 ## ⚠️ Important Notes
 
-- **Never run `darwin-rebuild switch` directly** - Always validate with `build` first
+- **Never run `darwin-rebuild switch` directly** — Validate with `nb`, then apply with `nup`
 - **Platform guards are critical** - Always use for platform-specific features
 - **Host configs override shared** - Use `lib.mkDefault` in shared configs
 - **Git tree dirty warnings** - Normal during development, commit changes for clean builds
@@ -320,7 +320,8 @@ nf <file>.nix         # Format nix file
 ### Desktop Environment (NixOS Desktop Host)
 - **Hyprland**: Wayland compositor with keybindings
 - **Hyprpanel**: Status bar with workspace info and system tray
-- **Wofi**: Application launcher with fuzzy search
+- **Vicinae**: App launcher (replaces Wofi)
+- **Wofi**: Legacy application launcher
 
 ### System Configs
 - **macOS**: Dock, Finder, Trackpad settings via nix-darwin
