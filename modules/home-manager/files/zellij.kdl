@@ -47,7 +47,7 @@ keybinds clear-defaults=true {
 
     }
     locked {
-        bind "{primary_modifier} g" {
+        bind "ctrl g" {
             SwitchToMode "Normal"
         }
     }
@@ -427,10 +427,10 @@ keybinds clear-defaults=true {
         }
     }
     shared_except "locked" "renametab" "renamepane" {
-        bind "{primary_modifier} g" {
+        bind "ctrl g" {
             SwitchToMode "Locked"
         }
-        bind "{primary_modifier} q" {
+        bind "ctrl q" {
             Quit
         }
     }
@@ -440,46 +440,46 @@ keybinds clear-defaults=true {
         }
     }
     shared_among "normal" "locked" {
-        bind "{secondary_modifier} n" {
+        bind "Alt n" {
             NewPane
         }
-        bind "{secondary_modifier} f" {
+        bind "Alt f" {
             ToggleFloatingPanes
         }
-        bind "{secondary_modifier} i" {
+        bind "Alt i" {
             MoveTab "Left"
         }
-        bind "{secondary_modifier} o" {
+        bind "Alt o" {
             MoveTab "Right"
         }
-        bind "{secondary_modifier} h" "{secondary_modifier} Left" {
+        bind "Alt h" "Alt Left" {
             MoveFocusOrTab "Left"
         }
-        bind "{secondary_modifier} l" "{secondary_modifier} Right" {
+        bind "Alt l" "Alt Right" {
             MoveFocusOrTab "Right"
         }
-        bind "{secondary_modifier} j" "{secondary_modifier} Down" {
+        bind "Alt j" "Alt Down" {
             MoveFocus "Down"
         }
-        bind "{secondary_modifier} k" "{secondary_modifier} Up" {
+        bind "Alt k" "Alt Up" {
             MoveFocus "Up"
         }
-        bind "{secondary_modifier} =" "{secondary_modifier} +" {
+        bind "Alt =" "Alt +" {
             Resize "Increase"
         }
-        bind "{secondary_modifier} -" {
+        bind "Alt -" {
             Resize "Decrease"
         }
-        bind "{secondary_modifier} [" {
+        bind "Alt [" {
             PreviousSwapLayout
         }
-        bind "{secondary_modifier} ]" {
+        bind "Alt ]" {
             NextSwapLayout
         }
-        bind "{secondary_modifier} p" {
+        bind "Alt p" {
             TogglePaneInGroup
         }
-        bind "{secondary_modifier} Shift p" {
+        bind "Alt Shift p" {
             ToggleGroupMarking
         }
     }
