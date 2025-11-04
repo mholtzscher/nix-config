@@ -34,7 +34,7 @@ in
           if [[ "$OSTYPE" == "linux-gnu"* ]]; then
             nixos-rebuild switch --sudo --flake ~/nix-config
           elif [[ "$OSTYPE" == "darwin"* ]]; then
-            sudo darwin-rebuild switch --flake ~/nix-config
+            sudo darwin-rebuild switch --flake ~/.config/nix-config
           else
             echo "Unsupported OS: $OSTYPE"
             return 1
