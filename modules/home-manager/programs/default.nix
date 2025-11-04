@@ -4,7 +4,7 @@
     ./aerospace.nix # macOS-only (has platform guard inside)
     ./atuin.nix
     ./bat.nix
-    ./bottom.nix
+    ./btop.nix
     ./carapace.nix
     ./delta.nix
     ./eza.nix
