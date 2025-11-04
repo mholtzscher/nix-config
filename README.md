@@ -312,7 +312,7 @@ nf <file>.nix         # Format nix file
 - **Shells**: zsh, nushell
 - **Editors**: helix, neovim, vim, zed
 - **Git**: git, gh, gh-dash, jujutsu, lazygit, delta
-- **Terminal**: ghostty, wezterm, zellij, starship
+- **Terminal**: ghostty, zellij, starship
 - **Dev Tools**: go, poetry, pyenv, uv
 - **Utils**: atuin, bat, bottom, eza, fd, fzf, jq, k9s, lazydocker, ripgrep, yazi, zoxide
 - **macOS**: aerospace (window manager)

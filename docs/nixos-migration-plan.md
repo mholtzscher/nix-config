@@ -305,7 +305,6 @@ Some configurations need both levels of conditional logic.
 ### macOS-Only (Need Platform Guards)
 - **aerospace.nix** - Window manager for macOS
 - **ghostty.nix** - Check if Linux support exists
-- **wezterm.nix** - Cross-platform but may have macOS-specific config
 
 ### Host-Specific (Use Pattern 2)
 - **aerospace** - Only on personal Mac (not work Mac)
@@ -315,7 +314,6 @@ Some configurations need both levels of conditional logic.
 
 ### To Review
 - Check ghostty Linux compatibility
-- Review wezterm config for platform-specific settings
 - Audit dotfiles for macOS-specific paths
 - Determine which programs are host-specific vs platform-specific
 

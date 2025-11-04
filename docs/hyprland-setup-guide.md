@@ -370,7 +370,7 @@ Change the terminal in keybindings:
 ```nix
 extraConfig = ''
   bind = SUPER, Return, exec, <your-terminal-here>
-  # Examples: wezterm, alacritty, kitty, foot
+  # Examples: alacritty, kitty, foot
 '';
 ```
 
