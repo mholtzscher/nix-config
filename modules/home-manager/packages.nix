@@ -42,7 +42,7 @@ with pkgs;
   tree-sitter
   tree-sitter-grammars.tree-sitter-nu
   vim
-  # vscode
+  vscode
   websocat
   wget
   yq
