@@ -9,7 +9,7 @@
     policies = {
       "AutofillAddressEnabled" = false;
       "AutofillCreditCardEnabled" = false;
-      "DisableFirefoxAccounts" = true;
+      "DisableFirefoxAccounts" = false;
       "DisableProfileRefresh" = true;
       "DisableTelemetry" = true;
       "DontCheckDefaultBrowser" = true;
