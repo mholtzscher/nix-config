@@ -52,6 +52,8 @@
         # "browser.download.panel.shown" = true;
         "browser.uitour.enabled" = false;
 
+        "browser.taskbar.lists.enabled" = false;
+
         # Disable warn on quit
         "browser.warnOnQuit" = false;
         "browser.warnOnQuitShortcut" = false;
@@ -59,6 +61,47 @@
         "sidebar.verticalTabs" = true;
         "sidebar.revamp" = true;
         "sidebar.main.tools" = "history,bookmarks";
+
+        # Layout
+        # "browser.uiCustomization.state" = builtins.toJSON {
+        #   placements = {
+        #     # unified-extensions-area = [ ];
+        #     # widget-overflow-fixed-list = [ ];
+        #     nav-bar = [
+        #       "back-button"
+        #       "forward-button"
+        #       "vertical-spacer"
+        #       "stop-reload-button"
+        #       "urlbar-container"
+        #       "downloads-button"
+        #       # "ublock0_raymondhill_net-browser-action"
+        #       # "_testpilot-containers-browser-action"
+        #       # "reset-pbm-toolbar-button"
+        #       "unified-extensions-button"
+        #     ];
+        #     # toolbar-menubar = [ "menubar-items" ];
+        #     # TabsToolbar = [ ];
+        #     # vertical-tabs = [ "tabbrowser-tabs" ];
+        #     # PersonalToolbar = [ "personal-bookmarks" ];
+        #   };
+        #   # seen = [
+        #   #   "save-to-pocket-button"
+        #   #   "developer-button"
+        #   #   "ublock0_raymondhill_net-browser-action"
+        #   #   "_testpilot-containers-browser-action"
+        #   #   "screenshot-button"
+        #   # ];
+        #   # dirtyAreaCache = [
+        #   #   "nav-bar"
+        #   #   "PersonalToolbar"
+        #   #   "toolbar-menubar"
+        #   #   "TabsToolbar"
+        #   #   "widget-overflow-fixed-list"
+        #   #   "vertical-tabs"
+        #   # ];
+        #   # currentVersion = 23;
+        #   # newElementCount = 10;
+        # };
       };
 
       # Search engines configuration
