@@ -1,3 +1,4 @@
+{ pkgs, ... }:
 {
   shellAliases = {
     # Nix/Darwin management
@@ -15,19 +16,18 @@
     ghd = "gh dash";
 
     # Chezmoi dotfile management
-    ch = "chezmoi";
-    chradd = "chezmoi re-add";
-    chap = "chezmoi apply";
-    chd = "chezmoi diff --pager delta";
-    chda = "chezmoi data";
-    chu = "chezmoi update";
-    chs = "chezmoi status";
+    # ch = "chezmoi";
+    # chradd = "chezmoi re-add";
+    # chap = "chezmoi apply";
+    # chd = "chezmoi diff --pager delta";
+    # chda = "chezmoi data";
+    # chu = "chezmoi update";
+    # chs = "chezmoi status";
 
     # Git utilities
     clean = "git clean -Xdf";
 
-    oc = "opencode";
-    ocb = "steam-run bunx opencode-ai";
+    oc = if pkgs.stdenv.isLinux then "steam-run bunx opencode-ai" else "opencode";
 
     # Clipboard utilities
     pbj = "pbpaste | jq";

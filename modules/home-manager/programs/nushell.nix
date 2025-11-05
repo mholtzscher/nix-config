@@ -5,7 +5,7 @@
   ...
 }:
 let
-  sharedAliases = import ../shared-aliases.nix;
+  sharedAliases = import ../shared-aliases.nix { inherit pkgs; };
 
   # macOS-specific asdf configuration
   asdfConfig = lib.optionalString pkgs.stdenv.isDarwin ''

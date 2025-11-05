@@ -31,6 +31,7 @@
     swaylock-effects # Screen locker with effects
     brightnessctl # Brightness control
     pavucontrol # Audio control GUI
+    steam-run # Steam runtime for non-Steam applications
   ];
 
   systemd.user.services."1password" = {

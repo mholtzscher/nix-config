@@ -1,6 +1,6 @@
-{ ... }:
+{ pkgs, ... }:
 let
-  sharedAliases = import ../shared-aliases.nix;
+  sharedAliases = import ../shared-aliases.nix { inherit pkgs; };
 in
 {
   programs = {
