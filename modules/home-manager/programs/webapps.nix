@@ -65,11 +65,7 @@ let
     app:
     let
       desktopName = builtins.replaceStrings [ " " ] [ "-" ] (lib.toLower app.name);
-      iconPath =
-        if app.icon != null then
-          app.icon
-        else
-          ""; # Use empty string if no icon
+      iconPath = if app.icon != null then app.icon else ""; # Use empty string if no icon
     in
     pkgs.writeTextFile {
       name = "${desktopName}.desktop";

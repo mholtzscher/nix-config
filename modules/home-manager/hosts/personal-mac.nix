@@ -10,9 +10,9 @@
 
   # Personal Mac-specific programs and packages
   home.packages = with pkgs; [
-    code-cursor  # AI code editor (personal use only)
-    discord  # Personal communication
-    
+    code-cursor # AI code editor (personal use only)
+    discord # Personal communication
+
     # macOS-only packages
     aerospace
     mkalias
