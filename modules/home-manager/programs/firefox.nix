@@ -53,8 +53,8 @@
         "browser.uitour.enabled" = false;
 
         # Disable warn on quit
-        "browser.warnOnQuit" = false;
-        "browser.warnOnQuitShortcut" = false;
+        # "browser.warnOnQuit" = false;
+        # "browser.warnOnQuitShortcut" = false;
         # Vertical tabs
         "sidebar.verticalTabs" = true;
         "sidebar.revamp" = true;
