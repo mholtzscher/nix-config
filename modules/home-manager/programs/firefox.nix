@@ -52,8 +52,6 @@
         # "browser.download.panel.shown" = true;
         "browser.uitour.enabled" = false;
 
-        "browser.taskbar.lists.enabled" = false;
-
         # Disable warn on quit
         "browser.warnOnQuit" = false;
         "browser.warnOnQuitShortcut" = false;
