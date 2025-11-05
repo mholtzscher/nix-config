@@ -56,12 +56,6 @@ in
     networkmanager.enable = true;
   };
 
-  # Bootloader configuration
-  boot.loader = {
-    systemd-boot.enable = true;
-    efi.canTouchEfiVariables = true;
-  };
-
   # Time zone and locale
   time.timeZone = "America/Chicago";
   i18n.defaultLocale = "en_US.UTF-8";
@@ -115,37 +109,6 @@ in
     printing.enable = true;
   };
 
-  # Hyprland configuration
-  programs.hyprland = {
-    enable = true;
-    xwayland.enable = true;
-  };
-
-  # NVIDIA GPU support with Hyprland optimizations
-  hardware.nvidia = {
-    modesetting.enable = true;
-    powerManagement.enable = false;
-    powerManagement.finegrained = false;
-    open = false;
-    nvidiaSettings = true;
-    package = config.boot.kernelPackages.nvidiaPackages.stable;
-  };
-
-  # Kernel parameters for NVIDIA + Wayland
-  boot.kernelParams = [
-    "nvidia-drm.modeset=1"
-  ]
-  ++ pkgs.lib.optional enableEdidOverride "drm.edid_firmware=DP-1:edid/dp1.bin";
-
-  # EDID override for KVM - forces kernel to use captured EDID
-  # instead of relying on KVM to pass through monitor capabilities
-  hardware.firmware = pkgs.lib.optionals enableEdidOverride [
-    (pkgs.runCommand "edid-firmware" { } ''
-      mkdir -p $out/lib/firmware/edid
-      cp ${edidBinPath} $out/lib/firmware/edid/dp1.bin
-    '')
-  ];
-
   # Environment variables for NVIDIA + Hyprland
   environment.sessionVariables = {
     WLR_NO_HARDWARE_CURSORS = "1";
@@ -170,16 +133,86 @@ in
   environment.systemPackages = with pkgs; [
     # Clipboard utility for Wayland
     wl-clipboard
-    
+
     # Browsers
     chromium
   ];
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
+  programs = {
 
-  # Enable browsers
-  programs.firefox.enable = true;
+    # Hyprland configuration
+    hyprland = {
+      enable = true;
+      xwayland.enable = true;
+    };
+
+    # Enable browsers
+    firefox.enable = true;
+    steam = {
+
+      # Gaming configuration
+
+      enable = true;
+      remotePlay.openFirewall = false; # Open ports for Steam Remote Play
+      dedicatedServer.openFirewall = false; # Open ports for Source Dedicated Server
+      localNetworkGameTransfers.openFirewall = false; # Open ports for Steam Local Network Game Transfers
+      gamescopeSession.enable = true;
+    }; # Enable gamescope compositor option
+
+    # Enable gamemode for performance optimizations during gaming
+    gamemode.enable = true;
+  };
+  hardware = {
+
+    # NVIDIA GPU support with Hyprland optimizations
+    nvidia = {
+      modesetting.enable = true;
+      powerManagement.enable = false;
+      powerManagement.finegrained = false;
+      open = false;
+      nvidiaSettings = true;
+      package = config.boot.kernelPackages.nvidiaPackages.stable;
+    };
+
+    # EDID override for KVM - forces kernel to use captured EDID
+    # instead of relying on KVM to pass through monitor capabilities
+    firmware = pkgs.lib.optionals enableEdidOverride [
+      (pkgs.runCommand "edid-firmware" { } ''
+        mkdir -p $out/lib/firmware/edid
+        cp ${edidBinPath} $out/lib/firmware/edid/dp1.bin
+      '')
+    ];
+
+    # Graphics drivers for gaming (Vulkan, OpenGL with 32-bit support)
+    graphics = {
+      enable = true;
+      enable32Bit = true; # Required for 32-bit games
+    };
+  };
+
+  # Performance tuning for gaming
+  powerManagement.cpuFreqGovernor = "performance";
+  boot = {
+
+    # Bootloader configuration
+    loader = {
+      systemd-boot.enable = true;
+      efi.canTouchEfiVariables = true;
+    };
+
+    # Kernel parameters for NVIDIA + Wayland
+    kernelParams = [
+      "nvidia-drm.modeset=1"
+    ]
+    ++ pkgs.lib.optional enableEdidOverride "drm.edid_firmware=DP-1:edid/dp1.bin";
+
+    # Increase vm.max_map_count for games that need it (some Proton games)
+    kernel.sysctl = {
+      "vm.max_map_count" = 2147483642;
+    };
+  };
 
   # This value determines the NixOS release compatibility.
   # Don't change this without reading the release notes.

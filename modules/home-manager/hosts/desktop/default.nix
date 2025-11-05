@@ -10,9 +10,9 @@
     ./theme.nix # GTK/Qt dark mode theming
     ./vicinae.nix # NixOS-only launcher (requires vicinae module from hosts/nixos/desktop.nix)
     ./webapps.nix # Web apps as native applications
+    ./gaming.nix # Gaming configuration (Steam, MangoHud, etc.)
     # ./wofi.nix # Replaced by Vicinae
   ];
-
   # Install EDID capture script for KVM troubleshooting
   home.file.".local/bin/capture-edid" = {
     source = ../../files/hyprland/capture-edid.sh;
