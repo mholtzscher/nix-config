@@ -2,8 +2,7 @@
 {
   shellAliases = {
     # Nix/Darwin management
-    # nb and nup are now platform-aware functions in nushell/functions.nu
-    nfu = "nix flake update --flake ~/.config/nix-config";
+    # nb, nup, and nfu are now platform-aware functions in nushell/functions.nu
     ngc = "nix-collect-garbage -d";
 
     # Navigation & development tools

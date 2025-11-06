@@ -354,6 +354,20 @@ export def nup [] {
   }
 }
 
+# Platform-aware Nix flake update command
+# On macOS: updates flake at ~/.config/nix-config
+# On Linux: updates flake at ~/nix-config
+export def nfu [] {
+  if ($nu.os-info.name == "linux") {
+    nix flake update --flake ~/nix-config
+  } else if ($nu.os-info.name == "macos") {
+    nix flake update --flake ~/.config/nix-config
+  } else {
+    log error "Unsupported OS: ($nu.os-info.name)"
+    return 1
+  }
+}
+
 # Adjust aerospace workspace percentage by increment/decrement
 # Usage: aerospace_workspace_adjust 5       # Increment by 5%
 #        aerospace_workspace_adjust -5      # Decrement by 5%
