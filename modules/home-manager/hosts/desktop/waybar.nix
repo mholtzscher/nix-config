@@ -8,15 +8,31 @@
     settings = [
       {
         layer = "top";
-        modules-left = [ "custom/launcher" "cpu" "memory" "tray" ];
-        modules-center = [ "hyprland/workspaces" ];
-        modules-right = [ "backlight" "pulseaudio" "clock" "custom/power" ];
+        modules-left = [ ];
+        modules-center = [
+          "custom/launcher"
+          "cpu"
+          "memory"
+          "tray"
+          "hyprland/workspaces"
+          "backlight"
+          "pulseaudio"
+          "clock"
+          "custom/power"
+        ];
+        modules-right = [ ];
 
         # Hyprland workspaces
         "hyprland/workspaces" = {
           format = "{name}";
           persistent-workspaces = {
-            "DP-1" = [ 1 2 3 4 5 ];
+            "DP-1" = [
+              1
+              2
+              3
+              4
+              5
+            ];
           };
         };
 
@@ -51,7 +67,11 @@
           format-muted = "{icon} {volume}%";
           on-click = "pactl set-sink-mute @DEFAULT_SINK@ toggle";
           format-icons = {
-            default = [ "" "" "" ];
+            default = [
+              ""
+              ""
+              ""
+            ];
           };
         };
 
