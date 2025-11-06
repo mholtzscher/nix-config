@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ ... }:
 
 {
   programs.waybar = {
@@ -14,12 +14,7 @@
           "network"
         ];
         modules-center = [
-          # "custom/launcher"
-          # "tray"
           "hyprland/workspaces"
-          # "backlight"
-          # "pulseaudio"
-          # "custom/power"
         ];
         modules-right = [ "clock" ];
 
@@ -59,6 +54,11 @@
           tooltip-format = "{ifname}: {ipaddr}/{cidr}";
         };
 
+        # Clock module
+        clock = {
+          format = "󰃰 {:%I:%M %p   %d/%m/%Y}";
+        };
+
         # Backlight module
         # backlight = {
         #   tooltip = false;
@@ -84,16 +84,11 @@
         #   };
         # };
 
-        # Clock module
-        clock = {
-          format = "󰃰 {:%I:%M %p   %d/%m/%Y}";
-        };
-
         # System tray
-        tray = {
-          icon-size = 18;
-          spacing = 10;
-        };
+        # tray = {
+        #   icon-size = 18;
+        #   spacing = 10;
+        # };
 
         # Custom launcher (using vicinae)
         # "custom/launcher" = {
@@ -110,7 +105,7 @@
       }
     ];
 
-    # style = ../../files/waybar/style.css;
+    style = builtins.readFile ../../files/waybar/style.css;
   };
 
   # Ensure waybar dependencies are available

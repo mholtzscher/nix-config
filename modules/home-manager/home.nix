@@ -45,6 +45,7 @@ in
     # Disable for programs with custom configs
     zellij.enable = false; # Has extensive custom keybindings in zellij.kdl
     # waybar.enable = false; # Has custom style.css in desktop/waybar.nix
+    # waybar.mode = ""
   };
 
   home = {
