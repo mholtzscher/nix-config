@@ -141,7 +141,7 @@ in
       # Autostart programs
       exec-once = [
         "vicinae server"
-        "hyprpanel"
+        "waybar"
         "${pkgs.hyprpolkitagent}/libexec/hyprpolkitagent"
       ];
 

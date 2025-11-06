@@ -2,7 +2,7 @@
 
 {
   programs.hyprpanel = {
-    enable = true;
+    enable = false; # Disabled in favor of waybar
     systemd.enable = true;
 
     settings = {
