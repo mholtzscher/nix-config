@@ -141,7 +141,7 @@ in
       # Autostart programs
       exec-once = [
         "vicinae server"
-        "waybar"
+        # waybar is started via systemd (see waybar.nix systemd.enable = true)
         "${pkgs.hyprpolkitagent}/libexec/hyprpolkitagent"
       ];
 
