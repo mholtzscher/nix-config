@@ -47,6 +47,7 @@
     rustc
     cargo
     gcc
+    vscode
 
     # System utilities
     lshw

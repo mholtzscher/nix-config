@@ -37,6 +37,7 @@
       "postman"
       "raycast"
       "slack"
+      "visual-studio-code"
     ];
     masApps = {
       "Numbers" = 409203825;
