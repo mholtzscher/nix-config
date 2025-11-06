@@ -43,6 +43,25 @@
     { device = "/dev/disk/by-uuid/ff127c89-8abe-4db5-8cf9-90c416dc5633"; }
   ];
 
+  # Additional hard drive mounts
+  # Games drive - ext4 formatted
+  # To enable:
+  # 1. Find UUID: sudo blkid /dev/sdX1 (replace sdX1 with your drive partition)
+  # 2. Replace YOUR-UUID-HERE below with the actual UUID
+  # 3. Uncomment the fileSystems block
+  # 4. Validate: sudo nixos-rebuild build --flake ~/.config/nix-config#nixos
+  # 5. Apply: sudo nixos-rebuild switch --flake ~/.config/nix-config#nixos
+  
+  # fileSystems."/mnt/games" = {
+  #   device = "/dev/disk/by-uuid/YOUR-UUID-HERE";
+  #   fsType = "ext4";
+  #   options = [
+  #     "defaults"      # Standard mount options
+  #     "nofail"        # Don't fail boot if drive is missing
+  #     "noatime"       # Don't update access times (better performance for games)
+  #   ];
+  # };
+
   # Enables DHCP on each ethernet and wireless interface.
   networking.useDHCP = lib.mkDefault true;
 
