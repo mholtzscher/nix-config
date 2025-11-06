@@ -11,6 +11,7 @@
         modules-left = [
           "cpu"
           "memory"
+          "network"
         ];
         modules-center = [
           # "custom/launcher"
@@ -48,6 +49,14 @@
           interval = 30;
           format = "󰍛 {used:.1f}G";
           max-length = 10;
+        };
+
+        # Network module
+        network = {
+          interval = 2;
+          format-ethernet = "󰈀 {bandwidthDownBytes}  {bandwidthUpBytes}";
+          format-disconnected = "󰌙 Disconnected";
+          tooltip-format = "{ifname}: {ipaddr}/{cidr}";
         };
 
         # Backlight module
