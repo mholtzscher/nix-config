@@ -1,7 +1,10 @@
-{ pkgs }:
+{ pkgs, inputs }:
 
 with pkgs;
 [
+  # bd (beads) - AI-supervised issue tracker
+  inputs.beads.packages.${pkgs.system}.default
+
   nodejs_24
   lua
   bun

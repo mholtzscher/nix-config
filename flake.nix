@@ -31,6 +31,10 @@
       url = "github:vicinaehq/vicinae";
     };
     catppuccin.url = "github:catppuccin/nix";
+    beads = {
+      url = "github:steveyegge/beads";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -46,6 +50,7 @@
       nix-colors,
       vicinae,
       catppuccin,
+      beads,
     }:
     let
       # Import lib helpers for creating system configurations (reserved for future use)

@@ -51,7 +51,7 @@ in
   home = {
     stateVersion = "24.11";
     # xdg.enable = true;
-    packages = import ./packages.nix { inherit pkgs; };
+    packages = import ./packages.nix { inherit pkgs inputs; };
 
     file = {
       # Cross-platform config files
