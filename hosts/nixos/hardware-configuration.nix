@@ -51,16 +51,16 @@
   # 3. Uncomment the fileSystems block
   # 4. Validate: sudo nixos-rebuild build --flake ~/.config/nix-config#nixos
   # 5. Apply: sudo nixos-rebuild switch --flake ~/.config/nix-config#nixos
-  
-  # fileSystems."/mnt/games" = {
-  #   device = "/dev/disk/by-uuid/YOUR-UUID-HERE";
-  #   fsType = "ext4";
-  #   options = [
-  #     "defaults"      # Standard mount options
-  #     "nofail"        # Don't fail boot if drive is missing
-  #     "noatime"       # Don't update access times (better performance for games)
-  #   ];
-  # };
+
+  fileSystems."/mnt/games" = {
+    device = "/dev/disk/by-uuid/b17a1789-1f79-4f5f-8d3c-7f431dbd5b43";
+    fsType = "ext4";
+    options = [
+      "defaults" # Standard mount options
+      "nofail" # Don't fail boot if drive is missing
+      "noatime" # Don't update access times (better performance for games)
+    ];
+  };
 
   # Enables DHCP on each ethernet and wireless interface.
   networking.useDHCP = lib.mkDefault true;

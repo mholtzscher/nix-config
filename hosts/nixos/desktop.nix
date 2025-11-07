@@ -56,6 +56,11 @@ in
     networkmanager.enable = true;
   };
 
+  # Set correct permissions for Steam games partition
+  systemd.tmpfiles.rules = [
+    "d /mnt/games 0755 ${user} users -"
+  ];
+
   # Time zone and locale
   time.timeZone = "America/Chicago";
   i18n.defaultLocale = "en_US.UTF-8";
