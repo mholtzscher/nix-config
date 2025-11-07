@@ -44,15 +44,9 @@
   ];
 
   # Additional hard drive mounts
-  # Games drive - ext4 formatted
-  # To enable:
-  # 1. Find UUID: sudo blkid /dev/sdX1 (replace sdX1 with your drive partition)
-  # 2. Replace YOUR-UUID-HERE below with the actual UUID
-  # 3. Uncomment the fileSystems block
-  # 4. Validate: sudo nixos-rebuild build --flake ~/.config/nix-config#nixos
-  # 5. Apply: sudo nixos-rebuild switch --flake ~/.config/nix-config#nixos
+  # Games drive - ext4 formatted, mounted in user's home directory
 
-  fileSystems."/mnt/games" = {
+  fileSystems."/home/michael/games" = {
     device = "/dev/disk/by-uuid/b17a1789-1f79-4f5f-8d3c-7f431dbd5b43";
     fsType = "ext4";
     options = [

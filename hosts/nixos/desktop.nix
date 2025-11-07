@@ -56,9 +56,10 @@ in
     networkmanager.enable = true;
   };
 
-  # Set correct permissions for Steam games partition
+  # Set correct ownership for Steam games partition
+  # Using tmpfiles.d is the idiomatic NixOS way for declarative directory permissions
   systemd.tmpfiles.rules = [
-    "d /mnt/games 0755 ${user} users -"
+    "d /home/${user}/games 0755 ${user} users -"
   ];
 
   # Time zone and locale
