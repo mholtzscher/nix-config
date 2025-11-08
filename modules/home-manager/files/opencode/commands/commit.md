@@ -1,60 +1,84 @@
-Analyze the current git state and create a conventional commit message following best practices.
+---
+description: Create a conventional commit with staged changes
+agent: general
+---
 
-## Analysis Steps
+You are the commit agent. Your task is to create a conventional commit from staged changes. Follow this process exactly:
 
-1. Run `git status` to see staged and unstaged changes
-2. Run `git diff --cached` to see staged changes that will be committed
-3. If no changes are staged, run `git diff` to see unstaged changes and ask if they should be staged
-4. Run `git log --oneline -5` to understand recent commit message patterns in this repository
+## Step 1: Gather Information
 
-## Conventional Commit Format
+Using bash, run these commands in parallel:
+- `git status` - see staging status
+- `git diff --cached` - see staged changes
+- `git log --oneline -5` - understand recent commit patterns
 
-Create a commit message following the conventional commit specification:
+If no files are staged, run `git diff` to show unstaged changes and ask the user what should be staged before proceeding.
+
+## Step 2: Analyze Changes
+
+Wrap your analysis in `<commit_analysis>` tags:
+- List the files changed
+- Summarize what was modified (new feature, bug fix, docs, refactoring, etc.)
+- Determine the impact on the project
+- Check for sensitive information
+
+## Step 3: Draft Commit Message
+
+Create a conventional commit message:
 
 ```
 <type>[optional scope]: <description>
 
-[optional body]
-
-[optional footer(s)]
+[optional body explaining the "why"]
 ```
 
-### Types to use
-
+### Commit Types
 - **feat**: new feature for the user
 - **fix**: bug fix for the user
 - **docs**: changes to documentation
-- **style**: formatting, missing semicolons, etc; no production code change
-- **refactor**: refactoring production code, eg. renaming a variable
-- **test**: adding missing tests, refactoring tests; no production code change
-- **chore**: updating grunt tasks etc; no production code change
+- **style**: formatting, missing semicolons, etc
+- **refactor**: refactoring production code
+- **test**: adding/refactoring tests
+- **chore**: updating tasks, dependencies
 - **perf**: performance improvements
-- **ci**: changes to CI configuration files and scripts
-- **build**: changes that affect the build system or external dependencies
+- **ci**: CI configuration changes
+- **build**: build system or dependency changes
 
-## Requirements
+The description should be 50 chars or less and use imperative mood ("add" not "added").
 
-1. **Analyze the changes**: Understand what was modified, added, or removed
-2. **Determine the type**: Choose the most appropriate conventional commit type
-3. **Write a clear description**: Concise but descriptive (50 chars or less for the subject)
-4. **Add body if needed**: For complex changes, include a body explaining the "why"
-5. **Stage files if needed**: If no files are staged, ask what should be committed
-6. **Create the commit**: Use `git commit -m` with the conventional commit message
+## Step 4: Get User Approval
 
-## Output Format
+Present the proposed commit message clearly and wait for the user to confirm it's correct. Do NOT commit without explicit user approval.
 
-After analysis, create the commit using this exact format:
+## Step 5: Execute Commit
 
+Once approved, run:
 ```bash
-git commit -m "<type>[optional scope]: <description>"
+git commit -m "TYPE(scope): description" -m "optional body"
 ```
 
-If a body is needed:
+## Step 6: Handle Pre-Commit Hooks
 
-```bash
-git commit -m "<type>[optional scope]: <description>
+If the commit fails with a pre-commit hook error:
+1. The hook likely modified files automatically
+2. Run `git diff --cached` to see the changes
+3. Run `git status` to confirm modified files
+4. Retry the commit ONCE with: `git commit --no-verify` if the hook changes look correct
+5. Or, if you need to include the hook modifications in the commit, run `git add .` then retry the original commit
 
-<body explaining the why and any breaking changes>"
+## Step 7: Report Success
+
+Show the user the commit hash and a summary of what was committed. Example:
+```
+✓ Commit created: a1b2c3d
+  docs(opencode): update commit command documentation
 ```
 
-Focus on creating a single, well-crafted conventional commit that accurately represents the changes.
+## Important Constraints
+
+- Always use the Bash tool for git commands
+- Never use `git commit -i` (interactive mode is not supported)
+- Always ask for approval before committing
+- If the user wants to cancel, stop immediately
+- If pre-commit hooks modify files, retry is acceptable but only ONCE
+- Always show the final commit hash to confirm success
