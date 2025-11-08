@@ -11,7 +11,28 @@ output "DP-1" {
 layout {
   gaps 16
   
+  // Always center the active/focused column
+  center-focused-column "always"
+  
+  // Default column width
   default-column-width { proportion 0.5; }
+  
+  // Preset column widths optimized for 5120x1440 ultrawide
+  // Cycle through these with Mod+R
+  preset-column-widths {
+    proportion 0.25    // Quarter screen (1280px) - for 4-column layouts
+    proportion 0.33333 // Third screen (1707px) - for 3-column layouts
+    proportion 0.5     // Half screen (2560px) - main/main split
+    proportion 0.66667 // Two-thirds (3413px) - main + sidebar
+    fixed 1920         // Full HD width - for apps optimized at this size
+    fixed 2560         // 1440p width - for larger apps
+  }
+  
+  // Small struts to keep adjacent windows peeking on ultrawide
+  struts {
+    left 8
+    right 8
+  }
   
   focus-ring {
     width 4
@@ -52,7 +73,7 @@ binds {
   Mod+Shift+Slash { show-hotkey-overlay; }
   
   // Applications
-  Mod+Space { spawn "vicinae"; }
+  Mod+Space { spawn "vicinae" "toggle"; }
   Mod+T { spawn "ghostty"; }
   Mod+E { spawn "nautilus"; }
   Mod+B { spawn "firefox"; }
@@ -98,9 +119,24 @@ binds {
   Mod+F { maximize-column; }
   Mod+Shift+F { fullscreen-window; }
 
-  // Column width
+  // Column width adjustments
   Mod+Minus { set-column-width "-10%"; }
   Mod+Equal { set-column-width "+10%"; }
+  
+  // Ultrawide-specific: Quick preset widths
+  Mod+R { switch-preset-column-width; }
+  Mod+Shift+R { switch-preset-window-height; }
+  
+  // Ultrawide-specific: Column positioning
+  Mod+C { center-column; }
+  Mod+Ctrl+C { center-visible-columns; }
+  
+  // Ultrawide-specific: Expand to available width (great for main+sidebar)
+  Mod+Ctrl+F { expand-column-to-available-width; }
+  
+  // Quick jump to edges
+  Mod+Home { focus-column-first; }
+  Mod+End { focus-column-last; }
 
   // Exit
   Mod+Shift+E { quit; }
