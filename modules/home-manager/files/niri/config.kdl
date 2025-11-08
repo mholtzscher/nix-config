@@ -148,6 +148,6 @@ animations {
 }
 
 // Autostart programs
-spawn-at-startup "swaybg" "-i" "$HOME/.config/wallpapers/current.jpg" "-m" "fill"
+spawn-at-startup "swaybg" "-i" "/home/michael/.config/wallpapers/current.jpg" "-m" "fill"
 
 prefer-no-csd
