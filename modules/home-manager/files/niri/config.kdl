@@ -147,4 +147,7 @@ animations {
   slowdown 3.0
 }
 
+// Autostart programs
+spawn-at-startup "swaybg" "-i" "$HOME/.config/wallpapers/current.jpg" "-m" "fill"
+
 prefer-no-csd
