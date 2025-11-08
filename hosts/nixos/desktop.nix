@@ -105,7 +105,8 @@ in
       enable = true;
       settings = {
         default_session = {
-          command = "${pkgs.tuigreet}/bin/tuigreet --time --remember --cmd Hyprland";
+          # tuigreet will show available sessions (Hyprland, Niri, etc.)
+          command = "${pkgs.tuigreet}/bin/tuigreet --time --remember";
           user = "greeter";
         };
       };
@@ -126,6 +127,7 @@ in
     enable = true;
     extraPortals = [
       pkgs.xdg-desktop-portal-hyprland
+      pkgs.xdg-desktop-portal-gnome # For Niri screencasting support
       pkgs.xdg-desktop-portal-gtk # For better GTK/GNOME app compatibility
     ];
   };
@@ -147,6 +149,11 @@ in
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
   programs = {
+
+    # Niri window manager (scrollable tiling Wayland compositor)
+    niri = {
+      enable = true;
+    };
 
     # Hyprland configuration
     hyprland = {
