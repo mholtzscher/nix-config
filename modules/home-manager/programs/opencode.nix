@@ -91,6 +91,13 @@
           #   };
           # };
         };
+        mcp = {
+          beads = {
+            type = "local";
+            command = [ "beads-mcp" ];
+            enabled = true;
+          };
+        };
       };
     };
   };
