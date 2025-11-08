@@ -12,6 +12,13 @@ let
   # See modules/home-manager/files/hyprland/README-EDID-Override.md for instructions
   enableEdidOverride = true; # Set to true when dp1.bin exists
   edidBinPath = ../../modules/home-manager/files/hyprland/edid/dp1.bin;
+
+  # SSH Public Keys - Get your key with: ssh-add -L
+  # TODO: Add your SSH public key here before applying configuration
+  sshPublicKeys = [
+    # "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAA... your-key-comment"
+    # Add additional keys as needed
+  ];
 in
 {
   imports = [
@@ -29,6 +36,8 @@ in
       "docker" # Docker access (if enabled)
     ];
     shell = pkgs.zsh;
+    # SSH authorized keys for remote access
+    openssh.authorizedKeys.keys = sshPublicKeys;
   };
 
   # Home Manager configuration
@@ -54,6 +63,16 @@ in
   networking = {
     hostName = "nixos";
     networkmanager.enable = true;
+    
+    # Firewall configuration
+    firewall = {
+      enable = true;
+      # Only allow SSH from local network (10.69.69.0/24)
+      # This prevents external SSH access while allowing local network connections
+      extraCommands = ''
+        iptables -A nixos-fw -p tcp --dport 22 -s 10.69.69.0/24 -j nixos-fw-accept
+      '';
+    };
   };
 
   # Set correct ownership for Steam games partition
@@ -113,6 +132,38 @@ in
 
     # Enable CUPS for printing
     printing.enable = true;
+
+    # SSH server configuration
+    openssh = {
+      enable = true;
+      
+      # Security settings - key-based authentication only
+      settings = {
+        PasswordAuthentication = false;       # Disable password login
+        PermitRootLogin = "no";              # Disable root login
+        KbdInteractiveAuthentication = false; # Disable keyboard-interactive auth
+        
+        # Disable X11 forwarding (not needed for Wayland)
+        X11Forwarding = false;
+        
+        # Only allow specific user
+        AllowUsers = [ "michael" ];
+      };
+      
+      # Port configuration - using standard port 22
+      # Change to custom port (e.g., 2222) for additional security if desired
+      ports = [ 22 ];
+    };
+    
+    # Fail2ban for brute-force protection
+    fail2ban = {
+      enable = true;
+      maxretry = 5;
+      ignoreIP = [
+        "127.0.0.1/8"      # Localhost
+        "10.69.69.0/24"    # Local network
+      ];
+    };
   };
 
   # Environment variables for NVIDIA + Hyprland
