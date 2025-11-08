@@ -98,15 +98,15 @@ in
       };
     };
 
-    desktopManager.gnome.enable = true;
-
     # Greetd display manager with tuigreet greeter
     greetd = {
       enable = true;
       settings = {
         default_session = {
           # tuigreet will show available sessions (Hyprland, Niri, etc.)
-          command = "${pkgs.tuigreet}/bin/tuigreet --time --remember";
+          # --remember-session saves last selected session
+          # Remove --sessions flag to use system default paths
+          command = "${pkgs.tuigreet}/bin/tuigreet --time --remember-session --asterisks";
           user = "greeter";
         };
       };
@@ -121,6 +121,8 @@ in
     WLR_NO_HARDWARE_CURSORS = "1";
     NIXOS_OZONE_WL = "1";
   };
+
+  services.displayManager.sessionPackages = [ pkgs.niri ];
 
   # XDG portals for Wayland
   xdg.portal = {
