@@ -1,6 +1,6 @@
-{ pkgs, ... }:
 {
-  # Niri configuration using declarative settings
+  # Niri window manager configuration
+  # Note: wallpaper is managed by wallpaper.nix via systemd service
   programs.niri.settings = {
     # Monitor configuration
     outputs."DP-1" = {
@@ -146,24 +146,9 @@
     animations.slowdown = 3.0;
 
     # Startup programs
-    spawn-at-startup = [
-      {
-        command = [
-          "swaybg"
-          "-i"
-          "/home/michael/.config/wallpapers/current.jpg"
-          "-m"
-          "fill"
-        ];
-      }
-    ];
+    # Note: swaybg is managed via systemd service (see wallpaper.nix)
+    spawn-at-startup = [ ];
 
     prefer-no-csd = true;
   };
-
-  # Keep wallpaper setup
-  home.file.".config/wallpapers/current.jpg".source = ../../files/wallpapers/aishot-3308.jpg;
-
-  # Keep swaybg package
-  home.packages = with pkgs; [ swaybg ];
 }

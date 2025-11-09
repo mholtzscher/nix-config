@@ -7,6 +7,7 @@
   imports = [
     ./hyprland.nix
     ./niri.nix # Niri window manager config (experimental)
+    ./wallpaper.nix # Shared wallpaper config (works with both Hyprland and Niri)
     ./hyprpanel.nix # Disabled for rollback option
     ./waybar.nix # Primary bar - replaces hyprpanel
     ./theme.nix # GTK/Qt dark mode theming
