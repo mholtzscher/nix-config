@@ -3,6 +3,10 @@ let
   user = "michael";
 in
 {
+  imports = [
+    ../../modules/darwin/homebrew/hosts/personal-mac.nix
+  ];
+
   users.users.${user} = {
     name = user;
     home = "/Users/${user}";
@@ -21,27 +25,6 @@ in
           ../../modules/home-manager/hosts/personal-mac.nix
         ];
       };
-  };
-
-  homebrew = {
-    taps = [
-    ];
-    brews = [
-      # "gemini-cli"
-      "hashicorp/tap/terraform"
-      "mockery"
-      "pyenv-virtualenv"
-    ];
-    casks = [
-      "1password"
-      "1password-cli"
-      "capacities"
-      "claude-code"
-      "intellij-idea-ce"
-    ];
-    masApps = {
-      "WhatsApp" = 310633997;
-    };
   };
 
   nix-homebrew = {

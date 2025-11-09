@@ -3,6 +3,10 @@ let
   user = "michaelholtzcher";
 in
 {
+  imports = [
+    ../../modules/darwin/homebrew/hosts/work-mac.nix
+  ];
+
   users.users.${user} = {
     name = user;
     home = "/Users/${user}";
@@ -21,21 +25,6 @@ in
           ../../modules/home-manager/hosts/work-mac.nix
         ];
       };
-  };
-
-  homebrew = {
-    brews = [
-      "tfenv"
-    ];
-    casks = [
-      # "1password"
-      # "1password-cli"
-      "intellij-idea"
-      # "ijhttp"
-    ];
-    masApps = {
-      # "In Your Face" = 1476964367;
-    };
   };
 
   nix-homebrew = {

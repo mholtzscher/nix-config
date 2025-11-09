@@ -1,7 +1,7 @@
 { ... }:
 {
   imports = [
-    ./homebrew.nix
+    ./homebrew
     ./darwin.nix
   ];
 }

@@ -1,3 +1,5 @@
+# Common Homebrew configuration shared across all macOS hosts
+# Host-specific packages should be defined in ./hosts/*.nix
 { ... }:
 {
   homebrew = {
