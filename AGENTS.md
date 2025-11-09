@@ -54,7 +54,12 @@ modules/
   ├── darwin/                          # macOS-only modules
   │   ├── default.nix
   │   ├── darwin.nix                   # System defaults (dock, finder, trackpad)
-  │   └── homebrew.nix                 # Homebrew config
+  │   └── homebrew/                    # Homebrew config (modularized)
+  │       ├── default.nix              # Entry point
+  │       ├── common.nix               # Shared packages across all macOS hosts
+  │       └── hosts/                   # Host-specific Homebrew packages
+  │           ├── personal-mac.nix
+  │           └── work-mac.nix
   ├── nixos/                           # NixOS-only modules
   │   ├── default.nix
   │   └── nixos.nix                    # NixOS system config
@@ -138,15 +143,29 @@ modules/
 
 - **Cross-platform Nix**: `modules/home-manager/packages.nix` (main list)
 - **macOS-only Nix**: `modules/home-manager/packages.nix` (in `lib.optionals pkgs.stdenv.isDarwin`)
-- **Homebrew** (macOS only): Host files under `homebrew.brews`/`homebrew.casks`
+- **Homebrew** (macOS only):
+  - Common packages: `modules/darwin/homebrew/common.nix`
+  - Host-specific: `modules/darwin/homebrew/hosts/{personal-mac,work-mac}.nix`
 - **Host-specific**: Add to `modules/home-manager/hosts/*.nix`
+
+### Add Homebrew Package (macOS)
+
+**Common package** (all macOS hosts):
+1. Edit `modules/darwin/homebrew/common.nix`
+2. Add to appropriate list (`taps`, `brews`, `casks`, `masApps`)
+3. Validate with `nb` or `darwin-rebuild build --flake .`
+
+**Host-specific package**:
+1. Edit `modules/darwin/homebrew/hosts/{hostname}.nix`
+2. Add to appropriate list (`brews`, `casks`, `masApps`)
+3. Validate with `nb` or `darwin-rebuild build --flake .`
 
 ## Platform-Specific Guidelines
 
 ### macOS-Only Features
 
 These should use platform guards or stay in darwin modules:
-- Homebrew (stays in host files)
+- Homebrew (modularized in `modules/darwin/homebrew/`)
 - Aerospace window manager (platform guarded in programs/aerospace.nix)
 - macOS system defaults (stays in modules/darwin/darwin.nix)
 - Raycast scripts (platform guarded in home.nix)
