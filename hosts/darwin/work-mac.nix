@@ -45,7 +45,6 @@ in
           "/Applications/Arc.app"
           "/System/Applications/Messages.app"
           "/Applications/Slack.app"
-          # "/Applications/1Password.app"
           "/Applications/Ghostty.app"
           "/Applications/Postico.app"
           "/Applications/IntelliJ IDEA.app"
