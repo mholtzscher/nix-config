@@ -63,7 +63,7 @@ in
   networking = {
     hostName = "nixos";
     networkmanager.enable = true;
-    
+
     # Firewall configuration
     firewall = {
       enable = true;
@@ -137,32 +137,32 @@ in
     # SSH server configuration
     openssh = {
       enable = true;
-      
+
       # Security settings - key-based authentication only
       settings = {
-        PasswordAuthentication = false;       # Disable password login
-        PermitRootLogin = "no";              # Disable root login
+        PasswordAuthentication = false; # Disable password login
+        PermitRootLogin = "no"; # Disable root login
         KbdInteractiveAuthentication = false; # Disable keyboard-interactive auth
-        
+
         # Disable X11 forwarding (not needed for Wayland)
         X11Forwarding = false;
-        
+
         # Only allow specific user
         AllowUsers = [ "michael" ];
       };
-      
+
       # Port configuration - using standard port 22
       # Change to custom port (e.g., 2222) for additional security if desired
       ports = [ 22 ];
     };
-    
+
     # Fail2ban for brute-force protection
     fail2ban = {
       enable = true;
       maxretry = 5;
       ignoreIP = [
-        "127.0.0.1/8"      # Localhost
-        "10.69.69.0/24"    # Local network
+        "127.0.0.1/8" # Localhost
+        "10.69.69.0/24" # Local network
       ];
     };
   };
@@ -173,7 +173,10 @@ in
     NIXOS_OZONE_WL = "1";
   };
 
-  services.displayManager.sessionPackages = [ pkgs.niri ];
+  # Niri flake binary cache for faster builds
+  nix.settings.substituters = [ "https://niri.cachix.org" ];
+
+  services.displayManager.sessionPackages = [ inputs.niri.packages.${pkgs.system}.niri-stable ];
 
   # XDG portals for Wayland
   xdg.portal = {
@@ -203,9 +206,10 @@ in
   nixpkgs.config.allowUnfree = true;
   programs = {
 
-    # Niri window manager (scrollable tiling Wayland compositor)
+    # Niri window manager (scrollable tiling Wayland compositor) - using flake
     niri = {
       enable = true;
+      package = inputs.niri.packages.${pkgs.system}.niri-stable;
     };
 
     # Hyprland configuration
