@@ -11,21 +11,17 @@
       "hashicorp/tap"
       "FelixKratz/formulae"
       "jetbrains/utils"
-      # "nikitabobko/tap"
       "sst/tap"
-      # "steveyegge/beads"
     ];
     brews = [
       "awscli"
       "asdf"
-      # "bd"
       "borders"
       "JetBrains/utils/kotlin-lsp"
       "mas"
       "sst/tap/opencode"
     ];
     casks = [
-      # "aerospace"
       "arc"
       "bartender"
       "deskpad"
