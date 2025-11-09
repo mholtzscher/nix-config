@@ -24,11 +24,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1762563257,
-        "narHash": "sha256-0ZhKUnZBfzk+zIZam6PIF2MS4T0Kl7QfUyc65fu76KQ=",
+        "lastModified": 1762646331,
+        "narHash": "sha256-myDD1uYIJJcQu4h7EUkdaSpGdzsysDRiGXfc7km+mX4=",
         "owner": "steveyegge",
         "repo": "beads",
-        "rev": "c81c1653fdb50784963d780669819201d0126a10",
+        "rev": "384a369acf6d3a48677c938770261acac1207fa3",
         "type": "github"
       },
       "original": {
@@ -186,11 +186,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1762501326,
-        "narHash": "sha256-QbhsksHaIN6qU3oXhwUFbYycKX1GRxObpQSWAM5fhRY=",
+        "lastModified": 1762627886,
+        "narHash": "sha256-/QLk1bzmbcqJt9sU43+y/3tHtXhAy0l8Ck0MoO2+evQ=",
         "owner": "LnL7",
         "repo": "nix-darwin",
-        "rev": "e2b82ebd0f990a5d1b68fcc761b3d6383c86ccfd",
+        "rev": "5125a3cd414dc98bbe2c528227aa6b62ee61f733",
         "type": "github"
       },
       "original": {
@@ -347,11 +347,11 @@
         "nixpkgs": "nixpkgs_3"
       },
       "locked": {
-        "lastModified": 1762497941,
-        "narHash": "sha256-BXBzVznheP5ftLoeYPdo1V0f24oiHXfJj20PbvBi5DA=",
+        "lastModified": 1762627486,
+        "narHash": "sha256-4Lw7lnY44SfLxvo8ezyTMtsgAZ0UnzHMG9ucEOLr2SI=",
         "owner": "vicinaehq",
         "repo": "vicinae",
-        "rev": "dec93efa90d2765e2efc65e1d27455bd30b33ac0",
+        "rev": "d45e052901d02dcec0acf87ed39d947f5f344841",
         "type": "github"
       },
       "original": {
