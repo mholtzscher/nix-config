@@ -35,6 +35,10 @@
       url = "github:steveyegge/beads";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    niri = {
+      url = "github:sodiboo/niri-flake";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -51,6 +55,7 @@
       vicinae,
       catppuccin,
       beads,
+      niri,
     }:
     let
       # Import lib helpers for creating system configurations (reserved for future use)

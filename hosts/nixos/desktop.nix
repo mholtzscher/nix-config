@@ -23,6 +23,7 @@ in
 {
   imports = [
     ./hardware-configuration.nix
+    inputs.niri.nixosModules.niri
   ];
 
   # User configuration
@@ -173,11 +174,6 @@ in
     NIXOS_OZONE_WL = "1";
   };
 
-  # Niri flake binary cache for faster builds
-  nix.settings.substituters = [ "https://niri.cachix.org" ];
-
-  services.displayManager.sessionPackages = [ inputs.niri.packages.${pkgs.system}.niri-stable ];
-
   # XDG portals for Wayland
   xdg.portal = {
     enable = true;
@@ -206,11 +202,9 @@ in
   nixpkgs.config.allowUnfree = true;
   programs = {
 
-    # Niri window manager (scrollable tiling Wayland compositor) - using flake
-    niri = {
-      enable = true;
-      package = inputs.niri.packages.${pkgs.system}.niri-stable;
-    };
+    # Niri window manager (scrollable tiling Wayland compositor)
+    # Configuration via programs.niri.settings in modules/home-manager/hosts/desktop/niri.nix
+    niri.enable = true;
 
     # Hyprland configuration
     hyprland = {
