@@ -9,15 +9,17 @@ A comprehensive, multi-platform Nix flake managing both macOS (Darwin) and NixOS
 - **Work Mac** (`Michael-Holtzscher-Work`) - Work machine
 
 ### NixOS
-- **Desktop** (`nixos`) - NixOS desktop configuration
+- **Desktop** (`nixos`) - Gaming and development workstation with Hyprland/Niri
 
 ## ✨ Features
 
 - **Multi-Platform Support** - Single flake manages both macOS and NixOS
 - **Host-Specific Configs** - Per-host customization (git email, programs, etc.)
 - **Platform Guards** - Conditional config for macOS-only or Linux-only features
-- **36+ Cross-Platform Programs** - Extensive home-manager program configurations
-- **Desktop Environment Configs** - Hyprland, Hyprpanel, Vicinae (replaces Wofi) in host-specific directory
+- **36 Cross-Platform Programs** - Extensive home-manager program configurations
+- **Dual Compositor Support** - Hyprland and Niri (scrollable tiling) with shared configs
+- **Gaming Optimized** - Steam, gamemode, performance tuning, NVIDIA support
+- **Security Hardened** - SSH key-only auth, fail2ban, restricted firewall
 - **Shared Modules** - DRY principle with reusable cross-platform modules
 - **Automatic GC** - Weekly garbage collection (Sundays 2AM, 30-day retention)
 
@@ -50,12 +52,15 @@ A comprehensive, multi-platform Nix flake managing both macOS (Darwin) and NixOS
 │       │   ├── work-mac.nix
 │       │   └── desktop/         # NixOS desktop-specific configs
 │       │       ├── default.nix
+│       │       ├── gaming.nix    # Gaming packages & config
 │       │       ├── hyprland.nix  # Hyprland compositor
-│       │       ├── hyprpanel.nix # Status bar
+│       │       ├── hyprpanel.nix # Status bar (Hyprland)
+│       │       ├── niri.nix      # Niri scrollable compositor
 │       │       ├── theme.nix     # Theming (GTK/Qt)
-│       │       ├── vicinae.nix   # App launcher (replaces Wofi)
+│       │       ├── vicinae.nix   # App launcher (Hyprland/Niri)
+│       │       ├── waybar.nix    # Status bar (Niri)
 │       │       ├── webapps.nix   # Web apps as native apps
-│       │       └── wofi.nix      # Application launcher (legacy)
+│       │       └── wofi.nix      # Legacy app launcher
 │       ├── programs/            # 36 cross-platform programs
 │       └── files/               # Dotfiles
 ```
@@ -257,9 +262,10 @@ home.packages = with pkgs; [
 ### Desktop Environment vs Cross-Platform Programs
 
 **Desktop Environment Configs** (host-specific):
-- Configs specific to a particular desktop environment like Hyprland
+- Configs specific to Wayland compositors (Hyprland, Niri)
 - Located in `modules/home-manager/hosts/desktop/` for NixOS desktop
-- Include full setup (compositor, status bar, app launcher)
+- Include compositor, status bar (Hyprpanel/Waybar), app launcher (Vicinae)
+- Gaming configs, themes, and web apps
 - No platform guards needed (already in host directory)
 
 **Cross-Platform Programs** (programs/):
@@ -271,7 +277,9 @@ home.packages = with pkgs; [
 
 | Feature | Personal Mac | Work Mac | Desktop |
 |---------|-------------|----------|---------|
-| Aerospace (WM config) | ✅ | ✅ | ❌ |
+| Aerospace (WM) | ✅ | ✅ | ❌ |
+| Hyprland/Niri (WM) | ❌ | ❌ | ✅ |
+| Gaming (Steam) | ❌ | ❌ | ✅ |
 | Discord | ✅ | ❌ | ✅ |
 | Git Email | Personal | Work | Personal |
 | Platform | macOS | macOS | Linux |
@@ -313,19 +321,29 @@ nf <file>.nix         # Format nix file
 - **Editors**: helix, neovim, vim, zed
 - **Git**: git, gh, gh-dash, jujutsu, lazygit, delta
 - **Terminal**: ghostty, zellij, starship
-- **Dev Tools**: go, poetry, pyenv, uv
-- **Utils**: atuin, bat, bottom, eza, fd, fzf, jq, k9s, lazydocker, ripgrep, yazi, zoxide
-- **macOS**: aerospace (window manager)
+- **Dev Tools**: go, poetry, pyenv, uv, node, bun, zig
+- **Cloud**: beads (AI-supervised issue tracker)
+- **Utils**: atuin, bat, bottom, btop, eza, fd, fzf, jq, k9s, kafkactl, lazydocker, ripgrep, yazi, zoxide
+- **macOS Only**: aerospace (window manager)
 
-### Desktop Environment (NixOS Desktop Host)
-- **Hyprland**: Wayland compositor with keybindings
-- **Hyprpanel**: Status bar with workspace info and system tray
-- **Vicinae**: App launcher (replaces Wofi)
-- **Wofi**: Legacy application launcher
+### Wayland Compositors (NixOS Desktop)
+- **Hyprland**: Dynamic tiling Wayland compositor with NVIDIA optimizations
+  - Hyprpanel: Modern status bar with workspace info
+  - Custom keybindings and window rules
+- **Niri**: Scrollable tiling Wayland compositor (flake-based)
+  - Waybar: Minimalist status bar
+  - Shared configs with Hyprland where applicable
+- **Shared**: Vicinae app launcher, Greetd/tuigreet login
+
+### Gaming Configuration (NixOS Desktop)
+- **Steam**: Full Steam integration with Gamescope session
+- **Performance**: Gamemode, CPU governor, vm.max_map_count tuning
+- **Hardware**: NVIDIA drivers, 32-bit graphics support, Vulkan/OpenGL
+- **KVM Support**: EDID override for display passthrough
 
 ### System Configs
-- **macOS**: Dock, Finder, Trackpad settings via nix-darwin
-- **NixOS**: GNOME desktop, PipeWire audio, NetworkManager
+- **macOS**: Dock, Finder, Trackpad settings, Homebrew integration
+- **NixOS**: Greetd login, PipeWire audio, NetworkManager, SSH hardening, fail2ban
 
 ## 📄 License
 
@@ -335,6 +353,25 @@ Personal configuration - use as reference or template.
 
 This is a personal configuration, but feel free to use it as inspiration for your own setup!
 
+## 🔌 Flake Inputs
+
+### Core
+- **nixpkgs**: NixOS/nixpkgs (unstable channel)
+- **nix-darwin**: macOS system management
+- **home-manager**: User environment management
+- **nix-homebrew**: Declarative Homebrew on macOS
+
+### Enhancements
+- **beads**: AI-supervised issue tracking CLI
+- **vicinae**: Modern Wayland app launcher
+- **catppuccin**: Catppuccin color scheme integration
+- **nix-colors**: Color scheme framework
+
+### Resources (non-flake)
+- **naws**: AWS CLI wrapper utilities
+- **topiary-nushell**: Nushell formatter for Topiary
+- **ghostty-shader-playground**: Ghostty terminal shaders
+
 ---
 
-**Built with** [Nix](https://nixos.org/) • [nix-darwin](https://github.com/LnL7/nix-darwin) • [home-manager](https://github.com/nix-community/home-manager)
+**Built with** [Nix](https://nixos.org/) • [nix-darwin](https://github.com/LnL7/nix-darwin) • [home-manager](https://github.com/nix-community/home-manager) • [Hyprland](https://hyprland.org/) • [Niri](https://github.com/YaLTeR/niri)
