@@ -6,6 +6,7 @@
   # Desktop-specific imports
   imports = [
     ./hyprland.nix
+    ./niri.nix # Niri window manager config (experimental)
     ./hyprpanel.nix # Disabled for rollback option
     ./waybar.nix # Primary bar - replaces hyprpanel
     ./theme.nix # GTK/Qt dark mode theming

@@ -117,14 +117,15 @@ in
       };
     };
 
-    desktopManager.gnome.enable = true;
-
     # Greetd display manager with tuigreet greeter
     greetd = {
       enable = true;
       settings = {
         default_session = {
-          command = "${pkgs.tuigreet}/bin/tuigreet --time --remember --cmd Hyprland";
+          # tuigreet will show available sessions (Hyprland, Niri, etc.)
+          # --remember-session saves last selected session
+          # Remove --sessions flag to use system default paths
+          command = "${pkgs.tuigreet}/bin/tuigreet --time --remember-session --asterisks";
           user = "greeter";
         };
       };
@@ -172,11 +173,14 @@ in
     NIXOS_OZONE_WL = "1";
   };
 
+  services.displayManager.sessionPackages = [ pkgs.niri ];
+
   # XDG portals for Wayland
   xdg.portal = {
     enable = true;
     extraPortals = [
       pkgs.xdg-desktop-portal-hyprland
+      pkgs.xdg-desktop-portal-gnome # For Niri screencasting support
       pkgs.xdg-desktop-portal-gtk # For better GTK/GNOME app compatibility
     ];
   };
@@ -198,6 +202,11 @@ in
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
   programs = {
+
+    # Niri window manager (scrollable tiling Wayland compositor)
+    niri = {
+      enable = true;
+    };
 
     # Hyprland configuration
     hyprland = {
