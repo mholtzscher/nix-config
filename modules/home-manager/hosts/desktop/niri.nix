@@ -41,14 +41,14 @@
 
       focus-ring = {
         width = 4;
-        active-color = "#6699cc";
-        inactive-color = "#505050";
+        # active-color = "#6699cc";
+        # inactive-color = "#505050";
       };
 
       border = {
         width = 2;
-        active-color = "#6699cc";
-        inactive-color = "#505050";
+        # active-color = "#6699cc";
+        # inactive-color = "#505050";
       };
     };
 

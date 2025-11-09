@@ -14,21 +14,34 @@
           "network"
         ];
         modules-center = [
-          "hyprland/workspaces"
+          "niri/workspaces"
         ];
-        modules-right = [ "clock" ];
+        modules-right = [
+          "niri/window"
+          "clock"
+        ];
 
-        # Hyprland workspaces
-        "hyprland/workspaces" = {
-          format = "{name}";
-          persistent-workspaces = {
-            "DP-1" = [
-              1
-              2
-              3
-              4
-              5
-            ];
+        # Niri workspaces
+        "niri/workspaces" = {
+          format = "{icon}";
+          format-icons = {
+            # Icons by state
+            "focused" = "";
+            "active" = "";
+            "default" = "";
+          };
+        };
+
+        # Niri window
+        "niri/window" = {
+          format = "{}";
+          max-length = 50;
+          rewrite = {
+            "(.*) - Mozilla Firefox" = "🌎 $1";
+            "(.*) - Chromium" = "🌎 $1";
+            "(.*) - vim" = " $1";
+            "(.*) - nvim" = " $1";
+            "(.*) - zsh" = " [$1]";
           };
         };
 

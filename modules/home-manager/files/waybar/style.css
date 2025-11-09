@@ -23,8 +23,8 @@ window#waybar.hidden {
   padding-right: 10px;
   border-radius: 10px;
   transition: none;
-  color: transparent;
-  background: transparent;
+  color: #161320;
+  background: #fae3b0;
 }
 
 #workspaces {
