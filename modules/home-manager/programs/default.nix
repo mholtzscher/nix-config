@@ -1,7 +1,6 @@
 { ... }:
 {
   imports = [
-    ./aerospace.nix # macOS-only (has platform guard inside)
     ./atuin.nix
     ./bat.nix
     ./btop.nix
@@ -30,7 +29,6 @@
     ./ssh.nix
     ./starship.nix
     ./uv.nix
-    # ./vicinae.nix # NixOS-only (imported directly in desktop.nix)
     ./webapps.nix # NixOS-only (has platform guard inside)
     ./yazi.nix
     ./zed.nix
