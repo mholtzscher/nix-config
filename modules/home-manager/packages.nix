@@ -45,7 +45,6 @@ with pkgs;
   tree-sitter
   tree-sitter-grammars.tree-sitter-nu
   vim
-  # vscode
   websocat
   wget
   yq

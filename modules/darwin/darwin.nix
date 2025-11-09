@@ -41,23 +41,6 @@
       show-process-indicators = true;
       show-recents = false;
       expose-group-apps = true;
-      # persistent-apps = [
-      #   "/Applications/Arc.app"
-      #   "/Applications/Obsidian.app"
-      #   "/System/Applications/Messages.app"
-      #   "/Applications/WhatsApp.app"
-      #   "${pkgs.discord}/Applications/Discord.app"
-      #   "/Applications/Slack.app"
-      #   "/Applications/1Password.app"
-      #   "/Applications/Ghostty.app"
-      #   "/Applications/Postico.app"
-      #   "/Applications/IntelliJ IDEA.app"
-      #   "/System/Applications/Mail.app"
-      #   "/System/Applications/Calendar.app"
-      #   "/Applications/Todoist.app"
-      #   "/System/Applications/Music.app"
-      #   "/System/Applications/News.app"
-      # ];
       wvous-bl-corner = 1;
       wvous-br-corner = 1;
       wvous-tl-corner = 1;
@@ -85,10 +68,6 @@
       "com.jetbrains.intellij.ce" = {
         ApplePressAndHoldEnabled = false;
       };
-      # "com.pointum.hazeover" = {
-      #   Enabled = 1;
-      #   Intensity = "70";
-      # };
       "com.surteesstudios.Bartender" = {
         UseBartenderBar = 1;
         TriggerSettings = {
