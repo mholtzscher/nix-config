@@ -43,7 +43,7 @@
             agent = "general";
             subtask = true;
             # model = "anthropic/claude-sonnet-4-5-20250929";
-            template = "{file:${../files/opencode/commands/commit.md}}";
+            template = "{file:${../files/opencode/commands/conventional-commit.md}}";
           };
         };
         agent = {
