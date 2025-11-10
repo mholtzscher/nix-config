@@ -19,6 +19,9 @@
     sync_address = lib.mkForce "";
   };
 
+  # Disable beads MCP server on work Mac
+  programs.opencode.settings.mcp.beads.enabled = lib.mkForce false;
+
   # Work-specific environment or configurations
   # No Discord on work Mac (not in packages)
 }
