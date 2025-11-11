@@ -20,6 +20,12 @@
     layout = {
       gaps = 16;
       center-focused-column = "always";
+      border = "off";
+      focus-ring = {
+        width = 2;
+        # active-color = "#6699cc";
+        # inactive-color = "#505050";
+      };
 
       default-column-width = {
         proportion = 0.5;
