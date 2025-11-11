@@ -1,51 +1,87 @@
 { inputs, self, ... }:
 {
-  # Helper function to create a nix-darwin system configuration
-  # Abstracts common module imports and setup
-  # Usage: mkDarwinSystem { hostPath = ./hosts/darwin/personal-mac.nix; user = "michael"; }
-  mkDarwinSystem =
+  # Unified helper function to create system configurations for both Darwin and NixOS
+  # Inspired by mitchellh/nixos-config unified system builder
+  #
+  # Darwin Usage:
+  #   mkSystem { name = "personal-mac"; system = "aarch64-darwin"; darwin = true; hostPath = ./hosts/darwin/personal-mac.nix; user = "michael"; }
+  #
+  # NixOS Usage:
+  #   mkSystem { name = "desktop"; system = "x86_64-linux"; hostPath = ./hosts/nixos/desktop.nix; user = "michael"; graphical = true; gaming = true; }
+  mkSystem =
     {
+      name,
+      system,
       hostPath,
       user ? "michael",
+      darwin ? false,
+      graphical ? true,
+      gaming ? false,
     }:
-    inputs.nix-darwin.lib.darwinSystem {
-      specialArgs = {
-        inherit inputs self user;
-      };
-      modules = [
+    let
+      # Heuristics for platform detection
+      isDarwin = darwin;
+      isLinux = !darwin;
+
+      # Select appropriate system builder function
+      systemFunc =
+        if isDarwin then inputs.nix-darwin.lib.darwinSystem else inputs.nixpkgs.lib.nixosSystem;
+
+      # Select appropriate home-manager module
+      homeManagerModule =
+        if isDarwin then
+          inputs.home-manager.darwinModules.home-manager
+        else
+          inputs.home-manager.nixosModules.home-manager;
+
+      # Common modules shared by both platforms
+      commonModules = [
         hostPath
-        ../modules/darwin
         ../modules/shared
+        homeManagerModule
+
+        # Global module arguments - available to all modules
+        {
+          _module.args = {
+            currentSystem = system;
+            currentSystemName = name;
+            currentSystemUser = user;
+            inherit isDarwin isLinux inputs;
+          }
+          // (if isLinux then { inherit graphical gaming; } else { });
+        }
+      ];
+
+      # Darwin-specific modules
+      darwinModules = [
+        ../modules/darwin
         inputs.nix-homebrew.darwinModules.nix-homebrew
-        inputs.home-manager.darwinModules.home-manager
         {
           # Used for backwards compatibility, please read the changelog before changing.
           # $ darwin-rebuild changelog
           system.stateVersion = 5;
         }
       ];
-    };
 
-  # Helper function to create a NixOS system configuration
-  # Abstracts common module imports and setup
-  # Usage: mkNixOSSystem { hostPath = ./hosts/nixos/desktop.nix; system = "x86_64-linux"; user = "michael"; }
-  mkNixOSSystem =
-    {
-      hostPath,
-      system ? "x86_64-linux",
-      user ? "michael",
-    }:
-    inputs.nixpkgs.lib.nixosSystem {
-      inherit system;
-      specialArgs = {
-        inherit inputs self user;
-      };
-      modules = [
-        hostPath
+      # NixOS-specific modules
+      nixosModules = [
         ../modules/nixos
-        ../modules/shared
         inputs.catppuccin.nixosModules.catppuccin
-        inputs.home-manager.nixosModules.home-manager
+
+        # Conditional module loading based on feature flags
+        (if graphical then inputs.niri.nixosModules.niri else { })
       ];
-    };
+
+      # Combine platform-specific modules with common modules
+      allModules = commonModules ++ (if isDarwin then darwinModules else nixosModules);
+    in
+    systemFunc (
+      {
+        specialArgs = {
+          inherit inputs self user;
+        };
+        modules = allModules;
+      }
+      // (if isLinux then { inherit system; } else { })
+    );
 }

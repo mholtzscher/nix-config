@@ -64,13 +64,19 @@
     {
       darwinConfigurations = {
         # Personal Mac (M1 Max)
-        "Michaels-M1-Max" = lib.mkDarwinSystem {
+        "Michaels-M1-Max" = lib.mkSystem {
+          name = "personal-mac";
+          system = "aarch64-darwin";
+          darwin = true;
           hostPath = ./hosts/darwin/personal-mac.nix;
           user = "michael";
         };
 
         # Work Mac
-        "Michael-Holtzscher-Work" = lib.mkDarwinSystem {
+        "Michael-Holtzscher-Work" = lib.mkSystem {
+          name = "work-mac";
+          system = "aarch64-darwin";
+          darwin = true;
           hostPath = ./hosts/darwin/work-mac.nix;
           user = "michaelholtzcher";
         };
@@ -78,10 +84,13 @@
 
       nixosConfigurations = {
         # NixOS Desktop
-        nixos = lib.mkNixOSSystem {
-          hostPath = ./hosts/nixos/desktop.nix;
+        nixos = lib.mkSystem {
+          name = "desktop";
           system = "x86_64-linux";
+          hostPath = ./hosts/nixos/desktop.nix;
           user = "michael";
+          graphical = true;
+          gaming = true;
         };
       };
     };

@@ -23,7 +23,7 @@ in
 {
   imports = [
     ./hardware-configuration.nix
-    inputs.niri.nixosModules.niri
+    # Niri module is now conditionally loaded in lib/default.nix based on graphical flag
   ];
 
   # User configuration

@@ -81,6 +81,9 @@ modules/
 ### Key Concepts
 
 - **Flake inputs**: nixpkgs (unstable), nix-darwin, home-manager, nix-homebrew
+- **Unified system builder**: Single `mkSystem` function handles both Darwin and NixOS
+  - Uses `darwin = true` parameter to branch platform logic
+  - Inspired by mitchellh/nixos-config unified approach
 - **Module loading**:
   - **Darwin**: Host → darwin modules → shared modules → nix-homebrew → home-manager
   - **NixOS**: Host → nixos modules → shared modules → home-manager
@@ -91,6 +94,9 @@ modules/
   - `modules/home-manager/` - Mostly cross-platform (with platform guards)
 - **Host-specific configs**: Each host imports its own `modules/home-manager/hosts/*.nix`
 - **Platform guards**: Use `lib.mkIf pkgs.stdenv.isDarwin` or `lib.optionalAttrs` for conditional config
+- **Global module arguments**: All modules have access to `currentSystemName`, `currentSystemUser`, `isDarwin`, `isLinux`, `inputs`
+  - NixOS modules also get `currentSystem`, `graphical`, `gaming`
+  - Darwin modules also get `currentSystem`
 - **Garbage collection**: Automatic weekly on Sundays at 2:00 AM (30 day retention)
 
 ## Common Tasks
@@ -114,16 +120,37 @@ modules/
 
 1. Create `hosts/darwin/hostname.nix` (copy existing)
 2. Create `modules/home-manager/hosts/hostname.nix` for host-specific config
-3. Add `darwinConfigurations.hostname` in `flake.nix`
+3. Add to `flake.nix`:
+```nix
+darwinConfigurations."Host-Name" = lib.mkSystem {
+  name = "friendly-name";           # Used in logs, module args
+  system = "aarch64-darwin";        # Architecture
+  darwin = true;                    # Required for Darwin
+  hostPath = ./hosts/darwin/hostname.nix;
+  user = "username";                # Default: "michael"
+};
+```
 4. Match system hostname with config name
 
 ### Add Host (NixOS)
 
 1. Create `hosts/nixos/hostname.nix` (copy desktop.nix template)
 2. Create `modules/home-manager/hosts/hostname.nix` for host-specific config
-3. Add `nixosConfigurations.hostname` in `flake.nix`
-4. Set correct `system` architecture (e.g., `x86_64-linux`)
-5. Update hardware configuration (filesystems, boot, etc.)
+3. Add to `flake.nix`:
+```nix
+nixosConfigurations.hostname = lib.mkSystem {
+  name = "friendly-name";           # Used in logs, module args
+  system = "x86_64-linux";          # Architecture: "x86_64-linux" or "aarch64-linux"
+  hostPath = ./hosts/nixos/hostname.nix;
+  user = "username";                # Default: "michael"
+  graphical = true;                 # Default: true - loads GUI modules (niri, etc.)
+  gaming = false;                   # Default: false - available in module args
+};
+```
+4. Update hardware configuration (filesystems, boot, etc.)
+5. Feature flags:
+   - `graphical = true` → Loads niri module, enables GUI features
+   - `gaming = true` → Available in module args for gaming-specific config
 
 ### Modify System Settings
 
@@ -194,6 +221,36 @@ config = lib.mkIf pkgs.stdenv.isDarwin {
 
 # For activation
 activation = lib.mkIf pkgs.stdenv.isDarwin { /* macOS activation */ };
+```
+
+**NEW: Use global module arguments** (available in any module):
+```nix
+{ config, lib, pkgs, isDarwin, isLinux, currentSystemName, currentSystemUser, ... }:
+{
+  # Platform conditionals (cleaner than pkgs.stdenv.isDarwin)
+  config = lib.mkIf isDarwin {
+    programs.aerospace.enable = true;
+  };
+  
+  # System-specific config
+  environment.etc."hostname".text = currentSystemName;
+  
+  # User-specific config
+  users.users.${currentSystemUser}.shell = pkgs.zsh;
+}
+```
+
+**NixOS-specific module arguments**:
+```nix
+{ graphical, gaming, ... }:
+{
+  # Conditional based on feature flags
+  config = lib.mkIf gaming {
+    programs.steam.enable = true;
+  };
+  
+  services.xserver.enable = lib.mkIf graphical true;
+}
 ```
 
 ## Host-Specific vs Platform-Specific
