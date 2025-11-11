@@ -1,7 +1,7 @@
 { ... }:
 {
   # Vicinae - High-performance native launcher for Linux
-  # Replaces wofi with more features: clipboard history, calculator, file search, extensions
+  # Features: clipboard history, calculator, file search, extensions
   # Only imported on NixOS via desktop.nix (not available on macOS)
 
   services.vicinae = {
