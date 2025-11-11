@@ -6,13 +6,6 @@
   ...
 }:
 let
-
-  # KVM EDID Override Configuration
-  # Set to true after capturing EDID file and adding it to git
-  # See modules/home-manager/files/hyprland/README-EDID-Override.md for instructions
-  enableEdidOverride = true; # Set to true when dp1.bin exists
-  edidBinPath = ../../modules/home-manager/files/hyprland/edid/dp1.bin;
-
   # SSH Public Keys - Get your key with: ssh-add -L
   # TODO: Add your SSH public key here before applying configuration
   sshPublicKeys = [
@@ -123,7 +116,7 @@ in
       enable = true;
       settings = {
         default_session = {
-          # tuigreet will show available sessions (Hyprland, Niri, etc.)
+          # tuigreet will show available sessions (Niri, etc.)
           # --remember-session saves last selected session
           # Remove --sessions flag to use system default paths
           command = "${pkgs.tuigreet}/bin/tuigreet --time --remember-session --asterisks";
@@ -168,9 +161,8 @@ in
     };
   };
 
-  # Environment variables for NVIDIA + Hyprland
+  # Environment variables for Wayland
   environment.sessionVariables = {
-    WLR_NO_HARDWARE_CURSORS = "1";
     NIXOS_OZONE_WL = "1";
   };
 
@@ -178,7 +170,6 @@ in
   xdg.portal = {
     enable = true;
     extraPortals = [
-      pkgs.xdg-desktop-portal-hyprland
       pkgs.xdg-desktop-portal-gnome # For Niri screencasting support
       pkgs.xdg-desktop-portal-gtk # For better GTK/GNOME app compatibility
     ];
@@ -206,12 +197,6 @@ in
     # Configuration via programs.niri.settings in modules/home-manager/hosts/desktop/niri.nix
     niri.enable = true;
 
-    # Hyprland configuration
-    hyprland = {
-      enable = true;
-      xwayland.enable = true;
-    };
-
     # Enable browsers
     firefox.enable = true;
     steam = {
@@ -230,7 +215,7 @@ in
   };
   hardware = {
 
-    # NVIDIA GPU support with Hyprland optimizations
+    # NVIDIA GPU support
     nvidia = {
       modesetting.enable = true;
       powerManagement.enable = false;
@@ -239,15 +224,6 @@ in
       nvidiaSettings = true;
       package = config.boot.kernelPackages.nvidiaPackages.stable;
     };
-
-    # EDID override for KVM - forces kernel to use captured EDID
-    # instead of relying on KVM to pass through monitor capabilities
-    firmware = pkgs.lib.optionals enableEdidOverride [
-      (pkgs.runCommand "edid-firmware" { } ''
-        mkdir -p $out/lib/firmware/edid
-        cp ${edidBinPath} $out/lib/firmware/edid/dp1.bin
-      '')
-    ];
 
     # Graphics drivers for gaming (Vulkan, OpenGL with 32-bit support)
     graphics = {
@@ -269,8 +245,7 @@ in
     # Kernel parameters for NVIDIA + Wayland
     kernelParams = [
       "nvidia-drm.modeset=1"
-    ]
-    ++ pkgs.lib.optional enableEdidOverride "drm.edid_firmware=DP-1:edid/dp1.bin";
+    ];
 
     # Increase vm.max_map_count for games that need it (some Proton games)
     kernel.sysctl = {
