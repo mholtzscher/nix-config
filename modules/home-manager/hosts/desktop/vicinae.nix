@@ -26,7 +26,7 @@
       closeOnFocusLoss = true;
 
       # Favicon service for web search results
-      faviconService = "twenty"; # twenty | google | none
+      faviconService = "google"; # twenty | google | none
 
       # Navigation behavior
       popToRootOnClose = true;
