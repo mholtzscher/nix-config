@@ -27,11 +27,8 @@
 
       preset-column-widths = [
         { proportion = 0.25; }
-        { proportion = 0.33333; }
         { proportion = 0.5; }
-        { proportion = 0.66667; }
-        { fixed = 1920; }
-        { fixed = 2560; }
+        { proportion = 0.75; }
       ];
 
       struts = {
