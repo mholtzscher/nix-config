@@ -123,7 +123,7 @@ in
       enable = true;
       settings = {
         default_session = {
-          # tuigreet will show available sessions (Hyprland, Niri, etc.)
+          # tuigreet will show available sessions (Niri, etc.)
           # --remember-session saves last selected session
           # Remove --sessions flag to use system default paths
           command = "${pkgs.tuigreet}/bin/tuigreet --time --remember-session --asterisks";
@@ -168,7 +168,7 @@ in
     };
   };
 
-  # Environment variables for NVIDIA + Hyprland
+  # Environment variables for Wayland
   environment.sessionVariables = {
     WLR_NO_HARDWARE_CURSORS = "1";
     NIXOS_OZONE_WL = "1";
@@ -178,7 +178,6 @@ in
   xdg.portal = {
     enable = true;
     extraPortals = [
-      pkgs.xdg-desktop-portal-hyprland
       pkgs.xdg-desktop-portal-gnome # For Niri screencasting support
       pkgs.xdg-desktop-portal-gtk # For better GTK/GNOME app compatibility
     ];
@@ -206,12 +205,6 @@ in
     # Configuration via programs.niri.settings in modules/home-manager/hosts/desktop/niri.nix
     niri.enable = true;
 
-    # Hyprland configuration
-    hyprland = {
-      enable = true;
-      xwayland.enable = true;
-    };
-
     # Enable browsers
     firefox.enable = true;
     steam = {
@@ -230,7 +223,7 @@ in
   };
   hardware = {
 
-    # NVIDIA GPU support with Hyprland optimizations
+    # NVIDIA GPU support with Wayland optimizations
     nvidia = {
       modesetting.enable = true;
       powerManagement.enable = false;

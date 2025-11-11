@@ -1,7 +1,7 @@
 { pkgs, ... }:
 {
   # Shared wallpaper configuration for Wayland compositors
-  # Uses swaybg which works with both Hyprland and Niri
+  # Uses swaybg which works with Niri and other Wayland compositors
 
   # Wallpaper package
   home.packages = with pkgs; [ swaybg ];
