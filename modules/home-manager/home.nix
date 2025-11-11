@@ -20,12 +20,6 @@
   ...
 }:
 let
-  # starship = pkgs.fetchFromGitHub {
-  #   owner = "starship";
-  #   repo = "starship";
-  #   rev = "ed87dc5750338d37bfc2c17568ae3a9b589a8e8e";
-  #   sha256 = "sha256-kPvyCKf62x+hXAxL5+sdWHLVoUx/n96EFEBOTpXnQhw=";
-  # };
   lazyIdeaVim = pkgs.fetchurl {
     url = "https://gist.githubusercontent.com/mikeslattery/d2f2562e5bbaa7ef036cf9f5a13deff5/raw/31278677c945d5f7be6f9c1e37a9779542ff1376/.idea-lazy.vim";
     # Replace with the actual SHA256 hash of the file
@@ -44,13 +38,10 @@ in
     flavor = "mocha";
     # Disable for programs with custom configs
     zellij.enable = false; # Has extensive custom keybindings in zellij.kdl
-    # waybar.enable = false; # Has custom style.css in desktop/waybar.nix
-    # waybar.mode = ""
   };
 
   home = {
     stateVersion = "24.11";
-    # xdg.enable = true;
     packages = import ./packages.nix { inherit pkgs inputs; };
 
     file = {
