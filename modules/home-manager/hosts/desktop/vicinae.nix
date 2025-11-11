@@ -9,31 +9,31 @@
     autoStart = true;
 
     settings = {
-      # Favicon service for web search results
-      faviconService = "twenty"; # twenty | google | none
-
-      # Font configuration
       font = {
-        family = "Iosevka Nerd Font";
+        normal = "Iosevka Nerd Font";
         size = 11;
       };
 
-      # Navigation behavior
-      popToRootOnClose = false;
-
-      # Enable file search in root search
-      rootSearch.searchFiles = true;
-
-      # Theme selection - Catppuccin Mocha
-      # Available: gruvbox-dark, catppuccin-mocha, kanagawa, nord, dracula, tokyo-night, tokyo-night-storm
       theme.name = "catppuccin-mocha";
 
       # Window appearance
       window = {
         csd = true; # Client-side decorations
-        opacity = 0.95;
+        opacity = 0.90;
         rounding = 10;
       };
+
+      closeOnFocusLoss = true;
+
+      # Favicon service for web search results
+      faviconService = "twenty"; # twenty | google | none
+
+      # Navigation behavior
+      popToRootOnClose = true;
+
+      # Enable file search in root search
+      rootSearch.searchFiles = true;
+
     };
 
     # Extensions can be added here declaratively
