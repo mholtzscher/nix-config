@@ -134,17 +134,6 @@ def watch [interval: duration, ...command: string] {
   }
 }
 
-# Yazi with directory change support
-def --env y [...args: string] {
-  let tmp = (mktemp -t "yazi-cwd.XXXXXX")
-  yazi ...$args --cwd-file $tmp
-  let cwd = (open $tmp | str trim)
-  if ($cwd != "" and $cwd != $env.PWD) {
-    cd $cwd
-  }
-  rm -f $tmp
-}
-
 # Gradle wrapper function
 def gradle [...args: string] {
   if ("./gradlew" | path exists) {
