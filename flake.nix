@@ -58,65 +58,23 @@
       niri,
     }:
     let
-      # Import lib helpers for creating system configurations (reserved for future use)
-      # lib = import ./lib { inherit inputs self; };
-
-      # Darwin-specific configuration
-      darwinConfiguration =
-        { ... }:
-        {
-          # Used for backwards compatibility, please read the changelog before changing.
-          # $ darwin-rebuild changelog
-          system.stateVersion = 5;
-        };
+      # Import lib helpers for creating system configurations
+      lib = import ./lib { inherit inputs self; };
     in
     {
       darwinConfigurations = {
         # Personal Mac (M1 Max)
-        "Michaels-M1-Max" = nix-darwin.lib.darwinSystem {
-          specialArgs = {
-            inherit inputs self;
-          };
-          modules = [
-            ./hosts/darwin/personal-mac.nix
-            ./modules/darwin
-            ./modules/shared
-            darwinConfiguration
-            inputs.nix-homebrew.darwinModules.nix-homebrew
-            inputs.home-manager.darwinModules.home-manager
-          ];
-        };
+        "Michaels-M1-Max" = lib.mkDarwinSystem { hostPath = ./hosts/darwin/personal-mac.nix; };
 
         # Work Mac
-        "Michael-Holtzscher-Work" = nix-darwin.lib.darwinSystem {
-          specialArgs = {
-            inherit inputs self;
-          };
-          modules = [
-            ./hosts/darwin/work-mac.nix
-            ./modules/darwin
-            ./modules/shared
-            darwinConfiguration
-            inputs.nix-homebrew.darwinModules.nix-homebrew
-            inputs.home-manager.darwinModules.home-manager
-          ];
-        };
+        "Michael-Holtzscher-Work" = lib.mkDarwinSystem { hostPath = ./hosts/darwin/work-mac.nix; };
       };
 
       nixosConfigurations = {
         # NixOS Desktop
-        nixos = nixpkgs.lib.nixosSystem {
+        nixos = lib.mkNixOSSystem {
+          hostPath = ./hosts/nixos/desktop.nix;
           system = "x86_64-linux";
-          specialArgs = {
-            inherit inputs self;
-          };
-          modules = [
-            ./hosts/nixos/desktop.nix
-            ./modules/nixos
-            ./modules/shared
-            inputs.catppuccin.nixosModules.catppuccin
-            inputs.home-manager.nixosModules.home-manager
-          ];
         };
       };
     };
