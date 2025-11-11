@@ -25,7 +25,7 @@
     # Niri integration
     niri = {
       enableKeybinds = true; # Automatic keybinding configuration
-      enableSpawn = true; # Auto-start DMS with niri
+      enableSpawn = false; # Disabled - using systemd service instead
     };
 
     # Default settings (applied on first launch)
