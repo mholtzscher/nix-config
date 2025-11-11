@@ -72,6 +72,72 @@
         "type": "github"
       }
     },
+    "dankMaterialShell": {
+      "inputs": {
+        "dgop": [
+          "dgop"
+        ],
+        "dms-cli": [
+          "dms-cli"
+        ],
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1762812757,
+        "narHash": "sha256-VPmzq5tYJIwIV9LQyn+wCiNRHiVHO8wrqoM7pz6LVPs=",
+        "owner": "AvengeMedia",
+        "repo": "DankMaterialShell",
+        "rev": "37a10bd453da057fb4e69cf600c413eb4467bd72",
+        "type": "github"
+      },
+      "original": {
+        "owner": "AvengeMedia",
+        "repo": "DankMaterialShell",
+        "type": "github"
+      }
+    },
+    "dgop": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1762795406,
+        "narHash": "sha256-qhY5eB+CHmTC/CpvG05+SREH4/o1olylc8vctKwyDGE=",
+        "owner": "AvengeMedia",
+        "repo": "dgop",
+        "rev": "a37138ec8705490db6b89d7ae1d1ce5be53385db",
+        "type": "github"
+      },
+      "original": {
+        "owner": "AvengeMedia",
+        "repo": "dgop",
+        "type": "github"
+      }
+    },
+    "dms-cli": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1762814285,
+        "narHash": "sha256-nJrJGir5bgSKqDF/BhS6zSCafPVdi0PYojXoDnNYQx0=",
+        "owner": "AvengeMedia",
+        "repo": "danklinux",
+        "rev": "0fb63ad7f76db019257268bb84f6840a7517dfee",
+        "type": "github"
+      },
+      "original": {
+        "owner": "AvengeMedia",
+        "repo": "danklinux",
+        "type": "github"
+      }
+    },
     "flake-utils": {
       "inputs": {
         "systems": "systems"
@@ -358,6 +424,9 @@
       "inputs": {
         "beads": "beads",
         "catppuccin": "catppuccin",
+        "dankMaterialShell": "dankMaterialShell",
+        "dgop": "dgop",
+        "dms-cli": "dms-cli",
         "ghostty-shader-playground": "ghostty-shader-playground",
         "home-manager": "home-manager",
         "naws": "naws",

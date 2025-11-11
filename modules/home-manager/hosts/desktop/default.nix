@@ -7,6 +7,7 @@
   imports = [
     ./hyprland.nix
     ./niri.nix # Niri window manager config (experimental)
+    ./dms.nix # DankMaterialShell - Material Design shell for Wayland
     ./wallpaper.nix # Shared wallpaper config (works with both Hyprland and Niri)
     ./hyprpanel.nix # Disabled for rollback option
     ./waybar.nix # Primary bar - replaces hyprpanel
