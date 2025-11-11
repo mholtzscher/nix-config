@@ -30,23 +30,6 @@
         { proportion = 0.5; }
         { proportion = 0.75; }
       ];
-
-      # struts = {
-      #   left = 8;
-      #   right = 8;
-      # };
-
-      # focus-ring = {
-      #   width = 4;
-      #   # active-color = "#6699cc";
-      #   # inactive-color = "#505050";
-      # };
-
-      # border = {
-      #   width = 2;
-      #   # active-color = "#6699cc";
-      #   # inactive-color = "#505050";
-      # };
     };
 
     # Input configuration
