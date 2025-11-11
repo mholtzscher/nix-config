@@ -24,6 +24,7 @@ in
   imports = [
     ./hardware-configuration.nix
     # Niri module is now conditionally loaded in lib/default.nix based on graphical flag
+    inputs.dankMaterialShell.nixosModules.greeter
   ];
 
   # User configuration
@@ -118,15 +119,15 @@ in
       };
     };
 
-    # Greetd display manager with tuigreet greeter
+    # Greetd display manager with DankGreeter (dms-greeter)
+    # DankMaterialShell greeter - configured via nixosModules.greeter import
     greetd = {
       enable = true;
       settings = {
         default_session = {
-          # tuigreet will show available sessions (Niri, etc.)
-          # --remember-session saves last selected session
-          # Remove --sessions flag to use system default paths
-          command = "${pkgs.tuigreet}/bin/tuigreet --time --remember-session --asterisks";
+          # DankGreeter with Niri compositor
+          # The greeter module should provide the dms-greeter command
+          command = "dms-greeter --command niri";
           user = "greeter";
         };
       };
