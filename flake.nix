@@ -64,10 +64,10 @@
     {
       darwinConfigurations = {
         # Personal Mac (M1 Max)
-        "Michaels-M1-Max" = lib.mkDarwinSystem { hostPath = ./hosts/darwin/personal-mac.nix; };
+        "Michaels-M1-Max" = lib.mkDarwinSystem ./hosts/darwin/personal-mac.nix;
 
         # Work Mac
-        "Michael-Holtzscher-Work" = lib.mkDarwinSystem { hostPath = ./hosts/darwin/work-mac.nix; };
+        "Michael-Holtzscher-Work" = lib.mkDarwinSystem ./hosts/darwin/work-mac.nix;
       };
 
       nixosConfigurations = {
