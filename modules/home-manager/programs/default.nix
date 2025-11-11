@@ -30,7 +30,6 @@
     ./starship.nix
     ./uv.nix
     ./webapps.nix # NixOS-only (has platform guard inside)
-    ./yazi.nix
     ./zed.nix
     ./zellij.nix
     ./zsh.nix

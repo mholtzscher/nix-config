@@ -33,12 +33,6 @@ let
 
     $env.PATH = ( $env.PATH | split row (char esep) | where { |p| $p != $shims_dir } | prepend $shims_dir )
     $env.PATH = ( $env.PATH | split row (char esep) | where { |p| $p != $asdf_bin_dir } | prepend $asdf_bin_dir )
-
-    # Configure asdf (macOS only via Homebrew)
-    # if ("/opt/homebrew/opt/asdf/libexec/asdf.nu" | path exists) {
-    #   $env.ASDF_NU_DIR = "/opt/homebrew/opt/asdf/libexec"
-    #   source "/opt/homebrew/opt/asdf/libexec/asdf.nu"
-    # }
   '';
 in
 {

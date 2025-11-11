@@ -136,7 +136,6 @@
           0
           2
         ];
-        # exportPath = "${builtins.getEnv "HOME"}/Library/Mobile Documents/com~apple~CloudDocs/ScreenShots";
       };
     };
 

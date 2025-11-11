@@ -9,15 +9,8 @@ with pkgs;
   lua
   bun
   zig
-  # python3
-  # python313Packages.python-lsp-server
-  # python313Packages.python-lsp-ruff
-  # python313Packages.python-lsp-ruff
-  # terraform
 ]
 ++ [
-  # asdf-vm # really out of date
-  #awscli2
   buf
   dive
   dust

@@ -11,18 +11,8 @@
       enable = true;
       package = if pkgs.stdenv.isDarwin then null else pkgs.ghostty;
       settings = {
-        # font-family = "GoMono Nerd Font";
-        # font-family = "BlexMono Nerd Font Mono";
-        # font-family = "Terminess Nerd Font";
-        # font-family = "Iosevka Nerd Font Mono";
         font-family = "Iosevka Nerd Font";
-        # font-family = "JetBrains Mono";
-        #font-family-bold = "Iosevka NFM Bold"
-        #font-family-italic = "Iosevka NFM Italic"
-        #font-family-bold-italic = "Iosevka NFM Bold Italic"
         font-size = if pkgs.stdenv.isDarwin then "13" else "11";
-
-        # theme = "catppuccin-mocha";
 
         background-blur-radius = 20;
         background-opacity = 0.9;

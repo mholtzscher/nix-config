@@ -7,7 +7,6 @@
 }:
 let
   # SSH Public Keys - Get your key with: ssh-add -L
-  # TODO: Add your SSH public key here before applying configuration
   sshPublicKeys = [
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJwjFs5j8xyYI+p3ckPU0nUYyJ9S2Y753DYUEPRbyGqX"
     # Add additional keys as needed

@@ -6,7 +6,6 @@
       package = if pkgs.stdenv.isDarwin then null else pkgs.opencode;
       settings = {
         theme = "catppuccin";
-        # model = "anthropic/claude-haiku-4.5";
         share = "disabled";
         username = "mholtzscher";
         keybinds = { };
@@ -24,25 +23,17 @@
             ];
             extensions = [ ".nix" ];
           };
-          # kotlin = {
-          #   command = [
-          #     "kotlin-lsp"
-          #   ];
-          #   extensions = [ ".kt" ];
-          # };
         };
         command = {
           "diff-review" = {
             description = "Perform a comprehensive code review of recent changes";
             agent = "build";
-            # model = "github-copilot/claude-sonnet-4";
             template = "{file:${../files/opencode/commands/diff-review.md}}";
           };
           "commit" = {
             description = "Analyze staged changes and create a conventional commit";
             agent = "general";
             subtask = true;
-            # model = "anthropic/claude-sonnet-4-5-20250929";
             template = "{file:${../files/opencode/commands/conventional-commit.md}}";
           };
         };
@@ -50,7 +41,6 @@
           "code-reviewer" = {
             description = "Reviews code for best practices and potential issues";
             mode = "subagent";
-            # model = "anthropic/claude-sonnet-4-20250514";
             prompt = "You are a code reviewer. Focus on security, performance, and maintainability.";
             tools = {
               write = false;
@@ -72,24 +62,6 @@
             description = "Enterprise Research Assistant named \"Claudette\" that autonomously conducts comprehensive research with rigorous source verification and synthesis.";
             prompt = "{file:${../files/opencode/agents/research.md}}";
           };
-          # claudette = {
-          #   mode = "primary";
-          #   description = "Claudette Coding Agent v5.2.1 (Optimized for Autonomous Execution)";
-          #   prompt = "{file:${../files/opencode/agents/claudette.md}}";
-          # };
-
-          # "plankton" = {
-          #   description = "Plan mode agent for creating structured implementation plans";
-          #   mode = "primary";
-          #   prompt = "{file:${../files/opencode/agents/plankton.md}}";
-          #   tools = {
-          #     write = false;
-          #     edit = false;
-          #     bash = false;
-          #     todowrite = true;
-          #     todoread = true;
-          #   };
-          # };
         };
         mcp = {
           beads = {

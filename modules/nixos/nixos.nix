@@ -43,7 +43,6 @@
     unzip
 
     python314
-    # python313Packages.debugpy
     rustc
     cargo
     gcc
@@ -54,9 +53,6 @@
     pciutils
     usbutils
   ];
-
-  # Enable automatic login for the display manager (can be overridden per-host)
-  # services.displayManager.autoLogin.enable = lib.mkDefault false;
 
   # Console configuration
   console = {

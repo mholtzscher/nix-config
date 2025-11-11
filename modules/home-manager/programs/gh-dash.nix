@@ -40,7 +40,6 @@
         defaults = {
           preview = {
             open = true;
-            # width = 150;
           };
         };
 
