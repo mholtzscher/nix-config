@@ -3,10 +3,11 @@
   # Vicinae - High-performance native launcher for Linux
   # Replaces wofi with more features: clipboard history, calculator, file search, extensions
   # Only imported on NixOS via desktop.nix (not available on macOS)
+  # DISABLED: Using DankMaterialShell launcher instead
 
   services.vicinae = {
-    enable = true;
-    autoStart = true;
+    enable = false;
+    autoStart = false;
 
     settings = {
       # Favicon service for web search results

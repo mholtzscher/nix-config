@@ -71,10 +71,7 @@
     # Keybindings
     binds = {
       # Applications
-      "Mod+Space".action.spawn = [
-        "vicinae"
-        "toggle"
-      ];
+      # "Mod+Space" launcher is handled by DankMaterialShell (configured via dms.nix with niri.enableKeybinds = true)
       "Mod+T".action.spawn = "ghostty";
       "Mod+E".action.spawn = "nautilus";
       "Mod+B".action.spawn = "firefox";
