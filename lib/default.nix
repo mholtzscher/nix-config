@@ -2,11 +2,15 @@
 {
   # Helper function to create a nix-darwin system configuration
   # Abstracts common module imports and setup
+  # Usage: mkDarwinSystem { hostPath = ./hosts/darwin/personal-mac.nix; user = "michael"; }
   mkDarwinSystem =
-    hostPath:
+    {
+      hostPath,
+      user ? "michael",
+    }:
     inputs.nix-darwin.lib.darwinSystem {
       specialArgs = {
-        inherit inputs self;
+        inherit inputs self user;
       };
       modules = [
         hostPath
@@ -24,13 +28,17 @@
 
   # Helper function to create a NixOS system configuration
   # Abstracts common module imports and setup
-  # Usage: mkNixOSSystem { hostPath = ./hosts/nixos/desktop.nix; system = "x86_64-linux"; }
+  # Usage: mkNixOSSystem { hostPath = ./hosts/nixos/desktop.nix; system = "x86_64-linux"; user = "michael"; }
   mkNixOSSystem =
-    { hostPath, system ? "x86_64-linux" }:
+    {
+      hostPath,
+      system ? "x86_64-linux",
+      user ? "michael",
+    }:
     inputs.nixpkgs.lib.nixosSystem {
       inherit system;
       specialArgs = {
-        inherit inputs self;
+        inherit inputs self user;
       };
       modules = [
         hostPath

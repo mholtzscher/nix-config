@@ -1,7 +1,4 @@
-{ inputs, ... }:
-let
-  user = "michaelholtzcher";
-in
+{ inputs, user, ... }:
 {
   imports = [
     ../../modules/darwin/homebrew/hosts/work-mac.nix

@@ -1,7 +1,9 @@
-{ pkgs, inputs, ... }:
-let
-  user = "michael";
-in
+{
+  pkgs,
+  inputs,
+  user,
+  ...
+}:
 {
   imports = [
     ../../modules/darwin/homebrew/hosts/personal-mac.nix

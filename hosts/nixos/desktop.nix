@@ -2,10 +2,10 @@
   pkgs,
   inputs,
   config,
+  user,
   ...
 }:
 let
-  user = "michael";
 
   # KVM EDID Override Configuration
   # Set to true after capturing EDID file and adding it to git
