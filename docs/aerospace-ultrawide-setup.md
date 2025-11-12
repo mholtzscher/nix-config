@@ -125,34 +125,74 @@ export def aerospace_workspace_size [percentage?: int] {
 }
 ```
 
-### 2. Raycast Script
+### 2. Raycast Scripts
 
-Create `~/.raycast/scripts/aerospace-workspace-size.sh`:
+The following scripts are automatically deployed via your Nix configuration:
+
+#### Main Script: `aerospace-workspace-size.sh`
 
 ```bash
 #!/usr/bin/env zsh
 
+# Required parameters:
 # @raycast.schemaVersion 1
-# @raycast.title Aerospace Workspace Size (Percentage)
-# @raycast.mode compact
-# @raycast.argument1 { "type": "text", "placeholder": "Percentage (1-100)", "percentBarLabel": "Workspace Width", "optional": true }
-# @raycast.icon 🤖
+# @raycast.title Aerospace Workspace Size
+# @raycast.mode silent
+
+# Optional parameters:
+# @raycast.icon 🖥️
+# @raycast.argument1 { "type": "text", "placeholder": "Percentage (1-100)", "percentBarLabel": "Usable Workspace Size", "optional": true }
+
+# Documentation:
 # @raycast.description Set Aerospace workspace size by percentage of monitor width (defaults to 40%)
 # @raycast.author mholtzscher
 # @raycast.authorURL https://raycast.com/mholtzscher
 
+# Use 40% as default if no argument provided
 PERCENTAGE="${1:-40}"
 
 nu -c "source '~/Library/Application Support/nushell/config.nu'; aerospace_workspace_size $PERCENTAGE"
 ```
 
-Make it executable:
+#### Increment Script: `aerospace-workspace-size-increment.sh`
 
 ```bash
-chmod +x ~/.raycast/scripts/aerospace-workspace-size.sh
+#!/usr/bin/env zsh
+
+# @raycast.schemaVersion 1
+# @raycast.title Aerospace Workspace Increment
+# @raycast.mode silent
+# @raycast.icon 📈
+# @raycast.argument1 { "type": "text", "placeholder": "Increment amount (default: 5)", "optional": true }
+# @raycast.description Increment Aerospace workspace size by percentage (default 5%)
+# @raycast.author mholtzscher
+# @raycast.authorURL https://raycast.com/mholtzscher
+
+AMOUNT="${1:-5}"
+
+nu -c "source '~/Library/Application Support/nushell/config.nu'; aerospace_workspace_adjust $AMOUNT"
 ```
 
-Then import into Raycast via Raycast Settings → Scripts → Import Script Directory.
+#### Decrement Script: `aerospace-workspace-size-decrement.sh`
+
+```bash
+#!/usr/bin/env zsh
+
+# @raycast.schemaVersion 1
+# @raycast.title Aerospace Workspace Decrement
+# @raycast.mode silent
+# @raycast.icon 📉
+# @raycast.argument1 { "type": "text", "placeholder": "Decrement amount (default: 5)", "optional": true }
+# @raycast.description Decrement Aerospace workspace size by percentage (default 5%)
+# @raycast.author mholtzscher
+# @raycast.authorURL https://raycast.com/mholtzscher
+
+AMOUNT="${1:--5}"
+
+nu -c "source '~/Library/Application Support/nushell/config.nu'; aerospace_workspace_adjust $AMOUNT"
+```
+
+These scripts are automatically deployed via your Nix configuration in `modules/home-manager/home.nix`. They are made executable and available in Raycast without manual setup.
 
 ### 3. Aerospace Configuration
 
@@ -230,6 +270,9 @@ gaps = {
 
 ### Adjusting Workspace Size
 
+You have three ways to adjust your workspace size:
+
+#### Option 1: Set to Specific Percentage
 1. Press `⌘ Space` to open Raycast
 2. Type "Aerospace Workspace Size"
 3. Enter a percentage (1-100)
@@ -239,6 +282,18 @@ Examples:
 - `40` – Constrains workspace to ~2048px (readable code, side-by-side panels)
 - `50` – Constrains workspace to ~2560px (more space)
 - `100` – Full 5120px (maximum space, less readable)
+
+#### Option 2: Increment by Percentage
+1. Press `⌘ Space` to open Raycast
+2. Type "Aerospace Workspace Increment"
+3. Optionally enter increment amount (default: 5%)
+4. Press Enter
+
+#### Option 3: Decrement by Percentage
+1. Press `⌘ Space` to open Raycast
+2. Type "Aerospace Workspace Decrement"
+3. Optionally enter decrement amount (default: 5%)
+4. Press Enter
 
 The function saves your choice to `~/.config/aerospace/workspace-size-percentage.txt` and reloads Aerospace instantly. Subsequent calls without an argument reuse the saved percentage.
 
@@ -322,13 +377,17 @@ All operations are non-destructive—only `gaps.outer.left` and `gaps.outer.righ
 
 ## Integration with Nix Flakes
 
-If using nix-darwin, define the Raycast script in your Home Manager configuration:
+All Raycast scripts and Nushell functions are automatically deployed via your Home Manager configuration in `modules/home-manager/home.nix`:
 
 ```nix
+# Raycast scripts
 home.file."${config.xdg.configHome}/raycast/scripts/aerospace-workspace-size.sh" = {
   source = ./files/raycast/aerospace-workspace-size.sh;
   executable = true;
 };
+
+# Nushell functions (sourced in nushell.nix)
+${builtins.readFile ../files/nushell/functions.nu}
 ```
 
-This keeps your dotfiles version-controlled and synchronized across machines.
+This keeps your configuration version-controlled and automatically synchronized across machines. When you rebuild your system, these scripts and functions are deployed with correct permissions and paths.
