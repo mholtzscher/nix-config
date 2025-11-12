@@ -1,18 +1,8 @@
 { pkgs, ... }:
 {
   # NixOS Desktop-specific home-manager configuration
-  # This file contains programs and settings unique to the NixOS desktop
-
-  # Desktop-specific imports
-  imports = [
-    ./niri.nix # Niri window manager config (experimental)
-    ./wallpaper.nix # Shared wallpaper config (works with Niri)
-    ./waybar.nix # Primary bar
-    ./theme.nix # GTK/Qt dark mode theming
-    ./vicinae.nix # NixOS-only launcher (requires vicinae module from hosts/nixos/desktop.nix)
-    ./webapps.nix # Web apps as native applications
-    ./gaming.nix # Gaming configuration (Steam, MangoHud, etc.)
-  ];
+  # Desktop environment setup is now in modules/nixos/desktop/
+  # This file contains only user-specific packages and services
 
   # Desktop-specific programs and packages
   home.packages = with pkgs; [

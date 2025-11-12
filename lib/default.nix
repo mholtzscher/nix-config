@@ -91,7 +91,8 @@
 
         # Conditional module loading based on feature flags
         (if graphical then inputs.niri.nixosModules.niri else { })
-      ];
+      ]
+      ++ (if graphical then [ ../modules/nixos/desktop ] else [ ]);
 
       # Combine platform-specific modules with common modules
       allModules = commonModules ++ (if isDarwin then darwinModules else nixosModules);
