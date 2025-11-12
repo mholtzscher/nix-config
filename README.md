@@ -9,7 +9,7 @@ A comprehensive, multi-platform Nix flake managing both macOS (Darwin) and NixOS
 - **Work Mac** (`Michael-Holtzscher-Work`) - Work machine
 
 ### NixOS
-- **Desktop** (`nixos`) - Gaming and development workstation with Hyprland/Niri
+- **Desktop** (`nixos`) - Gaming and development workstation with Niri
 
 ## ✨ Features
 
@@ -17,7 +17,7 @@ A comprehensive, multi-platform Nix flake managing both macOS (Darwin) and NixOS
 - **Host-Specific Configs** - Per-host customization (git email, programs, etc.)
 - **Platform Guards** - Conditional config for macOS-only or Linux-only features
 - **36 Cross-Platform Programs** - Extensive home-manager program configurations
-- **Dual Compositor Support** - Hyprland and Niri (scrollable tiling) with shared configs
+- **Niri Compositor** - Scrollable tiling Wayland compositor with shared configs
 - **Gaming Optimized** - Steam, gamemode, performance tuning, NVIDIA support
 - **Security Hardened** - SSH key-only auth, fail2ban, restricted firewall
 - **Shared Modules** - DRY principle with reusable cross-platform modules
@@ -58,11 +58,9 @@ A comprehensive, multi-platform Nix flake managing both macOS (Darwin) and NixOS
 │       │   └── desktop/         # NixOS desktop-specific configs
 │       │       ├── default.nix
 │       │       ├── gaming.nix    # Gaming packages & config
-│       │       ├── hyprland.nix  # Hyprland compositor
-│       │       ├── hyprpanel.nix # Status bar (Hyprland)
 │       │       ├── niri.nix      # Niri scrollable compositor
 │       │       ├── theme.nix     # Theming (GTK/Qt)
-│       │       ├── vicinae.nix   # App launcher (Hyprland/Niri)
+│       │       ├── vicinae.nix   # App launcher
 │       │       ├── waybar.nix    # Status bar (Niri)
 │       │       ├── webapps.nix   # Web apps as native apps
 │       │       └── wofi.nix      # Legacy app launcher
@@ -318,7 +316,7 @@ home.packages = with pkgs; [
 ### Desktop Environment vs Cross-Platform Programs
 
 **Desktop Environment Configs** (host-specific):
-- Configs specific to Wayland compositors (Hyprland, Niri)
+- Configs specific to Wayland compositor (Niri)
 - Located in `modules/home-manager/hosts/desktop/` for NixOS desktop
 - Include compositor, status bar (Hyprpanel/Waybar), app launcher (Vicinae)
 - Gaming configs, themes, and web apps
@@ -334,7 +332,7 @@ home.packages = with pkgs; [
 | Feature | Personal Mac | Work Mac | Desktop |
 |---------|-------------|----------|---------|
 | Aerospace (WM) | ✅ | ✅ | ❌ |
-| Hyprland/Niri (WM) | ❌ | ❌ | ✅ |
+| Niri (WM) | ❌ | ❌ | ✅ |
 | Gaming (Steam) | ❌ | ❌ | ✅ |
 | Discord | ✅ | ❌ | ✅ |
 | Git Email | Personal | Work | Personal |
@@ -393,14 +391,11 @@ nf <file>.nix         # Format nix file
 **macOS Only:**
 - **Window Manager**: aerospace (via Raycast scripts)
 
-### Wayland Compositors (NixOS Desktop)
-- **Hyprland**: Dynamic tiling Wayland compositor with NVIDIA optimizations
-  - Hyprpanel: Modern status bar with workspace info
-  - Custom keybindings and window rules
-- **Niri**: Scrollable tiling Wayland compositor (flake-based)
+### Wayland Compositor (NixOS Desktop)
+- **Niri**: Scrollable tiling Wayland compositor
   - Waybar: Minimalist status bar
-  - Shared configs with Hyprland where applicable
-- **Shared**: Vicinae app launcher, Greetd/tuigreet login
+  - Vicinae app launcher
+  - Greetd/tuigreet login
 
 ### Gaming Configuration (NixOS Desktop)
 - **Steam**: Full Steam integration with Gamescope session
@@ -446,4 +441,4 @@ This is a personal configuration, but feel free to use it as inspiration for you
 
 ---
 
-**Built with** [Nix](https://nixos.org/) • [nix-darwin](https://github.com/LnL7/nix-darwin) • [home-manager](https://github.com/nix-community/home-manager) • [Hyprland](https://hyprland.org/) • [Niri](https://github.com/YaLTeR/niri)
+**Built with** [Nix](https://nixos.org/) • [nix-darwin](https://github.com/LnL7/nix-darwin) • [home-manager](https://github.com/nix-community/home-manager) • [Niri](https://github.com/YaLTeR/niri)
