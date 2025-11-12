@@ -2,7 +2,7 @@
 
 A comprehensive, multi-platform Nix flake managing both macOS (Darwin) and NixOS systems with shared and host-specific configurations.
 
-## 🖥️ Managed Systems
+## Managed Systems
 
 ### macOS (Darwin)
 - **Personal M1 Max** (`Michaels-M1-Max`) - Personal development machine
@@ -11,7 +11,7 @@ A comprehensive, multi-platform Nix flake managing both macOS (Darwin) and NixOS
 ### NixOS
 - **Desktop** (`nixos`) - Gaming and development workstation with Niri
 
-## ✨ Features
+## Features
 
 - **Multi-Platform Support** - Single flake manages both macOS and NixOS
 - **Host-Specific Configs** - Per-host customization (git email, programs, etc.)
@@ -23,7 +23,7 @@ A comprehensive, multi-platform Nix flake managing both macOS (Darwin) and NixOS
 - **Shared Modules** - DRY principle with reusable cross-platform modules
 - **Automatic GC** - Weekly garbage collection (Sundays 2AM, 30-day retention)
 
-## 📁 Structure
+## Structure
 
 ```
 ├── flake.nix                    # Root flake defining all hosts
@@ -68,7 +68,7 @@ A comprehensive, multi-platform Nix flake managing both macOS (Darwin) and NixOS
 │       └── files/               # Dotfiles
 ```
 
-## 🚀 Quick Start
+## Quick Start
 
 ### macOS (Darwin)
 
@@ -94,7 +94,7 @@ nixos-rebuild build --flake ~/.config/nix-config#nixos
 sudo nixos-rebuild switch --flake ~/.config/nix-config#nixos
 ```
 
-## 📦 Adding Programs
+## Adding Programs
 
 ### Cross-Platform Program
 
@@ -142,7 +142,7 @@ Add to appropriate `modules/home-manager/hosts/*.nix`:
 }
 ```
 
-## 🏠 Adding New Hosts
+## Adding New Hosts
 
 This config uses a unified `lib.mkSystem` helper that handles both Darwin and NixOS with proper module loading.
 
@@ -261,7 +261,7 @@ nixosConfigurations.hostname = lib.mkSystem {
 };
 ```
 
-## 🎯 Platform Detection Patterns
+## Platform Detection Patterns
 
 ### Conditional Files
 
@@ -298,7 +298,7 @@ home.packages = with pkgs; [
 ];
 ```
 
-## 🔧 Configuration
+## Configuration
 
 ### Platform-Specific vs Host-Specific
 
@@ -331,19 +331,19 @@ home.packages = with pkgs; [
 
 | Feature | Personal Mac | Work Mac | Desktop |
 |---------|-------------|----------|---------|
-| Aerospace (WM) | ✅ | ✅ | ❌ |
-| Niri (WM) | ❌ | ❌ | ✅ |
-| Gaming (Steam) | ❌ | ❌ | ✅ |
-| Discord | ✅ | ❌ | ✅ |
+| Aerospace (WM) | Yes | Yes | No |
+| Niri (WM) | No | No | Yes |
+| Gaming (Steam) | No | No | Yes |
+| Discord | Yes | No | Yes |
 | Git Email | Personal | Work | Personal |
 | Platform | macOS | macOS | Linux |
 
-## 📚 Documentation
+## Documentation
 
 - **[AGENTS.md](./AGENTS.md)** - Comprehensive guidelines for AI agents
 - **[docs/nixos-migration-plan.md](./docs/nixos-migration-plan.md)** - Migration history and plan
 
-## 🛠️ Common Commands
+## Common Commands
 
 ```bash
 # Validate
@@ -361,14 +361,14 @@ nfu                   # Update flake inputs
 nf <file>.nix         # Format nix file
 ```
 
-## ⚠️ Important Notes
+## Important Notes
 
 - **Never run `darwin-rebuild switch` directly** — Validate with `nb`, then apply with `nup`
 - **Platform guards are critical** - Always use for platform-specific features
 - **Host configs override shared** - Use `lib.mkDefault` in shared configs
 - **Git tree dirty warnings** - Normal during development, commit changes for clean builds
 
-## 🎨 Included Configurations
+## Included Configurations
 
 ### Cross-Platform Programs (34 Modules + Utilities)
 **Program Modules (home-manager):**
@@ -412,15 +412,15 @@ nf <file>.nix         # Format nix file
   - Common packages: taps, brews, casks, masApps across all macOS hosts
   - Host-specific: Personal and Work Mac custom packages
 
-## 📄 License
+## License
 
 Personal configuration - use as reference or template.
 
-## 🤝 Contributing
+## Contributing
 
 This is a personal configuration, but feel free to use it as inspiration for your own setup!
 
-## 🔌 Flake Inputs
+## Flake Inputs
 
 ### Core
 - **nixpkgs**: NixOS/nixpkgs (unstable channel)
