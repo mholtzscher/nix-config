@@ -1,6 +1,5 @@
 { pkgs, config, ... }:
 {
-  # The platform the configuration will be used on.
   nixpkgs.hostPlatform = "aarch64-darwin";
 
   # Darwin-specific nix settings
@@ -13,13 +12,9 @@
 
   fonts.packages = [
     pkgs.nerd-fonts.iosevka
-    pkgs.nerd-fonts.go-mono
-    pkgs.nerd-fonts.terminess-ttf
-    pkgs.nerd-fonts.blex-mono
     pkgs.nerd-fonts.jetbrains-mono
   ];
 
-  # Create /etc/zshrc that loads the nix-darwin environment.
   programs.zsh.enable = true; # default shell on catalina
 
   security.pam.services.sudo_local.touchIdAuth = true;
