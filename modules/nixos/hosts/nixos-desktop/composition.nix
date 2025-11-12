@@ -137,6 +137,18 @@
           "Mod+Shift+E".action.quit = { };
         };
 
+        # Window rules
+        window-rules = [
+          {
+            matches = [
+              { app-id = "1password"; }
+            ];
+            default-column-width = {
+              proportion = 0.25;
+            };
+          }
+        ];
+
         # Animations
         animations.slowdown = 3.0;
 
