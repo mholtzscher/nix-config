@@ -14,6 +14,7 @@ with pkgs;
   buf
   dive
   dust
+  glow
   gnused
   grpcurl
   gum
