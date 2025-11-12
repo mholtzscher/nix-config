@@ -2,6 +2,16 @@
 
 A comprehensive, multi-platform Nix flake managing both macOS (Darwin) and NixOS systems with shared and host-specific configurations.
 
+## Prerequisites
+
+- **Nix**: Installed with flakes support enabled
+  - macOS: Install via `curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix | sh -s -- install`
+  - NixOS: Included by default
+  - Enable flakes in `~/.config/nix/nix.conf`: `experimental-features = nix-command flakes`
+- **Git**: For cloning and managing the configuration
+- **Nix-Darwin** (macOS only): Automatically managed as a flake input
+- **Home-Manager**: Automatically managed as a flake input
+
 ## Managed Systems
 
 ### macOS (Darwin)
@@ -16,7 +26,7 @@ A comprehensive, multi-platform Nix flake managing both macOS (Darwin) and NixOS
 - **Multi-Platform Support** - Single flake manages both macOS and NixOS
 - **Host-Specific Configs** - Per-host customization (git email, programs, etc.)
 - **Platform Guards** - Conditional config for macOS-only or Linux-only features
-- **36 Cross-Platform Programs** - Extensive home-manager program configurations
+- **34 Program Modules** - Comprehensive home-manager program configurations plus 20+ utilities
 - **Niri Compositor** - Scrollable tiling Wayland compositor with shared configs
 - **Gaming Optimized** - Steam, gamemode, performance tuning, NVIDIA support
 - **Security Hardened** - SSH key-only auth, fail2ban, restricted firewall
@@ -298,7 +308,26 @@ home.packages = with pkgs; [
 ];
 ```
 
-## Configuration
+## Configuration Guidelines
+
+### When to Use Different Module Types
+
+**Shared Programs** (`modules/home-manager/programs/`):
+- Tools that work across macOS and NixOS with minimal differences
+- Use platform guards with `lib.mkIf pkgs.stdenv.isDarwin` if behavior differs
+- Example: git, zsh, helix, starship
+
+**Host-Specific Configs** (`modules/home-manager/hosts/*/`):
+- Machine-specific settings (git email, Discord, work tools)
+- Desktop environment configs (Niri, Waybar, Vicinae for NixOS desktop)
+- Custom packages for specific hosts
+- No platform guards needed (already isolated to host)
+
+**Platform-Specific Only** (use conditional imports):
+- Features only relevant to one platform
+- Use `lib.mkIf pkgs.stdenv.isDarwin` for macOS-only
+- Use `lib.mkIf pkgs.stdenv.isLinux` for Linux-only
+- Example: Aerospace (macOS), systemd (NixOS)
 
 ### Platform-Specific vs Host-Specific
 
@@ -312,20 +341,6 @@ home.packages = with pkgs; [
 
 **Both**: Can be both platform AND host-specific
 - Example: Aerospace (macOS, both Macs)
-
-### Desktop Environment vs Cross-Platform Programs
-
-**Desktop Environment Configs** (host-specific):
-- Configs specific to Wayland compositor (Niri)
-- Located in `modules/home-manager/hosts/desktop/` for NixOS desktop
-- Include compositor, status bar (Hyprpanel/Waybar), app launcher (Vicinae)
-- Gaming configs, themes, and web apps
-- No platform guards needed (already in host directory)
-
-**Cross-Platform Programs** (programs/):
-- Tools that work across macOS and NixOS with minimal differences
-- Located in `modules/home-manager/programs/`
-- Use platform guards if behavior differs significantly
 
 ### Host Differences
 
