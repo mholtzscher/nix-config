@@ -146,16 +146,19 @@ Add to appropriate `modules/home-manager/hosts/*.nix`:
 
 ## 🏠 Adding New Hosts
 
+This config uses a unified `lib.mkSystem` helper that handles both Darwin and NixOS with proper module loading.
+
 ### Darwin Host
 
 1. Create `hosts/darwin/hostname.nix`:
 
 ```nix
-{ pkgs, inputs, ... }:
-let
-  user = "username";
-in
+{ pkgs, inputs, user, ... }:
 {
+  imports = [
+    ../../modules/homebrew/hosts/hostname.nix  # Create this for host-specific packages
+  ];
+
   users.users.${user} = {
     name = user;
     home = "/Users/${user}";
@@ -174,41 +177,89 @@ in
     };
   };
 
-  # Homebrew, nix-homebrew, system settings...
+  nix-homebrew = {
+    enable = true;
+    enableRosetta = true;  # For Apple Silicon
+    inherit user;
+    autoMigrate = true;
+  };
+
+  system = {
+    primaryUser = user;
+    defaults = {
+      dock = {
+        persistent-apps = [
+          # Add desired apps here
+        ];
+      };
+    };
+  };
 }
 ```
 
-2. Create `modules/home-manager/hosts/hostname.nix` for host-specific config
-3. Add to `flake.nix`:
+2. Create `modules/homebrew/hosts/hostname.nix` for host-specific Homebrew packages
+3. Create `modules/home-manager/hosts/hostname.nix` for host-specific programs/settings
+4. Add to `flake.nix`:
 
 ```nix
-darwinConfigurations.hostname = nixpkgs.lib.darwinSystem {
-  specialArgs = { inherit inputs self; };
-  modules = [
-    ./hosts/darwin/hostname.nix
-    ./modules/darwin
-    ./modules/shared
-    # ...
-  ];
+darwinConfigurations."System-Hostname" = lib.mkSystem {
+  name = "friendly-name";              # Used in logs and module args
+  system = "aarch64-darwin";           # M1/M2/M3 Macs (or x86_64-darwin for Intel)
+  darwin = true;                       # Required for Darwin
+  hostPath = ./hosts/darwin/hostname.nix;
+  user = "username";                   # macOS username
+  isWork = false;                      # Optional: true for work machine
 };
 ```
 
 ### NixOS Host
 
-1. Create `hosts/nixos/hostname.nix` with hardware config
-2. Create `modules/home-manager/hosts/hostname.nix`
-3. Add to `flake.nix`:
+1. Create `hosts/nixos/hostname.nix`:
 
 ```nix
-nixosConfigurations.hostname = nixpkgs.lib.nixosSystem {
-  system = "x86_64-linux";
-  specialArgs = { inherit inputs self; };
-  modules = [
-    ./hosts/nixos/hostname.nix
-    ./modules/nixos
-    ./modules/shared
-    inputs.home-manager.nixosModules.home-manager
+{ pkgs, inputs, user, ... }:
+{
+  imports = [
+    ./hardware-configuration.nix
   ];
+
+  users.users.${user} = {
+    isNormalUser = true;
+    home = "/home/${user}";
+    extraGroups = [ "wheel" "networkmanager" ];
+    shell = pkgs.zsh;
+    openssh.authorizedKeys.keys = [
+      # Add SSH public keys here
+    ];
+  };
+
+  home-manager = {
+    useGlobalPkgs = true;
+    useUserPackages = true;
+    backupFileExtension = "backup";
+    extraSpecialArgs = { inherit inputs; };
+    users.${user} = { ... }: {
+      imports = [
+        ../../modules/home-manager/home.nix
+        ../../modules/home-manager/hosts/hostname/default.nix  # Create as dir if multiple files
+      ];
+    };
+  };
+}
+```
+
+2. Create `modules/home-manager/hosts/hostname/` directory for host-specific configs
+3. Generate hardware config: `nixos-generate-config --root /mnt --show-hardware-config > hardware-configuration.nix`
+4. Add to `flake.nix`:
+
+```nix
+nixosConfigurations.hostname = lib.mkSystem {
+  name = "friendly-name";              # Used in logs and module args
+  system = "x86_64-linux";             # or "aarch64-linux" for ARM
+  hostPath = ./hosts/nixos/hostname.nix;
+  user = "username";                   # NixOS username
+  graphical = true;                    # Load GUI modules (Niri, etc.)
+  gaming = false;                      # Optional: true for gaming setup
 };
 ```
 
