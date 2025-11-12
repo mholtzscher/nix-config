@@ -85,10 +85,10 @@
 
       nixosConfigurations = {
         # NixOS Desktop
-        nixos = lib.mkSystem {
-          name = "desktop";
+        nixos-desktop = lib.mkSystem {
+          name = "nixos-desktop";
           system = "x86_64-linux";
-          hostPath = ./hosts/nixos/desktop.nix;
+          hostPath = ./hosts/nixos/nixos-desktop.nix;
           user = "michael";
           graphical = true;
           gaming = true;

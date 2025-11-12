@@ -42,19 +42,19 @@ in
       inherit inputs;
     };
     users.${user} =
-      { ... }:
-      {
-        imports = [
-          inputs.vicinae.homeManagerModules.default
-          ../../modules/home-manager/home.nix
-          ../../modules/home-manager/hosts/desktop/default.nix
-        ];
+       { ... }:
+       {
+         imports = [
+           inputs.vicinae.homeManagerModules.default
+           ../../modules/home-manager/home.nix
+           ../../modules/home-manager/hosts/nixos-desktop/default.nix
+         ];
       };
   };
 
-  # Enable NetworkManager for easy network management
-  networking = {
-    hostName = "nixos";
+   # Enable NetworkManager for easy network management
+   networking = {
+     hostName = "nixos-desktop";
     networkmanager.enable = true;
 
     # Firewall configuration
