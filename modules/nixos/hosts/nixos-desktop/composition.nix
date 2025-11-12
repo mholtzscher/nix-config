@@ -14,7 +14,7 @@
           mode = {
             width = 5120;
             height = 1440;
-            refresh = 240.0;
+            refresh = 120.0;
           };
           position = {
             x = 0;
@@ -27,14 +27,6 @@
         layout = {
           gaps = 16;
           center-focused-column = "always";
-          border = {
-            enable = false;
-          };
-          focus-ring = {
-            width = 2;
-            # active-color = "#6699cc";
-            # inactive-color = "#505050";
-          };
 
           default-column-width = {
             proportion = 0.5;
@@ -45,6 +37,14 @@
             { proportion = 0.5; }
             { proportion = 0.75; }
           ];
+
+          focus-ring = {
+            width = 2;
+          };
+
+          border = {
+            width = 0;
+          };
         };
 
         # Input configuration
@@ -138,7 +138,7 @@
         };
 
         # Animations
-        animations.slowdown = 1.5;
+        animations.slowdown = 3.0;
 
         # Startup programs
         # Note: swaybg is managed via systemd service (see wallpaper module)
@@ -185,100 +185,43 @@
               max-length = 50;
               rewrite = {
                 "(.*) - Mozilla Firefox" = "🌎 $1";
-                "(.*) - Zed" = "󰣇 $1";
-                "(.*) - Ghostty" = " $1";
+                "(.*) - Chromium" = "🌎 $1";
+                "(.*) - vim" = " $1";
+                "(.*) - nvim" = " $1";
+                "(.*) - zsh" = " [$1]";
               };
             };
 
-            # CPU
+            # CPU module
             cpu = {
-              interval = 1;
-              format = "CPU: {usage:>2}%";
-              states = {
-                "warning" = 50;
-                "critical" = 80;
-              };
+              interval = 15;
+              format = "󰻠 {usage}%";
+              max-length = 10;
             };
 
-            # Memory
+            # Memory module
             memory = {
-              interval = 1;
-              format = "RAM: {used:>4}/{total:>4} GB";
-              states = {
-                "warning" = 70;
-                "critical" = 90;
-              };
+              interval = 30;
+              format = "󰍛 {used:.1f}G";
+              max-length = 10;
             };
 
-            # Network
+            # Network module
             network = {
-              interval = 5;
-              format-wifi = "󰖩 {essid}";
-              format-ethernet = "󰌐 Wired";
-              format-disconnected = "󰌐 Offline";
+              interval = 2;
+              format-ethernet = "󰈀 {bandwidthDownBytes}  {bandwidthUpBytes}";
+              format-disconnected = "󰌙 Disconnected";
               tooltip-format = "{ifname}: {ipaddr}/{cidr}";
             };
 
-            # Clock
+            # Clock module
             clock = {
-              interval = 1;
-              format = "{:%H:%M:%S}";
-              tooltip-format = "{:%Y-%m-%d | %A}";
+              format = "󰃰 {:%I:%M %p   %d/%m/%Y}";
             };
           }
         ];
 
-        style = ''
-          * {
-            border: none;
-            border-radius: 0;
-            font-family: Iosevka Nerd Font;
-            font-size: 12px;
-            min-height: 0;
-          }
-
-          window#waybar {
-            background-color: alpha(@theme_bg_color, 0.9);
-            color: @theme_fg_color;
-            margin: 0px;
-            padding: 0px;
-          }
-
-          #cpu, #memory, #network, #niri-workspaces, #niri-window, #clock {
-            padding: 10px 15px;
-            margin: 0px 5px;
-            background-color: alpha(@theme_bg_color, 0.5);
-            border-radius: 5px;
-          }
-
-          #cpu.warning {
-            color: #f1c40f;
-          }
-
-          #cpu.critical {
-            color: #e74c3c;
-          }
-
-          #memory.warning {
-            color: #f1c40f;
-          }
-
-          #memory.critical {
-            color: #e74c3c;
-          }
-
-          #niri-workspaces button {
-            padding: 5px 10px;
-            color: @theme_fg_color;
-            margin: 0px 2px;
-          }
-
-          #niri-workspaces button.focused {
-            background-color: @theme_selected_bg_color;
-            color: @theme_selected_fg_color;
-            border-radius: 5px;
-          }
-        '';
+        style = builtins.readFile ../../../home-manager/files/waybar/style.css;
       };
     }
   ];
