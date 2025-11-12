@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, isWork, ... }:
 {
   programs = {
     opencode = {
@@ -69,7 +69,7 @@
             prompt = "{file:${../files/opencode/agents/research.md}}";
           };
           lookup = {
-            disable = false;
+            disable = isWork;
             model = "opencode/claude-haiku-4-5";
             mode = "subagent";
             permission = {
@@ -92,12 +92,12 @@
           beads = {
             type = "local";
             command = [ "beads-mcp" ];
-            enabled = true;
+            enabled = !isWork;
           };
           gh_grep = {
             type = "remote";
             url = "https://mcp.grep.app/";
-            enabled = true;
+            enabled = !isWork;
           };
           exa = {
             type = "local";
@@ -105,7 +105,7 @@
               "bunx"
               "exa-mcp-server"
             ];
-            enabled = true;
+            enabled = !isWork;
           };
         };
       };

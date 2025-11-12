@@ -17,6 +17,7 @@
       darwin ? false,
       graphical ? true,
       gaming ? false,
+      isWork ? false,
     }:
     let
       # Heuristics for platform detection
@@ -46,9 +47,28 @@
             currentSystem = system;
             currentSystemName = name;
             currentSystemUser = user;
-            inherit isDarwin isLinux inputs;
+            inherit
+              isDarwin
+              isLinux
+              inputs
+              isWork
+              ;
           }
           // (if isLinux then { inherit graphical gaming; } else { });
+        }
+
+        # Home-manager specific module arguments - make variables available without explicit import
+        {
+          home-manager.sharedModules = [
+            {
+              _module.args = {
+                inherit isWork;
+                inherit isDarwin isLinux;
+                currentSystemName = name;
+                currentSystemUser = user;
+              };
+            }
+          ];
         }
       ];
 
@@ -78,7 +98,12 @@
     systemFunc (
       {
         specialArgs = {
-          inherit inputs self user;
+          inherit
+            inputs
+            self
+            user
+            isWork
+            ;
         };
         modules = allModules;
       }

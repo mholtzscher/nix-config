@@ -1,16 +1,12 @@
-{
-  lib,
-  ...
-}:
+{ isWork, ... }:
 {
   programs = {
     atuin = {
       enable = true;
       settings = {
-        # Default: enable auto sync and set sync address
-        # Work Mac will override these in its host-specific config
-        auto_sync = true;
-        sync_address = "https://atuin.holtzscher.com";
+        # Disable sync on work hosts, enable on personal hosts
+        auto_sync = !isWork;
+        sync_address = if !isWork then "https://atuin.holtzscher.com" else "";
       };
     };
   };

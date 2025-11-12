@@ -79,6 +79,7 @@
           darwin = true;
           hostPath = ./hosts/darwin/work-mac.nix;
           user = "michaelholtzcher";
+          isWork = true;
         };
       };
 
