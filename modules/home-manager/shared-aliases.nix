@@ -2,6 +2,7 @@
 {
   shellAliases = {
     ngc = "nix-collect-garbage -d";
+    nfc = "nix flake check";
 
     c = "clear";
     ll = "ls -al";
