@@ -36,9 +36,14 @@ A comprehensive, multi-platform Nix flake managing both macOS (Darwin) and NixOS
 │   └── nixos/                   # NixOS-specific hosts
 │       └── desktop.nix
 ├── modules/
-│   ├── darwin/                  # macOS-only modules
-│   │   ├── darwin.nix           # System defaults (dock, finder, etc.)
-│   │   └── homebrew.nix
+│   ├── darwin/                  # macOS system defaults
+│   │   ├── default.nix          # Entry point
+│   │   └── darwin.nix           # System defaults (dock, finder, etc.)
+│   ├── homebrew/                # Homebrew package management (macOS only)
+│   │   ├── default.nix          # Common packages across all macOS hosts
+│   │   └── hosts/               # Host-specific Homebrew packages
+│   │       ├── personal-mac.nix
+│   │       └── work-mac.nix
 │   ├── nixos/                   # NixOS-only modules
 │   │   └── nixos.nix            # System config (boot, services, etc.)
 │   ├── shared/                  # Cross-platform modules
@@ -342,8 +347,13 @@ nf <file>.nix         # Format nix file
 - **KVM Support**: EDID override for display passthrough
 
 ### System Configs
-- **macOS**: Dock, Finder, Trackpad settings, Homebrew integration
+- **macOS**: Dock, Finder, Trackpad settings, Homebrew package management
 - **NixOS**: Greetd login, PipeWire audio, NetworkManager, SSH hardening, fail2ban
+
+### Package Management
+- **Homebrew** (macOS): Declarative package, cask, and app store integration via nix-homebrew
+  - Common packages: taps, brews, casks, masApps across all macOS hosts
+  - Host-specific: Personal and Work Mac custom packages
 
 ## 📄 License
 
