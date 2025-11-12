@@ -91,7 +91,10 @@
         mcp = {
           beads = {
             type = "local";
-            command = [ "beads-mcp" ];
+            command = [
+              "uvx"
+              "beads-mcp"
+            ];
             enabled = !isWork;
           };
           gh_grep = {
