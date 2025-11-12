@@ -1,6 +1,11 @@
-{ pkgs, ... }:
+{ pkgs, isWork, ... }:
 let
   sharedAliases = import ../shared-aliases.nix { inherit pkgs; };
+  workOnboardingScript = ''
+    if [ -f /Users/michaelholtzcher/code/paytient/onboarding/engineering.sh ]; then
+        source /Users/michaelholtzcher/code/paytient/onboarding/engineering.sh
+    fi
+  '';
 in
 {
   programs = {
@@ -9,9 +14,7 @@ in
       shellAliases = sharedAliases.shellAliases // {
       };
       initContent = ''
-        if [ -f /Users/michaelholtzcher/code/paytient/onboarding/engineering.sh ]; then
-            source /Users/michaelholtzcher/code/paytient/onboarding/engineering.sh
-        fi
+        ${if isWork then workOnboardingScript else ""}
 
         # Platform-aware Nix build/validate command
         # On macOS: darwin-rebuild build
