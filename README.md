@@ -26,7 +26,7 @@ A comprehensive, multi-platform Nix flake managing both macOS (Darwin) and NixOS
 - **Multi-Platform Support** - Single flake manages both macOS and NixOS
 - **Host-Specific Configs** - Per-host customization (git email, programs, etc.)
 - **Platform Guards** - Conditional config for macOS-only or Linux-only features
-- **34 Program Modules** - Comprehensive home-manager program configurations plus 20+ utilities
+- **Comprehensive Programs** - Extensive program modules and utilities via home-manager
 - **Niri Compositor** - Scrollable tiling Wayland compositor with shared configs
 - **Gaming Optimized** - Steam, gamemode, performance tuning, NVIDIA support
 - **Security Hardened** - SSH key-only auth, fail2ban, restricted firewall
