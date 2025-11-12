@@ -51,15 +51,14 @@ hosts/
   └── nixos/                           # NixOS-specific hosts
       └── desktop.nix                  # NixOS desktop config
 modules/
-  ├── darwin/                          # macOS-only modules
-  │   ├── default.nix
-  │   ├── darwin.nix                   # System defaults (dock, finder, trackpad)
-  │   └── homebrew/                    # Homebrew config (modularized)
-  │       ├── default.nix              # Entry point
-  │       ├── common.nix               # Shared packages across all macOS hosts
-  │       └── hosts/                   # Host-specific Homebrew packages
-  │           ├── personal-mac.nix
-  │           └── work-mac.nix
+  ├── darwin/                          # macOS system defaults
+  │   ├── default.nix                  # Entry point
+  │   └── darwin.nix                   # System defaults (dock, finder, trackpad)
+  ├── homebrew/                        # Homebrew package management (macOS only)
+  │   ├── default.nix                  # Common packages across all macOS hosts
+  │   └── hosts/                       # Host-specific Homebrew packages
+  │       ├── personal-mac.nix
+  │       └── work-mac.nix
   ├── nixos/                           # NixOS-only modules
   │   ├── default.nix
   │   └── nixos.nix                    # NixOS system config
@@ -85,10 +84,11 @@ modules/
   - Uses `darwin = true` parameter to branch platform logic
   - Inspired by mitchellh/nixos-config unified approach
 - **Module loading**:
-  - **Darwin**: Host → darwin modules → shared modules → nix-homebrew → home-manager
+  - **Darwin**: Host → darwin modules → homebrew module → shared modules → nix-homebrew → home-manager
   - **NixOS**: Host → nixos modules → shared modules → home-manager
 - **Platform separation**:
-  - `modules/darwin/` - macOS-only (Homebrew, system defaults)
+  - `modules/darwin/` - macOS system defaults (dock, finder, trackpad)
+  - `modules/homebrew/` - macOS package management (top-level sibling module)
   - `modules/nixos/` - NixOS-only (systemd, boot, services)
   - `modules/shared/` - Cross-platform (nix settings, gc)
   - `modules/home-manager/` - Mostly cross-platform (with platform guards)
@@ -171,20 +171,20 @@ nixosConfigurations.hostname = lib.mkSystem {
 - **Cross-platform Nix**: `modules/home-manager/packages.nix` (main list)
 - **macOS-only Nix**: `modules/home-manager/packages.nix` (in `lib.optionals pkgs.stdenv.isDarwin`)
 - **Homebrew** (macOS only):
-  - Common packages: `modules/darwin/homebrew/common.nix`
-  - Host-specific: `modules/darwin/homebrew/hosts/{personal-mac,work-mac}.nix`
+  - Common packages: `modules/homebrew/default.nix`
+  - Host-specific: `modules/homebrew/hosts/{personal-mac,work-mac}.nix`
 - **Host-specific**: Add to `modules/home-manager/hosts/*.nix`
 
 ### Add Homebrew Package (macOS)
 
 **Common package** (all macOS hosts):
-1. Edit `modules/darwin/homebrew/common.nix`
-2. Add to appropriate list (`taps`, `brews`, `casks`, `masApps`)
+1. Edit `modules/homebrew/default.nix`
+2. Add to appropriate list under `homebrew` config (`taps`, `brews`, `casks`, `masApps`)
 3. Validate with `nb` or `darwin-rebuild build --flake .`
 
 **Host-specific package**:
-1. Edit `modules/darwin/homebrew/hosts/{hostname}.nix`
-2. Add to appropriate list (`brews`, `casks`, `masApps`)
+1. Edit `modules/homebrew/hosts/{hostname}.nix`
+2. Add to appropriate list under `homebrew` config (`brews`, `casks`, `masApps`)
 3. Validate with `nb` or `darwin-rebuild build --flake .`
 
 ## Platform-Specific Guidelines
@@ -192,9 +192,9 @@ nixosConfigurations.hostname = lib.mkSystem {
 ### macOS-Only Features
 
 These should use platform guards or stay in darwin modules:
-- Homebrew (modularized in `modules/darwin/homebrew/`)
+- Homebrew (top-level module at `modules/homebrew/`)
 - Aerospace window manager (platform guarded in programs/aerospace.nix)
-- macOS system defaults (stays in modules/darwin/darwin.nix)
+- macOS system defaults (in `modules/darwin/darwin.nix`)
 - Raycast scripts (platform guarded in home.nix)
 - macOS-specific paths (Library/*, platform guarded)
 
