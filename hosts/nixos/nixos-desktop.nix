@@ -11,6 +11,12 @@ let
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJwjFs5j8xyYI+p3ckPU0nUYyJ9S2Y753DYUEPRbyGqX"
     # Add additional keys as needed
   ];
+
+  # KVM EDID Override Configuration
+  # Fixes monitor resolution issues when switching between KVM inputs
+  # Set to true after capturing EDID file with capture-edid script
+  enableEdidOverride = true; # EDID override enabled for KVM resolution fix
+  edidBinPath = ../../modules/nixos/hosts/nixos-desktop/edid/dp1.bin;
 in
 {
   imports = [
@@ -90,6 +96,12 @@ in
   };
 
   services = {
+    # Disable DPMS to prevent screen blanking issues with KVM switching
+    logind.settings.Login = {
+      HandlePowerKey = "ignore";
+      HandleLidSwitch = "ignore";
+    };
+
     # Enable sound with pipewire
     pipewire = {
       enable = true;
@@ -212,6 +224,7 @@ in
     # Enable gamemode for performance optimizations during gaming
     gamemode.enable = true;
   };
+
   hardware = {
 
     # NVIDIA GPU support
@@ -229,10 +242,20 @@ in
       enable = true;
       enable32Bit = true; # Required for 32-bit games
     };
+
+    # EDID override for KVM - forces kernel to use captured EDID
+    # instead of relying on KVM to pass through monitor capabilities
+    firmware = pkgs.lib.optionals enableEdidOverride [
+      (pkgs.runCommand "edid-firmware" { } ''
+        mkdir -p $out/lib/firmware/edid
+        cp ${edidBinPath} $out/lib/firmware/edid/dp1.bin
+      '')
+    ];
   };
 
   # Performance tuning for gaming
   powerManagement.cpuFreqGovernor = "performance";
+
   boot = {
 
     # Bootloader configuration
@@ -244,7 +267,8 @@ in
     # Kernel parameters for NVIDIA + Wayland
     kernelParams = [
       "nvidia-drm.modeset=1"
-    ];
+    ]
+    ++ pkgs.lib.optional enableEdidOverride "drm.edid_firmware=DP-1:edid/dp1.bin";
 
     # Increase vm.max_map_count for games that need it (some Proton games)
     kernel.sysctl = {
