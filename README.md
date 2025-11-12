@@ -19,7 +19,7 @@ A comprehensive, multi-platform Nix flake managing both macOS (Darwin) and NixOS
 - **Work Mac** (`Michael-Holtzscher-Work`) - Work machine
 
 ### NixOS
-- **Desktop** (`nixos`) - Gaming and development workstation with Niri
+- **Desktop** (`nixos-desktop`) - Gaming and development workstation with Niri compositor
 
 ## Features
 
@@ -44,7 +44,8 @@ A comprehensive, multi-platform Nix flake managing both macOS (Darwin) and NixOS
 │   │   ├── personal-mac.nix
 │   │   └── work-mac.nix
 │   └── nixos/                   # NixOS-specific hosts
-│       └── desktop.nix
+│       ├── nixos-desktop.nix
+│       └── hardware-configuration.nix
 ├── modules/
 │   ├── darwin/                  # macOS system defaults
 │   │   ├── default.nix          # Entry point
@@ -55,26 +56,36 @@ A comprehensive, multi-platform Nix flake managing both macOS (Darwin) and NixOS
 │   │       ├── personal-mac.nix
 │   │       └── work-mac.nix
 │   ├── nixos/                   # NixOS-only modules
-│   │   └── nixos.nix            # System config (boot, services, etc.)
+│   │   ├── default.nix
+│   │   ├── fonts.nix            # Fonts (cross-NixOS)
+│   │   ├── nixos.nix            # System config (boot, services, etc.)
+│   │   └── hosts/               # Host-specific NixOS system config
+│   │       └── nixos-desktop/   # Desktop environment modules
+│   │           ├── default.nix  # Entry point
+│   │           ├── composition.nix # Niri + Waybar
+│   │           ├── launcher.nix # Vicinae app launcher
+│   │           ├── gaming.nix   # Gaming (Steam, MangoHud, etc.)
+│   │           ├── theme.nix    # GTK/Qt theming & dark mode
+│   │           ├── wallpaper.nix # Wallpaper daemon (swaybg)
+│   │           └── webapps.nix  # Web apps as native apps
 │   ├── shared/                  # Cross-platform modules
+│   │   ├── default.nix
 │   │   ├── nix-settings.nix     # Nix config (flakes, gc, etc.)
 │   │   └── users.nix
 │   └── home-manager/            # Cross-platform home-manager
 │       ├── home.nix             # Main config with platform guards
 │       ├── packages.nix         # Platform-aware package list
-│       ├── hosts/               # Host-specific configs
+│       ├── shared-aliases.nix   # Shared shell aliases
+│       ├── programs/            # 34 cross-platform program modules
+│       │   ├── git.nix
+│       │   ├── zsh.nix
+│       │   ├── firefox.nix
+│       │   └── [31 more...]
+│       ├── hosts/               # Host-specific user configs
 │       │   ├── personal-mac.nix
 │       │   ├── work-mac.nix
-│       │   └── desktop/         # NixOS desktop-specific configs
-│       │       ├── default.nix
-│       │       ├── gaming.nix    # Gaming packages & config
-│       │       ├── niri.nix      # Niri scrollable compositor
-│       │       ├── theme.nix     # Theming (GTK/Qt)
-│       │       ├── vicinae.nix   # App launcher
-│       │       ├── waybar.nix    # Status bar (Niri)
-│       │       ├── webapps.nix   # Web apps as native apps
-│       │       └── wofi.nix      # Legacy app launcher
-│       ├── programs/            # 36 cross-platform programs
+│       │   └── nixos-desktop/   # Desktop user packages & config
+│       │       └── default.nix
 │       └── files/               # Dotfiles
 ```
 
@@ -98,10 +109,10 @@ nup  # Apply (preferred; do not use switch directly)
 nix flake check
 
 # Build configuration
-nixos-rebuild build --flake ~/.config/nix-config#nixos
+nixos-rebuild build --flake ~/.config/nix-config#nixos-desktop
 
 # Apply changes
-sudo nixos-rebuild switch --flake ~/.config/nix-config#nixos
+sudo nixos-rebuild switch --flake ~/.config/nix-config#nixos-desktop
 ```
 
 ## Adding Programs
@@ -228,7 +239,7 @@ darwinConfigurations."System-Hostname" = lib.mkSystem {
 { pkgs, inputs, user, ... }:
 {
   imports = [
-    ./hardware-configuration.nix
+    ./hostname-hardware.nix
   ];
 
   users.users.${user} = {
@@ -249,16 +260,17 @@ darwinConfigurations."System-Hostname" = lib.mkSystem {
     users.${user} = { ... }: {
       imports = [
         ../../modules/home-manager/home.nix
-        ../../modules/home-manager/hosts/hostname/default.nix  # Create as dir if multiple files
+        ../../modules/home-manager/hosts/hostname/default.nix
       ];
     };
   };
 }
 ```
 
-2. Create `modules/home-manager/hosts/hostname/` directory for host-specific configs
-3. Generate hardware config: `nixos-generate-config --root /mnt --show-hardware-config > hardware-configuration.nix`
-4. Add to `flake.nix`:
+2. Create `modules/home-manager/hosts/hostname/default.nix` for host-specific user config
+3. Create `modules/nixos/hosts/hostname/` directory for host-specific system config (if needed)
+4. Generate hardware config: `nixos-generate-config --root /mnt --show-hardware-config > hosts/nixos/hostname-hardware.nix`
+5. Add to `flake.nix`:
 
 ```nix
 nixosConfigurations.hostname = lib.mkSystem {
@@ -266,10 +278,14 @@ nixosConfigurations.hostname = lib.mkSystem {
   system = "x86_64-linux";             # or "aarch64-linux" for ARM
   hostPath = ./hosts/nixos/hostname.nix;
   user = "username";                   # NixOS username
-  graphical = true;                    # Load GUI modules (Niri, etc.)
+  graphical = true;                    # Load GUI modules (Niri, etc.) - conditional module loading in lib/
   gaming = false;                      # Optional: true for gaming setup
 };
 ```
+
+**Note**: The `graphical` and `gaming` flags automatically control which modules are loaded:
+- `graphical = true` → Loads `modules/nixos/hosts/hostname/` (for GUI-based hosts)
+- `graphical = false` → Skips graphical modules (for headless servers)
 
 ## Platform Detection Patterns
 
@@ -362,18 +378,18 @@ home.packages = with pkgs; [
 
 ```bash
 # Validate
-nb                    # Darwin build
-nix flake check       # Check all platforms
+nb                                          # Darwin build
+nix flake check                             # Check all platforms
 
 # Apply
-nup                   # Darwin switch (user only)
-sudo nixos-rebuild switch --flake .#nixos    # NixOS
+nup                                         # Darwin switch (user only)
+sudo nixos-rebuild switch --flake .#nixos-desktop    # NixOS
 
 # Update
-nfu                   # Update flake inputs
+nfu                                         # Update flake inputs
 
 # Format
-nf <file>.nix         # Format nix file
+nf <file>.nix                               # Format nix file
 ```
 
 ## Important Notes
@@ -406,11 +422,12 @@ nf <file>.nix         # Format nix file
 **macOS Only:**
 - **Window Manager**: aerospace (via Raycast scripts)
 
-### Wayland Compositor (NixOS Desktop)
-- **Niri**: Scrollable tiling Wayland compositor
-  - Waybar: Minimalist status bar
-  - Vicinae app launcher
-  - Greetd/tuigreet login
+### Desktop Environment (NixOS Desktop)
+- **Niri**: Scrollable tiling Wayland compositor with vim-style navigation
+- **Waybar**: Minimalist status bar with system metrics and window tracking
+- **Vicinae**: High-performance app launcher with calculator and clipboard history
+- **swaybg**: Wallpaper daemon for Wayland
+- **Greetd/tuigreet**: TUI-based login manager
 
 ### Gaming Configuration (NixOS Desktop)
 - **Steam**: Full Steam integration with Gamescope session
