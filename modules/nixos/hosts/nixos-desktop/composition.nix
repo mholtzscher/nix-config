@@ -147,6 +147,14 @@
               proportion = 0.25;
             };
           }
+          {
+            matches = [
+              { app-id = "vesktop"; }
+            ];
+            default-column-width = {
+              proportion = 0.25;
+            };
+          }
         ];
 
         # Animations
