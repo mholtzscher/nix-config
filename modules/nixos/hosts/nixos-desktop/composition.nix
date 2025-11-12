@@ -27,7 +27,9 @@
         layout = {
           gaps = 16;
           center-focused-column = "always";
-          border = "off";
+          border = {
+            enable = false;
+          };
           focus-ring = {
             width = 2;
             # active-color = "#6699cc";

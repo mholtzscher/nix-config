@@ -11,7 +11,7 @@
 
         # Wallpaper file setup
         file.".config/wallpapers/current.jpg".source =
-          ../../../modules/home-manager/files/wallpapers/aishot-3308.jpg;
+          ../../../home-manager/files/wallpapers/aishot-3308.jpg;
       };
 
       # Systemd service for swaybg (works across Wayland compositors)
