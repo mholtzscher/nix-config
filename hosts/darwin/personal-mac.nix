@@ -6,7 +6,7 @@
 }:
 {
   imports = [
-    ../../modules/darwin/homebrew/hosts/personal-mac.nix
+    ../../modules/homebrew/hosts/personal-mac.nix
   ];
 
   users.users.${user} = {

@@ -1,7 +1,7 @@
 { inputs, user, ... }:
 {
   imports = [
-    ../../modules/darwin/homebrew/hosts/work-mac.nix
+    ../../modules/homebrew/hosts/work-mac.nix
   ];
 
   users.users.${user} = {
