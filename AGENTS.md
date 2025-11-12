@@ -73,7 +73,7 @@ modules/
       │   ├── personal-mac.nix         # Personal Mac programs/settings
       │   ├── work-mac.nix             # Work Mac programs/settings
       │   └── desktop.nix              # NixOS desktop programs/settings
-      ├── programs/                    # 41+ program configs
+      ├── programs/                    # 34 program modules
       └── files/                       # Dotfiles
 ```
 

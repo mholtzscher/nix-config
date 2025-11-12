@@ -321,15 +321,26 @@ nf <file>.nix         # Format nix file
 
 ## 🎨 Included Configurations
 
-### Cross-Platform Programs (36)
+### Cross-Platform Programs (34 Modules + Utilities)
+**Program Modules (home-manager):**
 - **Shells**: zsh, nushell
-- **Editors**: helix, neovim, vim, zed
+- **Editors**: helix, zed
 - **Git**: git, gh, gh-dash, jujutsu, lazygit, delta
 - **Terminal**: ghostty, zellij, starship
-- **Dev Tools**: go, poetry, pyenv, uv, node, bun, zig
-- **Cloud**: beads (AI-supervised issue tracker)
-- **Utils**: atuin, bat, bottom, btop, eza, fd, fzf, jq, k9s, kafkactl, lazydocker, ripgrep, yazi, zoxide
-- **macOS Only**: aerospace (window manager)
+- **Dev Tools**: go, poetry, pyenv, uv
+- **Cloud**: opencode (CLI for Claude)
+- **Utils**: atuin, bat, bottom, btop, eza, fd, fzf, jq, k9s, lazydocker, ripgrep, zoxide
+- **Web**: firefox, webapps
+- **System**: ssh, carapace (shell completions)
+
+**Additional Packages:**
+- **Editors**: neovim, vim
+- **Languages**: node (nodejs_24), bun, zig, lua
+- **Tools**: buf, dive, dust, grpcurl, gum, hey, httpie, jc, just, kdlfmt, kubernetes-helm, nil, nixfmt-rfc-style, sops, statix, tldr, topiary, tree-sitter, websocat, wget, yq
+- **Special**: beads (AI-supervised issue tracker), bd CLI
+
+**macOS Only:**
+- **Window Manager**: aerospace (via Raycast scripts)
 
 ### Wayland Compositors (NixOS Desktop)
 - **Hyprland**: Dynamic tiling Wayland compositor with NVIDIA optimizations
