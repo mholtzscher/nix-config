@@ -1,7 +1,7 @@
 {
-  config,
   lib,
   pkgs,
+  isWork,
   ...
 }:
 {
@@ -9,10 +9,10 @@
     ssh = {
       enable = true;
       enableDefaultConfig = false;
-      includes = lib.optionals (config.home.username == "michael") [
+      includes = lib.optionals (!isWork) [
         "~/.ssh/1Password/config"
       ];
-      matchBlocks = {
+      matchBlocks = lib.optionalAttrs (!isWork) {
         mina-nas = {
           hostname = "10.69.69.156";
           user = "root";
@@ -29,13 +29,10 @@
         };
         "*" = {
           identityAgent =
-            if config.home.username == "michael" then
-              if pkgs.stdenv.isDarwin then
-                "\"~/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock\""
-              else
-                "~/.1password/agent.sock"
+            if pkgs.stdenv.isDarwin then
+              "\"~/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock\""
             else
-              null;
+              "~/.1password/agent.sock";
         };
       };
     };
