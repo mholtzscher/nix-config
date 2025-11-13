@@ -103,7 +103,7 @@ in
       TOPIARY_LANGUAGE_DIR = "${config.xdg.configHome}/topiary/languages";
     }
     // lib.optionalAttrs (!isWork) {
-      OPENCODE_ENABLE_EXPERIMENTAL_MODELS = true;
+      OPENCODE_ENABLE_EXPERIMENTAL_MODELS = "true";
     };
   };
 
