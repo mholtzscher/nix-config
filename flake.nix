@@ -93,6 +93,16 @@
           graphical = true;
           gaming = true;
         };
+
+        # Wanda • headless services + NAS gateway
+        wanda = lib.mkSystem {
+          name = "wanda";
+          system = "x86_64-linux";
+          hostPath = ./hosts/nixos/wanda.nix;
+          user = "michael";
+          graphical = false;
+          gaming = false;
+        };
       };
     };
 }
