@@ -3,12 +3,15 @@
   # Gaming configuration for NixOS Desktop
   # Includes Steam, MangoHud, GameMode, and related gaming tools
 
+  # Note: Steam is enabled at the system level in hosts/nixos/nixos-desktop.nix
+  # This module focuses on user-level gaming packages and configurations
+
   home-manager.sharedModules = [
     {
       home = {
         # Gaming packages
         packages = with pkgs; [
-          # Steam integration tools
+          # Steam integration tools (Steam itself enabled at system level)
           mangohud # Performance overlay (FPS, temps, RAM/VRAM)
           gamemode # CPU governor optimization for games
           gamescope # SteamOS compositor for better compatibility
@@ -54,6 +57,9 @@
 
         # Optional: Proton environment variables for better compatibility
         sessionVariables = {
+          # DBus configuration for proper session integration
+          DBUS_SESSION_BUS_ADDRESS = "unix:path=$XDG_RUNTIME_DIR/bus";
+
           # Enable DXVK async for better performance (use with caution in online games)
           # DXVK_ASYNC = "1";
 

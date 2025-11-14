@@ -167,6 +167,31 @@
               proportion = 0.25;
             };
           }
+          # Steam windows - main interface and friends list
+          {
+            matches = [
+              { app-id = "^steam$"; }
+              { title = "^Steam$"; }
+              { title = "^Friends List$"; }
+            ];
+            default-column-width = {
+              proportion = 0.5;
+            };
+          }
+          # Steam game windows - allow fullscreen
+          {
+            matches = [
+              { app-id = "^steam_app_.*"; }
+            ];
+            open-fullscreen = true;
+          }
+          # Gamescope - Steam's gaming compositor
+          {
+            matches = [
+              { app-id = "^gamescope$"; }
+            ];
+            open-fullscreen = true;
+          }
         ];
 
         # Animations
