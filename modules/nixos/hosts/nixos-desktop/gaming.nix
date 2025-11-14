@@ -1,7 +1,7 @@
 { pkgs, ... }:
 {
   # Gaming configuration for NixOS Desktop
-  # Includes Steam, MangoHud, GameMode, and related gaming tools
+  # Includes Steam, GameMode, and related gaming tools
 
   # Note: Steam is enabled at the system level in hosts/nixos/nixos-desktop.nix
   # This module focuses on user-level gaming packages and configurations
@@ -12,7 +12,6 @@
         # Gaming packages
         packages = with pkgs; [
           # Steam integration tools (Steam itself enabled at system level)
-          mangohud # Performance overlay (FPS, temps, RAM/VRAM)
           gamemode # CPU governor optimization for games
           gamescope # SteamOS compositor for better compatibility
           protonup-qt # GUI for managing Proton-GE versions
@@ -26,32 +25,13 @@
           # winetricks # Wine helper scripts
         ];
 
-        # MangoHud configuration for gaming performance overlay
-        file.".config/MangoHud/MangoHud.conf".text = ''
-          # Performance metrics to display
-          fps
-          frametime=0
-          cpu_temp
-          gpu_temp
-          ram
-          vram
-
-          # Display position and styling
-          position=top-left
-          background_alpha=0.5
-          font_size=24
-
-          # Toggle key (Shift_R+F12)
-          toggle_hud=Shift_R+F12
-        '';
-
         # Optional: Steam launch options helper script
         file.".local/bin/steam-gamemode" = {
           executable = true;
           text = ''
             #!/usr/bin/env bash
-            # Launch Steam with gamemode and mangohud
-            exec gamemoderun mangohud steam "$@"
+            # Launch Steam with gamemode
+            exec gamemoderun steam "$@"
           '';
         };
 
