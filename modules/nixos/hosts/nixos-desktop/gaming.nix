@@ -1,11 +1,5 @@
 { pkgs, ... }:
 {
-  # Gaming configuration for NixOS Desktop
-  # Includes Steam, GameMode, and related gaming tools
-
-  # Note: Steam is enabled at the system level in hosts/nixos/nixos-desktop.nix
-  # This module focuses on user-level gaming packages and configurations
-
   home-manager.sharedModules = [
     {
       home = {
@@ -25,29 +19,10 @@
           # winetricks # Wine helper scripts
         ];
 
-        # Optional: Steam launch options helper script
-        file.".local/bin/steam-gamemode" = {
-          executable = true;
-          text = ''
-            #!/usr/bin/env bash
-            # Launch Steam with gamemode
-            exec gamemoderun steam "$@"
-          '';
-        };
-
         # Optional: Proton environment variables for better compatibility
         sessionVariables = {
           # DBus configuration for proper session integration
           DBUS_SESSION_BUS_ADDRESS = "unix:path=$XDG_RUNTIME_DIR/bus";
-
-          # Enable DXVK async for better performance (use with caution in online games)
-          # DXVK_ASYNC = "1";
-
-          # Enable FSR for upscaling support
-          # WINE_FULLSCREEN_FSR = "1";
-
-          # Force Proton to use specific version (example)
-          # STEAM_COMPAT_DATA_PATH = "$HOME/.steam/steam/steamapps/compatdata";
         };
       };
     }
