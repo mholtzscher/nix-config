@@ -133,6 +133,18 @@
           "Mod+Home".action.focus-column-first = { };
           "Mod+End".action.focus-column-last = { };
 
+          # Screenshots
+          "Mod+Shift+S".action.spawn = [
+            "bash"
+            "-c"
+            "grim -g \"$(slurp)\" - | wl-copy"
+          ];
+          "Mod+Shift+A".action.spawn = [
+            "bash"
+            "-c"
+            "grim - | wl-copy"
+          ];
+
           # Exit
           "Mod+Shift+E".action.quit = { };
         };

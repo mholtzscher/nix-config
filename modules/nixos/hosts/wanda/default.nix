@@ -41,8 +41,14 @@
 
   # NAS hostnames
   networking.hosts = {
-    "10.69.69.10" = [ "nas-a" "nas-a.internal" ];
-    "10.69.69.11" = [ "nas-b" "nas-b.internal" ];
+    "10.69.69.10" = [
+      "nas-a"
+      "nas-a.internal"
+    ];
+    "10.69.69.11" = [
+      "nas-b"
+      "nas-b.internal"
+    ];
   };
 
   systemd.network.wait-online.enable = true;
@@ -62,8 +68,14 @@
     openFirewall = false;
     ports = [ 22 ];
     listenAddresses = [
-      { addr = "0.0.0.0"; port = 22; }
-      { addr = "10.69.69.60"; port = 22; }
+      {
+        addr = "0.0.0.0";
+        port = 22;
+      }
+      {
+        addr = "10.69.69.60";
+        port = 22;
+      }
     ];
     hostKeys = [
       {
@@ -115,7 +127,10 @@
           "/srv/automation/state:/state"
           "/srv/automation/cache:/cache"
         ];
-        ports = [ "9000:9000/tcp" "9443:9443/tcp" ];
+        ports = [
+          "9000:9000/tcp"
+          "9443:9443/tcp"
+        ];
       };
     };
   };
@@ -138,5 +153,10 @@
   ];
 
   # Firewall
-  networking.firewall.allowedTCPPorts = [ 8181 9000 9443 32400 ];
+  networking.firewall.allowedTCPPorts = [
+    8181
+    9000
+    9443
+    32400
+  ];
 }

@@ -23,7 +23,11 @@ let
     interface = primaryLanInterface;
   };
 
-  primaryNameservers = [ "10.69.69.1" "1.1.1.1" "9.9.9.9" ];
+  primaryNameservers = [
+    "10.69.69.1"
+    "1.1.1.1"
+    "9.9.9.9"
+  ];
 
 in
 {
@@ -36,7 +40,11 @@ in
     isNormalUser = true;
     home = "/home/${user}";
     description = "Michael Holtzscher";
-    extraGroups = [ "wheel" "networkmanager" "docker" ];
+    extraGroups = [
+      "wheel"
+      "networkmanager"
+      "docker"
+    ];
     shell = pkgs.zsh;
     openssh.authorizedKeys.keys = sshPublicKeys;
   };
@@ -82,7 +90,11 @@ in
 
     firewall = {
       enable = true;
-      allowedTCPPorts = [ 22 80 443 ];
+      allowedTCPPorts = [
+        22
+        80
+        443
+      ];
       allowedUDPPorts = [ 51820 ];
       trustedInterfaces = [ nasPatchInterface ];
     };

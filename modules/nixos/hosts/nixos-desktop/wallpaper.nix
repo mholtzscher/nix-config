@@ -14,9 +14,9 @@
           # Valid modes: stretch, center, fit, tile, fit-border-color (NOT "fill")
           any = {
             path = "/home/michael/Pictures/wallpapers";
-            duration = "1m";  # Change wallpaper every minute
-            mode = "fit-border-color";  # Fits image and fills borders with edge color (best for ultrawide)
-            sorting = "random";  # random or sequential
+            duration = "1m"; # Change wallpaper every minute
+            mode = "fit-border-color"; # Fits image and fills borders with edge color (best for ultrawide)
+            sorting = "random"; # random or sequential
           };
         };
       };

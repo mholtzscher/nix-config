@@ -52,6 +52,11 @@
     lshw
     pciutils
     usbutils
+
+    # Screenshot tools for Wayland
+    grim
+    slurp
+    wl-clipboard
   ];
 
   # Console configuration
