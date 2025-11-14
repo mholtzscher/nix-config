@@ -446,6 +446,11 @@ keybinds clear-defaults=true {
         bind "Alt f" {
             ToggleFloatingPanes
         }
+        bind "Alt a" {
+            Run "opencode" {
+                close_on_exit true
+            }
+        }
         bind "Alt i" {
             MoveTab "Left"
         }
