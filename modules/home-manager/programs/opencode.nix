@@ -84,6 +84,15 @@
             prompt = "After conducting your research, summarize the key findings clearly and concisely. Include only the most relevant code examples, file names, and sources as needed. Store research in research/<topic>/<doc>.md folder structure.";
           };
         };
+        formatter = {
+          nix = {
+            command = [
+              "nixfmt"
+              "$FILE"
+            ];
+            extensions = [ ".nix" ];
+          };
+        };
         tools = {
           "gh_grep*" = false;
           "exa*" = false;
