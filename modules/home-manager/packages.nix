@@ -3,7 +3,7 @@
 with pkgs;
 [
   # bd (beads) - AI-supervised issue tracker
-  inputs.beads.packages.${pkgs.stdenv.hostPlatform.system}.default
+  # inputs.beads.packages.${pkgs.stdenv.hostPlatform.system}.default
 
   nodejs_24
   lua

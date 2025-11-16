@@ -15,6 +15,7 @@
       "FelixKratz/formulae"
       "jetbrains/utils"
       "sst/tap"
+      "steveyegge/beads"
     ];
     brews = [
       "awscli"
@@ -23,6 +24,7 @@
       "JetBrains/utils/kotlin-lsp"
       "mas"
       "sst/tap/opencode"
+      "bd"
     ];
     casks = [
       "arc"
