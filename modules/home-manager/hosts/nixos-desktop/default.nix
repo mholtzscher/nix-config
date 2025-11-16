@@ -17,7 +17,11 @@
     brightnessctl # Brightness control
     pavucontrol # Audio control GUI
     steam-run # Steam runtime for non-Steam applications
+    qpwgraph # PipeWire graph visualizer for audio routing
   ];
+
+  # Audio effects processing for microphone and system audio
+  services.easyeffects.enable = true;
 
   systemd.user.services."1password" = {
     Unit = {
