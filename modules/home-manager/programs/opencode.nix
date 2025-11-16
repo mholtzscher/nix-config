@@ -104,7 +104,8 @@
               "uvx"
               "beads-mcp"
             ];
-            enabled = !isWork;
+            enabled = false;
+            # enabled = !isWork;
           };
           gh_grep = {
             type = "remote";
