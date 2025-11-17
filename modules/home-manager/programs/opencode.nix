@@ -5,7 +5,7 @@
       enable = true;
       package = if pkgs.stdenv.isDarwin then null else pkgs.opencode;
       settings = {
-        theme = "catppuccin";
+        theme = "opencode";
         share = "disabled";
         username = "mholtzscher";
         keybinds = {
