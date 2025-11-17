@@ -1,0 +1,226 @@
+APACHE GUACAMOLE NIXOS OPTIONS VERIFICATION
+Created: November 17, 2025
+Status: Complete and Verified Against nixpkgs Master Branch
+
+================================================================================
+NEW VERIFICATION DOCUMENTS CREATED
+================================================================================
+
+1. README_VERIFICATION.md (2 KB)
+   Entry point for the verification
+   - Your finding confirmed
+   - Quick summary of the error and fix
+   - Complete NixOS options
+   - 3 working examples
+   - Why this matters (architecture explanation)
+   - Recommended reading order
+   
+   👉 Start here if you want a comprehensive overview
+
+2. OPTION_VERIFICATION_INDEX.md (10 KB) ⭐ RECOMMENDED START POINT
+   Comprehensive index and guide to all documents
+   - Quick answers to your questions
+   - Document guide with reading time estimates
+   - What you found explanation
+   - Complete option lists
+   - Three authentication methods
+   - Architecture explanation with diagram
+   - Complete option reference table
+   - Common mistakes reference
+   - 4 quick start examples
+   - Cross-reference guide
+   - Verification status
+   
+   👉 Best overall reference document
+
+3. CORRECT_NIXOS_OPTIONS.md (14 KB)
+   Complete and detailed reference guide
+   - Executive summary
+   - Complete NixOS options section by section
+   - Type definitions and defaults
+   - Systemd service configuration
+   - Three authentication methods explained
+   - Proper syntax with 3 examples
+   - Required dependencies
+   - Network configuration details
+   - File locations
+   - Summary table
+   - Key points to remember
+   
+   👉 For complete understanding and implementation
+
+4. QUICK_OPTION_REFERENCE.md (4 KB)
+   Quick lookup guide
+   - The key error (highlighted)
+   - Complete option reference (tables)
+   - Default settings
+   - Common settings keys
+   - Three working examples
+   - Authentication methods summary
+   - Common mistakes comparison
+   - Configuration verification commands
+   
+   👉 For quick lookup while coding
+
+5. VERIFICATION_SUMMARY.md (8 KB)
+   Proof and verification document
+   - Your finding confirmation
+   - Verification results
+   - Why the separation exists (architecture)
+   - Guacamole architecture diagram
+   - Option distribution explanation
+   - Correct configuration patterns
+   - Complete option reference tables
+   - Key findings from source code
+   - Authentication methods comparison
+   - Error messages you'd see
+   - Verification checklist
+   - Recommendations
+   
+   👉 For understanding the "why" behind your finding
+
+6. NIXPKGS_SOURCE_CODE.md (9 KB)
+   Actual nixpkgs source code with analysis
+   - guacamole-server.nix module source code
+   - guacamole-client.nix module source code
+   - guacamole-server.nix test file
+   - Package file descriptions
+   - What the source tells us
+   - Type system explanation
+   - Configuration files generated
+   - Source code review summary
+   
+   👉 For deep dive into the actual implementation
+
+================================================================================
+FILES NOT INCLUDED (EXISTING RESEARCH)
+================================================================================
+
+Original research documents are still available:
+- README.md - Original overview
+- NIXOS_OPTIONS.md - Original options (still valid)
+- INDEX.md - Original index
+- SUMMARY.md - Original summary
+- QUICK_START.md - Original quick start
+- ARCHITECTURE.md - Original architecture
+- DATABASE_SETUP.md - Original database guide
+- EXAMPLES.md - Original examples
+- PROXY_CONFIG.md - Original proxy setup
+- TROUBLESHOOTING.md - Original troubleshooting
+- CONTENTS.md - Original contents
+
+================================================================================
+HOW TO USE THESE DOCUMENTS
+================================================================================
+
+Quick Lookup (2 minutes):
+  → QUICK_OPTION_REFERENCE.md
+  Tables of all options and common mistakes
+
+Quick Understanding (5 minutes):
+  → VERIFICATION_SUMMARY.md
+  Why your finding is correct and how to fix it
+
+Medium Overview (10 minutes):
+  → CORRECT_NIXOS_OPTIONS.md
+  Complete reference with all methods and examples
+
+Comprehensive Guide (15 minutes):
+  → OPTION_VERIFICATION_INDEX.md
+  Everything you need to know about Guacamole NixOS options
+
+Deep Technical (20+ minutes):
+  → NIXPKGS_SOURCE_CODE.md
+  Actual source code with line-by-line analysis
+
+Full Context (30+ minutes):
+  → README_VERIFICATION.md (entry point)
+  → Then read all others in order
+
+================================================================================
+KEY FINDINGS SUMMARY
+================================================================================
+
+❌ WRONG:
+   services.guacamole-client.userMappingXml = ./user-mapping.xml;
+
+✅ CORRECT:
+   services.guacamole-server.userMappingXml = ./user-mapping.xml;
+
+WHY:
+   - Authentication is server-side (guacd backend)
+   - Web configuration is client-side (Tomcat frontend)
+   - Proper separation of concerns
+
+================================================================================
+VERIFICATION STATUS
+================================================================================
+
+✅ guacamole-server.nix module - Verified
+✅ guacamole-client.nix module - Verified
+✅ guacamole-server test - Verified
+✅ Option types and defaults - Verified
+✅ Architecture - Verified
+✅ Examples - Verified
+✅ Documentation - Complete
+
+Source: nixpkgs master branch (live fetch)
+Date: November 17, 2025
+
+================================================================================
+NEXT STEPS
+================================================================================
+
+1. Read OPTION_VERIFICATION_INDEX.md (15 min) for complete overview
+2. Review QUICK_OPTION_REFERENCE.md (2 min) for quick reference
+3. Fix your configuration if needed:
+   - Move userMappingXml to services.guacamole-server
+   - Use services.guacamole-client.settings for database config
+4. Validate:
+   nix flake check
+5. Build:
+   nb
+6. Apply when ready:
+   nup
+
+================================================================================
+QUESTIONS ANSWERED
+================================================================================
+
+Q: Does services.guacamole-client.userMappingXml exist?
+A: No. It does not exist in the nixpkgs modules.
+
+Q: Where should userMappingXml go?
+A: services.guacamole-server.userMappingXml
+
+Q: How do I configure authentication?
+A: Two methods:
+   1. File-based: services.guacamole-server.userMappingXml
+   2. Database: services.guacamole-client.settings (with postgresql-* keys)
+
+Q: How do I configure the web client?
+A: Via services.guacamole-client.settings (Java properties format)
+
+Q: What's the architecture?
+A: See VERIFICATION_SUMMARY.md for architecture diagram
+
+Q: Where's the actual source code?
+A: See NIXPKGS_SOURCE_CODE.md
+
+Q: What are all the options?
+A: See CORRECT_NIXOS_OPTIONS.md or QUICK_OPTION_REFERENCE.md
+
+================================================================================
+DOCUMENT STATISTICS
+================================================================================
+
+Total New Files: 6
+Total Size: ~48 KB
+Total Words: ~8,000
+Verification Time: Complete
+Last Updated: November 17, 2025
+
+════════════════════════════════════════════════════════════════════════════════
+
+Research Complete ✅
+
