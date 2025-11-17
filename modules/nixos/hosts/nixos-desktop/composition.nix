@@ -192,6 +192,20 @@
             ];
             open-fullscreen = true;
           }
+          #   # EasyEffects - Audio effects manager
+          #   {
+          #     matches = [
+          #       { app-id = "com.github.wwmm.easyeffects"; }
+          #     ];
+          #     open-on-workspace = "2";
+          #   }
+          #   # PavuControl - Volume control
+          #   {
+          #     matches = [
+          #       { app-id = "org.pulseaudio.pavucontrol"; }
+          #     ];
+          #     open-on-workspace = "2";
+          #   }
         ];
 
         # Animations
