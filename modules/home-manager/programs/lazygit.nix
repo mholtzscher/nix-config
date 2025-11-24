@@ -21,6 +21,14 @@
             command = "gh pr create -df && gh pr view --web";
             loadingText = "Creating Pull Request";
           }
+          {
+            key = "C";
+            description = "AI Commit - Generate conventional commit with OpenCode";
+            context = "files";
+            command = "nu -c 'use ~/.config/nushell/functions.nu *; ai_commit'";
+            output = "terminal";
+            loadingText = "Generating commit message with AI...";
+          }
           # {
           #   key = "<c-o>";
           #   description = "Advanced - Open Pull Request with GitHub CLI";
