@@ -538,7 +538,7 @@ Return ONLY the commit message, nothing else. No explanations, no markdown code 
   }
   
   # Parse JSON output to extract the text content from response events
-  # OpenCode sends multiple JSON events, we need to collect "text" type events
+  # OpenCode sends multiple JSON events with structure: {"type":"text","part":{"text":"..."}}
   let commit_message = (
     $opencode_result.stdout
     | lines
@@ -552,7 +552,7 @@ Return ONLY the commit message, nothing else. No explanations, no markdown code 
       }
     | where $it != null
     | where {|event| $event.type? == "text" }
-    | get text
+    | get part.text
     | str join ""
     | str trim
   )
