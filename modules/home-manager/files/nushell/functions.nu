@@ -481,6 +481,119 @@ export def aerospace_workspace_size [percentage?: int] {
   return "Completed."
 }
 
+# AI-powered conventional commit using OpenCode CLI
+# Analyzes staged changes and generates a conventional commit message
+# Usage: ai_commit          # With confirmation prompt
+#        ai_commit --yes    # Skip confirmation (auto-commit)
+export def ai_commit [
+  --yes (-y)  # Skip confirmation and commit immediately
+] {
+  _require_tool git
+  _require_tool opencode
+
+  # Check if we're in a git repository
+  let git_check = (git rev-parse --is-inside-work-tree | complete)
+  if $git_check.exit_code != 0 {
+    log error "Not in a git repository"
+    return 1
+  }
+
+  # Check if there are staged changes
+  let staged_diff = (git diff --staged)
+  if ($staged_diff | is-empty) {
+    log warning "No staged changes to commit"
+    log info "Use 'git add' to stage files first"
+    return 1
+  }
+
+  log info "Analyzing staged changes with AI..."
+  
+  # Use OpenCode CLI to analyze the diff and generate commit message
+  # Using github-copilot/gpt-5-mini for fast and cheap generation
+  # --format json gives us structured output with events we can parse
+  let commit_prompt = $"
+You are a git commit message expert. Analyze the following staged git diff and create a conventional commit message.
+
+Rules:
+1. Use conventional commit format: <type>: <description>
+2. Types: feat, fix, docs, style, refactor, test, chore
+3. Keep the description concise \(50 chars or less for summary\)
+4. If needed, add a blank line and detailed body
+5. DO NOT add co-authors
+6. Focus on WHY the change was made, not just WHAT changed
+
+Staged changes:
+```
+($staged_diff)
+```
+
+Return ONLY the commit message, nothing else. No explanations, no markdown code blocks, just the commit message text."
+
+  let opencode_result = (opencode run --format json --model github-copilot/gpt-5-mini $commit_prompt | complete)
+  
+  if $opencode_result.exit_code != 0 {
+    log error "Failed to generate commit message with OpenCode"
+    log error $opencode_result.stderr
+    return
+  }
+  
+  # Parse JSON output to extract the text content from response events
+  # OpenCode sends multiple JSON events, we need to collect "text" type events
+  let commit_message = (
+    $opencode_result.stdout
+    | lines
+    | where {|line| ($line | str trim) != "" }
+    | each {|line| 
+        try { 
+          $line | from json 
+        } catch { 
+          null 
+        }
+      }
+    | where $it != null
+    | where {|event| $event.type? == "text" }
+    | get text
+    | str join ""
+    | str trim
+  )
+  
+  if ($commit_message | is-empty) {
+    log error "OpenCode returned an empty commit message"
+    return
+  }
+  
+  # Show the generated commit message
+  print "\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+  print "Generated commit message:"
+  print "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+  print $commit_message
+  print "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n"
+  
+  # Ask for confirmation unless --yes flag is provided
+  let should_commit = if $yes {
+    true
+  } else {
+    _confirm "Create commit with this message?" true
+  }
+  
+  if $should_commit {
+    let commit_result = (git commit -m $commit_message | complete)
+    
+    if $commit_result.exit_code == 0 {
+      log info "Commit created successfully!"
+      print $commit_result.stdout
+      return
+    } else {
+      log error "Failed to create commit"
+      log error $commit_result.stderr
+      return
+    }
+  } else {
+    log warning "Commit cancelled by user"
+    return
+  }
+}
+
 # Theme settings - Catppuccin Mocha
 # $env.config.color_config =  {
 #   binary: '#cba6f7'
