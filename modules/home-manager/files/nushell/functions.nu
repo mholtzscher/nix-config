@@ -511,6 +511,8 @@ export def ai_commit [
   # Use OpenCode CLI to analyze the diff and generate commit message
   # Using github-copilot/gpt-5-mini for fast and cheap generation
   # --format json gives us structured output with events we can parse
+  # NOTE: We pipe the prompt via stdin to avoid "Argument list too long" errors on Linux
+  # when the diff is large (Linux has lower ARG_MAX than macOS)
   let commit_prompt = $"
 You are a git commit message expert. Analyze the following staged git diff and create a conventional commit message.
 
@@ -529,7 +531,7 @@ Staged changes:
 
 Return ONLY the commit message, nothing else. No explanations, no markdown code blocks, just the commit message text."
 
-  let opencode_result = (opencode run --format json --model github-copilot/gpt-5-mini $commit_prompt | complete)
+  let opencode_result = ($commit_prompt | opencode run --format json --model github-copilot/gpt-5-mini - | complete)
   
   if $opencode_result.exit_code != 0 {
     log error "Failed to generate commit message with OpenCode"
