@@ -208,8 +208,6 @@ in
     xorg.xdpyinfo
   ];
 
-  # Allow unfree packages
-  nixpkgs.config.allowUnfree = true;
   programs = {
 
     # Niri window manager (scrollable tiling Wayland compositor)

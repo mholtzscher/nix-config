@@ -32,7 +32,7 @@
     };
     catppuccin.url = "github:catppuccin/nix";
     beads = {
-      url = "github:steveyegge/beads/2db22036304eceb82b484e5645cdbc84c4f5b9a0";
+      url = "github:steveyegge/beads";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     niri = {
