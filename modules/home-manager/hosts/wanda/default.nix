@@ -14,8 +14,10 @@
 
   programs.git = {
     enable = true;
-    userName = "Michael Holtzscher";
-    userEmail = "wanda@example.com";
+    settings.user = {
+      name = "Michael Holtzscher";
+      email = "michael@holtzscher.com";
+    };
   };
 
   programs.ssh = {

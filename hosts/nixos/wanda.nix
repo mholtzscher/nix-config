@@ -15,7 +15,6 @@ let
   nasLink = {
     address = "192.168.254.2";
     prefixLength = 30;
-    peerAddress = "192.168.254.1";
   };
 
   defaultGateway = {
