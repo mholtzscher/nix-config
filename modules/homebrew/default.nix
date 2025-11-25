@@ -14,7 +14,6 @@
       "hashicorp/tap"
       "FelixKratz/formulae"
       "jetbrains/utils"
-      "sst/tap"
       "steveyegge/beads"
     ];
     brews = [
@@ -23,7 +22,6 @@
       "borders"
       "JetBrains/utils/kotlin-lsp"
       "mas"
-      "sst/tap/opencode"
       "bd"
     ];
     casks = [

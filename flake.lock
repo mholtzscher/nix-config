@@ -336,6 +336,26 @@
         "type": "github"
       }
     },
+    "opencode": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1764108151,
+        "narHash": "sha256-s/Wj5NaAnD6f0RF4+HWh8lLb+H7hDHtnzeMEMk24ItY=",
+        "owner": "sst",
+        "repo": "opencode",
+        "rev": "447713244820e875e192a5815c4d8bc76c03b40f",
+        "type": "github"
+      },
+      "original": {
+        "owner": "sst",
+        "repo": "opencode",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "beads": "beads",
@@ -348,6 +368,7 @@
         "nix-darwin": "nix-darwin",
         "nix-homebrew": "nix-homebrew",
         "nixpkgs": "nixpkgs_2",
+        "opencode": "opencode",
         "topiaryNushell": "topiaryNushell",
         "vicinae": "vicinae"
       }

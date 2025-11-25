@@ -14,7 +14,7 @@
 
     clean = "git clean -Xdf";
 
-    oc = if pkgs.stdenv.isLinux then "steam-run bunx opencode-ai" else "opencode";
+    oc = "opencode";
 
     pbj = "pbpaste | jq";
 

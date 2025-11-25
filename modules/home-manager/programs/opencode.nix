@@ -1,9 +1,14 @@
-{ pkgs, isWork, ... }:
+{
+  pkgs,
+  isWork,
+  inputs,
+  ...
+}:
 {
   programs = {
     opencode = {
       enable = true;
-      package = if pkgs.stdenv.isDarwin then null else pkgs.opencode;
+      package = inputs.opencode.packages.${pkgs.stdenv.hostPlatform.system}.default;
       settings = {
         theme = "opencode";
         share = "disabled";

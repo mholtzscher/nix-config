@@ -39,6 +39,10 @@
       url = "github:sodiboo/niri-flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    opencode = {
+      url = "github:sst/opencode";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -56,6 +60,7 @@
       catppuccin,
       beads,
       niri,
+      opencode,
     }:
     let
       # Import lib helpers for creating system configurations
