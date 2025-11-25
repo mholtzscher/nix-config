@@ -57,13 +57,13 @@
             prompt = "{file:${../files/opencode/agents/mermaid.md}}";
           };
           "architect-review" = {
-            disable = true;
+            disable = isWork;
             mode = "subagent";
             description = "Master software architect specializing in modern architecture patterns, clean architecture, microservices, event-driven systems, and DDD. Reviews system designs and code changes for architectural integrity, scalability, and maintainability. Use PROACTIVELY for architectural decisions.";
             prompt = "{file:${../files/opencode/agents/architect-review.md}}";
           };
           research = {
-            disable = true;
+            disable = isWork;
             mode = "subagent";
             description = "Enterprise Research Assistant named \"Claudette\" that autonomously conducts comprehensive research with rigorous source verification and synthesis.";
             prompt = "{file:${../files/opencode/agents/research.md}}";
