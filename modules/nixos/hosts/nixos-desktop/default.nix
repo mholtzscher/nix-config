@@ -14,6 +14,5 @@
     ./gaming.nix # Gaming tools (Steam, MangoHud, etc.)
     ./wallpaper.nix # Wallpaper daemon configuration
     ./webapps.nix # Web applications as native apps
-    ./guacamole.nix # Apache Guacamole remote desktop gateway
   ];
 }
