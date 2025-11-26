@@ -24,11 +24,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1764091589,
-        "narHash": "sha256-u/B52zcAdVF9qTPCA+f+L9PYwI3ITusMd7jJRkeHEI4=",
+        "lastModified": 1764121976,
+        "narHash": "sha256-qbnbn4Ahf9XooP4gbzgj3y/Ir4PzGcPxUcdOqV2680I=",
         "owner": "steveyegge",
         "repo": "beads",
-        "rev": "a8008f5a0b5a23f768dc115d211db2789800e282",
+        "rev": "8051cc911b47fb96fe677cb9e1b2e58d2b3eaac2",
         "type": "github"
       },
       "original": {
@@ -343,11 +343,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1764108151,
-        "narHash": "sha256-s/Wj5NaAnD6f0RF4+HWh8lLb+H7hDHtnzeMEMk24ItY=",
+        "lastModified": 1764117142,
+        "narHash": "sha256-Ng+6FAbqQBpqxet/09WLL+iOMwVrf2pfC5XdKdrCfEc=",
         "owner": "sst",
         "repo": "opencode",
-        "rev": "447713244820e875e192a5815c4d8bc76c03b40f",
+        "rev": "4114c8715c65bf55c7c1d81daf87b6d3639968e3",
         "type": "github"
       },
       "original": {
@@ -406,11 +406,11 @@
     "topiaryNushell": {
       "flake": false,
       "locked": {
-        "lastModified": 1762748434,
-        "narHash": "sha256-rV0BNLVg+cKJtAprKLPLpfwOvYjCSMjfCKzS/kSUFu0=",
+        "lastModified": 1764119030,
+        "narHash": "sha256-an4uds7VGyGS+Yb0gpicy4pBMpfLyFF7FWVkIPrKwN4=",
         "owner": "blindFS",
         "repo": "topiary-nushell",
-        "rev": "e5c4db10057d2223e00a1f8957987b243350c903",
+        "rev": "4abdcc90a20bf2aff85ab180470910e4caefe45f",
         "type": "github"
       },
       "original": {
