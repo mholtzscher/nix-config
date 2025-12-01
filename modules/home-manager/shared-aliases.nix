@@ -1,8 +1,10 @@
-{ pkgs, ... }:
+{ ... }:
 {
   shellAliases = {
     ngc = "nix-collect-garbage -d";
     nfc = "nix flake check";
+
+    of = "open-file";
 
     c = "clear";
     ll = "ls -al";
