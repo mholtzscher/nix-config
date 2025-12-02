@@ -4,6 +4,8 @@ with pkgs;
 [
   # bd (beads) - AI-supervised issue tracker
   inputs.beads.packages.${pkgs.stdenv.hostPlatform.system}.default
+  # open-file - Terminal file explorer for cloud storage and remote filesystems
+  inputs.open-file.packages.${pkgs.stdenv.hostPlatform.system}.default
   google-cloud-sdk
   nodejs_24
   lua

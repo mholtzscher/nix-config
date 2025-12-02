@@ -43,6 +43,10 @@
       url = "github:sst/opencode";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    open-file = {
+      url = "github:mholtzscher/open-file";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -61,6 +65,7 @@
       beads,
       niri,
       opencode,
+      open-file,
     }:
     let
       # Import lib helpers for creating system configurations
