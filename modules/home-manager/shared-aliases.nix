@@ -17,6 +17,7 @@
     clean = "git clean -Xdf";
 
     oc = "opencode";
+    ocp = "sh ~/code/paytient/opencode/start";
 
     pbj = "pbpaste | jq";
 

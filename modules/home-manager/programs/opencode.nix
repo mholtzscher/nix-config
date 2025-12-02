@@ -7,7 +7,7 @@
 {
   programs = {
     opencode = {
-      enable = true;
+      enable = !isWork;
       package = inputs.opencode.packages.${pkgs.stdenv.hostPlatform.system}.default;
       settings = {
         theme = "opencode";
@@ -62,19 +62,16 @@
             prompt = "{file:${../files/opencode/agents/mermaid.md}}";
           };
           "architect-review" = {
-            disable = isWork;
             mode = "subagent";
             description = "Master software architect specializing in modern architecture patterns, clean architecture, microservices, event-driven systems, and DDD. Reviews system designs and code changes for architectural integrity, scalability, and maintainability. Use PROACTIVELY for architectural decisions.";
             prompt = "{file:${../files/opencode/agents/architect-review.md}}";
           };
           research = {
-            disable = isWork;
             mode = "subagent";
             description = "Enterprise Research Assistant named \"Claudette\" that autonomously conducts comprehensive research with rigorous source verification and synthesis.";
             prompt = "{file:${../files/opencode/agents/research.md}}";
           };
           lookup = {
-            disable = isWork;
             model = "opencode/claude-haiku-4-5";
             mode = "subagent";
             permission = {
@@ -110,12 +107,10 @@
               "beads-mcp"
             ];
             enabled = false;
-            # enabled = !isWork;
           };
           gh_grep = {
             type = "remote";
             url = "https://mcp.grep.app/";
-            enabled = !isWork;
           };
           exa = {
             type = "local";
@@ -123,7 +118,6 @@
               "bunx"
               "exa-mcp-server"
             ];
-            enabled = !isWork;
           };
         };
       };
