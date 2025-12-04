@@ -2,7 +2,6 @@
   lib,
   pkgs,
   inputs,
-  isWork,
   ...
 }:
 {
@@ -17,7 +16,7 @@
     # home.packages = [ inputs.paneru.packages.${pkgs.system}.paneru ];
 
     services.paneru = {
-      enable = true;
+      enable = false;
       settings = {
         options = {
           focus_follows_mouse = true;
