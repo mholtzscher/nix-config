@@ -24,34 +24,6 @@
   # Audio effects processing for microphone and system audio
   services.easyeffects.enable = true;
 
-  # MangoHud performance overlay for gaming
-  programs.mangohud = {
-    enable = true;
-    enableSessionWide = true; # Set MANGOHUD=1 for all Vulkan games
-    settings = {
-      # Performance metrics
-      fps = true;
-      frametime = true;
-      frame_timing = true;
-      gpu_stats = true;
-      gpu_temp = true;
-      gpu_power = true;
-      cpu_stats = true;
-      cpu_temp = true;
-      ram = true;
-      vram = true;
-
-      # Display settings
-      position = "top-left";
-      font_size = 20;
-      background_alpha = "0.5";
-      round_corners = 5;
-
-      # Toggle key (Right Shift + F12)
-      toggle_hud = "Shift_R+F12";
-    };
-  };
-
   systemd.user.services."1password" = {
     Unit = {
       Description = "1Password";
