@@ -10,6 +10,7 @@
           gamescope # SteamOS compositor for better compatibility
           protonup-qt # GUI for managing Proton-GE versions
           steamtinkerlaunch # Advanced Steam game tweaking tool
+          vulkan-tools # vkcube and other Vulkan utilities
 
           # Additional gaming utilities (optional, uncomment as needed)
           # lutris # Game launcher for various platforms
