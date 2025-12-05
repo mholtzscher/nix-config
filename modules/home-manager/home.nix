@@ -30,7 +30,6 @@ in
 {
   imports = [
     ./programs
-    ./services
     inputs.catppuccin.homeModules.catppuccin
   ];
 

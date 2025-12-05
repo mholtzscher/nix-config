@@ -451,26 +451,6 @@
         "type": "github"
       }
     },
-    "paneru": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1764534488,
-        "narHash": "sha256-SqlrZifhKFrnKuHxdUcvSNgErNLrnA7oN079G27O7C0=",
-        "owner": "karinushka",
-        "repo": "paneru",
-        "rev": "ed00f99c2686665da06700eb04fb5d0006ecaf2b",
-        "type": "github"
-      },
-      "original": {
-        "owner": "karinushka",
-        "repo": "paneru",
-        "type": "github"
-      }
-    },
     "root": {
       "inputs": {
         "beads": "beads",
@@ -485,7 +465,6 @@
         "nixpkgs": "nixpkgs_2",
         "open-file": "open-file",
         "opencode": "opencode",
-        "paneru": "paneru",
         "topiaryNushell": "topiaryNushell",
         "vicinae": "vicinae"
       }

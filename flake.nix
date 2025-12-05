@@ -47,10 +47,6 @@
       url = "github:mholtzscher/open-file";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    paneru = {
-      url = "github:karinushka/paneru";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 
   outputs =
@@ -70,7 +66,6 @@
       niri,
       opencode,
       open-file,
-      paneru,
     }:
     let
       # Import lib helpers for creating system configurations
