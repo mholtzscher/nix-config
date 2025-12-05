@@ -46,6 +46,7 @@
     rustc
     cargo
     gcc
+    gnumake
     vscode
 
     # System utilities
