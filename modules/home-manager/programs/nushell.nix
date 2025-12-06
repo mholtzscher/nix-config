@@ -48,8 +48,8 @@ in
         # overlay use ${inputs.naws}/naws as naws
         use ${inputs.naws}/naws/
 
-        # Add local bin to PATH
-        $env.PATH = ($env.PATH | prepend $"($env.HOME)/.local/bin")
+        # Add local bin and homebrew to PATH
+        $env.PATH = ($env.PATH | prepend $"($env.HOME)/.local/bin" | prepend "/opt/homebrew/sbin" | prepend "/opt/homebrew/bin")
 
         ${builtins.readFile ../files/nushell/functions.nu}
       '';
