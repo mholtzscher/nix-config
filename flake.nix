@@ -47,6 +47,10 @@
       url = "github:mholtzscher/open-file";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    melt = {
+      url = "github:mholtzscher/melt";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -66,6 +70,7 @@
       niri,
       opencode,
       open-file,
+      melt,
     }:
     let
       # Import lib helpers for creating system configurations
