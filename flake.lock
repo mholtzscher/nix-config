@@ -191,11 +191,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1765070172,
-        "narHash": "sha256-/7ter6OxQ8m2O50BxiTAKphoEEKMxg4Mkw+kGChrON8=",
+        "lastModified": 1765072552,
+        "narHash": "sha256-+MkRPD8zoVi+3CCYsehqpHXybdUkC+yLi0E6E3wFPXM=",
         "owner": "mholtzscher",
         "repo": "melt",
-        "rev": "bb91a9632decb45f6339bb3d8a670cbfe645fd9f",
+        "rev": "2f588cb4c77770715b77d2856971932479c52250",
         "type": "github"
       },
       "original": {
