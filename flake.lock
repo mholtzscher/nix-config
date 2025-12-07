@@ -254,11 +254,11 @@
         "systems": "systems_2"
       },
       "locked": {
-        "lastModified": 1765088028,
-        "narHash": "sha256-BZbbxewO0w2VvSUWWqNEJluQGPtcTIgfQzQjg8tFaUk=",
+        "lastModified": 1765089647,
+        "narHash": "sha256-U1JRJv0xfUd5F/z9WXf+/6CfyQ9XJyeA/Hy4O897aJU=",
         "owner": "mholtzscher",
         "repo": "melt",
-        "rev": "f3e2ec1a101a75538574f5b4dfc05570d0bc86ea",
+        "rev": "cd2a16c1509fabf253edf019951e4f68ceb6c7f0",
         "type": "github"
       },
       "original": {
