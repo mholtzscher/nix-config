@@ -60,6 +60,7 @@
         # Home-manager specific module arguments - make variables available without explicit import
         {
           home-manager.sharedModules = [
+            inputs.nvf.homeManagerModules.default
             {
               _module.args = {
                 inherit isWork;

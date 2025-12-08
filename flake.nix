@@ -51,6 +51,10 @@
       url = "github:mholtzscher/melt";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nvf = {
+      url = "github:notashelf/nvf";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -71,6 +75,7 @@
       opencode,
       open-file,
       melt,
+      nvf,
     }:
     let
       # Import lib helpers for creating system configurations
