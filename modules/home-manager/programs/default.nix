@@ -21,6 +21,7 @@
     ./k9s.nix
     ./lazydocker.nix
     ./lazygit.nix
+    ./neovim # nixCats-based Neovim with LazyVim
     ./nushell.nix
     ./opencode.nix
     ./poetry.nix

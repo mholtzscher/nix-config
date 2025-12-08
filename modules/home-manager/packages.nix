@@ -30,7 +30,7 @@ with pkgs;
   ko
   kubernetes-helm
   nixfmt-rfc-style
-  neovim
+  # neovim is managed by nixCats in programs/neovim/
   nil
   oras
   procs
@@ -42,7 +42,7 @@ with pkgs;
   topiary
   tree-sitter
   tree-sitter-grammars.tree-sitter-nu
-  vim
+  # vim is aliased by nixCats neovim in programs/neovim/
   websocat
   wget
   yq

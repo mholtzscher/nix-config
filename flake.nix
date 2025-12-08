@@ -51,6 +51,9 @@
       url = "github:mholtzscher/melt";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nixCats = {
+      url = "github:BirdeeHub/nixCats-nvim";
+    };
   };
 
   outputs =
@@ -71,6 +74,7 @@
       opencode,
       open-file,
       melt,
+      nixCats,
     }:
     let
       # Import lib helpers for creating system configurations
