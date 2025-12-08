@@ -294,6 +294,119 @@ def --env pat [] {
   }
 }
 
+# Set/update GitHub PAT token in 1Password or macOS Keychain
+# Usage: pat_set                    # Prompts for token (hidden input)
+#        pat_set <token>            # Sets token directly (not recommended - visible in history)
+#        pat_set --from-clipboard   # Sets token from clipboard
+export def pat_set [
+  token?: string              # Optional token to set (prefer interactive input)
+  --from-clipboard (-c)       # Read token from clipboard
+  --service-name (-s): string # Keychain service name (default: "github-packages-pat")
+  --op-vault (-v): string     # 1Password vault name (default: "Personal")
+  --op-item (-i): string      # 1Password item name (default: "Github")
+  --op-field (-f): string     # 1Password field name (default: "personal-access-token")
+] {
+  let serviceName = $service_name | default "github-packages-pat"
+  let opVault = $op_vault | default "Personal"
+  let opItem = $op_item | default "Github"
+  let opField = $op_field | default "personal-access-token"
+  
+  # Determine token source
+  let pat_token = if $from_clipboard {
+    # Read from clipboard
+    if (which pbpaste | is-not-empty) {
+      let pbpaste_result = (pbpaste | complete)
+      if $pbpaste_result.exit_code != 0 or ($pbpaste_result.stdout | str trim | is-empty) {
+        log error "Failed to read from clipboard or clipboard is empty"
+        return 1
+      }
+      log info "Reading PAT from clipboard..."
+      $pbpaste_result.stdout | str trim
+    } else {
+      log error "pbpaste not found. Use interactive input instead (run without --from-clipboard)"
+      return 1
+    }
+  } else if ($token | is-not-empty) {
+    log warning "Setting token via command line argument is not recommended (visible in shell history)"
+    $token
+  } else {
+    # Prompt for token with hidden input
+    print "Enter GitHub Personal Access Token (input hidden): "
+    let input_token = (input --suppress-output)
+    if ($input_token | is-empty) {
+      log error "No token provided"
+      return 1
+    }
+    $input_token
+  }
+  
+  # Validate token format (basic check - should start with ghp_, github_pat_, or gho_)
+  if not ($pat_token | str starts-with "ghp_") and not ($pat_token | str starts-with "github_pat_") and not ($pat_token | str starts-with "gho_") {
+    log warning "Token doesn't match expected GitHub PAT format (should start with 'ghp_', 'github_pat_', or 'gho_')"
+    if not (_confirm "Continue anyway?") {
+      log warning "Operation cancelled"
+      return 1
+    }
+  }
+  
+  # Store in 1Password if available, otherwise use macOS Keychain
+  if (which op | is-not-empty) {
+    log info "Storing PAT in 1Password..."
+    
+    # Check if op is signed in
+    let signin_check = (op account list | complete)
+    if $signin_check.exit_code != 0 {
+      log error "1Password CLI is not signed in. Run 'eval $(op signin)' first"
+      return 1
+    }
+    
+    # Update the token in 1Password using the assignment syntax
+    let op_result = (op item edit $opItem --vault $opVault $"($opField)[password]=($pat_token)" | complete)
+    
+    if $op_result.exit_code == 0 {
+      log info $"Successfully stored PAT in 1Password \(op://($opVault)/($opItem)/($opField)\)"
+    } else {
+      log error "Failed to store PAT in 1Password"
+      log error $op_result.stderr
+      return 1
+    }
+  } else if (which security | is-not-empty) {
+    log info "Storing PAT in macOS Keychain..."
+    
+    # Check if entry exists
+    let check_result = (security find-generic-password -s $serviceName | complete)
+    
+    if $check_result.exit_code == 0 {
+      # Update existing entry
+      log info $"Updating existing keychain entry: ($serviceName)"
+      let delete_result = (security delete-generic-password -s $serviceName | complete)
+      
+      if $delete_result.exit_code != 0 {
+        log error "Failed to delete existing keychain entry"
+        log error $delete_result.stderr
+        return 1
+      }
+    }
+    
+    # Add new entry (username is arbitrary for a token)
+    let add_result = (security add-generic-password -s $serviceName -a "github-pat" -w $pat_token | complete)
+    
+    if $add_result.exit_code == 0 {
+      log info $"Successfully stored PAT in macOS Keychain \(service: ($serviceName)\)"
+    } else {
+      log error "Failed to store PAT in macOS Keychain"
+      log error $add_result.stderr
+      return 1
+    }
+  } else {
+    log error "Neither 1Password CLI (op) nor macOS security command found"
+    log error "Cannot store PAT securely"
+    return 1
+  }
+  
+  return 0
+}
+
 # Set Tonic Dump Password from macOS Keychain
 def --env tonic [] {
   let serviceName = "tonic-dump"
