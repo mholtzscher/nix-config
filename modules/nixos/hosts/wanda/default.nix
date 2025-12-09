@@ -15,6 +15,11 @@ let
   ];
 in
 {
+  imports = [
+    ./services.nix
+    ./containers.nix
+  ];
+
   # NFS mounts via direct link to max-nas
   fileSystems."/mnt/max-nas/plex" = {
     device = "${maxNasIp}:/mnt/lake/plex";
@@ -28,6 +33,7 @@ in
     options = nfsMountOpts;
   };
 
+  # Create mount points
   systemd.tmpfiles.rules = [
     "d /mnt/max-nas 0755 root root -"
     "d /mnt/max-nas/plex 0755 root root -"
@@ -44,16 +50,7 @@ in
 
   systemd.network.wait-online.enable = true;
 
-  # Services
-  services.tautulli = {
-    enable = true;
-    dataDir = "/srv/media/config/tautulli";
-    port = 8181;
-    openFirewall = false;
-    user = "tautulli";
-    group = "media";
-  };
-
+  # SSH server
   services.openssh = {
     enable = true;
     openFirewall = false;
@@ -61,10 +58,6 @@ in
     listenAddresses = [
       {
         addr = "0.0.0.0";
-        port = 22;
-      }
-      {
-        addr = "10.69.69.60";
         port = 22;
       }
     ];
@@ -90,64 +83,42 @@ in
     };
   };
 
-  # Containers
-  virtualisation.docker.enable = true;
-  virtualisation.oci-containers = {
-    backend = "docker";
-    containers = {
-      plex = {
-        image = "lscr.io/linuxserver/plex:latest";
-        autoStart = true;
-        extraOptions = [ "--network=host" ];
-        environment = {
-          TZ = "America/Chicago";
-          PUID = "1000";
-          PGID = "100";
-        };
-        volumes = [
-          "/srv/media/config/plex:/config"
-          "/srv/media/data:/data"
-        ];
-      };
-
-      automation = {
-        image = "ghcr.io/example/automation-suite:latest";
-        autoStart = true;
-        environmentFiles = [ "/var/lib/secrets/automation.env" ];
-        volumes = [
-          "/srv/automation/state:/state"
-          "/srv/automation/cache:/cache"
-        ];
-        ports = [
-          "9000:9000/tcp"
-          "9443:9443/tcp"
-        ];
-      };
+  # Docker for containers
+  virtualisation.docker = {
+    enable = true;
+    autoPrune = {
+      enable = true;
+      dates = "weekly";
     };
   };
 
-  # Users & groups
-  users.groups.media.gid = 65432;
-  users.users.tautulli = {
-    uid = 65433;
-    group = "media";
-    home = "/srv/media/config/tautulli";
-    createHome = true;
-    isSystemUser = true;
-  };
+  # Users & groups - media group for shared access
+  users.groups.media.gid = 1000;
 
   # Packages
   environment.systemPackages = with pkgs; [
     docker-compose
     ethtool
+    lazydocker
     nfs-utils
   ];
 
-  # Firewall
-  networking.firewall.allowedTCPPorts = [
-    8181
-    9000
-    9443
-    32400
-  ];
+  # Firewall - container ports only (native services use openFirewall = true)
+  networking.firewall = {
+    allowedTCPPorts = [
+      53 # Pi-hole DNS
+      30080 # Pi-hole web
+      30081 # Stirling PDF
+      30082 # Atuin
+      3000 # Excalidraw
+      5003 # Dufs
+      48083 # Draft Board
+      7777 # Satisfactory
+      8888 # Satisfactory RCON
+    ];
+    allowedUDPPorts = [
+      53 # Pi-hole DNS
+      7777 # Satisfactory
+    ];
+  };
 }
