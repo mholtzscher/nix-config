@@ -1,5 +1,28 @@
 { pkgs, ... }:
 {
+  # Desktop-specific system packages
+  environment.systemPackages = with pkgs; [
+    # Development tools
+    python314
+    rustc
+    cargo
+    gcc
+    gnumake
+    vscode
+
+    # Screenshot tools for Wayland
+    grim
+    slurp
+    wl-clipboard
+  ];
+
+  # 1Password
+  programs._1password.enable = true;
+  programs._1password-gui = {
+    enable = true;
+    polkitPolicyOwners = [ "michael" ];
+  };
+
   # Install Nerd Font packages (matching macOS configuration)
   fonts.packages = with pkgs; [
     nerd-fonts.iosevka

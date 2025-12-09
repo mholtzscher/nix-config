@@ -9,6 +9,7 @@
   # - Web applications as native apps
 
   imports = [
+    ./packages.nix # Desktop packages, fonts, 1Password
     ./composition.nix # Niri window manager + Waybar status bar
     ./launcher.nix # Vicinae application launcher
     ./gaming.nix # Gaming tools (Steam, MangoHud, etc.)

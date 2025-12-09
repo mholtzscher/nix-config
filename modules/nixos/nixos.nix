@@ -25,14 +25,6 @@
 
     # Enable zsh shell system-wide
     zsh.enable = true;
-
-    _1password = {
-      enable = true;
-    };
-    _1password-gui = {
-      enable = true;
-      polkitPolicyOwners = [ "michael" ];
-    };
   };
 
   # Common system packages for all NixOS hosts
@@ -42,22 +34,10 @@
     tree
     unzip
 
-    python314
-    rustc
-    cargo
-    gcc
-    gnumake
-    vscode
-
     # System utilities
     lshw
     pciutils
     usbutils
-
-    # Screenshot tools for Wayland
-    grim
-    slurp
-    wl-clipboard
   ];
 
   # Console configuration
