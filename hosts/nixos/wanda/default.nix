@@ -108,15 +108,6 @@ in
   time.timeZone = "America/Chicago";
   i18n.defaultLocale = "en_US.UTF-8";
 
-  services.fail2ban = {
-    enable = true;
-    ignoreIP = [
-      "127.0.0.1/8"
-      "10.69.69.0/24"
-    ];
-    maxretry = 5;
-  };
-
   programs.zsh.enable = true;
 
   system.stateVersion = "25.05";

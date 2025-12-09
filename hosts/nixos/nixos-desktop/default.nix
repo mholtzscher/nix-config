@@ -160,15 +160,6 @@ in
       ports = [ 22 ];
     };
 
-    # Fail2ban for brute-force protection
-    fail2ban = {
-      enable = true;
-      maxretry = 5;
-      ignoreIP = [
-        "127.0.0.1/8" # Localhost
-        "10.69.69.0/24" # Local network
-      ];
-    };
   };
 
   # Environment variables for Wayland
