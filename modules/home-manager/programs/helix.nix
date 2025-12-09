@@ -5,13 +5,16 @@
       enable = true;
       extraPackages = [
         pkgs.terraform-ls
-        pkgs.dockerfile-language-server-nodejs
+        pkgs.dockerfile-language-server
         pkgs.docker-compose-language-service
         pkgs.yaml-language-server
-        pkgs.typescript-language-server
         pkgs.marksman
+
+        # Go packages
         pkgs.gopls
         pkgs.golangci-lint-langserver
+        pkgs.delve
+
         pkgs.nil
         pkgs.buf
         pkgs.bash-language-server
@@ -19,8 +22,12 @@
         pkgs.lua-language-server
         pkgs.ruff
         pkgs.kdlfmt
-        pkgs.taplo
+        pkgs.taplo # toml
+        
+        # Typescript stuff
+        pkgs.typescript-language-server
         pkgs.prettier
+        # pkgs.biome
 
         # All provided by the extracted package
         # vscode-css-language-server
@@ -48,6 +55,17 @@
             "keep_primary_selection"
           ];
         };
+      };
+      languages = {
+        language = [
+          {
+            name = "json";
+            formatter = {
+              command = "${pkgs.prettier}/bin/prettier";
+              args = [ "--parser" "json" ];
+            };
+          }
+        ];
       };
     };
   };
