@@ -1,53 +1,44 @@
 { pkgs, currentSystemUser, ... }:
+let
+  # NAS direct link (10Gbe patch cable)
+  maxNasIp = "10.0.0.20";
+
+  # Common NFS mount options
+  nfsMountOpts = [
+    "nfsvers=4.2"
+    "hard"
+    "nofail"
+    "noatime"
+    "x-systemd.automount"
+    "x-systemd.requires=network-online.target"
+    "x-systemd.after=network-online.target"
+  ];
+in
 {
-  # NFS mounts
-  fileSystems."/srv/media" = {
-    device = "nas-a.internal:/volume1/media";
+  # NFS mounts via direct link to max-nas
+  fileSystems."/mnt/max-nas/plex" = {
+    device = "${maxNasIp}:/mnt/lake/plex";
     fsType = "nfs";
-    options = [
-      "hard"
-      "intr"
-      "nofail"
-      "noatime"
-      "nfsvers=4.1"
-      "rsize=262144"
-      "wsize=262144"
-      "nconnect=4"
-      "x-systemd.automount"
-      "x-systemd.requires=network-online.target"
-      "x-systemd.after=network-online.target"
-    ];
+    options = nfsMountOpts;
   };
 
-  fileSystems."/srv/automation" = {
-    device = "nas-b.internal:/volume1/automation";
+  fileSystems."/mnt/max-nas/books" = {
+    device = "${maxNasIp}:/mnt/lake/books";
     fsType = "nfs";
-    options = [
-      "hard"
-      "intr"
-      "nofail"
-      "noatime"
-      "nfsvers=4.2"
-      "x-systemd.automount"
-      "x-systemd.requires=network-online.target"
-      "x-systemd.after=network-online.target"
-    ];
+    options = nfsMountOpts;
   };
 
   systemd.tmpfiles.rules = [
-    "d /srv/media 0775 root root -"
-    "d /srv/automation 0775 root root -"
+    "d /mnt/max-nas 0755 root root -"
+    "d /mnt/max-nas/plex 0755 root root -"
+    "d /mnt/max-nas/books 0755 root root -"
   ];
 
-  # NAS hostnames
+  # NAS hostname for direct link
   networking.hosts = {
-    "10.69.69.10" = [
-      "nas-a"
-      "nas-a.internal"
-    ];
-    "10.69.69.11" = [
-      "nas-b"
-      "nas-b.internal"
+    "${maxNasIp}" = [
+      "max-nas"
+      "max-nas.internal"
     ];
   };
 

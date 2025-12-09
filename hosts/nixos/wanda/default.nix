@@ -9,12 +9,12 @@ let
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJwjFs5j8xyYI+p3ckPU0nUYyJ9S2Y753DYUEPRbyGqX"
   ];
 
-  primaryLanInterface = "eno1";
-  nasPatchInterface = "eno2";
+  primaryLanInterface = "enp87s0";
+  nasPatchInterface = "enp88s0";
 
   nasLink = {
-    address = "192.168.254.2";
-    prefixLength = 30;
+    address = "10.0.0.10";
+    prefixLength = 24;
   };
 
   defaultGateway = {
@@ -24,8 +24,6 @@ let
 
   primaryNameservers = [
     "10.69.69.1"
-    "1.1.1.1"
-    "9.9.9.9"
   ];
 
 in
@@ -69,7 +67,7 @@ in
     hostName = "wanda";
     useNetworkd = true;
     nftables.enable = true;
-    defaultGateway = defaultGateway;
+    inherit defaultGateway;
     nameservers = primaryNameservers;
 
     interfaces.${primaryLanInterface} = {
@@ -98,9 +96,14 @@ in
       trustedInterfaces = [ nasPatchInterface ];
     };
   };
-
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
+  boot = {
+    loader = {
+      # Boot loader - systemd-boot with separate /boot and /boot/efi
+      systemd-boot.enable = true;
+      efi.canTouchEfiVariables = true;
+      efi.efiSysMountPoint = "/boot/efi";
+    };
+  };
 
   time.timeZone = "America/Chicago";
   i18n.defaultLocale = "en_US.UTF-8";
