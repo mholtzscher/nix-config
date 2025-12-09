@@ -37,6 +37,8 @@ in
         autoStart = true;
         environment = {
           TZ = tz;
+          DOCKER_ENABLE_SECURITY = false;
+          LANGS = "en_GB";
         };
         volumes = [
           "${srvDir}/stirling-pdf/configs:/configs"
@@ -129,6 +131,10 @@ in
         autoStart = true;
         environment = {
           TZ = tz;
+          MAXPLAYERS = 4;
+          PGID = 1000;
+          PUID = 1000;
+          STEAMBETA = false;
         };
         volumes = [
           "${srvDir}/satisfactory:/config"
@@ -160,6 +166,12 @@ in
       nebula-sync = {
         image = "ghcr.io/lovelaze/nebula-sync:latest";
         autoStart = true;
+        environment = {
+          FULL_SYNC = true;
+          RUN_GRAVITY = true;
+          CRON = "0 * * * *";
+          TZ = tz;
+        };
         environmentFiles = [ "${srvDir}/nebula-sync/config.env" ];
       };
 
