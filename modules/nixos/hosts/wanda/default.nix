@@ -97,7 +97,6 @@ in
 
   # Packages
   environment.systemPackages = with pkgs; [
-    docker-compose
     ethtool
     lazydocker
     nfs-utils
@@ -109,9 +108,9 @@ in
       53 # Pi-hole DNS
       30080 # Pi-hole web
       30081 # Stirling PDF
-      30082 # Atuin
+      # 30082 # Atuin
       3000 # Excalidraw
-      5003 # Dufs
+      # 5003 # Dufs
       48083 # Draft Board
       7777 # Satisfactory
       8888 # Satisfactory RCON

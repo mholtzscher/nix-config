@@ -56,50 +56,50 @@ in
       };
 
       # Atuin sync server
-      atuin = {
-        image = "ghcr.io/atuinsh/atuin:latest";
-        autoStart = true;
-        volumes = [
-          "${srvDir}/atuin/config:/config"
-        ];
-        ports = [ "30082:8888/tcp" ];
-        dependsOn = [ "atuin-db" ];
-        environment = {
-          ATUIN_HOST = "0.0.0.0";
-          ATUIN_PORT = "8888";
-          ATUIN_DB_URI = "postgres://atuin:atuin@atuin-db:5432/atuin";
-        };
-        extraOptions = [ "--network=atuin-net" ];
-      };
-
-      # Atuin PostgreSQL database
-      atuin-db = {
-        image = "postgres:14";
-        autoStart = true;
-        volumes = [
-          "${srvDir}/atuin/postgres:/var/lib/postgresql/data"
-        ];
-        environment = {
-          POSTGRES_USER = "atuin";
-          POSTGRES_PASSWORD = "atuin";
-          POSTGRES_DB = "atuin";
-        };
-        extraOptions = [ "--network=atuin-net" ];
-      };
+      # atuin = {
+      #   image = "ghcr.io/atuinsh/atuin:latest";
+      #   autoStart = true;
+      #   volumes = [
+      #     "${srvDir}/atuin/config:/config"
+      #   ];
+      #   ports = [ "30082:8888/tcp" ];
+      #   dependsOn = [ "atuin-db" ];
+      #   environment = {
+      #     ATUIN_HOST = "0.0.0.0";
+      #     ATUIN_PORT = "8888";
+      #     ATUIN_DB_URI = "postgres://atuin:atuin@atuin-db:5432/atuin";
+      #   };
+      #   extraOptions = [ "--network=atuin-net" ];
+      # };
+      #
+      # # Atuin PostgreSQL database
+      # atuin-db = {
+      #   image = "postgres:14";
+      #   autoStart = true;
+      #   volumes = [
+      #     "${srvDir}/atuin/postgres:/var/lib/postgresql/data"
+      #   ];
+      #   environment = {
+      #     POSTGRES_USER = "atuin";
+      #     POSTGRES_PASSWORD = "atuin";
+      #     POSTGRES_DB = "atuin";
+      #   };
+      #   extraOptions = [ "--network=atuin-net" ];
+      # };
 
       # Dufs - file server
-      dufs = {
-        image = "sigoden/dufs:latest";
-        autoStart = true;
-        volumes = [
-          "${srvDir}/dufs:/data"
-        ];
-        ports = [ "5003:5000/tcp" ];
-        cmd = [
-          "/data"
-          "-A"
-        ];
-      };
+      # dufs = {
+      #   image = "sigoden/dufs:latest";
+      #   autoStart = true;
+      #   volumes = [
+      #     "${srvDir}/dufs:/data"
+      #   ];
+      #   ports = [ "5003:5000/tcp" ];
+      #   cmd = [
+      #     "/data"
+      #     "-A"
+      #   ];
+      # };
 
       # Draft Board
       draft-board = {
@@ -145,16 +145,16 @@ in
       };
 
       # Factorio server (currently stopped)
-      factorio = {
-        image = "factoriotools/factorio:stable";
-        autoStart = false;
-        volumes = [
-          "${srvDir}/factorio:/factorio"
-        ];
-        ports = [
-          "34197:34197/udp"
-        ];
-      };
+      # factorio = {
+      #   image = "factoriotools/factorio:stable";
+      #   autoStart = false;
+      #   volumes = [
+      #     "${srvDir}/factorio:/factorio"
+      #   ];
+      #   ports = [
+      #     "34197:34197/udp"
+      #   ];
+      # };
 
       # Nebula sync for Pi-hole
       nebula-sync = {
@@ -181,17 +181,17 @@ in
   };
 
   # Create Docker network for Atuin
-  systemd.services.docker-network-atuin = {
-    description = "Create Atuin Docker network";
-    after = [ "docker.service" ];
-    wantedBy = [ "multi-user.target" ];
-    serviceConfig = {
-      Type = "oneshot";
-      RemainAfterExit = true;
-      ExecStart = "/run/current-system/sw/bin/docker network create atuin-net || true";
-      ExecStop = "/run/current-system/sw/bin/docker network rm atuin-net || true";
-    };
-  };
+  # systemd.services.docker-network-atuin = {
+  #   description = "Create Atuin Docker network";
+  #   after = [ "docker.service" ];
+  #   wantedBy = [ "multi-user.target" ];
+  #   serviceConfig = {
+  #     Type = "oneshot";
+  #     RemainAfterExit = true;
+  #     ExecStart = "/run/current-system/sw/bin/docker network create atuin-net || true";
+  #     ExecStop = "/run/current-system/sw/bin/docker network rm atuin-net || true";
+  #   };
+  # };
 
   # Ensure container directories exist
   systemd.tmpfiles.rules = [
@@ -205,17 +205,17 @@ in
     "d ${srvDir}/stirling-pdf/pipeline 0755 root root -"
     "d ${srvDir}/stirling-pdf/trainingData 0755 root root -"
     # Atuin
-    "d ${srvDir}/atuin/config 0755 root root -"
-    "d ${srvDir}/atuin/postgres 0700 999 999 -"
+    # "d ${srvDir}/atuin/config 0755 root root -"
+    # "d ${srvDir}/atuin/postgres 0700 999 999 -"
     # Dufs
-    "d ${srvDir}/dufs 0755 michael michael -"
+    # "d ${srvDir}/dufs 0755 michael michael -"
     # Draft Board
     "d ${srvDir}/draft-board 0755 root root -"
     # Cloudflare Tunnel
     "d ${srvDir}/cloudflare-tunnel 0700 root root -"
     # Game servers
     "d ${srvDir}/satisfactory 0755 root root -"
-    "d ${srvDir}/factorio 0755 root root -"
+    # "d ${srvDir}/factorio 0755 root root -"
     # Nebula sync
     "d ${srvDir}/nebula-sync 0700 root root -"
     # Unpackerr
