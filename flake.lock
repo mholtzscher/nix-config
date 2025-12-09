@@ -90,15 +90,18 @@
           "open-file",
           "nixpkgs"
         ],
-        "systems": "systems_3",
+        "systems": [
+          "open-file",
+          "systems"
+        ],
         "treefmt-nix": "treefmt-nix_2"
       },
       "locked": {
-        "lastModified": 1764582711,
-        "narHash": "sha256-CaMQqIsKFGdZbJBDuJem6S68dsjSlFqtLsR6/P8y/uE=",
+        "lastModified": 1765198123,
+        "narHash": "sha256-pkahE6wwIszQ8e107qa95wyNr4Qj94hEdL9fA/IE288=",
         "owner": "nix-community",
         "repo": "bun2nix",
-        "rev": "f791ae9e28d4ef499f4473339a06be7f31778a4c",
+        "rev": "29d2c26c269b2bc7d8885c6a2fc90ec0fc86ec40",
         "type": "github"
       },
       "original": {
@@ -513,14 +516,14 @@
         "nixpkgs": [
           "nixpkgs"
         ],
-        "systems": "systems_4"
+        "systems": "systems_3"
       },
       "locked": {
-        "lastModified": 1765044975,
-        "narHash": "sha256-DGQQYePk0EzZNuFVI2pzLI56kNeOogNEyS5cnKiouuQ=",
+        "lastModified": 1765248365,
+        "narHash": "sha256-ENsTZNpng6mowAhk4rbrcVyi91LhX4wtafyAHSOZcHI=",
         "owner": "mholtzscher",
         "repo": "open-file",
-        "rev": "4d8a0a6007db7846a2bd6b89004bb12d66e945c9",
+        "rev": "3920b512eb3263149461fae0f795eac621cbae38",
         "type": "github"
       },
       "original": {
@@ -628,21 +631,6 @@
         "type": "github"
       }
     },
-    "systems_5": {
-      "locked": {
-        "lastModified": 1681028828,
-        "narHash": "sha256-Vy1rq5AaRuLzOxct8nz4T6wlgyUR7zLU309k9mBC768=",
-        "owner": "nix-systems",
-        "repo": "default",
-        "rev": "da67096a3b9bf56a91d16901293e51ba5b49a27e",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nix-systems",
-        "repo": "default",
-        "type": "github"
-      }
-    },
     "topiaryNushell": {
       "flake": false,
       "locked": {
@@ -706,7 +694,7 @@
     "vicinae": {
       "inputs": {
         "nixpkgs": "nixpkgs_3",
-        "systems": "systems_5"
+        "systems": "systems_4"
       },
       "locked": {
         "lastModified": 1765223514,
