@@ -31,8 +31,8 @@ let
 in
 {
   imports = [
-    ./wanda-hardware-configuration.nix
-    ../../modules/nixos/hosts/wanda
+    ./hardware-configuration.nix
+    ../../../modules/nixos/hosts/wanda
   ];
 
   users.users.${user} = {
@@ -59,8 +59,8 @@ in
       { ... }:
       {
         imports = [
-          ../../modules/home-manager/home.nix
-          ../../modules/home-manager/hosts/wanda/default.nix
+          ../../../modules/home-manager/home.nix
+          ../../../modules/home-manager/hosts/wanda/default.nix
         ];
       };
   };

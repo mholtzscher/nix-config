@@ -103,7 +103,7 @@
         nixos-desktop = lib.mkSystem {
           name = "nixos-desktop";
           system = "x86_64-linux";
-          hostPath = ./hosts/nixos/nixos-desktop.nix;
+          hostPath = ./hosts/nixos/nixos-desktop;
           user = "michael";
           graphical = true;
           gaming = true;
@@ -113,7 +113,7 @@
         wanda = lib.mkSystem {
           name = "wanda";
           system = "x86_64-linux";
-          hostPath = ./hosts/nixos/wanda.nix;
+          hostPath = ./hosts/nixos/wanda;
           user = "michael";
           graphical = false;
           gaming = false;
