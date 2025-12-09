@@ -20,6 +20,7 @@
         pkgs.ruff
         pkgs.kdlfmt
         pkgs.taplo
+        pkgs.prettier
 
         # All provided by the extracted package
         # vscode-css-language-server
