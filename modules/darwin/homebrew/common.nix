@@ -19,7 +19,6 @@
       "awscli"
       "asdf"
       "borders"
-      "JetBrains/utils/kotlin-lsp"
       "mas"
       "sst/tap/opencode"
     ];
