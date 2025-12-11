@@ -18,6 +18,7 @@
         pkgs.delve
 
         pkgs.nil
+        pkgs.nixfmt-rfc-style
         pkgs.buf
         pkgs.bash-language-server
         pkgs.just-lsp
@@ -81,6 +82,13 @@
             ":redraw"
             ":reload-all"
           ];
+          A-y = [
+            ":sh rm -f /tmp/unique-file-h21a434"
+            ":insert-output yazi '%{buffer_name}' --chooser-file=/tmp/unique-file-h21a434"
+            ":insert-output echo \"x1b[?1049h\" > /dev/tty"
+            ":open %sh{cat /tmp/unique-file-h21a434}"
+            ":redraw"
+          ];
           # esc = [
           #   "collapse_selection"
           #   "keep_primary_selection"
@@ -90,14 +98,8 @@
       languages = {
         language = [
           {
-            name = "json";
-            formatter = {
-              command = "${pkgs.prettier}/bin/prettier";
-              args = [
-                "--parser"
-                "json"
-              ];
-            };
+            name = "nix";
+            auto-format = true;
           }
         ];
       };
