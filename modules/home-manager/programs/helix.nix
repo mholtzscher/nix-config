@@ -42,7 +42,7 @@
         # Theme is managed by catppuccin
         editor = {
           line-number = "relative";
-          scroll-lines = 10;
+          scrolloff = 10;
           text-width = 120;
           bufferline = "multiple";
           cursor-shape = {
