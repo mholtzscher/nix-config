@@ -24,7 +24,7 @@
         pkgs.ruff
         pkgs.kdlfmt
         pkgs.taplo # toml
-        
+
         # Typescript stuff
         pkgs.typescript-language-server
         pkgs.prettier
@@ -51,6 +51,8 @@
           };
         };
         keys.normal = {
+          H = "goto_previous_buffer";
+          L = "goto_next_buffer";
           space.space = "file_picker";
           space.w = ":w";
           space.q = ":q";
@@ -66,7 +68,10 @@
             name = "json";
             formatter = {
               command = "${pkgs.prettier}/bin/prettier";
-              args = [ "--parser" "json" ];
+              args = [
+                "--parser"
+                "json"
+              ];
             };
           }
         ];
