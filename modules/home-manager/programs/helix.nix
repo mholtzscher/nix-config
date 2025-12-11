@@ -75,6 +75,12 @@
           space.w = ":w";
           space.q = ":q";
           space.l = ":reload-all";
+          A-g = [
+            ":write-all"
+            ":insert-output lazygit >/dev/tty"
+            ":redraw"
+            ":reload-all"
+          ];
           # esc = [
           #   "collapse_selection"
           #   "keep_primary_selection"
