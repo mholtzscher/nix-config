@@ -46,6 +46,13 @@
           text-width = 120;
           bufferline = "multiple";
           completion-trigger-len = 1;
+
+          end-of-line-diagnostics = "hint";
+          inline-diagnostics = {
+            cursor-line = "hint";
+            other-lines = "disable";
+          };
+
           cursor-shape = {
             insert = "bar";
             select = "underline";
