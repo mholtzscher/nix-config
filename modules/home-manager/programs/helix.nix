@@ -45,6 +45,7 @@
           scrolloff = 10;
           text-width = 120;
           bufferline = "multiple";
+          completion-trigger-len = 1;
           cursor-shape = {
             insert = "bar";
             select = "underline";
