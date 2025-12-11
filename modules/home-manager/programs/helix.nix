@@ -3,6 +3,7 @@
   programs = {
     helix = {
       enable = true;
+      defaultEditor = true;
       extraPackages = [
         pkgs.terraform-ls
         pkgs.dockerfile-language-server
@@ -46,6 +47,7 @@
           text-width = 120;
           bufferline = "multiple";
           completion-trigger-len = 1;
+          auto-format = true;
 
           end-of-line-diagnostics = "hint";
           inline-diagnostics = {
@@ -56,6 +58,14 @@
           cursor-shape = {
             insert = "bar";
             select = "underline";
+          };
+
+          auto-save = {
+            focus-lost = true;
+          };
+
+          file-picker = {
+            hidden = false;
           };
         };
         keys.normal = {

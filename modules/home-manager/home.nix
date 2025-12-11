@@ -96,7 +96,6 @@ in
     };
 
     sessionVariables = {
-      EDITOR = "nvim";
       COMPOSE_PROFILES = "default";
 
       TOPIARY_CONFIG_FILE = "${config.xdg.configHome}/topiary/languages.ncl";
