@@ -51,6 +51,10 @@
       url = "github:mholtzscher/melt";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    simple-diff = {
+      url = "github:mholtzscher/simple-diff";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -71,6 +75,7 @@
       opencode,
       open-file,
       melt,
+      simple-diff,
     }:
     let
       # Import lib helpers for creating system configurations

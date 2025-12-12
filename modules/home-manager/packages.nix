@@ -8,6 +8,8 @@ with pkgs;
   inputs.open-file.packages.${pkgs.stdenv.hostPlatform.system}.default
   # melt - TUI for managing Nix flake inputs
   inputs.melt.packages.${pkgs.stdenv.hostPlatform.system}.default
+  # simple-diff - A simple diff tool
+  inputs.simple-diff.packages.${pkgs.stdenv.hostPlatform.system}.default
   google-cloud-sdk
   nodejs_24
   lua
