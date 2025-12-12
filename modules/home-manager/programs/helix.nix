@@ -14,6 +14,7 @@
 
         # Go packages
         pkgs.gopls
+        pkgs.golangci-lint
         pkgs.golangci-lint-langserver
         pkgs.delve
 
