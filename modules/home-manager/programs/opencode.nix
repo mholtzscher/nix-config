@@ -115,14 +115,14 @@
           "exa*" = false;
         };
         mcp = {
-          beads = {
-            type = "local";
-            command = [
-              "uvx"
-              "beads-mcp"
-            ];
-            enabled = false;
-          };
+          # beads = {
+          #   type = "local";
+          #   command = [
+          #     "uvx"
+          #     "beads-mcp"
+          #   ];
+          #   enabled = false;
+          # };
           gh_grep = {
             type = "remote";
             url = "https://mcp.grep.app/";
