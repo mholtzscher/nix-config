@@ -59,11 +59,11 @@
         "flake-parts": "flake-parts",
         "import-tree": "import-tree",
         "nixpkgs": [
-          "melt",
+          "difftui",
           "nixpkgs"
         ],
         "systems": [
-          "melt",
+          "difftui",
           "systems"
         ],
         "treefmt-nix": "treefmt-nix"
@@ -87,11 +87,11 @@
         "flake-parts": "flake-parts_2",
         "import-tree": "import-tree_2",
         "nixpkgs": [
-          "open-file",
+          "melt",
           "nixpkgs"
         ],
         "systems": [
-          "open-file",
+          "melt",
           "systems"
         ],
         "treefmt-nix": "treefmt-nix_2"
@@ -115,11 +115,11 @@
         "flake-parts": "flake-parts_3",
         "import-tree": "import-tree_3",
         "nixpkgs": [
-          "simple-diff",
+          "open-file",
           "nixpkgs"
         ],
         "systems": [
-          "simple-diff",
+          "open-file",
           "systems"
         ],
         "treefmt-nix": "treefmt-nix_3"
@@ -156,6 +156,28 @@
         "type": "github"
       }
     },
+    "difftui": {
+      "inputs": {
+        "bun2nix": "bun2nix",
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "systems": "systems_2"
+      },
+      "locked": {
+        "lastModified": 1765722980,
+        "narHash": "sha256-w8dntC05TAx5Brw8ek5jjOaXaok9ZZl8pMrPUvM7Ark=",
+        "owner": "mholtzscher",
+        "repo": "difftui",
+        "rev": "4ff42af73264b5442ab22b06a4079c2bff1ae717",
+        "type": "github"
+      },
+      "original": {
+        "owner": "mholtzscher",
+        "repo": "difftui",
+        "type": "github"
+      }
+    },
     "flake-parts": {
       "inputs": {
         "nixpkgs-lib": "nixpkgs-lib"
@@ -176,7 +198,7 @@
     },
     "flake-parts_2": {
       "inputs": {
-        "nixpkgs-lib": "nixpkgs-lib_3"
+        "nixpkgs-lib": "nixpkgs-lib_2"
       },
       "locked": {
         "lastModified": 1763759067,
@@ -311,11 +333,11 @@
     },
     "melt": {
       "inputs": {
-        "bun2nix": "bun2nix",
+        "bun2nix": "bun2nix_2",
         "nixpkgs": [
           "nixpkgs"
         ],
-        "systems": "systems_2"
+        "systems": "systems_3"
       },
       "locked": {
         "lastModified": 1765655465,
@@ -408,7 +430,7 @@
     "nix-colors": {
       "inputs": {
         "base16-schemes": "base16-schemes",
-        "nixpkgs-lib": "nixpkgs-lib_2"
+        "nixpkgs-lib": "nixpkgs-lib_3"
       },
       "locked": {
         "lastModified": 1707825078,
@@ -495,11 +517,11 @@
     },
     "nixpkgs-lib_2": {
       "locked": {
-        "lastModified": 1697935651,
-        "narHash": "sha256-qOfWjQ2JQSQL15KLh6D7xQhx0qgZlYZTYlcEiRuAMMw=",
+        "lastModified": 1761765539,
+        "narHash": "sha256-b0yj6kfvO8ApcSE+QmA6mUfu8IYG6/uU28OFn4PaC8M=",
         "owner": "nix-community",
         "repo": "nixpkgs.lib",
-        "rev": "e1e11fdbb01113d85c7f41cada9d2847660e3902",
+        "rev": "719359f4562934ae99f5443f20aa06c2ffff91fc",
         "type": "github"
       },
       "original": {
@@ -510,11 +532,11 @@
     },
     "nixpkgs-lib_3": {
       "locked": {
-        "lastModified": 1761765539,
-        "narHash": "sha256-b0yj6kfvO8ApcSE+QmA6mUfu8IYG6/uU28OFn4PaC8M=",
+        "lastModified": 1697935651,
+        "narHash": "sha256-qOfWjQ2JQSQL15KLh6D7xQhx0qgZlYZTYlcEiRuAMMw=",
         "owner": "nix-community",
         "repo": "nixpkgs.lib",
-        "rev": "719359f4562934ae99f5443f20aa06c2ffff91fc",
+        "rev": "e1e11fdbb01113d85c7f41cada9d2847660e3902",
         "type": "github"
       },
       "original": {
@@ -588,11 +610,11 @@
     },
     "open-file": {
       "inputs": {
-        "bun2nix": "bun2nix_2",
+        "bun2nix": "bun2nix_3",
         "nixpkgs": [
           "nixpkgs"
         ],
-        "systems": "systems_3"
+        "systems": "systems_4"
       },
       "locked": {
         "lastModified": 1765477187,
@@ -632,6 +654,7 @@
       "inputs": {
         "beads": "beads",
         "catppuccin": "catppuccin",
+        "difftui": "difftui",
         "ghostty-shader-playground": "ghostty-shader-playground",
         "home-manager": "home-manager",
         "melt": "melt",
@@ -643,31 +666,8 @@
         "nixpkgs": "nixpkgs_2",
         "open-file": "open-file",
         "opencode": "opencode",
-        "simple-diff": "simple-diff",
         "topiaryNushell": "topiaryNushell",
         "vicinae": "vicinae"
-      }
-    },
-    "simple-diff": {
-      "inputs": {
-        "bun2nix": "bun2nix_3",
-        "nixpkgs": [
-          "nixpkgs"
-        ],
-        "systems": "systems_4"
-      },
-      "locked": {
-        "lastModified": 1765654087,
-        "narHash": "sha256-NqDKTy7AOSnpVct37WwO6uO7/vDLIT3WbGobex1GUNA=",
-        "owner": "mholtzscher",
-        "repo": "simple-diff",
-        "rev": "4dcad3efe22e29e50c45ced3e27abf55a32a03cf",
-        "type": "github"
-      },
-      "original": {
-        "owner": "mholtzscher",
-        "repo": "simple-diff",
-        "type": "github"
       }
     },
     "systems": {
@@ -764,7 +764,7 @@
     "treefmt-nix": {
       "inputs": {
         "nixpkgs": [
-          "melt",
+          "difftui",
           "bun2nix",
           "nixpkgs"
         ]
@@ -786,7 +786,7 @@
     "treefmt-nix_2": {
       "inputs": {
         "nixpkgs": [
-          "open-file",
+          "melt",
           "bun2nix",
           "nixpkgs"
         ]
@@ -808,7 +808,7 @@
     "treefmt-nix_3": {
       "inputs": {
         "nixpkgs": [
-          "simple-diff",
+          "open-file",
           "bun2nix",
           "nixpkgs"
         ]
