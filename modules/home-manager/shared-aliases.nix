@@ -27,6 +27,6 @@
 
     specify = "uvx --from git+https://github.com/github/spec-kit.git specify";
 
-    zel = "zellij";
+    ze = "zellij";
   };
 }
