@@ -165,11 +165,11 @@
         "systems": "systems_2"
       },
       "locked": {
-        "lastModified": 1765773368,
-        "narHash": "sha256-fbEu1OXNmprQ/NLonALZABEISQ+pInWfgza0vWTY8tg=",
+        "lastModified": 1765828901,
+        "narHash": "sha256-zQLHzdNjZpZt68vnjNa/Tw2/s/dV8i6q4UGmRL6ZWjc=",
         "owner": "mholtzscher",
         "repo": "difftui",
-        "rev": "a83c07bc68f75dc5daca51a93909fda559b3aa40",
+        "rev": "96003d60b177ab6085b8165b6cc6c54a3d18767e",
         "type": "github"
       },
       "original": {
@@ -273,11 +273,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1765682243,
-        "narHash": "sha256-yeCxFV/905Wr91yKt5zrVvK6O2CVXWRMSrxqlAZnLp0=",
+        "lastModified": 1765823531,
+        "narHash": "sha256-tyNJjd48hfgsyEfsq1Ueufg4oJv6b8xBA6NYRJrLPyg=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "58bf3ecb2d0bba7bdf363fc8a6c4d49b4d509d03",
+        "rev": "8315c1544f383b791a3115c9959d1f27920e8320",
         "type": "github"
       },
       "original": {
@@ -637,11 +637,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1765808050,
-        "narHash": "sha256-cUFgVDSf4RULKKI186Dw4oyPv6yJtMuceMu9J4N5qik=",
+        "lastModified": 1765829348,
+        "narHash": "sha256-OptIWe/WuK7/6Us5QZloe4Yt9glchbnOnM+H1YPpCYE=",
         "owner": "sst",
         "repo": "opencode",
-        "rev": "d43fbec12d30542428b3bd1cc967e362ac058258",
+        "rev": "62cc532eccd99e849567cdecff00a239ae658237",
         "type": "github"
       },
       "original": {
