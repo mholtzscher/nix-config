@@ -90,6 +90,9 @@
             ":open %sh{cat /tmp/unique-file-h21a434}"
             ":redraw"
           ];
+          A-w = [
+            ":buffer-close"
+          ];
           # esc = [
           #   "collapse_selection"
           #   "keep_primary_selection"
