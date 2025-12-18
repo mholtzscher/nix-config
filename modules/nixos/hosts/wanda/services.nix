@@ -66,13 +66,17 @@
 
     # Kavita - Book/comic server
     # Data: /var/lib/kavita
+    # Note: Uses default 'kavita' user (not michael) because the module
+    # sets user.home to /var/lib/kavita which conflicts with michael's home
     kavita = {
       enable = true;
-      user = "michael";
       tokenKeyFile = "/var/lib/kavita/token-key";
     };
   };
 
   # Kavita doesn't have openFirewall option, open port manually
   networking.firewall.allowedTCPPorts = [ 5000 ];
+
+  # Add kavita user to media group for NFS mount access
+  users.users.kavita.extraGroups = [ "media" ];
 }

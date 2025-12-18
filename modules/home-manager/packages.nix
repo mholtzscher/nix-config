@@ -18,6 +18,7 @@ with pkgs;
 ]
 ++ [
   buf
+  codesnap
   dive
   dust
   glow
