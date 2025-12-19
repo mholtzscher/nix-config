@@ -93,6 +93,7 @@
           A-w = [
             ":buffer-close"
           ];
+          space.c.x = ":pipe-to codesnap-clipboard '%{buffer_name}'";
           # esc = [
           #   "collapse_selection"
           #   "keep_primary_selection"

@@ -50,6 +50,10 @@ in
       "${config.xdg.configHome}/kafkactl/config.yml".source = ./files/kafkactl.yaml;
       ".ideavimrc".source = ./files/ideavimrc;
       ".idea-lazy.vim".source = lazyIdeaVim;
+      ".local/bin/codesnap-clipboard" = {
+        source = ./files/codesnap-clipboard.sh;
+        executable = true;
+      };
 
       ## Topiary Config
       "${config.xdg.configHome}/topiary/languages.ncl".text =
