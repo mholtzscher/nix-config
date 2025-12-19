@@ -225,7 +225,17 @@
 
         # Startup programs
         # Note: swaybg is managed via systemd service (see wallpaper module)
-        spawn-at-startup = [ ];
+        spawn-at-startup = [
+          # Solaar applies saved Logitech mouse settings (scroll diversion off)
+          # This fixes scroll wheel after KVM switch
+          {
+            command = [
+              "solaar"
+              "-w"
+              "hide"
+            ];
+          }
+        ];
 
         prefer-no-csd = true;
       };
