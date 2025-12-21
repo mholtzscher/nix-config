@@ -289,6 +289,7 @@ def --env pat [] {
   if (which op | is-not-empty) {
     # TODO: update to use personal pat here
     $env.GITHUB_PAT = (op read "op://Personal/Github/personal-access-token")
+    $env.GITHUB_TOKEN = (op read "op://Personal/Github/personal-access-token")
   } else {
     $env.GITHUB_PAT = (security find-generic-password -s $serviceName -w | str trim)
   }

@@ -24,11 +24,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1766296930,
-        "narHash": "sha256-GbHKxetC6lGQfbremmJpCT8dW+9CeN9Y+dijGetlZ9o=",
+        "lastModified": 1766356642,
+        "narHash": "sha256-XWVf2wtstZt1eWcyKaKanzD2NQTveK2Pbkx7VgT6XX4=",
         "owner": "steveyegge",
         "repo": "beads",
-        "rev": "cecf63d1b9e544efe36c160266e339411b77d7a6",
+        "rev": "39f8461914edc644d0a17ff952a88741a7930c57",
         "type": "github"
       },
       "original": {
@@ -637,11 +637,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1766288182,
-        "narHash": "sha256-96uSmN6pGh+KRp60k8/xZ9HJRECrEjZek2TfC5/W0N8=",
+        "lastModified": 1766354097,
+        "narHash": "sha256-MKg+jt1uYrhMKCsiilI7CR0hBFRxHP3HjroKJssdh/c=",
         "owner": "sst",
         "repo": "opencode",
-        "rev": "d3922f0965a17491dc7fdf24af5b3ac0c9a72510",
+        "rev": "3456f4ed8053f7718865d2d03dc261e983fed9aa",
         "type": "github"
       },
       "original": {
@@ -833,11 +833,11 @@
         "systems": "systems_5"
       },
       "locked": {
-        "lastModified": 1766264195,
-        "narHash": "sha256-1oY7ZNSiD05SP2uOtExwi//huT9Xx2N1+BRvZqF/UGg=",
+        "lastModified": 1766348907,
+        "narHash": "sha256-qdoOFQYauYTsST35tnKSTtOWMC3K7IfZgKXvqVX/QFM=",
         "owner": "vicinaehq",
         "repo": "vicinae",
-        "rev": "462db278a7dbd0aa48e40cb6e4c1dde45390d52a",
+        "rev": "a00750ca40004a4bd64a6b2ba44efe7acec1c0fd",
         "type": "github"
       },
       "original": {
