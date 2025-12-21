@@ -11,7 +11,7 @@
       package = inputs.opencode.packages.${pkgs.stdenv.hostPlatform.system}.default;
       settings = {
         theme = "opencode";
-        share = "disabled";
+        # share = "disabled";
         username = "mholtzscher";
         keybinds = {
           "session_child_cycle" = "shift+right";
