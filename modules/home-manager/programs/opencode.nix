@@ -91,7 +91,6 @@
             mode = "subagent";
             permission = {
               edit = "deny";
-              write = "deny";
             };
             tools = {
               "gh_grep*" = true;
