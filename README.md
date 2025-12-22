@@ -417,7 +417,6 @@ nf <file>.nix                               # Format nix file
 - **Editors**: neovim, vim
 - **Languages**: node (nodejs_24), bun, zig, lua
 - **Tools**: buf, dive, dust, grpcurl, gum, hey, httpie, jc, just, kdlfmt, kubernetes-helm, nil, nixfmt-rfc-style, sops, statix, tldr, topiary, tree-sitter, websocat, wget, yq
-- **Special**: beads (AI-supervised issue tracker), bd CLI
 
 **macOS Only:**
 - **Window Manager**: aerospace (via Raycast scripts)
@@ -461,7 +460,6 @@ This is a personal configuration, but feel free to use it as inspiration for you
 - **nix-homebrew**: Declarative Homebrew on macOS
 
 ### Enhancements
-- **beads**: AI-supervised issue tracking CLI
 - **vicinae**: Modern Wayland app launcher
 - **catppuccin**: Catppuccin color scheme integration
 - **nix-colors**: Color scheme framework

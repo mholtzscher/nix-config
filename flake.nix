@@ -31,10 +31,6 @@
       url = "github:vicinaehq/vicinae";
     };
     catppuccin.url = "github:catppuccin/nix";
-    beads = {
-      url = "github:steveyegge/beads";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     niri = {
       url = "github:sodiboo/niri-flake";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -70,7 +66,6 @@
       nix-colors,
       vicinae,
       catppuccin,
-      beads,
       niri,
       opencode,
       open-file,

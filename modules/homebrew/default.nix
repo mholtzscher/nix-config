@@ -14,14 +14,12 @@
       "hashicorp/tap"
       "FelixKratz/formulae"
       "jetbrains/utils"
-      "steveyegge/beads"
     ];
     brews = [
       "awscli"
       "borders"
       "JetBrains/utils/kotlin-lsp"
       "mas"
-      "bd"
     ];
     casks = [
       "arc"
