@@ -3,7 +3,6 @@
 {
   homebrew = {
     brews = [
-      "tfenv"
     ];
     casks = [
       "intellij-idea" # Paid version
