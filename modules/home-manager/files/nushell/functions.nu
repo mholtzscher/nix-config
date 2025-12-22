@@ -292,6 +292,7 @@ def --env pat [] {
     $env.GITHUB_TOKEN = (op read "op://Personal/Github/personal-access-token")
   } else {
     $env.GITHUB_PAT = (security find-generic-password -s $serviceName -w | str trim)
+    $env.GITHUB_TOKEN = (security find-generic-password -s $serviceName -w | str trim)
   }
 }
 
