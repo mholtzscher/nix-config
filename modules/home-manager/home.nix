@@ -61,10 +61,10 @@ in
     }
     # macOS-specific config files
     // lib.optionalAttrs pkgs.stdenv.isDarwin {
-      "${config.xdg.configHome}/borders/bordersrc" = {
-        source = ./files/bordersrc;
-        executable = true;
-      };
+      # "${config.xdg.configHome}/borders/bordersrc" = {
+      #   source = ./files/bordersrc;
+      #   executable = true;
+      # };
 
       ## Raycast Scripts (macOS only)
       "${config.xdg.configHome}/raycast/scripts/toggle-aerospace.sh" = {
