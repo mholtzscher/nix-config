@@ -17,7 +17,6 @@
     ];
     brews = [
       "awscli"
-      "asdf"
       "borders"
       "mas"
       "sst/tap/opencode"

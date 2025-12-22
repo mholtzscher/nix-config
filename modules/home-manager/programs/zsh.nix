@@ -57,7 +57,6 @@ in
           "Aloxaf/fzf-tab"
           "getantidote/use-omz"
           "ohmyzsh/ohmyzsh path:lib"
-          "ohmyzsh/ohmyzsh path:plugins/asdf"
           "ohmyzsh/ohmyzsh path:plugins/aws"
           "ohmyzsh/ohmyzsh path:plugins/command-not-found"
           "ohmyzsh/ohmyzsh path:plugins/git"

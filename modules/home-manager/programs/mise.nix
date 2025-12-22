@@ -1,8 +1,8 @@
-{ isWork, ... }:
+{ ... }:
 {
   programs = {
     mise = {
-      enable = isWork;
+      enable = true;
     };
   };
 }

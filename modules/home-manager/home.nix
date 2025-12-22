@@ -61,7 +61,6 @@ in
     }
     # macOS-specific config files
     // lib.optionalAttrs pkgs.stdenv.isDarwin {
-      ".asdfrc".source = ./files/asdfrc;
       "${config.xdg.configHome}/borders/bordersrc" = {
         source = ./files/bordersrc;
         executable = true;
