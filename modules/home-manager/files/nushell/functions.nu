@@ -4,7 +4,7 @@
 # This helper intentionally only log infos an error and returns 1 so it can be
 # composed inside other functions without exiting the entire shell session.
 # Callers should `return $in` (propagate) its non‑zero exit code if desired.
-def _require_tool [tool: string, message?: string] {
+def _require_tool [tool: string message?: string] {
   if (which $tool | is-empty) {
     error make --unspanned {msg: $"Required tool '($tool)' is not installed or not in PATH."}
   }
@@ -16,7 +16,7 @@ def _require_tool [tool: string, message?: string] {
 # Example:
 #   if (_confirm "Delete all files?") { rm * }
 #   if (_confirm "Continue with upload?" true) { upload_file }
-def _confirm [message: string, default_yes?: bool] {
+def _confirm [message: string default_yes?: bool] {
   let default = if ($default_yes | default false) { "Y/n" } else { "y/N" }
   let prompt = $"($message) \(($default)\) "
   let response = (input $prompt | str trim | str downcase)
@@ -121,7 +121,7 @@ def --env aws_logout [] {
 }
 
 # Watch command - runs a command at specified intervals
-def watch [interval: duration, ...command: string] {
+def watch [interval: duration ...command: string] {
   if ($command | is-empty) {
     log info "Usage: watch <interval> <command>"
     return 1
@@ -144,7 +144,7 @@ def gradle [...args: string] {
 }
 
 # SSH tunnel function
-def __ssh_tunnel [key_file: string, local_port: string, endpoint: string, user_hostname: string] {
+def __ssh_tunnel [key_file: string local_port: string endpoint: string user_hostname: string] {
   ssh -i $key_file -v -N -L $"($local_port):($endpoint)" $user_hostname
 }
 
@@ -301,18 +301,18 @@ def --env pat [] {
 #        pat_set <token>            # Sets token directly (not recommended - visible in history)
 #        pat_set --from-clipboard   # Sets token from clipboard
 export def pat_set [
-  token?: string              # Optional token to set (prefer interactive input)
-  --from-clipboard (-c)       # Read token from clipboard
+  token?: string # Optional token to set (prefer interactive input)
+  --from-clipboard (-c) # Read token from clipboard
   --service-name (-s): string # Keychain service name (default: "github-packages-pat")
-  --op-vault (-v): string     # 1Password vault name (default: "Personal")
-  --op-item (-i): string      # 1Password item name (default: "Github")
-  --op-field (-f): string     # 1Password field name (default: "personal-access-token")
+  --op-vault (-v): string # 1Password vault name (default: "Personal")
+  --op-item (-i): string # 1Password item name (default: "Github")
+  --op-field (-f): string # 1Password field name (default: "personal-access-token")
 ] {
   let serviceName = $service_name | default "github-packages-pat"
   let opVault = $op_vault | default "Personal"
   let opItem = $op_item | default "Github"
   let opField = $op_field | default "personal-access-token"
-  
+
   # Determine token source
   let pat_token = if $from_clipboard {
     # Read from clipboard
@@ -341,7 +341,7 @@ export def pat_set [
     }
     $input_token
   }
-  
+
   # Validate token format (basic check - should start with ghp_, github_pat_, or gho_)
   if not ($pat_token | str starts-with "ghp_") and not ($pat_token | str starts-with "github_pat_") and not ($pat_token | str starts-with "gho_") {
     log warning "Token doesn't match expected GitHub PAT format (should start with 'ghp_', 'github_pat_', or 'gho_')"
@@ -350,21 +350,21 @@ export def pat_set [
       return 1
     }
   }
-  
+
   # Store in 1Password if available, otherwise use macOS Keychain
   if (which op | is-not-empty) {
     log info "Storing PAT in 1Password..."
-    
+
     # Check if op is signed in
     let signin_check = (op account list | complete)
     if $signin_check.exit_code != 0 {
       log error "1Password CLI is not signed in. Run 'eval $(op signin)' first"
       return 1
     }
-    
+
     # Update the token in 1Password using the assignment syntax
     let op_result = (op item edit $opItem --vault $opVault $"($opField)[password]=($pat_token)" | complete)
-    
+
     if $op_result.exit_code == 0 {
       log info $"Successfully stored PAT in 1Password \(op://($opVault)/($opItem)/($opField)\)"
     } else {
@@ -374,25 +374,25 @@ export def pat_set [
     }
   } else if (which security | is-not-empty) {
     log info "Storing PAT in macOS Keychain..."
-    
+
     # Check if entry exists
     let check_result = (security find-generic-password -s $serviceName | complete)
-    
+
     if $check_result.exit_code == 0 {
       # Update existing entry
       log info $"Updating existing keychain entry: ($serviceName)"
       let delete_result = (security delete-generic-password -s $serviceName | complete)
-      
+
       if $delete_result.exit_code != 0 {
         log error "Failed to delete existing keychain entry"
         log error $delete_result.stderr
         return 1
       }
     }
-    
+
     # Add new entry (username is arbitrary for a token)
     let add_result = (security add-generic-password -s $serviceName -a "github-pat" -w $pat_token | complete)
-    
+
     if $add_result.exit_code == 0 {
       log info $"Successfully stored PAT in macOS Keychain \(service: ($serviceName)\)"
     } else {
@@ -405,7 +405,7 @@ export def pat_set [
     log error "Cannot store PAT securely"
     return 1
   }
-  
+
   return 0
 }
 
@@ -479,21 +479,21 @@ export def nfu [] {
 export def aerospace_workspace_adjust [amount?: int] {
   let adjustment = $amount | default 5
   let percentage_file = $"($env.HOME)/.config/aerospace/workspace-size-percentage.txt"
-  
+
   if not ($percentage_file | path exists) {
     log error "Workspace percentage file not found at ($percentage_file)"
     log info "Please run 'aerospace_workspace_size <percentage>' first to initialize"
     return 1
   }
-  
+
   let current_percentage = (open $percentage_file | into int)
   let new_percentage = ($current_percentage + $adjustment)
-  
+
   if ($new_percentage < 1 or $new_percentage > 100) {
     log error $"Invalid percentage after adjustment: ($new_percentage). Must be between 1 and 100"
     return 1
   }
-  
+
   log info $"Adjusting workspace from ($current_percentage)% to ($new_percentage)% \(adjustment: ($adjustment)%\)"
   aerospace_workspace_size $new_percentage
 }
@@ -518,76 +518,76 @@ export def aerospace_workspace_size [percentage?: int] {
   } else {
     $percentage
   }
-  
+
   if ($percentage < 1 or $percentage > 100) {
     log error "Percentage must be between 1 and 100"
     return 1
   }
-  
+
   # Get the main monitor width using system_profiler
   let display_info = (system_profiler SPDisplaysDataType | complete)
   if $display_info.exit_code != 0 {
     log error "Failed to get display information"
     return 1
   }
-  
+
   # Parse the output to find the main display's resolution
   # We need to find "Main Display: Yes" and then look backwards for the Resolution line
   let lines = ($display_info.stdout | lines)
-  
+
   # Find the index of "Main Display: Yes"
   let main_display_index = ($lines | enumerate | where $it.item =~ "Main Display: Yes" | get index.0?)
-  
+
   if ($main_display_index | is-empty) {
     log error "Could not find main display"
     return 1
   }
-  
+
   # Look backwards from main display line to find the resolution
   # (Resolution comes a few lines before "Main Display: Yes")
   let resolution_line = ($lines | take ($main_display_index + 1) | where $it =~ "Resolution:" | last)
-  
+
   if ($resolution_line | is-empty) {
     log error "Could not find resolution for main display"
     return 1
   }
-  
+
   # Parse resolution - handle both "Resolution: 3456 x 2234" and "Resolution: 3456 x 2234 Retina"
   let parsed = ($resolution_line | str trim | parse --regex 'Resolution:\s+(?P<width>\d+)\s+x\s+(?P<height>\d+)')
-  
+
   if ($parsed | is-empty) {
     log error "Could not parse monitor width from resolution line"
     return 1
   }
-  
+
   let monitor_width = ($parsed | get width.0 | into int)
-  
+
   # Calculate gap size to achieve the desired percentage
   # If user wants 40% workspace, then 60% should be gaps (30% on each side)
   let workspace_percentage = ($percentage / 100.0)
   let gap_percentage = (1.0 - $workspace_percentage) / 2.0
   let gap_size = (($monitor_width * $gap_percentage) | math round)
-  
+
   let config_file = $"($env.HOME)/.config/aerospace/aerospace.toml"
-  
+
   if not ($config_file | path exists) {
     log error $"Config file not found: ($config_file)"
     return 1
   }
-  
-  open $config_file 
-    | update gaps.outer.right.1.monitor.main $gap_size 
-    | update gaps.outer.left.1.monitor.main $gap_size
-    | to toml 
-    | save -f $config_file
-  
+
+  open $config_file
+  | update gaps.outer.right.1.monitor.main $gap_size
+  | update gaps.outer.left.1.monitor.main $gap_size
+  | to toml
+  | save -f $config_file
+
   # Save the current percentage to a text file
   let percentage_file = $"($env.HOME)/.config/aerospace/workspace-size-percentage.txt"
   $percentage | save -f $percentage_file
-  
+
   log info $"Set gaps to use center ($percentage)% of main monitor \(($gap_size)px per side, monitor width: ($monitor_width)px\)"
   log info $"Saved workspace percentage to ($percentage_file)"
-  
+
   let reload_result = (aerospace reload-config | complete)
   if $reload_result.exit_code != 0 {
     log warning "Aerospace is not running or reload-config failed. Config updated but Aerospace not reloaded."
@@ -601,7 +601,7 @@ export def aerospace_workspace_size [percentage?: int] {
 # Usage: ai_commit          # With confirmation prompt
 #        ai_commit --yes    # Skip confirmation (auto-commit)
 export def ai_commit [
-  --yes (-y)  # Skip confirmation and commit immediately
+  --yes (-y) # Skip confirmation and commit immediately
 ] {
   _require_tool git
   _require_tool opencode
@@ -622,7 +622,7 @@ export def ai_commit [
   }
 
   log info "Analyzing staged changes with AI..."
-  
+
   # Use OpenCode CLI to analyze the diff and generate commit message
   # Using github-copilot/gpt-5-mini for fast and cheap generation
   # --format json gives us structured output with events we can parse
@@ -640,62 +640,61 @@ Rules:
 6. Focus on WHY the change was made, not just WHAT changed
 
 Staged changes:
-```
-($staged_diff)
+```($staged_diff)
 ```
 
 Return ONLY the commit message, nothing else. No explanations, no markdown code blocks, just the commit message text."
 
-  let opencode_result = ($commit_prompt | opencode run --format json --model github-copilot/claude-haiku-4.5 - | complete)
-  
+  let opencode_result = ($commit_prompt | opencode run --format json --model opencode/claude-haiku-4-5 - | complete)
+
   if $opencode_result.exit_code != 0 {
     log error "Failed to generate commit message with OpenCode"
     log error $opencode_result.stderr
     return
   }
-  
+
   # Parse JSON output to extract the text content from response events
   # OpenCode sends multiple JSON events with structure: {"type":"text","part":{"text":"..."}}
   let commit_message = (
     $opencode_result.stdout
     | lines
     | where {|line| ($line | str trim) != "" }
-    | each {|line| 
-        try { 
-          $line | from json 
-        } catch { 
-          null 
-        }
+    | each {|line|
+      try {
+        $line | from json
+      } catch {
+        null
       }
+    }
     | where $it != null
     | where {|event| $event.type? == "text" }
     | get part.text
     | str join ""
     | str trim
   )
-  
+
   if ($commit_message | is-empty) {
     log error "OpenCode returned an empty commit message"
     return
   }
-  
+
   # Show the generated commit message
   print "\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
   print "Generated commit message:"
   print "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
   print $commit_message
   print "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n"
-  
+
   # Ask for confirmation unless --yes flag is provided
   let should_commit = if $yes {
     true
   } else {
     _confirm "Create commit with this message?" true
   }
-  
+
   if $should_commit {
     let commit_result = (git commit -m $commit_message | complete)
-    
+
     if $commit_result.exit_code == 0 {
       log info "Commit created successfully!"
       print $commit_result.stdout
