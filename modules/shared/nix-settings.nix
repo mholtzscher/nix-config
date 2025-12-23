@@ -22,6 +22,7 @@
         "https://vicinae.cachix.org"
       ];
       extra-trusted-public-keys = [
+        "mholtzscher.cachix.org-1:liIrpcru/aB3IiCNR62EYTSRPHo/UYYMzYVpYZuiz6w="
         "vicinae.cachix.org-1:1kDrfienkGHPYbkpNj1mWTr7Fm1+zcenzgTizIcI3oc="
       ];
     };
