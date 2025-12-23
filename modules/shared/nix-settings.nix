@@ -16,9 +16,14 @@
     settings = {
       experimental-features = "nix-command flakes";
 
-      # Cachix cache for Vicinae (avoid rebuilding from source)
-      extra-substituters = [ "https://vicinae.cachix.org" ];
-      extra-trusted-public-keys = [ "vicinae.cachix.org-1:1kDrfienkGHPYbkpNj1mWTr7Fm1+zcenzgTizIcI3oc=" ];
+      # Cachix caches
+      extra-substituters = [
+        "https://mholtzscher.cachix.org"
+        "https://vicinae.cachix.org"
+      ];
+      extra-trusted-public-keys = [
+        "vicinae.cachix.org-1:1kDrfienkGHPYbkpNj1mWTr7Fm1+zcenzgTizIcI3oc="
+      ];
     };
 
     # Use the nix package from nixpkgs
