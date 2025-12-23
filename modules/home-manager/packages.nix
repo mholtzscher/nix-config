@@ -14,6 +14,7 @@ with pkgs;
 ]
 ++ [
   buf
+  cachix
   codesnap
   dive
   dust
