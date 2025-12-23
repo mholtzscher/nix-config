@@ -462,7 +462,6 @@ This is a personal configuration, but feel free to use it as inspiration for you
 ### Enhancements
 - **vicinae**: Modern Wayland app launcher
 - **catppuccin**: Catppuccin color scheme integration
-- **nix-colors**: Color scheme framework
 
 ### Resources (non-flake)
 - **naws**: AWS CLI wrapper utilities

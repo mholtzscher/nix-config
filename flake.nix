@@ -24,9 +24,6 @@
       url = "github:KroneCorylus/ghostty-shader-playground";
       flake = false;
     };
-    nix-colors = {
-      url = "github:misterio77/nix-colors";
-    };
     vicinae = {
       url = "github:vicinaehq/vicinae";
     };
@@ -63,7 +60,6 @@
       naws,
       topiaryNushell,
       ghostty-shader-playground,
-      nix-colors,
       vicinae,
       catppuccin,
       niri,
