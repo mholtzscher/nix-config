@@ -1,13 +1,12 @@
 {
   pkgs,
-  isWork,
   inputs,
   ...
 }:
 {
   programs = {
     opencode = {
-      enable = !isWork;
+      enable = true;
       package = inputs.opencode.packages.${pkgs.stdenv.hostPlatform.system}.default;
       settings = {
         theme = "opencode";
