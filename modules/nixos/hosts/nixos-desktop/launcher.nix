@@ -7,7 +7,6 @@
     {
       services.vicinae = {
         enable = true;
-        autoStart = true;
 
         settings = {
           font = {
