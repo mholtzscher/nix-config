@@ -3,6 +3,7 @@
 Agent guidelines for this multi-platform Nix flake configuration managing:
 - **macOS**: Personal M1 Max (`Michaels-M1-Max`) and Work Mac (`Michael-Holtzscher-Work`)
 - **NixOS**: Desktop (`nixos-desktop`) - Gaming and development workstation with Niri
+- **Ubuntu**: Wanda (`wanda`) - Headless server with standalone home-manager
 
 ## Critical Safety Rules
 
@@ -43,14 +44,17 @@ nf <file>.nix                           # Format nix files
 ```
 flake.nix                              # Root flake, defines all hosts
 lib/
-  └── default.nix                      # Helper functions for system creation
+  └── default.nix                      # Helper functions (mkSystem, mkHome)
 hosts/
   ├── darwin/                          # macOS-specific hosts
   │   ├── personal-mac.nix             # Personal M1 Max config
   │   └── work-mac.nix                 # Work Mac config
-  └── nixos/                           # NixOS-specific hosts
-      ├── nixos-desktop.nix            # Desktop gaming/dev config
-      └── hardware-configuration.nix   # Generated hardware config
+  ├── nixos/                           # NixOS-specific hosts
+  │   └── nixos-desktop/               # Desktop gaming/dev config
+  │       ├── default.nix
+  │       └── hardware-configuration.nix
+  └── ubuntu/                          # Ubuntu hosts (standalone home-manager)
+      └── wanda.nix                    # Headless server config
 modules/
   ├── darwin/                          # macOS system defaults
   │   ├── default.nix                  # Entry point
@@ -85,16 +89,20 @@ modules/
       ├── hosts/                       # Host-specific user configs
       │   ├── personal-mac.nix         # Personal Mac user packages/settings
       │   ├── work-mac.nix             # Work Mac user packages/settings
-      │   └── nixos-desktop/           # Desktop user packages/settings
-      │       └── default.nix
+      │   ├── nixos-desktop/           # Desktop user packages/settings
+      │   │   └── default.nix
+      │   └── wanda/                   # Ubuntu server user packages/settings
+      │       ├── default.nix
+      │       └── containers.nix       # Nix-managed container definitions
       └── files/                       # Dotfiles
 ```
 
 ### Key Concepts
 
 - **Flake inputs**: nixpkgs (unstable), nix-darwin, home-manager, nix-homebrew, niri, catppuccin, vicinae, etc.
-- **Unified system builder**: Single `mkSystem` function handles both Darwin and NixOS
-  - Uses `darwin = true` parameter to branch platform logic
+- **Unified system builder**: `mkSystem` for Darwin/NixOS, `mkHome` for standalone home-manager
+  - `mkSystem`: Uses `darwin = true` parameter to branch platform logic
+  - `mkHome`: For non-NixOS Linux (Ubuntu, Debian, etc.) - standalone home-manager
   - Inspired by mitchellh/nixos-config unified approach
 - **Module loading architecture**:
   - **Shared**: `modules/shared/`, `modules/home-manager/programs/`, `modules/home-manager/files/`
@@ -179,6 +187,45 @@ nixosConfigurations.hostname = lib.mkSystem {
    - `graphical = true` → Conditionally loads `modules/nixos/hosts/hostname/` (for desktop environments)
    - `graphical = false` → Skips host-specific nixos modules (for headless servers)
    - `gaming = true` → Available in module args for gaming-specific configuration
+
+### Add Host (Ubuntu / Non-NixOS Linux)
+
+For non-NixOS Linux hosts, use standalone home-manager via `mkHome`:
+
+1. Create `hosts/ubuntu/hostname.nix`:
+```nix
+{ pkgs, inputs, ... }:
+{
+  imports = [
+    ../../modules/home-manager/home.nix
+    ../../modules/home-manager/hosts/hostname
+  ];
+  home = {
+    username = "username";
+    homeDirectory = "/home/username";
+  };
+  targets.genericLinux.enable = true;
+}
+```
+2. Create `modules/home-manager/hosts/hostname/default.nix` for host-specific config
+3. Disable GUI programs if headless (use `lib.mkForce false`)
+4. Add to `flake.nix`:
+```nix
+homeConfigurations.hostname = lib.mkHome {
+  name = "hostname";
+  system = "x86_64-linux";
+  hostPath = ./hosts/ubuntu/hostname.nix;
+  user = "username";
+};
+```
+5. Activation on target machine:
+```bash
+# First time (installs home-manager)
+nix run home-manager -- switch --flake .#hostname
+
+# Subsequent updates
+home-manager switch --flake .#hostname
+```
 
 ### Modify System Settings
 

@@ -104,15 +104,17 @@
           graphical = true;
           gaming = true;
         };
+      };
 
-        # Wanda • headless services + NAS gateway
-        wanda = lib.mkSystem {
+      # Standalone home-manager configurations for non-NixOS Linux hosts
+      homeConfigurations = {
+        # Wanda - Ubuntu server with home-manager
+        # Activation: home-manager switch --flake .#wanda
+        wanda = lib.mkHome {
           name = "wanda";
           system = "x86_64-linux";
-          hostPath = ./hosts/nixos/wanda;
+          hostPath = ./hosts/ubuntu/wanda.nix;
           user = "michael";
-          graphical = false;
-          gaming = false;
         };
       };
     };

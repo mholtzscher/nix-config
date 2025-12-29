@@ -1,5 +1,9 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 {
+  imports = [
+    ./containers.nix
+  ];
+
   # Wanda-specific CLI tooling and dotfiles
   home.packages = with pkgs; [
     bandwhich
@@ -11,6 +15,14 @@
     sops
     tmux
   ];
+
+  # Disable GUI programs on headless server
+  programs.firefox.enable = lib.mkForce false;
+  programs.ghostty.enable = lib.mkForce false;
+  programs.zed-editor.enable = lib.mkForce false;
+
+  # Disable catppuccin theming that requires GUI packages
+  catppuccin.firefox.enable = lib.mkForce false;
 
   programs.git = {
     enable = true;

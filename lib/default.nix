@@ -1,6 +1,9 @@
 { inputs, self, ... }:
+let
+  pkgs = import inputs.nixpkgs { system = "x86_64-linux"; };
+in
 {
-  # Unified helper function to create system configurations for both Darwin and NixOS
+  # Unified helper function to create system configurations for Darwin, NixOS, and standalone home-manager
   # Inspired by mitchellh/nixos-config unified system builder
   #
   # Darwin Usage:
@@ -111,4 +114,55 @@
       }
       // (if isLinux then { inherit system; } else { })
     );
+
+  # Standalone home-manager configuration for non-NixOS Linux hosts (Ubuntu, Debian, etc.)
+  # This creates a home-manager configuration that can be activated without NixOS.
+  #
+  # Usage:
+  #   mkHome { name = "wanda"; system = "x86_64-linux"; hostPath = ./hosts/ubuntu/wanda.nix; user = "michael"; }
+  #
+  # Activation on target machine:
+  #   nix run home-manager -- switch --flake .#wanda
+  mkHome =
+    {
+      name,
+      system,
+      hostPath,
+      user ? "michael",
+      isWork ? false,
+    }:
+    let
+      pkgs = import inputs.nixpkgs { inherit system; };
+      isDarwin = false;
+      isLinux = true;
+    in
+    inputs.home-manager.lib.homeManagerConfiguration {
+      inherit pkgs;
+
+      extraSpecialArgs = {
+        inherit
+          inputs
+          self
+          user
+          isWork
+          isDarwin
+          isLinux
+          ;
+        currentSystemName = name;
+        currentSystemUser = user;
+      };
+
+      modules = [
+        hostPath
+
+        # Module arguments for home-manager modules
+        {
+          _module.args = {
+            inherit isWork isDarwin isLinux;
+            currentSystemName = name;
+            currentSystemUser = user;
+          };
+        }
+      ];
+    };
 }
