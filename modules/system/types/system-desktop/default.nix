@@ -20,13 +20,14 @@
     ];
   };
 
-  # Home-manager desktop - imports all desktop programs directly
+  # Home-manager desktop - inherits from system-cli, adds desktop programs
   flake.modules.homeManager.system-desktop = {
-    imports = [
-      ../../system/types/system-default/homeManager.nix
-      ../../programs/browser/firefox.nix
-      ../../desktop/waybar/default.nix
-      ../../desktop/webapps/default.nix
+    imports = with inputs.self.modules.homeManager; [
+      system-cli
+      firefox
+      ghostty
+      zed
+      webapps
     ];
   };
 }

@@ -25,43 +25,7 @@
       # Home-manager for user
       home-manager.users.michaelholtzscher = {
         imports = with inputs.self.modules.homeManager; [
-          system-default
-          zsh
-          nushell
-          starship
-          atuin
-          carapace
-          zoxide
-          git
-          delta
-          gh
-          gh-dash
-          lazygit
-          jujutsu
-          bat
-          eza
-          fd
-          fzf
-          ripgrep
-          jq
-          yazi
-          btop
-          bottom
-          helix
-          zed
-          ghostty
-          zellij
-          go
-          mise
-          uv
-          poetry
-          pyenv
-          k9s
-          lazydocker
-          firefox
-          opencode
-          ssh
-          dev-tools-packages
+          system-desktop
         ];
 
         # Work packages
