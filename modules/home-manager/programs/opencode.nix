@@ -92,8 +92,8 @@
               edit = "deny";
             };
             tools = {
-              "gh_grep*" = true;
-              "exa*" = true;
+              # "gh_grep*" = true;
+              # "exa*" = true;
             };
             description = "This agent excels at researching and locating information. It's optimized for finding where specific code elements are defined or used, reading and interpreting documentation, researching technical details, and retrieving code examples that demonstrate best practices or specific APls. It's also great at maintaining and leveraging context, helping the primary agent quickly surface relevant information from large codebases, docs, or external sources.";
             prompt = "After conducting your research, summarize the key findings clearly and concisely. Include only the most relevant code examples, file names, and sources as needed. Store research in research/<topic>/<doc>.md folder structure.";
@@ -109,21 +109,23 @@
           };
         };
         tools = {
-          "gh_grep*" = false;
-          "exa*" = false;
+          # "gh_grep*" = false;
+          # "exa*" = false;
         };
         mcp = {
-          gh_grep = {
-            type = "remote";
-            url = "https://mcp.grep.app/";
-          };
-          exa = {
-            type = "local";
-            command = [
-              "bunx"
-              "exa-mcp-server"
-            ];
-          };
+          # gh_grep = {
+          #   enabled = false;
+          #   type = "remote";
+          #   url = "https://mcp.grep.app/";
+          # };
+          # exa = {
+          #   enabled = false;
+          #   type = "local";
+          #   command = [
+          #     "bunx"
+          #     "exa-mcp-server"
+          #   ];
+          # };
         };
       };
     };
