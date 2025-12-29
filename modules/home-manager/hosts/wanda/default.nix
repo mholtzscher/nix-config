@@ -5,11 +5,11 @@
   ];
 
   # Wanda-specific CLI tooling and dotfiles
+  # Note: helix is already enabled via programs.helix in shared config
   home.packages = with pkgs; [
     bandwhich
     bottom
     dive
-    helix
     jq
     mtr
     sops
