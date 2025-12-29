@@ -1,0 +1,5 @@
+contexts:
+  wanda:
+    brokers:
+      - 10.69.69.60:9092
+current-context: wanda
