@@ -163,6 +163,13 @@
 
         # Window rules
         window-rules = [
+          # Vicinae launcher - no focus ring
+          {
+            matches = [
+              { title = "^Vicinae Launcher$"; }
+            ];
+            focus-ring.enable = false;
+          }
           {
             matches = [
               { app-id = "1password"; }
