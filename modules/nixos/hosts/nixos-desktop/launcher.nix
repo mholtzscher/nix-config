@@ -8,31 +8,42 @@
       services.vicinae = {
         enable = true;
 
+        systemd.enable = true;
+
         settings = {
           font = {
-            normal = "Iosevka Nerd Font";
-            size = 11;
+            normal = {
+              family = "Iosevka Nerd Font";
+              size = 11;
+            };
           };
 
-          theme.name = "catppuccin-mocha";
+          theme = {
+            name = "catppuccin-mocha";
+          };
 
           # Window appearance
-          window = {
-            csd = true; # Client-side decorations
+          launcher_window = {
             opacity = 0.90;
-            rounding = 10;
+            csd = {
+              enabled = true;
+              rounding = 10;
+            };
+            layer_shell = {
+              enabled = false;
+            };
           };
 
-          closeOnFocusLoss = true;
+          close_on_focus_loss = true;
 
           # Favicon service for web search results
-          faviconService = "google"; # twenty | google | none
+          favicon_service = "google"; # twenty | google | none
 
           # Navigation behavior
-          popToRootOnClose = true;
+          pop_to_root_on_close = true;
 
           # Enable file search in root search
-          rootSearch.searchFiles = true;
+          search_files_in_root = true;
         };
 
         # Extensions can be added here declaratively
