@@ -42,7 +42,6 @@
         pkgs.vscode-langservers-extracted
       ];
       settings = {
-        # Theme is managed by catppuccin
         editor = {
           line-number = "relative";
           scrolloff = 10;
@@ -93,6 +92,8 @@
           A-w = [
             ":buffer-close"
           ];
+          x = "select_line_below";
+          X = "select_line_above";
           # esc = [
           #   "collapse_selection"
           #   "keep_primary_selection"
