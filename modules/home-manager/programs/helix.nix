@@ -31,7 +31,7 @@
         # Typescript stuff
         pkgs.typescript-language-server
         pkgs.prettier
-        # pkgs.biome
+        pkgs.biome
 
         # All provided by the extracted package
         # vscode-css-language-server

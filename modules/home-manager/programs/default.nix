@@ -22,6 +22,7 @@
     ./lazydocker.nix
     ./lazygit.nix
     ./mise.nix
+    ./neovim.nix
     ./nushell.nix
     ./opencode.nix
     ./poetry.nix

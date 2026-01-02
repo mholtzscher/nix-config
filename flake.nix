@@ -48,6 +48,10 @@
       url = "github:mholtzscher/difftui";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    neovim-nightly = {
+      url = "github:nix-community/neovim-nightly-overlay";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -67,6 +71,7 @@
       open-file,
       melt,
       difftui,
+      neovim-nightly,
     }:
     let
       # Import lib helpers for creating system configurations

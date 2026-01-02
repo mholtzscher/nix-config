@@ -30,7 +30,6 @@ with pkgs;
   ko
   kubernetes-helm
   nixfmt-rfc-style
-  neovim
   nil
   oras
   procs
