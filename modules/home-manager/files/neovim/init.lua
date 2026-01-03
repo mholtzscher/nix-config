@@ -97,6 +97,19 @@ require("grug-far").setup()
 require("which-key").setup({
 	-- stylua: ignore
 	spec = {
+		-- Group names
+		{ "<leader>b", group = "Buffer" },
+		{ "<leader>c", group = "Code" },
+		{ "<leader>f", group = "Find" },
+		{ "<leader>g", group = "Git" },
+		{ "<leader>s", group = "Search" },
+		{ "<leader>u", group = "UI" },
+		{ "<leader>w", group = "Window" },
+		{ "g", group = "Goto" },
+		{ "ga", group = "Calls" },
+		{ "[", group = "Prev" },
+		{ "]", group = "Next" },
+		-- General
 		{ "fd", "<ESC>", desc = "Exit modes", mode = { "n", "i", "v" } },
 		{ "<C-s>", "<CMD>w<CR>", desc = "Save buffer", mode = { "n", "i", "v" } },
 		-- LSP
