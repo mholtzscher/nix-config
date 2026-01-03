@@ -3,6 +3,10 @@ vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
 vim.opt.number = true
+vim.opt.relativenumber = true
+vim.opt.undofile = true
+vim.opt.updatetime = 250
+vim.opt.inccommand = "split"
 -- vim.opt.mouse = "a"
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
@@ -47,12 +51,11 @@ end
 -- AUTO COMMANDS (NON-LSP)
 --
 -- Make terminals nicer
-vim.api.nvim_create_autocmd("TermOpen", { command = "setlocal nonumber" })
-vim.api.nvim_create_autocmd("TermOpen", { command = "setlocal signcolumn=no" })
 vim.api.nvim_create_autocmd("TermOpen", {
-	pattern = "*",
 	callback = function()
-		-- This buffer-local variable tells mini.indentscope to disable itself
+		vim.opt_local.number = false
+		vim.opt_local.relativenumber = false
+		vim.opt_local.signcolumn = "no"
 		vim.b.miniindentscope_disable = true
 	end,
 })
@@ -101,11 +104,21 @@ vim.keymap.set("n", "<leader>bd", function() Snacks.bufdelete() end, { desc = "D
 vim.keymap.set("n", "<leader>g", function() Snacks.picker.git_files() end, { desc = "Git files" })
 vim.keymap.set("n", "<leader>d", vim.diagnostic.open_float, { desc = "Show diagnostic error message" })
 vim.keymap.set("n", "gd", vim.lsp.buf.definition, { desc = "Go to definition" })
-vim.keymap.set("n", "gr", vim.lsp.buf.references, { desc = "Go to definition" })
+vim.keymap.set("n", "gr", vim.lsp.buf.references, { desc = "Go to references" })
+vim.keymap.set("n", "K", vim.lsp.buf.hover, { desc = "Hover documentation" })
+vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, { desc = "Code actions" })
 vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, { desc = "LSP Rename" })
+vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, { desc = "Previous diagnostic" })
+vim.keymap.set("n", "]d", vim.diagnostic.goto_next, { desc = "Next diagnostic" })
 vim.keymap.set("n", "<leader>rf", function() Snacks.rename.rename_file() end, { desc = "Rename file" })
 
--- Neovide Settins
+-- Window navigation
+vim.keymap.set("n", "<C-h>", "<C-w>h", { desc = "Move to left window" })
+vim.keymap.set("n", "<C-j>", "<C-w>j", { desc = "Move to lower window" })
+vim.keymap.set("n", "<C-k>", "<C-w>k", { desc = "Move to upper window" })
+vim.keymap.set("n", "<C-l>", "<C-w>l", { desc = "Move to right window" })
+
+-- Neovide Settings
 
 vim.g.neovide_scroll_animation_length = 0.08
 vim.g.neovide_position_animation_length = 0.2
@@ -152,27 +165,47 @@ vim.keymap.set("n", "<leader>gB", function() Snacks.gitbrowse() end, { desc = "O
 require("dap-go").setup()
 require("oil").setup()
 vim.keymap.set("n", "<leader>e", "<CMD>Oil<CR>", { desc = "Open file explorer" })
+require("Comment").setup()
+require("todo-comments").setup()
+vim.keymap.set("n", "<leader>st", function() Snacks.picker.todo_comments() end, { desc = "Search TODOs" })
 require("conform").setup({
 	notify_on_error = false,
 	format_on_save = {
 		timeout_ms = 500,
-		lsp_fallback = true,
+		lsp_format = "fallback",
 	},
 	formatters_by_ft = {
 		lua = { "stylua" },
 		nix = { "nixfmt" },
+		go = { "gofmt" },
+		python = { "ruff_format" },
+		terraform = { "terraform_fmt" },
+		zig = { "zigfmt" },
+		kdl = { "kdlfmt" },
+		toml = { "taplo" },
+		bash = { "shfmt" },
+		sh = { "shfmt" },
+		-- Biome for JS/TS, prettier for other web files
+		javascript = { "biome" },
+		typescript = { "biome" },
+		javascriptreact = { "biome" },
+		typescriptreact = { "biome" },
+		json = { "biome" },
+		css = { "prettier" },
+		html = { "prettier" },
+		yaml = { "prettier" },
+		markdown = { "prettier" },
 	},
 })
 
 
 -- DAP Config
 local dap, dapui = require("dap"), require("dapui")
+dapui.setup()
 dap.listeners.before.attach.dapui_config = function()
-	dapui.setup()
 	dapui.open()
 end
 dap.listeners.before.launch.dapui_config = function()
-	dapui.setup()
 	dapui.open()
 end
 dap.listeners.before.event_terminated.dapui_config = function()
@@ -192,6 +225,20 @@ vim.lsp.enable({
 	"ruff",
 	"terraformls",
 	"lua_ls",
+	-- Added from neovim.nix extraPackages
+	"dockerls",
+	"docker_compose_language_service",
+	"yamlls",
+	"marksman",
+	"golangci_lint_ls",
+	"nil_ls",
+	"bashls",
+	"taplo",
+	"ts_ls",
+	"jsonls",
+	"html",
+	"cssls",
+	"eslint",
 })
 
 vim.cmd([[set completeopt=fuzzy,menuone,noinsert,popup]])

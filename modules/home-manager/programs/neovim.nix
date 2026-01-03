@@ -36,6 +36,7 @@
       pkgs.kdlfmt
       pkgs.taplo # toml
       pkgs.stylua # lua formatter
+      pkgs.shfmt # bash/sh formatter
 
       # Typescript stuff
       pkgs.typescript-language-server
