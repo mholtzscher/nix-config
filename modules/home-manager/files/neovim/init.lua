@@ -94,13 +94,16 @@ vim.api.nvim_create_autocmd("WinEnter", {
 -- KEYMAPS
 vim.keymap.set("t", "fd", "<C-\\><C-n>", { desc = "Exit terminal mode" })
 vim.keymap.set({ "n", "i", "v" }, "fd", "<ESC>", { desc = "Exit modes" })
-vim.keymap.set("n", "<leader>f", ":Files<CR>", { silent = true, desc = "FZF Files" })
-vim.keymap.set("n", "<leader>b", ":Buffers<CR>", { silent = true, desc = "FZF Buffers" })
-vim.keymap.set("n", "<leader>g", ":GitFiles<CR>", { silent = true, desc = "FZF GitFiles" })
-vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float, { desc = "Show diagnostic error message" })
+vim.keymap.set("n", "<leader>f", function() Snacks.picker.files() end, { desc = "Find files" })
+vim.keymap.set("n", "<leader>/", function() Snacks.picker.grep() end, { desc = "Global search" })
+vim.keymap.set("n", "<leader>bf", function() Snacks.picker.buffers() end, { desc = "Find buffers" })
+vim.keymap.set("n", "<leader>bd", function() Snacks.bufdelete() end, { desc = "Delete buffer" })
+vim.keymap.set("n", "<leader>g", function() Snacks.picker.git_files() end, { desc = "Git files" })
+vim.keymap.set("n", "<leader>d", vim.diagnostic.open_float, { desc = "Show diagnostic error message" })
 vim.keymap.set("n", "gd", vim.lsp.buf.definition, { desc = "Go to definition" })
 vim.keymap.set("n", "gr", vim.lsp.buf.references, { desc = "Go to definition" })
-vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, { desc = "LSP Rename" }) -- Default was 'grn'. I can't make that stick in my head
+vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, { desc = "LSP Rename" })
+vim.keymap.set("n", "<leader>rf", function() Snacks.rename.rename_file() end, { desc = "Rename file" })
 
 -- Neovide Settins
 
@@ -112,35 +115,43 @@ vim.g.neovide_floating_z_height = 20
 vim.o.guifont = "TX-02:h15"
 
 vim.pack.add({
-	"https://github.com/EdenEast/nightfox.nvim",
+	"https://github.com/catppuccin/nvim", -- catppuccin theme
+	"https://github.com/stevearc/oil.nvim", -- file explorer
 	"https://github.com/sebdah/vim-delve", -- Go debugging
 	"https://github.com/tpope/vim-fugitive", -- Git integration (mostly just for Blame)
-	"https://github.com/junegunn/fzf.vim", -- fuzzy finding file/buffer stuff
-	"https://github.com/junegunn/fzf", -- fuzzy finding file/buffer stuff
+	"https://github.com/folke/snacks.nvim", -- picker, notifications, and more
 	"https://github.com/numToStr/Comment.nvim", -- 'gc' to auto comment
 	"https://github.com/rcarriga/nvim-dap-ui",
 	"https://github.com/mfussenegger/nvim-dap",
 	"https://github.com/nvim-neotest/nvim-nio",
 	"https://github.com/leoluz/nvim-dap-go",
-	"https://github.com/zk-org/zk-nvim",
-	"https://github.com/nvim-treesitter/nvim-treesitter",
+
+
 	"https://github.com/stevearc/conform.nvim",
 	"https://github.com/neovim/nvim-lspconfig",
-	"https://github.com/j-hui/fidget.nvim",
 	"https://github.com/folke/todo-comments.nvim",
-	"https://github.com/lewis6991/gitsigns.nvim",
-	"https://github.com/nvim-mini/mini.indentscope",
 })
 
-vim.cmd("colorscheme carbonfox")
+vim.cmd("colorscheme catppuccin-mocha")
 
 -- PLUGIN SETUP
-require("fidget").setup()
-require("dap-go").setup()
-require("mini.indentscope").setup({
-	draw = { animation = require("mini.indentscope").gen_animation.none() },
-	symbol = "│",
+require("snacks").setup({
+	picker = { enabled = true },
+	lazygit = { enabled = true },
+	words = { enabled = true },
+	scroll = { enabled = true },
+	notifier = { enabled = true },
+	indent = { enabled = true },
+	git = { enabled = true },
+	bufdelete = { enabled = true },
+	gitbrowse = { enabled = true },
+	rename = { enabled = true },
 })
+vim.keymap.set("n", "<leader>gg", function() Snacks.lazygit() end, { desc = "Lazygit" })
+vim.keymap.set("n", "<leader>gB", function() Snacks.gitbrowse() end, { desc = "Open in GitHub" })
+require("dap-go").setup()
+require("oil").setup()
+vim.keymap.set("n", "<leader>e", "<CMD>Oil<CR>", { desc = "Open file explorer" })
 require("conform").setup({
 	notify_on_error = false,
 	format_on_save = {
@@ -152,15 +163,7 @@ require("conform").setup({
 		nix = { "nixfmt" },
 	},
 })
-require("gitsigns").setup({
-	signs = {
-		add = { text = "+" },
-		change = { text = "~" },
-		delete = { text = "_" },
-		topdelete = { text = "‾" },
-		changedelete = { text = "~" },
-	},
-})
+
 
 -- DAP Config
 local dap, dapui = require("dap"), require("dapui")
