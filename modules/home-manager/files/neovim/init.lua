@@ -14,8 +14,8 @@ vim.opt.signcolumn = "yes"
 -- vim.opt.updatetime = 250
 vim.opt.splitright = true
 vim.opt.splitbelow = true
-vim.opt.list = true
-vim.opt.listchars = { tab = "> ", trail = "·", nbsp = "␣", lead = "·", eol = "¬" }
+-- vim.opt.list = true
+-- vim.opt.listchars = { tab = "> ", trail = "·", nbsp = "␣", lead = "·", eol = "¬" }
 vim.opt.cursorline = true
 vim.opt.scrolloff = 10
 vim.opt.clipboard = "unnamedplus"
@@ -92,7 +92,6 @@ require("dap-go").setup()
 require("oil").setup()
 require("Comment").setup()
 require("todo-comments").setup()
-
 require("grug-far").setup()
 require("which-key").setup({
 	-- stylua: ignore
