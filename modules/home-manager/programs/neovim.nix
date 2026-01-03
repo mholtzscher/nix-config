@@ -5,9 +5,6 @@
   ...
 }:
 {
-  # Prevent home-manager from managing ~/.config/nvim (use existing LazyVim config)
-  xdg.configFile."nvim/init.lua".enable = lib.mkForce false;
-
   programs.neovim = {
     enable = true;
     package = inputs.neovim-nightly.packages.${pkgs.stdenv.hostPlatform.system}.default;
@@ -15,6 +12,7 @@
     viAlias = true;
     vimAlias = true;
     vimdiffAlias = true;
+    extraLuaConfig = builtins.readFile ../files/neovim/init.lua;
     extraPackages = [
       pkgs.terraform-ls
       pkgs.dockerfile-language-server
@@ -37,6 +35,7 @@
       pkgs.ruff
       pkgs.kdlfmt
       pkgs.taplo # toml
+      pkgs.stylua # lua formatter
 
       # Typescript stuff
       pkgs.typescript-language-server
