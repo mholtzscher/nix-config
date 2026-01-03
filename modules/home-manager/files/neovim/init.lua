@@ -64,6 +64,7 @@ vim.pack.add({
 	"https://github.com/folke/todo-comments.nvim",
 	"https://github.com/folke/which-key.nvim",
 	"https://github.com/echasnovski/mini.icons",
+	"https://github.com/echasnovski/mini.ai",
 })
 
 vim.cmd("colorscheme catppuccin-mocha")
@@ -88,6 +89,7 @@ require("snacks").setup({
 })
 
 require("mini.icons").setup()
+require("mini.ai").setup()
 require("dap-go").setup()
 require("oil").setup()
 require("Comment").setup()
