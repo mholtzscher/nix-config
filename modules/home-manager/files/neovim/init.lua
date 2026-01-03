@@ -80,9 +80,7 @@ require("snacks").setup({
 				desc = "Browse Repo",
 				padding = 1,
 				key = "b",
-				action = function()
-					Snacks.gitbrowse()
-				end,
+				action = function() Snacks.gitbrowse() end,
 			},
 			function()
 				local in_git = Snacks.git.get_root() ~= nil
@@ -90,9 +88,7 @@ require("snacks").setup({
 					{
 						title = "Notifications",
 						cmd = "gh notify -s -a -n5",
-						action = function()
-							vim.ui.open("https://github.com/notifications")
-						end,
+						action = function() vim.ui.open("https://github.com/notifications") end,
 						key = "n",
 						icon = " ",
 						height = 5,
@@ -102,9 +98,7 @@ require("snacks").setup({
 						title = "Open Issues",
 						cmd = "gh issue list -L 3",
 						key = "i",
-						action = function()
-							vim.fn.jobstart("gh issue list --web", { detach = true })
-						end,
+						action = function() vim.fn.jobstart("gh issue list --web", { detach = true }) end,
 						icon = " ",
 						height = 7,
 					},
@@ -113,9 +107,7 @@ require("snacks").setup({
 						title = "Open PRs",
 						cmd = "gh pr list -L 3",
 						key = "P",
-						action = function()
-							vim.fn.jobstart("gh pr list --web", { detach = true })
-						end,
+						action = function() vim.fn.jobstart("gh pr list --web", { detach = true }) end,
 						height = 7,
 					},
 					{
@@ -125,16 +117,19 @@ require("snacks").setup({
 						height = 10,
 					},
 				}
-				return vim.tbl_map(function(cmd)
-					return vim.tbl_extend("force", {
-						pane = 2,
-						section = "terminal",
-						enabled = in_git,
-						padding = 1,
-						ttl = 5 * 60,
-						indent = 3,
-					}, cmd)
-				end, cmds)
+				return vim.tbl_map(
+					function(cmd)
+						return vim.tbl_extend("force", {
+							pane = 2,
+							section = "terminal",
+							enabled = in_git,
+							padding = 1,
+							ttl = 5 * 60,
+							indent = 3,
+						}, cmd)
+					end,
+					cmds
+				)
 			end,
 		},
 	},
@@ -198,6 +193,8 @@ require("which-key").setup({
 		{ "<leader>-", "<CMD>split<CR>", desc = "Split window below" },
 		{ "<leader>|", "<CMD>vsplit<CR>", desc = "Split window right" },
 		{ "<leader>wd", "<CMD>close<CR>", desc = "Delete window" },
+		-- Plugins
+		{ "<leader>l", function() vim.pack.update() end, desc = "Update plugins" },
 		-- Search and replace
 		{ "<leader>sr", function() require("grug-far").open() end, desc = "Search and replace" },
 		{ "<leader>sr", function() require("grug-far").open({ startCursorRow = 4, prefills = { search = vim.fn.expand("<cword>") } }) end, desc = "Search and replace (word)", mode = "x" },
