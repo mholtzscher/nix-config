@@ -18,6 +18,7 @@ vim.opt.list = true
 vim.opt.listchars = { tab = "> ", trail = "·", nbsp = "␣", lead = "·", eol = "¬" }
 vim.opt.cursorline = true
 vim.opt.scrolloff = 10
+vim.opt.clipboard = "unnamedplus"
 -- vim.opt.hlsearch = true
 
 vim.opt.foldmethod = "expr"
@@ -25,7 +26,7 @@ vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 vim.opt.foldenable = false
 
 vim.o.winblend = 20
-vim.o.cc = "80"
+vim.o.cc = "120"
 vim.o.expandtab = true
 vim.o.tabstop = 4
 vim.o.softtabstop = 4
@@ -49,29 +50,6 @@ local function settabspace2()
 end
 
 -- AUTO COMMANDS (NON-LSP)
---
--- Set some filetype preferences including spellchecks and tabs/spaces
-vim.api.nvim_create_autocmd("FileType", {
-	pattern = { "python", "go", "zig" },
-	callback = settabspace4,
-})
-vim.api.nvim_create_autocmd("FileType", {
-	pattern = { "python", "yaml", "zig", "terraform" },
-	command = "setlocal expandtab",
-})
-vim.api.nvim_create_autocmd("FileType", {
-	pattern = { "yaml", "terraform", "lua", "json" },
-	callback = settabspace2,
-})
-vim.api.nvim_create_autocmd("FileType", {
-	pattern = { "asciidoc", "norg", "typst", "markdown" },
-	command = "setlocal spell",
-})
-vim.api.nvim_create_autocmd("FileType", {
-	pattern = { "asciidoc", "tex", "typst", "markdown" },
-	command = "setlocal tw=79",
-})
-
 -- Make the cursorline "move" with the focused window
 vim.api.nvim_create_autocmd("WinLeave", {
 	pattern = { "*" },
@@ -82,24 +60,56 @@ vim.api.nvim_create_autocmd("WinEnter", {
 	pattern = { "*" },
 	command = "set cursorline",
 })
--- LOCAL USER COMMANDS
 
 -- KEYMAPS
 vim.keymap.set({ "n", "i", "v" }, "fd", "<ESC>", { desc = "Exit modes" })
-vim.keymap.set("n", "<leader>f", function() Snacks.picker.files() end, { desc = "Find files" })
-vim.keymap.set("n", "<leader>/", function() Snacks.picker.grep() end, { desc = "Global search" })
-vim.keymap.set("n", "<leader>bf", function() Snacks.picker.buffers() end, { desc = "Find buffers" })
-vim.keymap.set("n", "<leader>bd", function() Snacks.bufdelete() end, { desc = "Delete buffer" })
-vim.keymap.set("n", "<leader>g", function() Snacks.picker.git_files() end, { desc = "Git files" })
-vim.keymap.set("n", "<leader>d", vim.diagnostic.open_float, { desc = "Show diagnostic error message" })
-vim.keymap.set("n", "gd", vim.lsp.buf.definition, { desc = "Go to definition" })
-vim.keymap.set("n", "gr", vim.lsp.buf.references, { desc = "Go to references" })
+vim.keymap.set("n", "<leader>f", function()
+	Snacks.picker.files()
+end, { desc = "Find files" })
+vim.keymap.set("n", "<leader>/", function()
+	Snacks.picker.grep()
+end, { desc = "Global search" })
+vim.keymap.set("n", "<leader>bf", function()
+	Snacks.picker.buffers()
+end, { desc = "Find buffers" })
+vim.keymap.set("n", "<leader>bd", function()
+	Snacks.bufdelete()
+end, { desc = "Delete buffer" })
+vim.keymap.set("n", "<leader>g", function()
+	Snacks.picker.git_files()
+end, { desc = "Git files" })
+vim.keymap.set("n", "<leader>d", function()
+	Snacks.picker.diagnostics()
+end, { desc = "Diagnostics" })
+vim.keymap.set("n", "<leader>D", function()
+	Snacks.picker.diagnostics_buffer()
+end, { desc = "Buffer diagnostics" })
+vim.keymap.set("n", "gd", function()
+	Snacks.picker.lsp_definitions()
+end, { desc = "Go to definition" })
+vim.keymap.set("n", "gr", function()
+	Snacks.picker.lsp_references()
+end, { desc = "Go to references" })
+vim.keymap.set("n", "gi", function()
+	Snacks.picker.lsp_implementations()
+end, { desc = "Go to implementations" })
+vim.keymap.set("n", "gy", function()
+	Snacks.picker.lsp_type_definitions()
+end, { desc = "Go to type definition" })
+vim.keymap.set("n", "<leader>ss", function()
+	Snacks.picker.lsp_symbols()
+end, { desc = "Document symbols" })
+vim.keymap.set("n", "<leader>sS", function()
+	Snacks.picker.lsp_workspace_symbols()
+end, { desc = "Workspace symbols" })
 vim.keymap.set("n", "K", vim.lsp.buf.hover, { desc = "Hover documentation" })
 vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, { desc = "Code actions" })
 vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, { desc = "LSP Rename" })
 vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, { desc = "Previous diagnostic" })
 vim.keymap.set("n", "]d", vim.diagnostic.goto_next, { desc = "Next diagnostic" })
-vim.keymap.set("n", "<leader>rf", function() Snacks.rename.rename_file() end, { desc = "Rename file" })
+vim.keymap.set("n", "<leader>rf", function()
+	Snacks.rename.rename_file()
+end, { desc = "Rename file" })
 
 -- Window navigation
 vim.keymap.set("n", "<C-h>", "<C-w>h", { desc = "Move to left window" })
@@ -107,27 +117,28 @@ vim.keymap.set("n", "<C-j>", "<C-w>j", { desc = "Move to lower window" })
 vim.keymap.set("n", "<C-k>", "<C-w>k", { desc = "Move to upper window" })
 vim.keymap.set("n", "<C-l>", "<C-w>l", { desc = "Move to right window" })
 
--- Neovide Settings
+-- Window management (LazyVim style)
+vim.keymap.set("n", "<C-Up>", "<CMD>resize +2<CR>", { desc = "Increase window height" })
+vim.keymap.set("n", "<C-Down>", "<CMD>resize -2<CR>", { desc = "Decrease window height" })
+vim.keymap.set("n", "<C-Left>", "<CMD>vertical resize -2<CR>", { desc = "Decrease window width" })
+vim.keymap.set("n", "<C-Right>", "<CMD>vertical resize +2<CR>", { desc = "Increase window width" })
+vim.keymap.set("n", "<leader>-", "<CMD>split<CR>", { desc = "Split window below" })
+vim.keymap.set("n", "<leader>|", "<CMD>vsplit<CR>", { desc = "Split window right" })
+vim.keymap.set("n", "<leader>wd", "<CMD>close<CR>", { desc = "Delete window" })
 
-vim.g.neovide_scroll_animation_length = 0.08
-vim.g.neovide_position_animation_length = 0.2
-vim.g.neovide_cursor_animation_length = 0
-vim.g.neovide_cursor_short_animation_length = 0
-vim.g.neovide_floating_z_height = 20
-vim.o.guifont = "TX-02:h15"
+vim.keymap.set({ "n", "i", "v" }, "<C-s>", "<CMD>w<CR>", { desc = "Save buffer" })
 
 vim.pack.add({
 	"https://github.com/catppuccin/nvim", -- catppuccin theme
 	"https://github.com/stevearc/oil.nvim", -- file explorer
 	"https://github.com/sebdah/vim-delve", -- Go debugging
-	"https://github.com/tpope/vim-fugitive", -- Git integration (mostly just for Blame)
 	"https://github.com/folke/snacks.nvim", -- picker, notifications, and more
 	"https://github.com/numToStr/Comment.nvim", -- 'gc' to auto comment
 	"https://github.com/rcarriga/nvim-dap-ui",
 	"https://github.com/mfussenegger/nvim-dap",
 	"https://github.com/nvim-neotest/nvim-nio",
 	"https://github.com/leoluz/nvim-dap-go",
-
+	"https://github.com/MagicDuck/grug-far.nvim", -- search and replace
 
 	"https://github.com/stevearc/conform.nvim",
 	"https://github.com/neovim/nvim-lspconfig",
@@ -149,14 +160,31 @@ require("snacks").setup({
 	gitbrowse = { enabled = true },
 	rename = { enabled = true },
 })
-vim.keymap.set("n", "<leader>gg", function() Snacks.lazygit() end, { desc = "Lazygit" })
-vim.keymap.set("n", "<leader>gB", function() Snacks.gitbrowse() end, { desc = "Open in GitHub" })
+vim.keymap.set("n", "<leader>gg", function()
+	Snacks.lazygit()
+end, { desc = "Lazygit" })
+vim.keymap.set("n", "<leader>gB", function()
+	Snacks.gitbrowse()
+end, { desc = "Open in GitHub" })
+vim.keymap.set("n", "<leader>gb", function()
+	Snacks.git.blame_line()
+end, { desc = "Git blame line" })
 require("dap-go").setup()
 require("oil").setup()
 vim.keymap.set("n", "<leader>e", "<CMD>Oil<CR>", { desc = "Open file explorer" })
 require("Comment").setup()
 require("todo-comments").setup()
-vim.keymap.set("n", "<leader>st", function() Snacks.picker.todo_comments() end, { desc = "Search TODOs" })
+vim.keymap.set("n", "<leader>st", function()
+	Snacks.picker.todo_comments()
+end, { desc = "Search TODOs" })
+
+require("grug-far").setup()
+vim.keymap.set("n", "<leader>sr", function()
+	require("grug-far").open()
+end, { desc = "Search and replace" })
+vim.keymap.set("x", "<leader>sr", function()
+	require("grug-far").open({ startCursorRow = 4, prefills = { search = vim.fn.expand("<cword>") } })
+end, { desc = "Search and replace (word)" })
 require("conform").setup({
 	notify_on_error = false,
 	format_on_save = {
@@ -187,7 +215,6 @@ require("conform").setup({
 	},
 })
 
-
 -- DAP Config
 local dap, dapui = require("dap"), require("dapui")
 dapui.setup()
@@ -205,7 +232,6 @@ dap.listeners.before.event_exited.dapui_config = function()
 end
 
 -- LSP Config
-
 vim.lsp.enable({
 	"rust_analyzer",
 	"gopls",
@@ -214,7 +240,6 @@ vim.lsp.enable({
 	"ruff",
 	"terraformls",
 	"lua_ls",
-	-- Added from neovim.nix extraPackages
 	"dockerls",
 	"docker_compose_language_service",
 	"yamlls",
@@ -256,33 +281,17 @@ vim.lsp.config("lua_ls", {
 
 		client.config.settings.Lua = vim.tbl_deep_extend("force", client.config.settings.Lua, {
 			runtime = {
-				-- Tell the language server which version of Lua you're using (most
-				-- likely LuaJIT in the case of Neovim)
 				version = "LuaJIT",
-				-- Tell the language server how to find Lua modules same way as Neovim
-				-- (see `:h lua-module-load`)
 				path = {
 					"lua/?.lua",
 					"lua/?/init.lua",
 				},
 			},
-			-- Make the server aware of Neovim runtime files
 			workspace = {
 				checkThirdParty = false,
 				library = {
 					vim.env.VIMRUNTIME,
-					-- Depending on the usage, you might want to add additional paths
-					-- here.
-					-- '${3rd}/luv/library'
-					-- '${3rd}/busted/library'
 				},
-				-- Or pull in all of 'runtimepath'.
-				-- NOTE: this is a lot slower and will cause issues when working on
-				-- your own configuration.
-				-- See https://github.com/neovim/nvim-lspconfig/issues/3189
-				-- library = {
-				--   vim.api.nvim_get_runtime_file('', true),
-				-- }
 			},
 		})
 	end,
