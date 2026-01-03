@@ -53,7 +53,6 @@ vim.pack.add({
 	"https://github.com/stevearc/oil.nvim", -- file explorer
 	"https://github.com/sebdah/vim-delve", -- Go debugging
 	"https://github.com/folke/snacks.nvim", -- picker, notifications, and more
-	"https://github.com/numToStr/Comment.nvim", -- 'gc' to auto comment
 	"https://github.com/rcarriga/nvim-dap-ui",
 	"https://github.com/mfussenegger/nvim-dap",
 	"https://github.com/nvim-neotest/nvim-nio",
@@ -71,6 +70,74 @@ vim.cmd("colorscheme catppuccin-mocha")
 
 -- PLUGIN SETUP
 require("snacks").setup({
+	dashboard = {
+		sections = {
+			{ section = "header" },
+			{ section = "keys", gap = 1, padding = 1 },
+			{
+				pane = 2,
+				icon = " ",
+				desc = "Browse Repo",
+				padding = 1,
+				key = "b",
+				action = function()
+					Snacks.gitbrowse()
+				end,
+			},
+			function()
+				local in_git = Snacks.git.get_root() ~= nil
+				local cmds = {
+					{
+						title = "Notifications",
+						cmd = "gh notify -s -a -n5",
+						action = function()
+							vim.ui.open("https://github.com/notifications")
+						end,
+						key = "n",
+						icon = " ",
+						height = 5,
+						enabled = true,
+					},
+					{
+						title = "Open Issues",
+						cmd = "gh issue list -L 3",
+						key = "i",
+						action = function()
+							vim.fn.jobstart("gh issue list --web", { detach = true })
+						end,
+						icon = " ",
+						height = 7,
+					},
+					{
+						icon = " ",
+						title = "Open PRs",
+						cmd = "gh pr list -L 3",
+						key = "P",
+						action = function()
+							vim.fn.jobstart("gh pr list --web", { detach = true })
+						end,
+						height = 7,
+					},
+					{
+						icon = " ",
+						title = "Git Status",
+						cmd = "git --no-pager diff --stat -B -M -C",
+						height = 10,
+					},
+				}
+				return vim.tbl_map(function(cmd)
+					return vim.tbl_extend("force", {
+						pane = 2,
+						section = "terminal",
+						enabled = in_git,
+						padding = 1,
+						ttl = 5 * 60,
+						indent = 3,
+					}, cmd)
+				end, cmds)
+			end,
+		},
+	},
 	bigfile = { enabled = true },
 	bufdelete = { enabled = true },
 	explorer = { enabled = true },
@@ -92,7 +159,6 @@ require("mini.icons").setup()
 require("mini.ai").setup()
 require("dap-go").setup()
 require("oil").setup()
-require("Comment").setup()
 require("todo-comments").setup()
 require("grug-far").setup()
 require("which-key").setup({
