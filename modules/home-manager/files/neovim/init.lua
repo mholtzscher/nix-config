@@ -26,7 +26,7 @@ vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 vim.opt.foldenable = false
 
 vim.o.winblend = 20
-vim.o.cc = "120"
+-- vim.o.cc = "120"
 vim.o.expandtab = true
 vim.o.tabstop = 4
 vim.o.softtabstop = 4
@@ -35,19 +35,6 @@ vim.o.shiftwidth = 4
 vim.g.zig_fmt_autosave = false
 vim.g.tex_flavor = "latex"
 vim.g.netrw_liststyle = 3
-
--- LOCAL FUNCTIONS
-local function settabspace4()
-	vim.o.tabstop = 4
-	vim.o.softtabstop = 4
-	vim.o.shiftwidth = 4
-end
-
-local function settabspace2()
-	vim.o.tabstop = 2
-	vim.o.softtabstop = 2
-	vim.o.shiftwidth = 2
-end
 
 -- AUTO COMMANDS (NON-LSP)
 -- Make the cursorline "move" with the focused window
@@ -61,73 +48,6 @@ vim.api.nvim_create_autocmd("WinEnter", {
 	command = "set cursorline",
 })
 
--- KEYMAPS
-vim.keymap.set({ "n", "i", "v" }, "fd", "<ESC>", { desc = "Exit modes" })
-vim.keymap.set("n", "<leader>f", function()
-	Snacks.picker.files()
-end, { desc = "Find files" })
-vim.keymap.set("n", "<leader>/", function()
-	Snacks.picker.grep()
-end, { desc = "Global search" })
-vim.keymap.set("n", "<leader>bf", function()
-	Snacks.picker.buffers()
-end, { desc = "Find buffers" })
-vim.keymap.set("n", "<leader>bd", function()
-	Snacks.bufdelete()
-end, { desc = "Delete buffer" })
-vim.keymap.set("n", "<leader>g", function()
-	Snacks.picker.git_files()
-end, { desc = "Git files" })
-vim.keymap.set("n", "<leader>d", function()
-	Snacks.picker.diagnostics()
-end, { desc = "Diagnostics" })
-vim.keymap.set("n", "<leader>D", function()
-	Snacks.picker.diagnostics_buffer()
-end, { desc = "Buffer diagnostics" })
-vim.keymap.set("n", "gd", function()
-	Snacks.picker.lsp_definitions()
-end, { desc = "Go to definition" })
-vim.keymap.set("n", "gr", function()
-	Snacks.picker.lsp_references()
-end, { desc = "Go to references" })
-vim.keymap.set("n", "gi", function()
-	Snacks.picker.lsp_implementations()
-end, { desc = "Go to implementations" })
-vim.keymap.set("n", "gy", function()
-	Snacks.picker.lsp_type_definitions()
-end, { desc = "Go to type definition" })
-vim.keymap.set("n", "<leader>ss", function()
-	Snacks.picker.lsp_symbols()
-end, { desc = "Document symbols" })
-vim.keymap.set("n", "<leader>sS", function()
-	Snacks.picker.lsp_workspace_symbols()
-end, { desc = "Workspace symbols" })
-vim.keymap.set("n", "K", vim.lsp.buf.hover, { desc = "Hover documentation" })
-vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, { desc = "Code actions" })
-vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, { desc = "LSP Rename" })
-vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, { desc = "Previous diagnostic" })
-vim.keymap.set("n", "]d", vim.diagnostic.goto_next, { desc = "Next diagnostic" })
-vim.keymap.set("n", "<leader>rf", function()
-	Snacks.rename.rename_file()
-end, { desc = "Rename file" })
-
--- Window navigation
-vim.keymap.set("n", "<C-h>", "<C-w>h", { desc = "Move to left window" })
-vim.keymap.set("n", "<C-j>", "<C-w>j", { desc = "Move to lower window" })
-vim.keymap.set("n", "<C-k>", "<C-w>k", { desc = "Move to upper window" })
-vim.keymap.set("n", "<C-l>", "<C-w>l", { desc = "Move to right window" })
-
--- Window management (LazyVim style)
-vim.keymap.set("n", "<C-Up>", "<CMD>resize +2<CR>", { desc = "Increase window height" })
-vim.keymap.set("n", "<C-Down>", "<CMD>resize -2<CR>", { desc = "Decrease window height" })
-vim.keymap.set("n", "<C-Left>", "<CMD>vertical resize -2<CR>", { desc = "Decrease window width" })
-vim.keymap.set("n", "<C-Right>", "<CMD>vertical resize +2<CR>", { desc = "Increase window width" })
-vim.keymap.set("n", "<leader>-", "<CMD>split<CR>", { desc = "Split window below" })
-vim.keymap.set("n", "<leader>|", "<CMD>vsplit<CR>", { desc = "Split window right" })
-vim.keymap.set("n", "<leader>wd", "<CMD>close<CR>", { desc = "Delete window" })
-
-vim.keymap.set({ "n", "i", "v" }, "<C-s>", "<CMD>w<CR>", { desc = "Save buffer" })
-
 vim.pack.add({
 	"https://github.com/catppuccin/nvim", -- catppuccin theme
 	"https://github.com/stevearc/oil.nvim", -- file explorer
@@ -139,10 +59,11 @@ vim.pack.add({
 	"https://github.com/nvim-neotest/nvim-nio",
 	"https://github.com/leoluz/nvim-dap-go",
 	"https://github.com/MagicDuck/grug-far.nvim", -- search and replace
-
 	"https://github.com/stevearc/conform.nvim",
 	"https://github.com/neovim/nvim-lspconfig",
 	"https://github.com/folke/todo-comments.nvim",
+	"https://github.com/folke/which-key.nvim",
+	"https://github.com/echasnovski/mini.icons",
 })
 
 vim.cmd("colorscheme catppuccin-mocha")
@@ -165,43 +86,114 @@ require("snacks").setup({
 	statuscolumn = { enabled = true },
 	words = { enabled = true },
 })
-vim.keymap.set("n", "<leader>gg", function()
-	Snacks.lazygit()
-end, { desc = "Lazygit" })
-vim.keymap.set("n", "<leader>gB", function()
-	Snacks.gitbrowse()
-end, { desc = "Open in GitHub" })
-vim.keymap.set("n", "<leader>gb", function()
-	Snacks.git.blame_line()
-end, { desc = "Git blame line" })
-vim.keymap.set("n", "<leader>gi", function()
-	Snacks.picker.gh_issue()
-end, { desc = "GitHub Issues (open)" })
-vim.keymap.set("n", "<leader>gI", function()
-	Snacks.picker.gh_issue({ state = "all" })
-end, { desc = "GitHub Issues (all)" })
-vim.keymap.set("n", "<leader>gp", function()
-	Snacks.picker.gh_pr()
-end, { desc = "GitHub Pull Requests (open)" })
-vim.keymap.set("n", "<leader>gP", function()
-	Snacks.picker.gh_pr({ state = "all" })
-end, { desc = "GitHub Pull Requests (all)" })
+
+require("mini.icons").setup()
 require("dap-go").setup()
 require("oil").setup()
-vim.keymap.set("n", "<leader>e", "<CMD>Oil<CR>", { desc = "Open file explorer" })
 require("Comment").setup()
 require("todo-comments").setup()
-vim.keymap.set("n", "<leader>st", function()
-	Snacks.picker.todo_comments()
-end, { desc = "Search TODOs" })
 
 require("grug-far").setup()
-vim.keymap.set("n", "<leader>sr", function()
-	require("grug-far").open()
-end, { desc = "Search and replace" })
-vim.keymap.set("x", "<leader>sr", function()
-	require("grug-far").open({ startCursorRow = 4, prefills = { search = vim.fn.expand("<cword>") } })
-end, { desc = "Search and replace (word)" })
+require("which-key").setup({
+	-- stylua: ignore
+	spec = {
+		{ "fd", "<ESC>", desc = "Exit modes", mode = { "n", "i", "v" } },
+		{ "<C-s>", "<CMD>w<CR>", desc = "Save buffer", mode = { "n", "i", "v" } },
+		-- LSP
+		{ "K", vim.lsp.buf.hover, desc = "Hover documentation" },
+		{ "<leader>ca", vim.lsp.buf.code_action, desc = "Code actions" },
+		{ "<leader>cr", vim.lsp.buf.rename, desc = "Rename" },
+		{ "[d", function() vim.diagnostic.jump({ count = -1 }) end, desc = "Previous diagnostic" },
+		{ "]d", function() vim.diagnostic.jump({ count = 1 }) end, desc = "Next diagnostic" },
+		-- Window navigation
+		{ "<C-h>", "<C-w>h", desc = "Move to left window" },
+		{ "<C-j>", "<C-w>j", desc = "Move to lower window" },
+		{ "<C-k>", "<C-w>k", desc = "Move to upper window" },
+		{ "<C-l>", "<C-w>l", desc = "Move to right window" },
+		-- Window management
+		{ "<C-Up>", "<CMD>resize +2<CR>", desc = "Increase window height" },
+		{ "<C-Down>", "<CMD>resize -2<CR>", desc = "Decrease window height" },
+		{ "<C-Left>", "<CMD>vertical resize -2<CR>", desc = "Decrease window width" },
+		{ "<C-Right>", "<CMD>vertical resize +2<CR>", desc = "Increase window width" },
+		{ "<leader>-", "<CMD>split<CR>", desc = "Split window below" },
+		{ "<leader>|", "<CMD>vsplit<CR>", desc = "Split window right" },
+		{ "<leader>wd", "<CMD>close<CR>", desc = "Delete window" },
+		-- Search and replace
+		{ "<leader>sr", function() require("grug-far").open() end, desc = "Search and replace" },
+		{ "<leader>sr", function() require("grug-far").open({ startCursorRow = 4, prefills = { search = vim.fn.expand("<cword>") } }) end, desc = "Search and replace (word)", mode = "x" },
+		-- Top Pickers & Explorer
+		{ "<leader><space>", function() Snacks.picker.smart() end, desc = "Smart Find Files" },
+		{ "<leader>,", function() Snacks.picker.buffers() end, desc = "Buffers" },
+		{ "<leader>/", function() Snacks.picker.grep() end, desc = "Grep" },
+		{ "<leader>:", function() Snacks.picker.command_history() end, desc = "Command History" },
+		{ "<leader>n", function() Snacks.picker.notifications() end, desc = "Notification History" },
+		{ "<leader>e", function() Snacks.explorer() end, desc = "File Explorer" },
+		-- Find
+		{ "<leader>fb", function() Snacks.picker.buffers() end, desc = "Buffers" },
+		{ "<leader>fc", function() Snacks.picker.files({ cwd = vim.fn.stdpath("config") }) end, desc = "Find Config File" },
+		{ "<leader>ff", function() Snacks.picker.files() end, desc = "Find Files" },
+		{ "<leader>fg", function() Snacks.picker.git_files() end, desc = "Find Git Files" },
+		{ "<leader>fp", function() Snacks.picker.projects() end, desc = "Projects" },
+		{ "<leader>fr", function() Snacks.picker.recent() end, desc = "Recent" },
+		-- Git
+		{ "<leader>gb", function() Snacks.git.blame_line() end, desc = "Git Blame Line" },
+		{ "<leader>gB", function() Snacks.gitbrowse() end, desc = "Git Browse", mode = { "n", "v" } },
+		{ "<leader>gd", function() Snacks.picker.git_diff() end, desc = "Git Diff (Hunks)" },
+		{ "<leader>gf", function() Snacks.picker.git_log_file() end, desc = "Git Log File" },
+		{ "<leader>gg", function() Snacks.lazygit() end, desc = "Lazygit" },
+		{ "<leader>gi", function() Snacks.picker.gh_issue() end, desc = "GitHub Issues (open)" },
+		{ "<leader>gI", function() Snacks.picker.gh_issue({ state = "all" }) end, desc = "GitHub Issues (all)" },
+		{ "<leader>gl", function() Snacks.picker.git_log() end, desc = "Git Log" },
+		{ "<leader>gL", function() Snacks.picker.git_log_line() end, desc = "Git Log Line" },
+		{ "<leader>gp", function() Snacks.picker.gh_pr() end, desc = "GitHub Pull Requests (open)" },
+		{ "<leader>gP", function() Snacks.picker.gh_pr({ state = "all" }) end, desc = "GitHub Pull Requests (all)" },
+		{ "<leader>gs", function() Snacks.picker.git_status() end, desc = "Git Status" },
+		{ "<leader>gS", function() Snacks.picker.git_stash() end, desc = "Git Stash" },
+		-- Grep
+		{ "<leader>sb", function() Snacks.picker.lines() end, desc = "Buffer Lines" },
+		{ "<leader>sB", function() Snacks.picker.grep_buffers() end, desc = "Grep Open Buffers" },
+		{ "<leader>sg", function() Snacks.picker.grep() end, desc = "Grep" },
+		{ "<leader>sw", function() Snacks.picker.grep_word() end, desc = "Visual selection or word", mode = { "n", "x" } },
+		-- Search
+		{ '<leader>s"', function() Snacks.picker.registers() end, desc = "Registers" },
+		{ "<leader>s/", function() Snacks.picker.search_history() end, desc = "Search History" },
+		{ "<leader>sa", function() Snacks.picker.autocmds() end, desc = "Autocmds" },
+		{ "<leader>sc", function() Snacks.picker.command_history() end, desc = "Command History" },
+		{ "<leader>sC", function() Snacks.picker.commands() end, desc = "Commands" },
+		{ "<leader>sd", function() Snacks.picker.diagnostics() end, desc = "Diagnostics" },
+		{ "<leader>sD", function() Snacks.picker.diagnostics_buffer() end, desc = "Buffer Diagnostics" },
+		{ "<leader>sh", function() Snacks.picker.help() end, desc = "Help Pages" },
+		{ "<leader>sH", function() Snacks.picker.highlights() end, desc = "Highlights" },
+		{ "<leader>si", function() Snacks.picker.icons() end, desc = "Icons" },
+		{ "<leader>sj", function() Snacks.picker.jumps() end, desc = "Jumps" },
+		{ "<leader>sk", function() Snacks.picker.keymaps() end, desc = "Keymaps" },
+		{ "<leader>sl", function() Snacks.picker.loclist() end, desc = "Location List" },
+		{ "<leader>sm", function() Snacks.picker.marks() end, desc = "Marks" },
+		{ "<leader>sM", function() Snacks.picker.man() end, desc = "Man Pages" },
+		{ "<leader>sp", function() Snacks.picker.lazy() end, desc = "Search for Plugin Spec" },
+		{ "<leader>sq", function() Snacks.picker.qflist() end, desc = "Quickfix List" },
+		{ "<leader>sR", function() Snacks.picker.resume() end, desc = "Resume" },
+		{ "<leader>st", function() Snacks.picker.todo_comments() end, desc = "Search TODOs" },
+		{ "<leader>su", function() Snacks.picker.undo() end, desc = "Undo History" },
+		-- LSP (Snacks)
+		{ "gd", function() Snacks.picker.lsp_definitions() end, desc = "Goto Definition" },
+		{ "gD", function() Snacks.picker.lsp_declarations() end, desc = "Goto Declaration" },
+		{ "gr", function() Snacks.picker.lsp_references() end, desc = "References" },
+		{ "gI", function() Snacks.picker.lsp_implementations() end, desc = "Goto Implementation" },
+		{ "gy", function() Snacks.picker.lsp_type_definitions() end, desc = "Goto Type Definition" },
+		{ "gai", function() Snacks.picker.lsp_incoming_calls() end, desc = "Calls Incoming" },
+		{ "gao", function() Snacks.picker.lsp_outgoing_calls() end, desc = "Calls Outgoing" },
+		{ "<leader>ss", function() Snacks.picker.lsp_symbols() end, desc = "LSP Symbols" },
+		{ "<leader>sS", function() Snacks.picker.lsp_workspace_symbols() end, desc = "LSP Workspace Symbols" },
+		-- Other
+		{ "<leader>bd", function() Snacks.bufdelete() end, desc = "Delete Buffer" },
+		{ "<leader>cR", function() Snacks.rename.rename_file() end, desc = "Rename File" },
+		{ "<leader>un", function() Snacks.notifier.hide() end, desc = "Dismiss All Notifications" },
+		{ "<leader>uC", function() Snacks.picker.colorschemes() end, desc = "Colorschemes" },
+		{ "]]", function() Snacks.words.jump(vim.v.count1) end, desc = "Next Reference", mode = { "n", "t" } },
+		{ "[[", function() Snacks.words.jump(-vim.v.count1) end, desc = "Prev Reference", mode = { "n", "t" } },
+	},
+})
 require("conform").setup({
 	notify_on_error = false,
 	format_on_save = {
@@ -235,18 +227,10 @@ require("conform").setup({
 -- DAP Config
 local dap, dapui = require("dap"), require("dapui")
 dapui.setup()
-dap.listeners.before.attach.dapui_config = function()
-	dapui.open()
-end
-dap.listeners.before.launch.dapui_config = function()
-	dapui.open()
-end
-dap.listeners.before.event_terminated.dapui_config = function()
-	dapui.close()
-end
-dap.listeners.before.event_exited.dapui_config = function()
-	dapui.close()
-end
+dap.listeners.before.attach.dapui_config = function() dapui.open() end
+dap.listeners.before.launch.dapui_config = function() dapui.open() end
+dap.listeners.before.event_terminated.dapui_config = function() dapui.close() end
+dap.listeners.before.event_exited.dapui_config = function() dapui.close() end
 
 -- LSP Config
 vim.lsp.enable({
@@ -288,10 +272,7 @@ vim.lsp.config("lua_ls", {
 	on_init = function(client)
 		if client.workspace_folders then
 			local path = client.workspace_folders[1].name
-			if
-				path ~= vim.fn.stdpath("config")
-				and (vim.uv.fs_stat(path .. "/.luarc.json") or vim.uv.fs_stat(path .. "/.luarc.jsonc"))
-			then
+			if path ~= vim.fn.stdpath("config") and (vim.uv.fs_stat(path .. "/.luarc.json") or vim.uv.fs_stat(path .. "/.luarc.jsonc")) then
 				return
 			end
 		end
