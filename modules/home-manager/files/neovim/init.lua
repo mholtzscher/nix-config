@@ -50,16 +50,6 @@ end
 
 -- AUTO COMMANDS (NON-LSP)
 --
--- Make terminals nicer
-vim.api.nvim_create_autocmd("TermOpen", {
-	callback = function()
-		vim.opt_local.number = false
-		vim.opt_local.relativenumber = false
-		vim.opt_local.signcolumn = "no"
-		vim.b.miniindentscope_disable = true
-	end,
-})
-
 -- Set some filetype preferences including spellchecks and tabs/spaces
 vim.api.nvim_create_autocmd("FileType", {
 	pattern = { "python", "go", "zig" },
@@ -95,7 +85,6 @@ vim.api.nvim_create_autocmd("WinEnter", {
 -- LOCAL USER COMMANDS
 
 -- KEYMAPS
-vim.keymap.set("t", "fd", "<C-\\><C-n>", { desc = "Exit terminal mode" })
 vim.keymap.set({ "n", "i", "v" }, "fd", "<ESC>", { desc = "Exit modes" })
 vim.keymap.set("n", "<leader>f", function() Snacks.picker.files() end, { desc = "Find files" })
 vim.keymap.set("n", "<leader>/", function() Snacks.picker.grep() end, { desc = "Global search" })
