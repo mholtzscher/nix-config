@@ -149,16 +149,21 @@ vim.cmd("colorscheme catppuccin-mocha")
 
 -- PLUGIN SETUP
 require("snacks").setup({
-	picker = { enabled = true },
-	lazygit = { enabled = true },
-	words = { enabled = true },
-	scroll = { enabled = true },
-	notifier = { enabled = true },
-	indent = { enabled = true },
-	git = { enabled = true },
+	bigfile = { enabled = true },
 	bufdelete = { enabled = true },
+	explorer = { enabled = true },
+	gh = { enabled = true },
+	git = { enabled = true },
 	gitbrowse = { enabled = true },
+	indent = { enabled = true },
+	input = { enabled = true },
+	lazygit = { enabled = true },
+	notifier = { enabled = true },
+	picker = { enabled = true },
 	rename = { enabled = true },
+	scroll = { enabled = true },
+	statuscolumn = { enabled = true },
+	words = { enabled = true },
 })
 vim.keymap.set("n", "<leader>gg", function()
 	Snacks.lazygit()
@@ -169,6 +174,18 @@ end, { desc = "Open in GitHub" })
 vim.keymap.set("n", "<leader>gb", function()
 	Snacks.git.blame_line()
 end, { desc = "Git blame line" })
+vim.keymap.set("n", "<leader>gi", function()
+	Snacks.picker.gh_issue()
+end, { desc = "GitHub Issues (open)" })
+vim.keymap.set("n", "<leader>gI", function()
+	Snacks.picker.gh_issue({ state = "all" })
+end, { desc = "GitHub Issues (all)" })
+vim.keymap.set("n", "<leader>gp", function()
+	Snacks.picker.gh_pr()
+end, { desc = "GitHub Pull Requests (open)" })
+vim.keymap.set("n", "<leader>gP", function()
+	Snacks.picker.gh_pr({ state = "all" })
+end, { desc = "GitHub Pull Requests (all)" })
 require("dap-go").setup()
 require("oil").setup()
 vim.keymap.set("n", "<leader>e", "<CMD>Oil<CR>", { desc = "Open file explorer" })
