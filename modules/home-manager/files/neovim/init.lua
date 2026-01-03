@@ -63,8 +63,8 @@ vim.pack.add({
 	"https://github.com/neovim/nvim-lspconfig",
 	"https://github.com/folke/todo-comments.nvim",
 	"https://github.com/folke/which-key.nvim",
-	"https://github.com/echasnovski/mini.icons",
-	"https://github.com/echasnovski/mini.ai",
+	"https://github.com/nvim-mini/mini.icons",
+	"https://github.com/nvim-mini/mini.ai",
 })
 
 vim.cmd("colorscheme catppuccin-mocha")
