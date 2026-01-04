@@ -1,6 +1,5 @@
 {
   pkgs,
-  lib,
   inputs,
   ...
 }:
@@ -8,7 +7,7 @@
   programs.neovim = {
     enable = true;
     package = inputs.neovim-nightly.packages.${pkgs.stdenv.hostPlatform.system}.default;
-    defaultEditor = false; # helix is currently the default editor
+    defaultEditor = true;
     viAlias = true;
     vimAlias = true;
     vimdiffAlias = true;

@@ -3,7 +3,7 @@
   programs = {
     helix = {
       enable = true;
-      defaultEditor = true;
+      defaultEditor = false;
       extraPackages = [
         pkgs.terraform-ls
         pkgs.dockerfile-language-server
