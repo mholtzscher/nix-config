@@ -42,18 +42,19 @@ vim.pack.add({
 	"https://github.com/stevearc/oil.nvim", -- file explorer
 	"https://github.com/sebdah/vim-delve", -- Go debugging
 	"https://github.com/folke/snacks.nvim", -- picker, notifications, and more
-	"https://github.com/rcarriga/nvim-dap-ui",
-	"https://github.com/mfussenegger/nvim-dap",
-	"https://github.com/nvim-neotest/nvim-nio",
-	"https://github.com/leoluz/nvim-dap-go",
+	"https://github.com/rcarriga/nvim-dap-ui", -- DAP UI
+	"https://github.com/mfussenegger/nvim-dap", -- Debug Adapter Protocol
+	"https://github.com/nvim-neotest/nvim-nio", -- Required by nvim-dap-ui
+	"https://github.com/leoluz/nvim-dap-go", -- Go debugging
 	"https://github.com/MagicDuck/grug-far.nvim", -- search and replace
-	"https://github.com/stevearc/conform.nvim",
-	"https://github.com/neovim/nvim-lspconfig",
-	"https://github.com/folke/todo-comments.nvim",
-	"https://github.com/folke/which-key.nvim",
-	"https://github.com/nvim-mini/mini.icons",
-	"https://github.com/nvim-mini/mini.ai",
-	"https://github.com/folke/flash.nvim",
+	"https://github.com/stevearc/conform.nvim", -- formatter
+	"https://github.com/neovim/nvim-lspconfig", -- LSP configurations
+	"https://github.com/folke/todo-comments.nvim", -- highlight TODO comments
+	"https://github.com/folke/which-key.nvim", -- keybinding hints
+	"https://github.com/nvim-mini/mini.icons", -- file icons
+	"https://github.com/nvim-mini/mini.ai", -- better text objects
+	"https://github.com/folke/flash.nvim", -- jump navigation
+	{ src = "https://github.com/Saghen/blink.cmp", version = vim.version.range("*") }, -- completion
 })
 
 vim.cmd("colorscheme catppuccin-mocha")
@@ -79,6 +80,30 @@ require("snacks").setup({
 require("mini.icons").setup()
 require("mini.ai").setup()
 require("flash").setup()
+require("blink.cmp").setup({
+	keymap = {
+		preset = "enter",
+		["<Tab>"] = { "select_next", "fallback" },
+		["<S-Tab>"] = { "select_prev", "fallback" },
+	},
+	appearance = {
+		nerd_font_variant = "mono",
+	},
+	completion = {
+		accept = {
+			auto_brackets = { enabled = true },
+		},
+		documentation = { auto_show = true },
+	},
+	cmdline = {
+		enabled = true,
+		keymap = { preset = "cmdline" },
+	},
+	sources = {
+		default = { "lsp", "path", "buffer" },
+	},
+	signature = { enabled = true },
+})
 require("dap-go").setup()
 require("oil").setup()
 require("todo-comments").setup()
@@ -266,17 +291,6 @@ vim.lsp.enable({
 	"cssls",
 	"eslint",
 	"nushell",
-})
-
-vim.cmd([[set completeopt=fuzzy,menuone,noinsert,popup]])
-
-vim.api.nvim_create_autocmd("LspAttach", {
-	callback = function(ev)
-		local client = vim.lsp.get_client_by_id(ev.data.client_id)
-		if client:supports_method("textDocument/completion") then
-			vim.lsp.completion.enable(true, client.id, ev.buf, { autotrigger = true })
-		end
-	end,
 })
 
 -- lua_ls VIM support
