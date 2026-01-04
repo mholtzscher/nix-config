@@ -265,6 +265,7 @@ vim.lsp.enable({
 	"html",
 	"cssls",
 	"eslint",
+	"nushell",
 })
 
 vim.cmd([[set completeopt=fuzzy,menuone,noinsert,popup]])
