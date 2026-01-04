@@ -2,39 +2,28 @@
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
-vim.opt.number = true
-vim.opt.relativenumber = true
-vim.opt.undofile = true
-vim.opt.updatetime = 250
-vim.opt.inccommand = "split"
--- vim.opt.mouse = "a"
-vim.opt.ignorecase = true
-vim.opt.smartcase = true
-vim.opt.signcolumn = "yes"
--- vim.opt.updatetime = 250
-vim.opt.splitright = true
-vim.opt.splitbelow = true
--- vim.opt.list = true
--- vim.opt.listchars = { tab = "> ", trail = "·", nbsp = "␣", lead = "·", eol = "¬" }
-vim.opt.cursorline = true
-vim.opt.scrolloff = 10
-vim.opt.clipboard = "unnamedplus"
--- vim.opt.hlsearch = true
+vim.opt.number = true -- Show line numbers (default: off)
+vim.opt.relativenumber = true -- Show relative line numbers (default: off)
+vim.opt.undofile = true -- Persist undo history to file (default: off)
+vim.opt.updatetime = 250 -- ms before swap write and CursorHold event (default: 4000)
+vim.opt.inccommand = "split" -- Live preview of :substitute in split window (default: "nosplit")
+vim.opt.ignorecase = true -- Ignore case in search patterns (default: off)
+vim.opt.smartcase = true -- Override ignorecase if pattern has uppercase (default: off)
+vim.opt.signcolumn = "yes" -- Always show sign column (default: "auto")
+vim.opt.splitright = true -- Vertical splits open to the right (default: off)
+vim.opt.splitbelow = true -- Horizontal splits open below (default: off)
+vim.opt.cursorline = true -- Highlight the current line (default: off)
+vim.opt.scrolloff = 10 -- Min lines above/below cursor (default: 0)
+vim.opt.clipboard = "unnamedplus" -- Use system clipboard for all operations (default: "")
 
-vim.opt.foldmethod = "expr"
-vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
-vim.opt.foldenable = false
+vim.opt.foldlevel = 99 -- Start with all folds open (default: 0)
+vim.opt.foldmethod = "indent" -- Use indentation for folding (default: "manual")
+vim.opt.foldtext = "" -- Show first line of fold (default: "foldtext()")
 
-vim.o.winblend = 20
--- vim.o.cc = "120"
-vim.o.expandtab = true
-vim.o.tabstop = 4
-vim.o.softtabstop = 4
-vim.o.shiftwidth = 4
-
-vim.g.zig_fmt_autosave = false
-vim.g.tex_flavor = "latex"
-vim.g.netrw_liststyle = 3
+vim.o.winblend = 20 -- Floating window transparency percentage (default: 0)
+vim.o.expandtab = true -- Use spaces instead of tabs (default: off)
+vim.o.tabstop = 2 -- Number of spaces tabs count for (default: 8)
+vim.o.shiftwidth = 2 -- Size of an indent (default: 8)
 
 -- AUTO COMMANDS (NON-LSP)
 -- Make the cursorline "move" with the focused window
