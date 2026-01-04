@@ -62,7 +62,6 @@ vim.cmd("colorscheme catppuccin-mocha")
 require("snacks").setup({
 	bigfile = { enabled = true },
 	bufdelete = { enabled = true },
-	explorer = { enabled = true },
 	gh = { enabled = true },
 	git = { enabled = true },
 	gitbrowse = { enabled = true },
@@ -132,7 +131,8 @@ require("which-key").setup({
 		{ "<leader>/", function() Snacks.picker.grep() end, desc = "Grep" },
 		{ "<leader>:", function() Snacks.picker.command_history() end, desc = "Command History" },
 		{ "<leader>n", function() Snacks.picker.notifications() end, desc = "Notification History" },
-		{ "<leader>e", function() Snacks.explorer() end, desc = "File Explorer" },
+		{ "<leader>e", "<CMD>Oil<CR>", desc = "File Explorer (Oil)" },
+		{ "-", "<CMD>Oil<CR>", desc = "Open parent directory" },
 		-- Find
 		{ "<leader>fb", function() Snacks.picker.buffers() end, desc = "Buffers" },
 		{ "<leader>fc", function() Snacks.picker.files({ cwd = vim.fn.stdpath("config") }) end, desc = "Find Config File" },
