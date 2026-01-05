@@ -12,9 +12,6 @@
     vimAlias = true;
     vimdiffAlias = true;
     extraLuaConfig = builtins.readFile ../files/neovim/init.lua;
-    plugins = [
-      pkgs.vimPlugins.nvim-treesitter.withAllGrammars
-    ];
     extraPackages = [
       pkgs.terraform-ls
       pkgs.dockerfile-language-server

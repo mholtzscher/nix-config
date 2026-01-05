@@ -55,6 +55,7 @@ vim.pack.add({
 	"https://github.com/nvim-mini/mini.ai", -- better text objects
 	"https://github.com/folke/flash.nvim", -- jump navigation
 	{ src = "https://github.com/Saghen/blink.cmp", version = vim.version.range("*") }, -- completion
+	"https://github.com/nvim-treesitter/nvim-treesitter",
 })
 
 vim.cmd("colorscheme catppuccin-mocha")
@@ -270,27 +271,28 @@ dap.listeners.before.event_exited.dapui_config = function() dapui.close() end
 
 -- LSP Config
 vim.lsp.enable({
-	"rust_analyzer",
-	"gopls",
-	"ty",
-	"zls",
-	"ruff",
-	"terraformls",
-	"lua_ls",
-	"dockerls",
-	"docker_compose_language_service",
-	"yamlls",
-	"marksman",
-	"golangci_lint_ls",
-	"nil_ls",
 	"bashls",
-	"taplo",
-	"ts_ls",
-	"jsonls",
-	"html",
 	"cssls",
+	"docker_compose_language_service",
+	"dockerls",
 	"eslint",
+	"golangci_lint_ls",
+	"gopls",
+	"html",
+	"jsonls",
+	"kotlin_lsp",
+	"lua_ls",
+	"marksman",
+	"nil_ls",
 	"nushell",
+	"ruff",
+	"rust_analyzer",
+	"taplo",
+	"terraformls",
+	"ts_ls",
+	"ty",
+	"yamlls",
+	"zls",
 })
 
 -- lua_ls VIM support
