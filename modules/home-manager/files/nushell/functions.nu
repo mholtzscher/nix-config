@@ -645,7 +645,7 @@ Staged changes:
 
 Return ONLY the commit message, nothing else. No explanations, no markdown code blocks, just the commit message text."
 
-  let opencode_result = ($commit_prompt | opencode run --format json --model opencode/gpt-5-nano - | complete)
+  let opencode_result = ($commit_prompt | opencode run --format json --model anthropic/claude-haiku-4-5 - | complete)
 
   if $opencode_result.exit_code != 0 {
     log error "Failed to generate commit message with OpenCode"
