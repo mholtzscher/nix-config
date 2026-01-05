@@ -25,6 +25,10 @@ vim.o.expandtab = true -- Use spaces instead of tabs (default: off)
 vim.o.tabstop = 2 -- Number of spaces tabs count for (default: 8)
 vim.o.shiftwidth = 2 -- Size of an indent (default: 8)
 
+vim.diagnostic.config({
+	virtual_lines = { current_line = true },
+})
+
 -- AUTO COMMANDS (NON-LSP)
 -- Make the cursorline "move" with the focused window
 vim.api.nvim_create_autocmd("WinLeave", {
