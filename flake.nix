@@ -52,6 +52,10 @@
       url = "github:nix-community/neovim-nightly-overlay";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    awww = {
+      url = "git+https://codeberg.org/LGFae/awww";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -72,6 +76,7 @@
       melt,
       difftui,
       neovim-nightly,
+      awww,
     }:
     let
       # Import lib helpers for creating system configurations

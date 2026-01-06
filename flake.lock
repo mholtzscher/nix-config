@@ -1,5 +1,27 @@
 {
   "nodes": {
+    "awww": {
+      "inputs": {
+        "flake-compat": "flake-compat",
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "rust-overlay": "rust-overlay"
+      },
+      "locked": {
+        "lastModified": 1766518114,
+        "narHash": "sha256-3zIOjIidbrHXTxEzjPVrwSd19Mwdfw58VvSnTWtlunc=",
+        "ref": "refs/heads/main",
+        "rev": "138c4ebdbe0c3eead5656373ea8837a5bd49c40b",
+        "revCount": 1329,
+        "type": "git",
+        "url": "https://codeberg.org/LGFae/awww"
+      },
+      "original": {
+        "type": "git",
+        "url": "https://codeberg.org/LGFae/awww"
+      }
+    },
     "brew-src": {
       "flake": false,
       "locked": {
@@ -106,11 +128,11 @@
         "nixpkgs": "nixpkgs"
       },
       "locked": {
-        "lastModified": 1767517218,
-        "narHash": "sha256-Lqr37iyfrfAfCYPV21uyg+81qOJGu50ymIXT6gEtKO8=",
+        "lastModified": 1767641618,
+        "narHash": "sha256-KuDZDIMU+YyPxWEiPzVCGCmJrARgHqhUcIbMnHz3h3I=",
         "owner": "catppuccin",
         "repo": "nix",
-        "rev": "fc247adb17ffd0b76d67b2da12a9e3fe059ccd29",
+        "rev": "ef4a7f437ea76ee3692b81d475ee79684058ff0d",
         "type": "github"
       },
       "original": {
@@ -138,6 +160,22 @@
       "original": {
         "owner": "mholtzscher",
         "repo": "difftui",
+        "type": "github"
+      }
+    },
+    "flake-compat": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1761588595,
+        "narHash": "sha256-XKUZz9zewJNUj46b4AJdiRZJAvSZ0Dqj2BNfXvFlJC4=",
+        "owner": "edolstra",
+        "repo": "flake-compat",
+        "rev": "f387cd2afec9419c8ee37694406ca490c3f34ee5",
+        "type": "github"
+      },
+      "original": {
+        "owner": "edolstra",
+        "repo": "flake-compat",
         "type": "github"
       }
     },
@@ -607,11 +645,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1767629639,
-        "narHash": "sha256-ui+MJNGNdxFnKADBSp8NE73Rsb0x4j4CQN/e/iCHyz4=",
+        "lastModified": 1767654623,
+        "narHash": "sha256-Tu5/5CLhTf0un/ZSkXeQZ8d8aAS9G+BxVyZjaQ9uBi4=",
         "owner": "sst",
         "repo": "opencode",
-        "rev": "283bdce3581ecabf945b75788a5db17557d889ce",
+        "rev": "21053732e77e7f38d0862dd2b00ad1a987a9a191",
         "type": "github"
       },
       "original": {
@@ -622,6 +660,7 @@
     },
     "root": {
       "inputs": {
+        "awww": "awww",
         "catppuccin": "catppuccin",
         "difftui": "difftui",
         "ghostty-shader-playground": "ghostty-shader-playground",
@@ -637,6 +676,27 @@
         "opencode": "opencode",
         "topiaryNushell": "topiaryNushell",
         "vicinae": "vicinae"
+      }
+    },
+    "rust-overlay": {
+      "inputs": {
+        "nixpkgs": [
+          "awww",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1764038373,
+        "narHash": "sha256-M6w2wNBRelcavoDAyFL2iO4NeWknD40ASkH1S3C0YGM=",
+        "owner": "oxalica",
+        "repo": "rust-overlay",
+        "rev": "ab3536fe850211a96673c6ffb2cb88aab8071cc9",
+        "type": "github"
+      },
+      "original": {
+        "owner": "oxalica",
+        "repo": "rust-overlay",
+        "type": "github"
       }
     },
     "systems": {
