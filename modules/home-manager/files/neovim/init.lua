@@ -60,6 +60,7 @@ vim.pack.add({
 	"https://github.com/folke/flash.nvim", -- jump navigation
 	{ src = "https://github.com/Saghen/blink.cmp", version = vim.version.range("*") }, -- completion
 	"https://github.com/nvim-treesitter/nvim-treesitter",
+	"https://github.com/lewis6991/gitsigns.nvim",
 })
 
 vim.cmd("colorscheme catppuccin-mocha")
@@ -112,6 +113,7 @@ require("blink.cmp").setup({
 require("dap-go").setup()
 require("oil").setup()
 require("todo-comments").setup()
+require("gitsigns").setup()
 require("grug-far").setup()
 require("which-key").setup({
 	-- stylua: ignore
