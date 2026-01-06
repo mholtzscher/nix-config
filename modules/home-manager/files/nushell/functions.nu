@@ -143,6 +143,143 @@ def gradle [...args: string] {
   }
 }
 
+# Fuzzy search and run gradle tests by class, package, or module
+# Usage: gtest              # Fuzzy search all test classes, packages, and modules
+#        gtest --preview    # Enable file preview in fzf
+def gtest [
+  --preview (-p) # Enable file preview in fzf
+] {
+  _require_tool fzf
+  _require_tool fd
+
+  if not (("./gradlew" | path exists) and (("build.gradle" | path exists) or ("build.gradle.kts" | path exists))) {
+    log error "Not in a Gradle project (no gradlew or build.gradle found)"
+    return 1
+  }
+
+  # Find all test files ending with Spec
+  let test_files = (fd -e kt -e java "Spec\\.(kt|java)$" | lines | where {|f| $f =~ "src/test" })
+
+  if ($test_files | is-empty) {
+    log warning "No test files (*Spec.kt, *Spec.java) found"
+    return 1
+  }
+
+  # Build list of options: classes, packages, and modules
+  let entries = ($test_files | each {|file|
+    # Extract module from path (everything before src/test)
+    # Path formats: src/test/... (root) or module/src/test/... (submodule)
+    let parts = ($file | parse -r "^(?:(?<module>.+?)/)?src/test/(?:kotlin|java)/(?<package_path>.*)/(?<class>[^/]+)$")
+
+    if ($parts | is-empty) {
+      # Fallback: try simpler pattern without package
+      let simple = ($file | parse -r "^(?:(?<module>.+?)/)?src/test/(?:kotlin|java)/(?<class>[^/]+)$")
+      if ($simple | is-empty) {
+        null
+      } else {
+        let row = ($simple | first)
+        let module_str = ($row.module? | default "")
+        let gradle_module = if ($module_str | is-empty) { "" } else { ":" + ($module_str | str replace -a "/" ":") }
+        let class_name = ($row.class | str replace -r "\\.(kt|java)$" "")
+        {
+          file: $file
+          module: $gradle_module
+          package: ""
+          class: $class_name
+          fqcn: $class_name
+        }
+      }
+    } else {
+      let row = ($parts | first)
+      let module_str = ($row.module? | default "")
+      let gradle_module = if ($module_str | is-empty) { "" } else { ":" + ($module_str | str replace -a "/" ":") }
+      let class_name = ($row.class | str replace -r "\\.(kt|java)$" "")
+      let package_path = ($row.package_path | str replace -a "/" ".")
+      {
+        file: $file
+        module: $gradle_module
+        package: $package_path
+        class: $class_name
+        fqcn: $"($package_path).($class_name)"
+      }
+    }
+  } | where {|e| $e != null })
+
+  # Build deduplicated list of all options
+  # Use wildcards for Kotest compatibility (works with JUnit too)
+  # For root module, use "test"; for submodules use ":module:test"
+  # Format: [type] task|pattern (using | as delimiter to avoid quote issues)
+  let class_options = ($entries | each {|e|
+    let task = if ($e.module | is-empty) { "test" } else { $"($e.module):test" }
+    $"[class]  ($task)|($e.fqcn)*"
+  })
+
+  let package_options = ($entries
+    | where {|e| ($e.package | is-not-empty) }
+    | select module package
+    | uniq
+    | each {|e|
+      let task = if ($e.module | is-empty) { "test" } else { $"($e.module):test" }
+      $"[package] ($task)|($e.package).*"
+    }
+  )
+
+  let module_options = ($entries
+    | select module
+    | uniq
+    | each {|e|
+      let task = if ($e.module | is-empty) { "test" } else { $"($e.module):test" }
+      $"[module] ($task)"
+    }
+  )
+
+  # Combine all options
+  let all_options = ($module_options | append $package_options | append $class_options)
+
+  # Build fzf command
+  let fzf_args = if $preview {
+    # Extract file path for preview (for class entries)
+    let file_map = ($entries | reduce -f {} {|e, acc| $acc | insert $e.fqcn $e.file })
+    [-m --height "60%" --border --prompt "Select test target: " --preview "echo {}"]
+  } else {
+    [--height "60%" --border --prompt "Select test target: "]
+  }
+
+  let selected = ($all_options | str join "\n" | fzf ...$fzf_args | str trim)
+
+  if ($selected | is-empty) {
+    log warning "No selection made"
+    return 1
+  }
+
+  # Parse selection and execute gradle command
+  # Format is either "[type] task" or "[type] task|pattern"
+  let content = if ($selected | str starts-with "[class]") {
+    $selected | str replace "[class]  " ""
+  } else if ($selected | str starts-with "[package]") {
+    $selected | str replace "[package] " ""
+  } else if ($selected | str starts-with "[module]") {
+    $selected | str replace "[module] " ""
+  } else {
+    log error "Invalid selection format"
+    return 1
+  }
+
+  # Split by | to separate task from test pattern
+  let parts = ($content | split row "|")
+  let task = ($parts | first)
+  let pattern = ($parts | get 1?)
+
+  # Print and run the command
+  if ($pattern | is-empty) {
+    log info $"Running: ./gradlew ($task)"
+    ./gradlew $task
+  } else {
+    log info $"Running: ./gradlew ($task) --tests \"($pattern)\""
+    ./gradlew $task --tests $pattern
+  }
+}
+
 # SSH tunnel function
 def __ssh_tunnel [key_file: string local_port: string endpoint: string user_hostname: string] {
   ssh -i $key_file -v -N -L $"($local_port):($endpoint)" $user_hostname
