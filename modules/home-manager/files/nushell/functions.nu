@@ -621,10 +621,10 @@ export def ai_commit [
     return 1
   }
 
-  log info "Analyzing staged changes with AI..."
+  let model = "anthropic/claude-haiku-4-5"
+  log info $"Analyzing staged changes with AI using ($model)..."
 
   # Use OpenCode CLI to analyze the diff and generate commit message
-  # Using github-copilot/gpt-5-mini for fast and cheap generation
   # --format json gives us structured output with events we can parse
   # NOTE: We pipe the prompt via stdin to avoid "Argument list too long" errors on Linux
   # when the diff is large (Linux has lower ARG_MAX than macOS)
@@ -645,7 +645,7 @@ Staged changes:
 
 Return ONLY the commit message, nothing else. No explanations, no markdown code blocks, just the commit message text."
 
-  let opencode_result = ($commit_prompt | opencode run --format json --model anthropic/claude-haiku-4-5 - | complete)
+  let opencode_result = ($commit_prompt | opencode run --format json --model $model - | complete)
 
   if $opencode_result.exit_code != 0 {
     log error "Failed to generate commit message with OpenCode"
