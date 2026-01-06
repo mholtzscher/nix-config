@@ -1,6 +1,9 @@
 { inputs, self, ... }:
 let
   pkgs = import inputs.nixpkgs { system = "x86_64-linux"; };
+
+  # Custom overlays for package fixes
+  overlays = [ (import "${self}/overlays") ];
 in
 {
   # Unified helper function to create system configurations for Darwin, NixOS, and standalone home-manager
@@ -91,6 +94,9 @@ in
       nixosModules = [
         ../modules/nixos
         inputs.catppuccin.nixosModules.catppuccin
+
+        # Apply custom overlays for package fixes
+        { nixpkgs.overlays = overlays; }
 
         # Conditional module loading based on feature flags
         (if graphical then inputs.niri.nixosModules.niri else { })
