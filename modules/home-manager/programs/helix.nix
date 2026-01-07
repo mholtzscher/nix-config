@@ -19,7 +19,7 @@
         pkgs.delve
 
         pkgs.nil
-        pkgs.nixfmt-rfc-style
+        pkgs.nixfmt
         pkgs.buf
         pkgs.bash-language-server
         pkgs.just-lsp

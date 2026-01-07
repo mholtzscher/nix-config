@@ -29,7 +29,7 @@ with pkgs;
   kdlfmt
   ko
   kubernetes-helm
-  nixfmt-rfc-style
+  nixfmt
   nil
   oras
   procs
