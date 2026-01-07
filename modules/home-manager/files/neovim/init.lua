@@ -134,7 +134,7 @@ require("which-key").setup({
 		{ "fd", "<ESC>", desc = "Exit modes", mode = { "n", "i", "v" } },
 		{ "<C-s>", "<CMD>w<CR>", desc = "Save buffer", mode = { "n", "i", "v" } },
 		-- LSP
-		{ "K", vim.lsp.buf.hover, desc = "Hover documentation" },
+		{ "<leader>k", vim.lsp.buf.hover, desc = "Hover documentation" },
 		{ "<leader>ca", vim.lsp.buf.code_action, desc = "Code actions" },
 		{ "<leader>cr", vim.lsp.buf.rename, desc = "Rename" },
 		{ "[d", function() vim.diagnostic.jump({ count = -1 }) end, desc = "Previous diagnostic" },
