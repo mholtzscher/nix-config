@@ -1,6 +1,6 @@
 { pkgs, inputs, ... }:
 let
-  awww = inputs.awww.packages.${pkgs.system}.awww;
+  awww = inputs.awww.packages.${pkgs.stdenv.hostPlatform.system}.awww;
 
   # Script to set a random wallpaper using awww
   wallpaper-rotate = pkgs.writeShellScriptBin "wallpaper-rotate" ''
