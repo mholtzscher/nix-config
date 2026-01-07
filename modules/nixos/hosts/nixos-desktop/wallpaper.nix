@@ -57,13 +57,13 @@ in
         };
       };
 
-      # Timer to rotate wallpaper every minute
+      # Timer to rotate wallpaper every 5 minutes
       systemd.user.timers.wallpaper-rotate = {
         Unit = {
-          Description = "Rotate wallpaper every minute";
+          Description = "Rotate wallpaper every 5 minutes";
         };
         Timer = {
-          OnCalendar = "*:*:00"; # Every minute
+          OnCalendar = "*:0/5:00"; # Every 5 minutes
           Persistent = true;
         };
         Install = {
