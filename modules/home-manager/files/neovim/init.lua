@@ -250,6 +250,7 @@ require("conform").setup({
 		python = { "ruff_format" },
 		terraform = { "terraform_fmt" },
 		zig = { "zigfmt" },
+		rust = { "rustfmt" },
 		kdl = { "kdlfmt" },
 		toml = { "taplo" },
 		bash = { "shfmt" },

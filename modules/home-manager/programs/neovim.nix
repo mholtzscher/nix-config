@@ -25,6 +25,10 @@
       pkgs.golangci-lint-langserver
       pkgs.delve
 
+      # Rust
+      pkgs.rust-analyzer
+      pkgs.rustfmt
+
       pkgs.nil
       pkgs.nixfmt
       pkgs.buf
