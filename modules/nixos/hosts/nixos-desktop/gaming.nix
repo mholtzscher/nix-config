@@ -1,5 +1,8 @@
 { pkgs, ... }:
 {
+  # Enable ratbagd daemon for gaming mouse configuration (used by Piper)
+  services.ratbagd.enable = true;
+
   home-manager.sharedModules = [
     {
       home = {
@@ -11,6 +14,9 @@
           protonup-qt # GUI for managing Proton-GE versions
           steamtinkerlaunch # Advanced Steam game tweaking tool
           vulkan-tools # vkcube and other Vulkan utilities
+
+          # Peripheral configuration
+          piper # GUI for configuring gaming mice (uses ratbagd)
 
           # Additional gaming utilities (optional, uncomment as needed)
           # lutris # Game launcher for various platforms
