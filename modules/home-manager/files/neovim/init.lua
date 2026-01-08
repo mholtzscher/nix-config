@@ -113,7 +113,11 @@ require("blink.cmp").setup({
 	signature = { enabled = true },
 })
 require("dap-go").setup()
-require("oil").setup()
+require("oil").setup({
+	view_options = {
+		show_hidden = true,
+	},
+})
 require("todo-comments").setup()
 require("gitsigns").setup()
 require("grug-far").setup()
