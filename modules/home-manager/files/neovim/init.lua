@@ -61,6 +61,8 @@ vim.pack.add({
 	{ src = "https://github.com/Saghen/blink.cmp", version = vim.version.range("*") }, -- completion
 	"https://github.com/nvim-treesitter/nvim-treesitter",
 	"https://github.com/lewis6991/gitsigns.nvim",
+	"https://github.com/esmuellert/codediff.nvim",
+	"https://github.com/MunifTanjim/nui.nvim",
 })
 
 vim.cmd("colorscheme catppuccin-mocha")
