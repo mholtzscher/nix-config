@@ -24,9 +24,5 @@
     sso = "aws_change_profile";
 
     tf = "terraform";
-
-    specify = "uvx --from git+https://github.com/github/spec-kit.git specify";
-
-    ze = "zellij";
   };
 }
