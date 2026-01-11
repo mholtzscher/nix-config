@@ -41,7 +41,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     melt = {
-      url = "github:mholtzscher/melt?ref=rust-rewrite";
+      url = "github:mholtzscher/melt";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     difftui = {
