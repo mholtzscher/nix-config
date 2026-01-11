@@ -11,8 +11,7 @@ in
   programs = {
     zsh = {
       enable = true;
-      shellAliases = sharedAliases.shellAliases // {
-      };
+      shellAliases = sharedAliases.shellAliases // { };
       initContent = ''
         ${if isWork then workOnboardingScript else ""}
 
@@ -46,13 +45,6 @@ in
       '';
       sessionVariables = {
         PATH = "$PATH:/Users/michael/.local/bin";
-        # FZF colors are managed by catppuccin (via fzf.nix)
-      };
-      antidote = {
-        enable = true;
-        plugins = [
-          "zsh-users/zsh-autosuggestions"
-        ];
       };
     };
   };
