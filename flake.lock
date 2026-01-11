@@ -301,11 +301,11 @@
         "rust-overlay": "rust-overlay_2"
       },
       "locked": {
-        "lastModified": 1768169865,
-        "narHash": "sha256-dEwSlRl0LN87SfJVCZ1WNGQf2XdyirL8nPUaNztr0Cw=",
+        "lastModified": 1768173390,
+        "narHash": "sha256-T1QRU8i3S+Mk+pLCH7WRhvnWEviMZTt+blNfimAzFEY=",
         "owner": "mholtzscher",
         "repo": "melt",
-        "rev": "ed3eb69d6b80f433517722e0c704d9d2fbf4afec",
+        "rev": "30c979f14be06440de17108c99ebf326b5216d11",
         "type": "github"
       },
       "original": {
@@ -587,11 +587,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1768162656,
-        "narHash": "sha256-jVZu0OI1AHfwwKz0yvhD71wBUcihePP1AZ/gN+I/vz8=",
+        "lastModified": 1768175427,
+        "narHash": "sha256-65PcPj4KqjtOrxS5Mwfj1eSmrt0PQOaK6bfZbpquVsI=",
         "owner": "sst",
         "repo": "opencode",
-        "rev": "fa79736b875ba0a8437f42ff01626b35fab1d8f4",
+        "rev": "0c0057a7deb8cde8df90e1899f39d42c6b9837ac",
         "type": "github"
       },
       "original": {
