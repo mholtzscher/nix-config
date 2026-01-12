@@ -264,7 +264,7 @@
               "niri/workspaces"
             ];
             modules-right = [
-              "niri/window"
+              # "niri/window"
               "clock"
             ];
 
@@ -280,17 +280,17 @@
             };
 
             # Niri window
-            "niri/window" = {
-              format = "{}";
-              max-length = 50;
-              rewrite = {
-                "(.*) - Mozilla Firefox" = "🌎 $1";
-                "(.*) - Chromium" = "🌎 $1";
-                "(.*) - vim" = " $1";
-                "(.*) - nvim" = " $1";
-                "(.*) - zsh" = " [$1]";
-              };
-            };
+            # "niri/window" = {
+            #   format = "{}";
+            #   max-length = 50;
+            #   rewrite = {
+            #     "(.*) - Mozilla Firefox" = "🌎 $1";
+            #     "(.*) - Chromium" = "🌎 $1";
+            #     "(.*) - vim" = " $1";
+            #     "(.*) - nvim" = " $1";
+            #     "(.*) - zsh" = " [$1]";
+            #   };
+            # };
 
             # CPU module
             cpu = {
