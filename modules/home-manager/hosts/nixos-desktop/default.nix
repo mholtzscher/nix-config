@@ -31,7 +31,6 @@
   # Desktop-specific programs and packages
   home.packages = with pkgs; [
     awscli2 # AWS command-line interface
-    code-cursor # AI code editor (personal use only)
     vesktop # Discord client with better Wayland support
 
     # Linux desktop-specific GUI tools
