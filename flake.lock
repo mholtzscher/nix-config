@@ -9,11 +9,11 @@
         "rust-overlay": "rust-overlay"
       },
       "locked": {
-        "lastModified": 1768271837,
-        "narHash": "sha256-jN5wfk2xHWJCdSkscqcqzsu1yE5S+PXM/XOcAHZQ+Yk=",
+        "lastModified": 1768273427,
+        "narHash": "sha256-9rSzpCj7mwTqs5y0IS9Cfvi6tKlu/Gt3698hmqmVJIA=",
         "owner": "mholtzscher",
         "repo": "aerospace-utils",
-        "rev": "0a1d5a9f2d1695d0f76d8e1c049e327af473cdd7",
+        "rev": "b79b95a05143ff606f21c0c2bed1ccec33b0f0e8",
         "type": "github"
       },
       "original": {
@@ -289,11 +289,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1768248913,
-        "narHash": "sha256-Kr45H5StnR9hgEhpKD8/BDZLvEpLVJb51lvIDQ9EC7U=",
+        "lastModified": 1768271922,
+        "narHash": "sha256-zmFw7AtcmfMxW3vR7AiGeQQeHhdrd2x7a3hxzd6vJYI=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "360620ec9d5ffc186b5b1fca4c5f5b2e1634a5cf",
+        "rev": "fbd566923adcfa67be512a14a79467e2ab8a5777",
         "type": "github"
       },
       "original": {
@@ -420,11 +420,11 @@
         "xwayland-satellite-unstable": "xwayland-satellite-unstable"
       },
       "locked": {
-        "lastModified": 1768200625,
-        "narHash": "sha256-/OzaFZnKs9hbqv1pnB9riPBdgQo8qACYme2VrC5uVjI=",
+        "lastModified": 1768306584,
+        "narHash": "sha256-GWLONqOKcsWKFYqoEIFbIv6Ti/xoSvsYC9LzZzB1oj4=",
         "owner": "sodiboo",
         "repo": "niri-flake",
-        "rev": "bc9753e6e2f20873307e246f859c463f9d20ce1d",
+        "rev": "1b8c8ba473cf336d74ffb05ee453c8fe6a05bbbc",
         "type": "github"
       },
       "original": {
@@ -552,11 +552,11 @@
     },
     "nixpkgs-stable": {
       "locked": {
-        "lastModified": 1768028080,
-        "narHash": "sha256-50aDK+8eLvsLK39TzQhKNq50/HcXyP4hyxOYoPoVxjo=",
+        "lastModified": 1768242861,
+        "narHash": "sha256-F4IIxa5xDHjtrmMcayM8lHctUq1oGltfBQu2+oqDWP4=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "d03088749a110d52a4739348f39a63f84bb0be14",
+        "rev": "1327e798cb055f96f92685df444e9a2c326ab5ed",
         "type": "github"
       },
       "original": {
@@ -627,11 +627,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1768264939,
-        "narHash": "sha256-bERupKas1YWVC2wmROzH/kTzVEmT3gn9+xq+AjOtjvU=",
+        "lastModified": 1768313855,
+        "narHash": "sha256-5M1Ewffw+9NyQJTY2Klm/yKct3y4chhkbsa5aQdc0cs=",
         "owner": "sst",
         "repo": "opencode",
-        "rev": "05019dae7607451aab33c593875438f0cc88b199",
+        "rev": "067338bc256213909c59f5a37118d2f8099ca5f2",
         "type": "github"
       },
       "original": {
