@@ -17,4 +17,4 @@
 # Use 40% as default if no argument provided
 PERCENTAGE="${1:-40}"
 
-nu -c "source '~/Library/Application Support/nushell/config.nu'; aerospace_workspace_size $PERCENTAGE"
+aerospace-utils gaps use $PERCENTAGE

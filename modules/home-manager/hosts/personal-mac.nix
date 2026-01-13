@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, inputs, ... }:
 {
   # Personal Mac-specific home-manager configuration
   # This file contains programs and settings unique to the personal M1 Max
@@ -10,6 +10,7 @@
 
     # macOS-only packages
     aerospace
+    inputs.aerospace-utils.packages.${pkgs.system}.default
     mkalias
     pokemon-colorscripts-mac
   ];

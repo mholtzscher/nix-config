@@ -17,4 +17,4 @@
 # Use 5 as default if no argument provided
 AMOUNT="${1:-5}"
 
-nu -c "source '~/Library/Application Support/nushell/config.nu'; aerospace_workspace_adjust $AMOUNT"
+aerospace-utils gaps adjust $AMOUNT

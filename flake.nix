@@ -36,6 +36,10 @@
       url = "github:sst/opencode";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    aerospace-utils = {
+      url = "github:mholtzscher/aerospace-utils";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     open-file = {
       url = "github:mholtzscher/open-file";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -72,6 +76,7 @@
       catppuccin,
       niri,
       opencode,
+      aerospace-utils,
       open-file,
       melt,
       difftui,
