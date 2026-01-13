@@ -6,6 +6,7 @@
     ./btop.nix
     ./carapace.nix
     ./delta.nix
+    ./direnv.nix
     ./eza.nix
     ./fd.nix
     ./firefox.nix
