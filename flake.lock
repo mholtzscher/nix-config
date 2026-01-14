@@ -3,17 +3,17 @@
     "aerospace-utils": {
       "inputs": {
         "flake-utils": "flake-utils",
+        "gomod2nix": "gomod2nix",
         "nixpkgs": [
           "nixpkgs"
-        ],
-        "rust-overlay": "rust-overlay"
+        ]
       },
       "locked": {
-        "lastModified": 1768273427,
-        "narHash": "sha256-9rSzpCj7mwTqs5y0IS9Cfvi6tKlu/Gt3698hmqmVJIA=",
+        "lastModified": 1768355301,
+        "narHash": "sha256-+Yiflvo7Uj4nIw93qfFLZJZLE5Xjr2w8g8i8WV3DIUc=",
         "owner": "mholtzscher",
         "repo": "aerospace-utils",
-        "rev": "b79b95a05143ff606f21c0c2bed1ccec33b0f0e8",
+        "rev": "74c21ec748a63c4dfe8cba561c5e491ff849f9b7",
         "type": "github"
       },
       "original": {
@@ -28,7 +28,7 @@
         "nixpkgs": [
           "nixpkgs"
         ],
-        "rust-overlay": "rust-overlay_2"
+        "rust-overlay": "rust-overlay"
       },
       "locked": {
         "lastModified": 1766518114,
@@ -282,6 +282,31 @@
         "type": "github"
       }
     },
+    "gomod2nix": {
+      "inputs": {
+        "flake-utils": [
+          "aerospace-utils",
+          "flake-utils"
+        ],
+        "nixpkgs": [
+          "aerospace-utils",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1767019875,
+        "narHash": "sha256-NodN+lhWTD59b44Q2bPjE1edINfjfRkQYdZsrxifCeU=",
+        "owner": "nix-community",
+        "repo": "gomod2nix",
+        "rev": "49662a44272806ff785df2990a420edaaca15db4",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "gomod2nix",
+        "type": "github"
+      }
+    },
     "home-manager": {
       "inputs": {
         "nixpkgs": [
@@ -289,11 +314,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1768271922,
-        "narHash": "sha256-zmFw7AtcmfMxW3vR7AiGeQQeHhdrd2x7a3hxzd6vJYI=",
+        "lastModified": 1768349483,
+        "narHash": "sha256-dlWl/z/rdZmPGVexkYL1VLKBMU1e5Y1DZmQfiRf60cQ=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "fbd566923adcfa67be512a14a79467e2ab8a5777",
+        "rev": "c5d67517bbcaf37e15c416219c965cc707a0ca24",
         "type": "github"
       },
       "original": {
@@ -338,7 +363,7 @@
         "nixpkgs": [
           "nixpkgs"
         ],
-        "rust-overlay": "rust-overlay_3"
+        "rust-overlay": "rust-overlay_2"
       },
       "locked": {
         "lastModified": 1768181852,
@@ -379,11 +404,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1768262756,
-        "narHash": "sha256-XQkiKx2Ht/C4P4CLMPFwd2clweZ//QgQP/q7ia5l+FM=",
+        "lastModified": 1768349111,
+        "narHash": "sha256-Ufn7eONdsaB6wso01KOyC8fWXDPbCsf6q/120JrSRBg=",
         "owner": "nix-community",
         "repo": "neovim-nightly-overlay",
-        "rev": "8412b167e9c931c249f5cb41b62127aeed6543f7",
+        "rev": "c18fb3367dbaa0830dd46443cc1cb006444e1f0e",
         "type": "github"
       },
       "original": {
@@ -395,11 +420,11 @@
     "neovim-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1768244281,
-        "narHash": "sha256-lf5o9k+rUrYhwFlvE9GPUPeni/rEGf/KXU+u58lpfh4=",
+        "lastModified": 1768347573,
+        "narHash": "sha256-s3CvS2gr1y+DabfpNHjPy4Al2KVcWbS4F5TsfwR12Cs=",
         "owner": "neovim",
         "repo": "neovim",
-        "rev": "d2ca90d87e3246b5b827ed08f8c0dfc8ad6ae4c8",
+        "rev": "bb0f28f20be3b5dd64881d0528f43a8e2eea63c0",
         "type": "github"
       },
       "original": {
@@ -627,11 +652,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1768313855,
-        "narHash": "sha256-5M1Ewffw+9NyQJTY2Klm/yKct3y4chhkbsa5aQdc0cs=",
+        "lastModified": 1768352392,
+        "narHash": "sha256-QHygSQ0VGgPANeoYfjC8pqRm8IjKcxsNplBjyxhqwxs=",
         "owner": "sst",
         "repo": "opencode",
-        "rev": "067338bc256213909c59f5a37118d2f8099ca5f2",
+        "rev": "ff669d441496c6fff13144692b76515187140ddd",
         "type": "github"
       },
       "original": {
@@ -664,27 +689,6 @@
     "rust-overlay": {
       "inputs": {
         "nixpkgs": [
-          "aerospace-utils",
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1768100056,
-        "narHash": "sha256-2GWCrsoWIuEXrzdKR2DPnoDhA5SqW7CGNO+Absni054=",
-        "owner": "oxalica",
-        "repo": "rust-overlay",
-        "rev": "71a69fd633552550de7cb05cc149e4a99ff6f3b6",
-        "type": "github"
-      },
-      "original": {
-        "owner": "oxalica",
-        "repo": "rust-overlay",
-        "type": "github"
-      }
-    },
-    "rust-overlay_2": {
-      "inputs": {
-        "nixpkgs": [
           "awww",
           "nixpkgs"
         ]
@@ -703,7 +707,7 @@
         "type": "github"
       }
     },
-    "rust-overlay_3": {
+    "rust-overlay_2": {
       "inputs": {
         "nixpkgs": [
           "melt",
