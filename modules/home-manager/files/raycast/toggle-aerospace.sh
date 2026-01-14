@@ -13,8 +13,4 @@
 # @raycast.author mholtzscher
 # @raycast.authorURL https://raycast.com/mholtzscher
 
-if pgrep -q aerospace; then
-  aerospace enable toggle
-else
-  echo "Aerospace is not running"
-fi
+aerospace enable toggle
