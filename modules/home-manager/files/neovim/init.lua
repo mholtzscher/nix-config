@@ -59,13 +59,18 @@ vim.pack.add({
 	"https://github.com/nvim-mini/mini.ai", -- better text objects
 	"https://github.com/folke/flash.nvim", -- jump navigation
 	{ src = "https://github.com/Saghen/blink.cmp", version = vim.version.range("*") }, -- completion
-	"https://github.com/nvim-treesitter/nvim-treesitter",
 	"https://github.com/lewis6991/gitsigns.nvim",
 	"https://github.com/esmuellert/codediff.nvim",
 	"https://github.com/MunifTanjim/nui.nvim",
 })
 
 vim.cmd("colorscheme catppuccin-mocha")
+
+-- Enable native treesitter highlighting for all filetypes with available parsers
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = "*",
+	callback = function(args) pcall(vim.treesitter.start, args.buf) end,
+})
 
 -- PLUGIN SETUP
 require("snacks").setup({
