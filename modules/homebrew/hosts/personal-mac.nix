@@ -11,7 +11,6 @@
       "1password"
       "1password-cli"
       "capacities"
-      "claude-code"
       "intellij-idea-ce"
     ];
     masApps = {
