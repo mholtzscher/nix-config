@@ -9,11 +9,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1768355301,
-        "narHash": "sha256-+Yiflvo7Uj4nIw93qfFLZJZLE5Xjr2w8g8i8WV3DIUc=",
+        "lastModified": 1768360521,
+        "narHash": "sha256-2rTE8Ufoy/mT9O85UA6828t13Z6IpqTUL/BOC6kicck=",
         "owner": "mholtzscher",
         "repo": "aerospace-utils",
-        "rev": "74c21ec748a63c4dfe8cba561c5e491ff849f9b7",
+        "rev": "08b5dfeddebb3d80801d7d0b7f8153b6876a1784",
         "type": "github"
       },
       "original": {
@@ -314,11 +314,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1768349483,
-        "narHash": "sha256-dlWl/z/rdZmPGVexkYL1VLKBMU1e5Y1DZmQfiRf60cQ=",
+        "lastModified": 1768366276,
+        "narHash": "sha256-NUdsaB6H1wvbOC7oh1UZ7Ojg1I+mYBQv8ovlMB6FbHk=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "c5d67517bbcaf37e15c416219c965cc707a0ca24",
+        "rev": "4e235a8746b195e335306d898f0cc93ad6c4564c",
         "type": "github"
       },
       "original": {
@@ -652,11 +652,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1768352392,
-        "narHash": "sha256-QHygSQ0VGgPANeoYfjC8pqRm8IjKcxsNplBjyxhqwxs=",
+        "lastModified": 1768369479,
+        "narHash": "sha256-ZiFGl3QcK6xy0YQqgVElTwKlotAqcvNUpKj+tMqoXFA=",
         "owner": "sst",
         "repo": "opencode",
-        "rev": "ff669d441496c6fff13144692b76515187140ddd",
+        "rev": "f9fcdead552d8b8550c55fda3806aeafed107849",
         "type": "github"
       },
       "original": {
