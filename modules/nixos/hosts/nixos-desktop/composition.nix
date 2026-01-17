@@ -247,6 +247,17 @@
         prefer-no-csd = true;
       };
 
+      services.swayidle = {
+        enable = true;
+        timeouts = [
+          {
+            timeout = 900;
+            command = "niri msg action power-off-monitors";
+            resumeCommand = "niri msg action power-on-monitors";
+          }
+        ];
+      };
+
       # Waybar status bar configuration
       programs.waybar = {
         enable = true;
