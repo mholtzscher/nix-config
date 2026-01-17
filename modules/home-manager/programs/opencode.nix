@@ -2,9 +2,13 @@
   pkgs,
   inputs,
   isWork,
+  config,
   ...
 }:
 {
+  home.file."${config.xdg.configHome}/opencode/skill/conventional-commit/SKILL.md".source =
+    ../files/opencode/skills/conventional-commit.md;
+
   programs = {
     opencode = {
       enable = !isWork;
@@ -37,12 +41,12 @@
             agent = "build";
             template = "{file:${../files/opencode/commands/diff-review.md}}";
           };
-          "commit" = {
-            description = "Analyze staged changes and create a conventional commit";
-            agent = "general";
-            subtask = true;
-            template = "{file:${../files/opencode/commands/conventional-commit.md}}";
-          };
+          # "commit" = {
+          #   description = "Analyze staged changes and create a conventional commit";
+          #   agent = "general";
+          #   subtask = true;
+          #   template = "{file:${../files/opencode/commands/conventional-commit.md}}";
+          # };
           "slop" = {
             description = "Remove AI code slop";
             template = ''
