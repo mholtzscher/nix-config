@@ -767,15 +767,7 @@ export def ai_commit [
   # NOTE: We pipe the prompt via stdin to avoid "Argument list too long" errors on Linux
   # when the diff is large (Linux has lower ARG_MAX than macOS)
   let commit_prompt = $"
-You are a git commit message expert. Analyze the following staged git diff and create a conventional commit message.
-
-Rules:
-1. Use conventional commit format: <type>: <description>
-2. Types: feat, fix, docs, style, refactor, test, chore
-3. Keep the description concise \(50 chars or less for summary\)
-4. If needed, add a blank line and detailed body
-5. DO NOT add co-authors
-6. Focus on WHY the change was made, not just WHAT changed
+Analyze the following staged git diff and create a conventional commit message using the conventional commit skill.
 
 Staged changes:
 ```($staged_diff)
@@ -793,7 +785,8 @@ Return ONLY the commit message, nothing else. No explanations, no markdown code 
 
   # Parse JSON output to extract the text content from response events
   # OpenCode sends multiple JSON events with structure: {"type":"text","part":{"text":"..."}}
-  let commit_message = (
+  # Only keep the last message if multiple are returned.
+  let commit_parts = (
     $opencode_result.stdout
     | lines
     | where {|line| ($line | str trim) != "" }
@@ -807,9 +800,12 @@ Return ONLY the commit message, nothing else. No explanations, no markdown code 
     | where $it != null
     | where {|event| $event.type? == "text" }
     | get part.text
-    | str join ""
-    | str trim
   )
+  let commit_message = if ($commit_parts | is-empty) {
+    ""
+  } else {
+    $commit_parts | last | str trim
+  }
 
   if ($commit_message | is-empty) {
     log error "OpenCode returned an empty commit message"
