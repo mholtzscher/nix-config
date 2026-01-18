@@ -56,6 +56,7 @@
     currentThemeName = "custom";
     customThemeFile = "${config.xdg.configHome}/DankMaterialShell/themes/catppuccin-mocha-lavender.json";
     useFahrenheit = true;
+    use24HourClock = false;
   };
 
   # Audio effects processing for microphone and system audio
