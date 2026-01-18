@@ -297,13 +297,6 @@
         # Animations
         animations = {
           slowdown = 3.0;
-
-          # niri-flake currently requires these deprecated fields to be defined.
-          shaders = {
-            window-open = null;
-            window-close = null;
-            window-resize = null;
-          };
         };
 
         # Startup programs
