@@ -24,9 +24,6 @@
       url = "github:KroneCorylus/ghostty-shader-playground";
       flake = false;
     };
-    vicinae = {
-      url = "github:vicinaehq/vicinae";
-    };
     catppuccin.url = "github:catppuccin/nix";
     niri = {
       url = "github:sodiboo/niri-flake";
@@ -72,7 +69,6 @@
       naws,
       topiaryNushell,
       ghostty-shader-playground,
-      vicinae,
       catppuccin,
       niri,
       opencode,

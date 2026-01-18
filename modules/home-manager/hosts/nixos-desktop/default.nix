@@ -1,4 +1,9 @@
-{ pkgs, lib, ... }:
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}:
 {
   # NixOS Desktop-specific home-manager configuration
   # Desktop environment setup is now in modules/nixos/desktop/
@@ -37,12 +42,20 @@
     nautilus # File manager
     imv # Image viewer
     zathura # PDF viewer
-    swaylock-effects # Screen locker with effects
     brightnessctl # Brightness control
     pavucontrol # Audio control GUI
     steam-run # Steam runtime for non-Steam applications
     qpwgraph # PipeWire graph visualizer for audio routing
   ];
+
+  # DankMaterialShell theme (Catppuccin Mocha + Lavender accent)
+  xdg.configFile."DankMaterialShell/themes/catppuccin-mocha-lavender.json".source =
+    ../../files/dms/catppuccin-mocha-lavender.json;
+
+  xdg.configFile."DankMaterialShell/settings.json".text = builtins.toJSON {
+    currentThemeName = "custom";
+    customThemeFile = "${config.xdg.configHome}/DankMaterialShell/themes/catppuccin-mocha-lavender.json";
+  };
 
   # Audio effects processing for microphone and system audio
   services.easyeffects.enable = true;

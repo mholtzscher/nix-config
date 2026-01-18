@@ -1,10 +1,10 @@
 { ... }:
 {
-  # Wayland composition stack: Niri window manager + Waybar status bar
+  # Wayland composition stack: Niri window manager + DankMaterialShell
   # This module manages the setup for the desktop environment
   # Note: Niri module is loaded from inputs in lib/default.nix when graphical=true
 
-  # Niri and Waybar user settings via home-manager
+  # Niri settings + DMS keybinds via home-manager
   home-manager.sharedModules = [
     {
       # Niri window manager settings
@@ -27,6 +27,9 @@
         layout = {
           gaps = 16;
           center-focused-column = "always";
+
+          # DMS integrates wallpapers into the overview; keep layout background transparent.
+          background-color = "transparent";
 
           default-column-width = {
             proportion = 0.5;
@@ -65,11 +68,58 @@
 
         # Keybindings
         binds = {
-          # Applications
+          # DankMaterialShell
           "Mod+Space".action.spawn = [
-            "vicinae"
+            "dms"
+            "ipc"
+            "call"
+            "spotlight"
             "toggle"
           ];
+          "Mod+V".action.spawn = [
+            "dms"
+            "ipc"
+            "call"
+            "clipboard"
+            "toggle"
+          ];
+          "Mod+M".action.spawn = [
+            "dms"
+            "ipc"
+            "call"
+            "processlist"
+            "focusOrToggle"
+          ];
+          "Mod+Comma".action.spawn = [
+            "dms"
+            "ipc"
+            "call"
+            "settings"
+            "focusOrToggle"
+          ];
+          "Mod+N".action.spawn = [
+            "dms"
+            "ipc"
+            "call"
+            "notifications"
+            "toggle"
+          ];
+          "Mod+Y".action.spawn = [
+            "dms"
+            "ipc"
+            "call"
+            "dankdash"
+            "wallpaper"
+          ];
+          "Mod+Alt+L".action.spawn = [
+            "dms"
+            "ipc"
+            "call"
+            "lock"
+            "lock"
+          ];
+
+          # Applications
           "Mod+T".action.spawn = "ghostty";
           "Mod+E".action.spawn = "nautilus";
           "Mod+B".action.spawn = "firefox";
@@ -163,13 +213,6 @@
 
         # Window rules
         window-rules = [
-          # Vicinae launcher - no focus ring
-          {
-            matches = [
-              { title = "^Vicinae Launcher$"; }
-            ];
-            focus-ring.enable = false;
-          }
           {
             matches = [
               { app-id = "1password"; }
@@ -225,13 +268,46 @@
           #     ];
           #     open-on-workspace = "2";
           #   }
+
+          # DMS / Quickshell windows - float by default
+          {
+            matches = [
+              { app-id = "^org\\.quickshell$"; }
+            ];
+            open-floating = true;
+          }
+        ];
+
+        layer-rules = [
+          # Let DMS place wallpapers/blur layers into the Overview/backdrop.
+          {
+            matches = [
+              { namespace = "^quickshell$"; }
+            ];
+            place-within-backdrop = true;
+          }
+          {
+            matches = [
+              { namespace = "dms:blurwallpaper"; }
+            ];
+            place-within-backdrop = true;
+          }
         ];
 
         # Animations
-        animations.slowdown = 3.0;
+        animations = {
+          slowdown = 3.0;
+
+          # niri-flake currently requires these deprecated fields to be defined.
+          shaders = {
+            window-open = null;
+            window-close = null;
+            window-resize = null;
+          };
+        };
 
         # Startup programs
-        # Note: swaybg is managed via systemd service (see wallpaper module)
+        # Note: wallpaper is managed by DankMaterialShell
         spawn-at-startup = [
           # Solaar applies saved Logitech mouse settings (scroll diversion off)
           # This fixes scroll wheel after KVM switch
@@ -247,93 +323,6 @@
         prefer-no-csd = true;
       };
 
-      services.swayidle = {
-        enable = true;
-        timeouts = [
-          {
-            timeout = 900;
-            command = "niri msg action power-off-monitors";
-            resumeCommand = "niri msg action power-on-monitors";
-          }
-        ];
-      };
-
-      # Waybar status bar configuration
-      programs.waybar = {
-        enable = true;
-        systemd.enable = true;
-
-        settings = [
-          {
-            layer = "top";
-            modules-left = [
-              "cpu"
-              "memory"
-              "network"
-            ];
-            modules-center = [
-              "niri/workspaces"
-            ];
-            modules-right = [
-              # "niri/window"
-              "clock"
-            ];
-
-            # Niri workspaces
-            "niri/workspaces" = {
-              format = "{icon}";
-              format-icons = {
-                # Icons by state
-                "focused" = "";
-                "active" = "";
-                "default" = "";
-              };
-            };
-
-            # Niri window
-            # "niri/window" = {
-            #   format = "{}";
-            #   max-length = 50;
-            #   rewrite = {
-            #     "(.*) - Mozilla Firefox" = "🌎 $1";
-            #     "(.*) - Chromium" = "🌎 $1";
-            #     "(.*) - vim" = " $1";
-            #     "(.*) - nvim" = " $1";
-            #     "(.*) - zsh" = " [$1]";
-            #   };
-            # };
-
-            # CPU module
-            cpu = {
-              interval = 15;
-              format = "󰻠 {usage}%";
-              max-length = 10;
-            };
-
-            # Memory module
-            memory = {
-              interval = 30;
-              format = "󰍛 {used:.1f}G";
-              max-length = 10;
-            };
-
-            # Network module
-            network = {
-              interval = 2;
-              format-ethernet = "󰈀 {bandwidthDownBytes}  {bandwidthUpBytes}";
-              format-disconnected = "󰌙 Disconnected";
-              tooltip-format = "{ifname}: {ipaddr}/{cidr}";
-            };
-
-            # Clock module
-            clock = {
-              format = "󰃰 {:%I:%M %p   %d/%m/%Y}";
-            };
-          }
-        ];
-
-        style = builtins.readFile ../../../home-manager/files/waybar/style.css;
-      };
     }
   ];
 }

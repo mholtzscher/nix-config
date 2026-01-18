@@ -50,7 +50,6 @@ in
       { ... }:
       {
         imports = [
-          inputs.vicinae.homeManagerModules.default
           ../../../modules/home-manager/home.nix
           ../../../modules/home-manager/hosts/nixos-desktop/default.nix
         ];
@@ -208,8 +207,15 @@ in
   programs = {
 
     # Niri window manager (scrollable tiling Wayland compositor)
-    # Configuration via programs.niri.settings in modules/home-manager/hosts/desktop/niri.nix
+    # Configuration via programs.niri.settings in modules/nixos/hosts/nixos-desktop/composition.nix
     niri.enable = true;
+
+    # DankMaterialShell (Wayland desktop shell)
+    dms-shell = {
+      enable = true;
+      # Standard convention: only autostart when the Niri session starts.
+      systemd.target = "niri.service";
+    };
 
     # Enable browsers
     firefox.enable = true;
