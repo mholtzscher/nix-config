@@ -127,20 +127,6 @@ in
       };
     };
 
-    # Greetd display manager with tuigreet greeter
-    greetd = {
-      enable = true;
-      settings = {
-        default_session = {
-          # tuigreet will show available sessions (Niri, etc.)
-          # --remember-session saves last selected session
-          # Remove --sessions flag to use system default paths
-          command = "${pkgs.tuigreet}/bin/tuigreet --time --remember-session --asterisks";
-          user = "greeter";
-        };
-      };
-    };
-
     # Enable CUPS for printing
     printing.enable = true;
 
@@ -166,6 +152,51 @@ in
       ports = [ 22 ];
     };
 
+  };
+
+  # DMS (Dank Material Shell) greeter via greetd
+  # Runs the login screen under Niri with an explicit greeter-time config.
+  programs.dank-material-shell.greeter = {
+    enable = true;
+
+    compositor = {
+      name = "niri";
+
+      # This runs before the user session (no home-manager), so keep outputs deterministic.
+      customConfig = ''
+        hotkey-overlay {
+          skip-at-startup
+        }
+
+        environment {
+          DMS_RUN_GREETER "1"
+        }
+
+        gestures {
+          hot-corners {
+            off
+          }
+        }
+
+        output "DP-1" {
+          mode "5120x1440@120"
+          scale 1
+          position x=0 y=0
+        }
+
+        layout {
+          background-color "#000000"
+        }
+      '';
+    };
+
+    # Copy the user's DMS config into /var/lib/dms-greeter for theme/wallpaper sync.
+    configHome = "/home/michael";
+
+    logs = {
+      save = true;
+      path = "/tmp/dms-greeter.log";
+    };
   };
 
   # Environment variables for Wayland
@@ -210,10 +241,10 @@ in
     # Configuration via programs.niri.settings in modules/nixos/hosts/nixos-desktop/composition.nix
     niri.enable = true;
 
-    # DankMaterialShell (Wayland desktop shell)
-    dms-shell = {
+    # DankMaterialShell (Wayland desktop shell) - from flake for IdleMonitor support
+    dank-material-shell = {
       enable = true;
-      # Standard convention: only autostart when the Niri session starts.
+      systemd.enable = true;
       systemd.target = "niri.service";
     };
 

@@ -57,6 +57,18 @@
     customThemeFile = "${config.xdg.configHome}/DankMaterialShell/themes/catppuccin-mocha-lavender.json";
     useFahrenheit = true;
     use24HourClock = false;
+
+    # Idle Management (desktop - AC power only)
+    acLockTimeout = 600; # 10 min - lock screen
+    acMonitorTimeout = 720; # 12 min - turn off display
+    acSuspendTimeout = 0; # Never auto-suspend
+
+    # Lock behavior
+    lockBeforeSuspend = true;
+    fadeToLockEnabled = true;
+    fadeToLockGracePeriod = 5;
+    fadeToDpmsEnabled = true;
+    fadeToDpmsGracePeriod = 5;
   };
 
   # Audio effects processing for microphone and system audio

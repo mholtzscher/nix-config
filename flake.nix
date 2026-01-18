@@ -57,6 +57,10 @@
       url = "git+https://codeberg.org/LGFae/awww";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    dms = {
+      url = "github:AvengeMedia/DankMaterialShell";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -78,6 +82,7 @@
       difftui,
       neovim-nightly,
       awww,
+      dms,
     }:
     let
       # Import lib helpers for creating system configurations
