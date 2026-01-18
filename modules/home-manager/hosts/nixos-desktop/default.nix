@@ -55,6 +55,7 @@
   xdg.configFile."DankMaterialShell/settings.json".text = builtins.toJSON {
     currentThemeName = "custom";
     customThemeFile = "${config.xdg.configHome}/DankMaterialShell/themes/catppuccin-mocha-lavender.json";
+    fontFamily = "Iosevka Nerd Font";
     useFahrenheit = true;
     use24HourClock = false;
 
