@@ -194,8 +194,8 @@ in
     configHome = "/home/michael";
 
     logs = {
-      save = true;
-      path = "/tmp/dms-greeter.log";
+      save = false;
+      path = "/var/log/dms-greeter.log";
     };
   };
 
