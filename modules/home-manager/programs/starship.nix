@@ -17,7 +17,7 @@
         env_var.GITHUB_TOKEN = {
           variable = "GITHUB_TOKEN";
           format = " [󰊤 TOKEN]($style)";
-          style = "green";
+          style = "blue";
         };
 
         env_var.GH_TOKEN = {
@@ -29,7 +29,7 @@
         env_var.GITHUB_PAT = {
           variable = "GITHUB_PAT";
           format = " [󰊤 PAT]($style)";
-          style = "green";
+          style = "purple";
         };
 
         character = {
