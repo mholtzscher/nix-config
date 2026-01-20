@@ -43,6 +43,7 @@
       pkgs.taplo # toml
       pkgs.stylua # lua formatter
       pkgs.shfmt # bash/sh formatter
+      pkgs.harper # grammar checker
 
       # Typescript stuff
       pkgs.typescript-language-server

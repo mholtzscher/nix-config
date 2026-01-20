@@ -296,6 +296,7 @@ vim.lsp.enable({
 	"eslint",
 	"golangci_lint_ls",
 	"gopls",
+	"harper_ls",
 	"html",
 	"jsonls",
 	"kotlin_lsp",
