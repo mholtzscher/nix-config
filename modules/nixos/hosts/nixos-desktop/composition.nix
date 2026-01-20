@@ -119,6 +119,14 @@
             "lock"
           ];
 
+          # Restart DMS shell (workaround for IPC issues after KVM/sleep)
+          "Mod+Shift+D".action.spawn = [
+            "systemctl"
+            "--user"
+            "restart"
+            "dms.service"
+          ];
+
           # Applications
           "Mod+T".action.spawn = "ghostty";
           "Mod+E".action.spawn = "nautilus";
