@@ -8,10 +8,24 @@
       settings = {
         # format = ''$username$hostname$directory$git_branch$git_state$git_status$cmd_duration$line_break$python$java$character'';
         # format = ''$username$hostname$directory$git_branch$git_state$git_status$cmd_duration$aws$character'';
-        format = ''$username$hostname$directory$git_branch$git_state$git_status$aws$character'';
+        format = "$username$hostname$directory$git_branch$git_state$git_status$aws\${env_var.GITHUB_TOKEN}\${env_var.GH_TOKEN}$character";
 
         directory = {
           style = "blue";
+        };
+
+        env_var.GITHUB_TOKEN = {
+          variable = "GITHUB_TOKEN";
+          symbol = " 󰊤";
+          format = "[$symbol]($style)";
+          style = "green";
+        };
+
+        env_var.GH_TOKEN = {
+          variable = "GH_TOKEN";
+          symbol = " 󰊤";
+          format = "[$symbol]($style)";
+          style = "green";
         };
 
         character = {
@@ -58,6 +72,7 @@
         aws = {
           format = " [aws](italic) [$profile $region]($style)";
         };
+
       };
     };
   };
