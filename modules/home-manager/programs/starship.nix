@@ -8,7 +8,7 @@
       settings = {
         # format = ''$username$hostname$directory$git_branch$git_state$git_status$cmd_duration$line_break$python$java$character'';
         # format = ''$username$hostname$directory$git_branch$git_state$git_status$cmd_duration$aws$character'';
-        format = "$username$hostname$directory$git_branch$git_state$git_status$aws\${env_var.GITHUB_TOKEN}\${env_var.GH_TOKEN}$character";
+        format = "$username$hostname$directory$git_branch$git_state$git_status$aws\${env_var.GITHUB_TOKEN}\${env_var.GH_TOKEN}\${env_var.GITHUB_PAT}$character";
 
         directory = {
           style = "blue";
@@ -16,15 +16,19 @@
 
         env_var.GITHUB_TOKEN = {
           variable = "GITHUB_TOKEN";
-          symbol = " 󰊤";
-          format = "[$symbol]($style)";
+          format = " [󰊤 TOKEN]($style)";
           style = "green";
         };
 
         env_var.GH_TOKEN = {
           variable = "GH_TOKEN";
-          symbol = " 󰊤";
-          format = "[$symbol]($style)";
+          format = " [󰊤 GH]($style)";
+          style = "green";
+        };
+
+        env_var.GITHUB_PAT = {
+          variable = "GITHUB_PAT";
+          format = " [󰊤 PAT]($style)";
           style = "green";
         };
 
