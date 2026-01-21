@@ -9,11 +9,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1768688486,
-        "narHash": "sha256-JmHZhZKtFTAJJ/YOzuUNC0wELsQbRB54m8gPwK6IxZg=",
+        "lastModified": 1768960323,
+        "narHash": "sha256-WtKK7HntZOwmizRZstHtRMpbU+ggIWr4wEkF/xI0aJ8=",
         "owner": "mholtzscher",
         "repo": "aerospace-utils",
-        "rev": "7a644e67eaf570f8dff9802588abc18843a7f4f2",
+        "rev": "81e63691f8131e6ab1cb3f1b2607f5dcda261b82",
         "type": "github"
       },
       "original": {
@@ -165,11 +165,11 @@
         "quickshell": "quickshell"
       },
       "locked": {
-        "lastModified": 1768788214,
-        "narHash": "sha256-g6BIdvqft23OpvQ8wV458YQEloQHy1MYejez4uRV9A0=",
+        "lastModified": 1768950655,
+        "narHash": "sha256-Z8ncsSl6CVIPKdSa7iak8vF5o5T+KnPMRjYcocH3shA=",
         "owner": "AvengeMedia",
         "repo": "DankMaterialShell",
-        "rev": "ac68451cdfafde52870452ac065116bb2c1fba76",
+        "rev": "80ce6aa19c39241703478d6f442ebd543f4d3548",
         "type": "github"
       },
       "original": {
@@ -335,11 +335,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1768770171,
-        "narHash": "sha256-JPmLGZgdWa8QcQbbtBqyZhpmxIHZ3lUO48laERjw+4k=",
+        "lastModified": 1768942641,
+        "narHash": "sha256-i25tkhqjsfo0YKz8To/+gzazW1v4f8qUGqJQ8OLrkqE=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "521d5ea1a229ba315dd1cceaf869946ddcc83d36",
+        "rev": "9997de2f62d1875644f02ddf96cf485a4baecb6f",
         "type": "github"
       },
       "original": {
@@ -425,11 +425,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1768781101,
-        "narHash": "sha256-p3guh/Vx4Pf+Ggk3X69SPTJot6emv6rgKpoBLNO61Ag=",
+        "lastModified": 1768953881,
+        "narHash": "sha256-czdbiHZT2Ul3Oh5QfOgxWOb5rcOIX7oD0MznaU64vEI=",
         "owner": "nix-community",
         "repo": "neovim-nightly-overlay",
-        "rev": "e90cb6d441572fc05ffb8769051d59f1d2d3269e",
+        "rev": "574a0de26b2b36447a32dd9a10653cfd19ecf92b",
         "type": "github"
       },
       "original": {
@@ -441,11 +441,11 @@
     "neovim-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1768778690,
-        "narHash": "sha256-XrWZBeH0GnvnQzE9Xmm69sesSGB2h5uVLuTmLA7k1p0=",
+        "lastModified": 1768952091,
+        "narHash": "sha256-FGZ3rTKc6g2Cvqf1J7Py7/xUQ44M3PhS/cNt4rTEUus=",
         "owner": "neovim",
         "repo": "neovim",
-        "rev": "30259d6af79e731491e6b12d815893b1b130b52b",
+        "rev": "87276db7f9b2671ed9f416b4484dfc613dd3a83e",
         "type": "github"
       },
       "original": {
@@ -466,11 +466,11 @@
         "xwayland-satellite-unstable": "xwayland-satellite-unstable"
       },
       "locked": {
-        "lastModified": 1768767453,
-        "narHash": "sha256-Omq1UHEJ1oxkTo2j8l6qQtmyPR7Uj+k7HC5Khd3jVVA=",
+        "lastModified": 1768877436,
+        "narHash": "sha256-ct4qxmFJeJbaJKiOnXOZmRmVmk7TpT+lohuTgTr+kYQ=",
         "owner": "sodiboo",
         "repo": "niri-flake",
-        "rev": "8eab7c21ef4edc97cc56ddb8e76a842e0818d6d7",
+        "rev": "6581f5458309233622c1b73c8902dcaea7be16eb",
         "type": "github"
       },
       "original": {
@@ -598,11 +598,11 @@
     },
     "nixpkgs-stable": {
       "locked": {
-        "lastModified": 1768621446,
-        "narHash": "sha256-6YwHV1cjv6arXdF/PQc365h1j+Qje3Pydk501Rm4Q+4=",
+        "lastModified": 1768773494,
+        "narHash": "sha256-XsM7GP3jHlephymxhDE+/TKKO1Q16phz/vQiLBGhpF4=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "72ac591e737060deab2b86d6952babd1f896d7c5",
+        "rev": "77ef7a29d276c6d8303aece3444d61118ef71ac2",
         "type": "github"
       },
       "original": {
@@ -657,11 +657,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1768697981,
-        "narHash": "sha256-5V1+PphWa8n2bwA5Jy/k6Xy8iXX4gJLE+i+oGq+M/fY=",
+        "lastModified": 1768953653,
+        "narHash": "sha256-MyIDTbBnP13Wc0E81T8d+2+7PtKGeBpIYTsqQyERGqA=",
         "owner": "sst",
         "repo": "opencode",
-        "rev": "53c77e29df4b7da3b53cc8b049487a55a64cf55e",
+        "rev": "20c8624bb7bca9cb0c83390453ad6217f11d06b6",
         "type": "github"
       },
       "original": {
