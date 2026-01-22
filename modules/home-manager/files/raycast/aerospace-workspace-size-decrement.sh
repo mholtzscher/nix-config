@@ -14,7 +14,8 @@
 # @raycast.author mholtzscher
 # @raycast.authorURL https://raycast.com/mholtzscher
 
-# Use -5 as default (decrement) if no argument provided
-AMOUNT="${1:--5}"
+# Use 5 as default and coerce to negative
+AMOUNT="${1:-5}"
+AMOUNT="-${AMOUNT#-}"
 
 aerospace-utils gaps adjust --by $AMOUNT

@@ -16,5 +16,6 @@
 
 # Use 5 as default if no argument provided
 AMOUNT="${1:-5}"
+AMOUNT="${AMOUNT#-}"
 
 aerospace-utils gaps adjust --by $AMOUNT
