@@ -6,9 +6,9 @@
     starship = {
       enable = true;
       settings = {
-        # format = "$username$hostname$directory$git_branch$git_state$git_status$fill\${env_var.GITHUB_TOKEN}\${env_var.GH_TOKEN}\${env_var.GITHUB_PAT}$aws$direnv$line_break$character";
         format = "$username$hostname$directory$git_branch$git_state$git_status$line_break$character";
         right_format = "\${env_var.GITHUB_TOKEN}\${env_var.GH_TOKEN}\${env_var.GITHUB_PAT}$aws$direnv";
+
         add_newline = false;
 
         fill = {
