@@ -6,10 +6,14 @@
     starship = {
       enable = true;
       settings = {
-        # format = ''$username$hostname$directory$git_branch$git_state$git_status$cmd_duration$line_break$python$java$character'';
-        # format = ''$username$hostname$directory$git_branch$git_state$git_status$cmd_duration$aws$character'';
-        format = "$username$hostname$directory$git_branch$git_state$git_status$aws$character";
-        right_format = "\${env_var.GITHUB_TOKEN}\${env_var.GH_TOKEN}\${env_var.GITHUB_PAT}";
+        # format = "$username$hostname$directory$git_branch$git_state$git_status$fill\${env_var.GITHUB_TOKEN}\${env_var.GH_TOKEN}\${env_var.GITHUB_PAT}$aws$direnv$line_break$character";
+        format = "$username$hostname$directory$git_branch$git_state$git_status$line_break$character";
+        right_format = "\${env_var.GITHUB_TOKEN}\${env_var.GH_TOKEN}\${env_var.GITHUB_PAT}$aws$direnv";
+        add_newline = false;
+
+        fill = {
+          symbol = " ";
+        };
 
         directory = {
           style = "blue";
@@ -18,19 +22,24 @@
         env_var.GITHUB_TOKEN = {
           variable = "GITHUB_TOKEN";
           format = " [󰊤 TOKEN]($style)";
-          style = "blue";
+          style = "dimmed blue";
         };
 
         env_var.GH_TOKEN = {
           variable = "GH_TOKEN";
           format = " [󰊤 GH]($style)";
-          style = "green";
+          style = "dimmed green";
         };
 
         env_var.GITHUB_PAT = {
           variable = "GITHUB_PAT";
           format = " [󰊤 PAT]($style)";
-          style = "purple";
+          style = "dimmed purple";
+        };
+
+        direnv = {
+          disabled = false;
+          style = "dimmed blue";
         };
 
         character = {
@@ -61,21 +70,11 @@
           style = "bright-black";
         };
 
-        cmd_duration = {
-          format = "[$duration]($style) ";
-          style = "yellow";
-        };
-
-        # python = {
-        #   format = "[$virtualenv]($style) ";
-        # };
-        #
-        # java = {
-        #   format = " java [$\{symbol}($\{version} )]($style)";
-        # };
-
         aws = {
-          format = " [aws](italic) [$profile $region]($style)";
+          # format = " [aws](italic) [$profile $region]($style)";
+          symbol = "󰅟 ";
+          format = "[$symbol$profile $region]($style) ";
+          style = "dimmed yellow";
         };
 
       };
