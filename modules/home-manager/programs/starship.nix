@@ -21,19 +21,19 @@
 
         env_var.GITHUB_TOKEN = {
           variable = "GITHUB_TOKEN";
-          format = " [󰊤 TOKEN]($style)";
+          format = "[󰊤 TOKEN]($style) ";
           style = "dimmed blue";
         };
 
         env_var.GH_TOKEN = {
           variable = "GH_TOKEN";
-          format = " [󰊤 GH]($style)";
+          format = "[󰊤 GH]($style) ";
           style = "dimmed green";
         };
 
         env_var.GITHUB_PAT = {
           variable = "GITHUB_PAT";
-          format = " [󰊤 PAT]($style)";
+          format = "[󰊤 PAT]($style) ";
           style = "dimmed purple";
         };
 
