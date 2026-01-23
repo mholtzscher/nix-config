@@ -1,4 +1,9 @@
-{ inputs, user, ... }:
+{
+  inputs,
+  user,
+  pkgs,
+  ...
+}:
 {
   imports = [
     ../../modules/homebrew/hosts/work-mac.nix
@@ -41,6 +46,7 @@
       dock = {
         persistent-apps = [
           "/Applications/Arc.app"
+          "${pkgs.brave}/Applications/Brave.app"
           "/System/Applications/Messages.app"
           "/Applications/Slack.app"
           "/Applications/Ghostty.app"
