@@ -17,14 +17,11 @@
   };
 
   programs = {
-    # NixOS-specific system configuration
-    # This module contains settings that apply to all NixOS hosts
-
-    # Enable nix-command and flakes (inherited from shared/nix-settings.nix)
-    # Additional NixOS-specific nix settings can go here
-
     # Enable zsh shell system-wide
     zsh.enable = true;
+
+    # Brave browser policies (see ./brave.nix for module definition)
+    brave.enable = true;
   };
 
   # Common system packages for all NixOS hosts

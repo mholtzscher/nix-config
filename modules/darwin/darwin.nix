@@ -16,6 +16,7 @@
   ];
 
   programs.zsh.enable = true; # default shell on catalina
+  programs.brave.enable = true; # browser policies
 
   security.pam.services.sudo_local.touchIdAuth = true;
 
