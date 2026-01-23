@@ -82,6 +82,7 @@
           format = "[$symbol$health]($style) ";
           style = "bold purple";
           disabled = false;
+          detect_files = [ ".tool-versions" ];
         };
 
       };
