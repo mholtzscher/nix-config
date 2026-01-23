@@ -78,7 +78,7 @@
         };
 
         mise = {
-          symbol = "🔨 ";
+          symbol = "󰣖 ";
           format = "[$symbol$health]($style) ";
           style = "bold purple";
           disabled = false;
