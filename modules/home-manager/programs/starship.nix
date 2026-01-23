@@ -7,7 +7,7 @@
       enable = true;
       settings = {
         format = "$username$hostname$directory$git_branch$git_state$git_status$line_break$character";
-        right_format = "\${env_var.GITHUB_TOKEN}\${env_var.GH_TOKEN}\${env_var.GITHUB_PAT}$aws$direnv";
+        right_format = "\${env_var.GITHUB_TOKEN}\${env_var.GH_TOKEN}\${env_var.GITHUB_PAT}$aws$mise$direnv";
 
         add_newline = false;
 
@@ -75,6 +75,13 @@
           symbol = "󰅟 ";
           format = "[$symbol$profile $region]($style) ";
           style = "dimmed yellow";
+        };
+
+        mise = {
+          symbol = "🔨 ";
+          format = "[$symbol$health]($style) ";
+          style = "bold purple";
+          disabled = false;
         };
 
       };
