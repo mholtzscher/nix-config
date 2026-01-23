@@ -407,7 +407,7 @@ nf <file>.nix                               # Format nix file
 - **Editors**: helix, zed
 - **Git**: git, gh, gh-dash, jujutsu, lazygit, delta
 - **Terminal**: ghostty, zellij, starship
-- **Dev Tools**: go, poetry, pyenv, uv
+- **Dev Tools**: bun, go, poetry, pyenv, uv
 - **Cloud**: opencode (CLI for Claude)
 - **Utils**: atuin, bat, bottom, btop, eza, fd, fzf, jq, k9s, lazydocker, ripgrep, zoxide
 - **Web**: firefox, webapps
@@ -415,7 +415,8 @@ nf <file>.nix                               # Format nix file
 
 **Additional Packages:**
 - **Editors**: neovim, vim
-- **Languages**: node (nodejs_24), bun, zig, lua
+- **Browsers**: brave
+- **Languages**: node (nodejs_24), zig, lua
 - **Tools**: buf, dive, dust, grpcurl, gum, hey, httpie, jc, just, kdlfmt, kubernetes-helm, nil, nixfmt, sops, statix, tldr, topiary, tree-sitter, websocat, wget, yq
 
 **macOS Only:**

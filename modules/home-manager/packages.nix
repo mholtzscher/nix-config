@@ -7,9 +7,9 @@ with pkgs;
   # difftui - A TUI diff tool
   inputs.difftui.packages.${pkgs.stdenv.hostPlatform.system}.default
   google-cloud-sdk
+  brave
   nodejs_24
   lua
-  bun
   zig
 ]
 ++ [

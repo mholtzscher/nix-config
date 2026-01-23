@@ -1,0 +1,8 @@
+{ ... }:
+{
+  programs = {
+    bun = {
+      enable = true;
+    };
+  };
+}
