@@ -4,7 +4,7 @@
 }:
 {
   programs.firefox = {
-    enable = true;
+    enable = false;
 
     policies = {
       "AutofillAddressEnabled" = false;
