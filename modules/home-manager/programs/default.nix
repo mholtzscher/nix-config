@@ -3,6 +3,7 @@
   imports = [
     ./atuin.nix
     ./bat.nix
+    ./brave.nix
     ./btop.nix
     ./bun.nix
     ./carapace.nix
