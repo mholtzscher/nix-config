@@ -46,6 +46,7 @@
       dock = {
         persistent-apps = [
           "/Applications/Arc.app"
+          "${pkgs.brave}/Applications/Brave.app"
           "/Applications/Obsidian.app"
           "/System/Applications/Messages.app"
           "/Applications/WhatsApp.app"
