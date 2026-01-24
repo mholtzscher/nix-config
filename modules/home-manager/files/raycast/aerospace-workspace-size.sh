@@ -17,4 +17,4 @@
 # Use 40% as default if no argument provided
 PERCENTAGE="${1:-40}"
 
-aerospace-utils gaps use $PERCENTAGE
+aerospace-utils workspace use $PERCENTAGE

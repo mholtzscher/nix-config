@@ -18,4 +18,4 @@
 AMOUNT="${1:-5}"
 AMOUNT="-${AMOUNT#-}"
 
-aerospace-utils gaps adjust --by $AMOUNT
+aerospace-utils workspace adjust --by $AMOUNT
