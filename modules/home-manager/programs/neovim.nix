@@ -29,7 +29,7 @@ in
     viAlias = true;
     vimAlias = true;
     vimdiffAlias = true;
-    extraLuaConfig = builtins.readFile ../files/neovim/init.lua;
+    initLua = builtins.readFile ../files/neovim/init.lua;
     plugins = [
       pkgs.vimPlugins.nvim-treesitter.withAllGrammars
       tree-sitter-txtar
