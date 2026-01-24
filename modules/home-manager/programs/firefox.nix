@@ -1,10 +1,11 @@
 {
+  isLinux,
   pkgs,
   ...
 }:
 {
   programs.firefox = {
-    enable = true;
+    enable = isLinux;
 
     policies = {
       "AutofillAddressEnabled" = false;

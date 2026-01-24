@@ -24,6 +24,7 @@
     casks = [
       "arc"
       "bartender"
+      "cleanshot"
       "deskpad"
       "docker-desktop"
       "ghostty"
