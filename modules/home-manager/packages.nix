@@ -1,4 +1,8 @@
-{ pkgs, inputs }:
+{
+  pkgs,
+  inputs,
+  isWork ? false,
+}:
 
 with pkgs;
 [
@@ -11,6 +15,10 @@ with pkgs;
   nodejs_24
   lua
   zig
+]
+++ lib.optionals (!isWork) [
+  # grepai - AI-powered semantic code search tool
+  inputs.grepai.packages.${pkgs.stdenv.hostPlatform.system}.default
 ]
 ++ [
   buf

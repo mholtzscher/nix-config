@@ -328,6 +328,26 @@
         "type": "github"
       }
     },
+    "grepai": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1769177441,
+        "narHash": "sha256-nZWajPXaaIMKKyOKGxQ9kBsrAoHoqrKw9FbOjMPvLwY=",
+        "owner": "yoanbernabeu",
+        "repo": "grepai",
+        "rev": "70caa94f54ff1cf2dac51395536a002919e595ec",
+        "type": "github"
+      },
+      "original": {
+        "owner": "yoanbernabeu",
+        "repo": "grepai",
+        "type": "github"
+      }
+    },
     "home-manager": {
       "inputs": {
         "nixpkgs": [
@@ -700,6 +720,7 @@
         "difftui": "difftui",
         "dms": "dms",
         "ghostty-shader-playground": "ghostty-shader-playground",
+        "grepai": "grepai",
         "home-manager": "home-manager",
         "melt": "melt",
         "naws": "naws",

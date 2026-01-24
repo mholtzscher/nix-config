@@ -61,6 +61,10 @@
       url = "github:AvengeMedia/DankMaterialShell";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    grepai = {
+      url = "github:yoanbernabeu/grepai";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -83,6 +87,7 @@
       neovim-nightly,
       awww,
       dms,
+      grepai,
     }:
     let
       # Import lib helpers for creating system configurations

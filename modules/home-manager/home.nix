@@ -43,7 +43,7 @@ in
 
   home = {
     stateVersion = "24.11";
-    packages = import ./packages.nix { inherit pkgs inputs; };
+    packages = import ./packages.nix { inherit pkgs inputs isWork; };
 
     file = {
       # Cross-platform config files
