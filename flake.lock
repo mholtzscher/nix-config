@@ -287,6 +287,24 @@
         "type": "github"
       }
     },
+    "flake-utils_3": {
+      "inputs": {
+        "systems": "systems_5"
+      },
+      "locked": {
+        "lastModified": 1731533236,
+        "narHash": "sha256-l0KFg5HjrsfsO/JpG+r7fRrqm12kzFHyUHqHCVpMMbI=",
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "rev": "11707dc2f618dd54ca8739b309ec4fc024de578b",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "type": "github"
+      }
+    },
     "ghostty-shader-playground": {
       "flake": false,
       "locked": {
@@ -311,6 +329,31 @@
         ],
         "nixpkgs": [
           "aerospace-utils",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1767019875,
+        "narHash": "sha256-NodN+lhWTD59b44Q2bPjE1edINfjfRkQYdZsrxifCeU=",
+        "owner": "nix-community",
+        "repo": "gomod2nix",
+        "rev": "49662a44272806ff785df2990a420edaaca15db4",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "gomod2nix",
+        "type": "github"
+      }
+    },
+    "gomod2nix_2": {
+      "inputs": {
+        "flake-utils": [
+          "ugh",
+          "flake-utils"
+        ],
+        "nixpkgs": [
+          "ugh",
           "nixpkgs"
         ]
       },
@@ -731,7 +774,8 @@
         "nixpkgs": "nixpkgs_2",
         "open-file": "open-file",
         "opencode": "opencode",
-        "topiaryNushell": "topiaryNushell"
+        "topiaryNushell": "topiaryNushell",
+        "ugh": "ugh"
       }
     },
     "rust-overlay": {
@@ -836,6 +880,21 @@
         "type": "github"
       }
     },
+    "systems_5": {
+      "locked": {
+        "lastModified": 1681028828,
+        "narHash": "sha256-Vy1rq5AaRuLzOxct8nz4T6wlgyUR7zLU309k9mBC768=",
+        "owner": "nix-systems",
+        "repo": "default",
+        "rev": "da67096a3b9bf56a91d16901293e51ba5b49a27e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-systems",
+        "repo": "default",
+        "type": "github"
+      }
+    },
     "topiaryNushell": {
       "flake": false,
       "locked": {
@@ -893,6 +952,28 @@
       "original": {
         "owner": "numtide",
         "repo": "treefmt-nix",
+        "type": "github"
+      }
+    },
+    "ugh": {
+      "inputs": {
+        "flake-utils": "flake-utils_3",
+        "gomod2nix": "gomod2nix_2",
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1769392240,
+        "narHash": "sha256-yzeMvxt4pOx3FeJvrI66AK8Nh8VY72b52xOgNsRvxfs=",
+        "owner": "mholtzscher",
+        "repo": "ugh",
+        "rev": "a9c57ac925af59fbf9064f954ef3dab9bd842abc",
+        "type": "github"
+      },
+      "original": {
+        "owner": "mholtzscher",
+        "repo": "ugh",
         "type": "github"
       }
     },
