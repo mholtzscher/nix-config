@@ -10,6 +10,8 @@ with pkgs;
   inputs.melt.packages.${pkgs.stdenv.hostPlatform.system}.default
   # difftui - A TUI diff tool
   inputs.difftui.packages.${pkgs.stdenv.hostPlatform.system}.default
+  # ugh - CLI tool for managing Nix configurations
+  inputs.ugh.packages.${pkgs.stdenv.hostPlatform.system}.default
   google-cloud-sdk
   brave
   nodejs_24
@@ -19,8 +21,6 @@ with pkgs;
 ++ lib.optionals (!isWork) [
   # grepai - AI-powered semantic code search tool
   inputs.grepai.packages.${pkgs.stdenv.hostPlatform.system}.default
-  # ugh - CLI tool for managing Nix configurations
-  inputs.ugh.packages.${pkgs.stdenv.hostPlatform.system}.default
 ]
 ++ [
   buf
