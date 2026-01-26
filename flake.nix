@@ -65,6 +65,10 @@
       url = "github:yoanbernabeu/grepai";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    ugh = {
+      url = "github:mholtzscher/ugh";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -88,6 +92,7 @@
       awww,
       dms,
       grepai,
+      ugh,
     }:
     let
       # Import lib helpers for creating system configurations

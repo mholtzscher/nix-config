@@ -19,6 +19,8 @@ with pkgs;
 ++ lib.optionals (!isWork) [
   # grepai - AI-powered semantic code search tool
   inputs.grepai.packages.${pkgs.stdenv.hostPlatform.system}.default
+  # ugh - CLI tool for managing Nix configurations
+  inputs.ugh.packages.${pkgs.stdenv.hostPlatform.system}.default
 ]
 ++ [
   buf
