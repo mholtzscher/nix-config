@@ -964,11 +964,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1769407207,
-        "narHash": "sha256-3SRpSc3Va4i++iq2PlJdBPBUrNrIQLlGtFGQyfIAcPQ=",
+        "lastModified": 1769443282,
+        "narHash": "sha256-GdeZ/YNm5yeQhuc5e/SgBlRhoTfhYZvphRkg2U6tSjY=",
         "owner": "mholtzscher",
         "repo": "ugh",
-        "rev": "995d7022b6f6f552ea1985e49bc5344ac72eb3c5",
+        "rev": "f35516bec4b6740ca3b88b68f54b6b31f9a308b9",
         "type": "github"
       },
       "original": {
