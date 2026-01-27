@@ -38,6 +38,9 @@
     lshw
     pciutils
     usbutils
+
+    # Containers
+    podman
   ];
 
   # Console configuration

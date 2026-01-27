@@ -20,6 +20,7 @@
       "borders"
       "JetBrains/utils/kotlin-lsp"
       "mas"
+      "podman"
     ];
     casks = [
       "arc"
