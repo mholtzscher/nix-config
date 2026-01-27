@@ -320,6 +320,11 @@ vim.lsp.enable({
 	"zls",
 })
 
+-- harper_ls only for markdown
+vim.lsp.config("harper_ls", {
+	filetypes = { "markdown" },
+})
+
 -- lua_ls VIM support
 vim.lsp.config("lua_ls", {
 	on_init = function(client)
