@@ -11,6 +11,7 @@
   BraveAIChatEnabled = false;
   BraveNewsDisabled = true;
   BraveTalkDisabled = true;
+  TorDisabled = true;
 
   # ============================================
   # Disable telemetry

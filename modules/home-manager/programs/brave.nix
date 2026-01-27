@@ -8,6 +8,7 @@
     # Extensions are installed via Chrome Web Store update mechanism (Linux only)
     extensions = [
       { id = "cjpalhdlnbpafiamejdnhcphjbkeiagm"; } # uBlock Origin
+      { id = "aeblfdkhhhdcdjpifhhbdiojplfjncoa"; } # 1Password
     ];
   };
 }
