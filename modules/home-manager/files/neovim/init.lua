@@ -80,7 +80,6 @@ vim.pack.add({
 	"https://github.com/nvim-neotest/nvim-nio", -- Required by nvim-dap-ui
 	"https://github.com/leoluz/nvim-dap-go", -- Go debugging
 	"https://github.com/MagicDuck/grug-far.nvim", -- search and replace
-	-- "https://github.com/stevearc/conform.nvim", -- formatter
 	"https://github.com/neovim/nvim-lspconfig", -- LSP configurations
 	"https://github.com/folke/todo-comments.nvim", -- highlight TODO comments
 	"https://github.com/folke/which-key.nvim", -- keybinding hints
@@ -278,36 +277,6 @@ require("which-key").setup({
 		{ "<c-s>", function() require("flash").toggle() end, desc = "Toggle Flash Search", mode = "c" },
 	},
 })
--- require("conform").setup({
--- 	notify_on_error = false,
--- 	format_on_save = {
--- 		timeout_ms = 500,
--- 		lsp_format = "fallback",
--- 	},
--- 	formatters_by_ft = {
--- 		lua = { "stylua" },
--- 		nix = { "nixfmt" },
--- 		go = { "gofmt" },
--- 		python = { "ruff_format" },
--- 		terraform = { "terraform_fmt" },
--- 		zig = { "zigfmt" },
--- 		rust = { "rustfmt" },
--- 		kdl = { "kdlfmt" },
--- 		toml = { "taplo" },
--- 		bash = { "shfmt" },
--- 		sh = { "shfmt" },
--- 		-- Biome for JS/TS, prettier for other web files
--- 		javascript = { "biome" },
--- 		typescript = { "biome" },
--- 		javascriptreact = { "biome" },
--- 		typescriptreact = { "biome" },
--- 		json = { "biome" },
--- 		css = { "prettier" },
--- 		html = { "prettier" },
--- 		yaml = { "prettier" },
--- 		markdown = { "prettier" },
--- 	},
--- })
 
 -- DAP Config
 local dap, dapui = require("dap"), require("dapui")
