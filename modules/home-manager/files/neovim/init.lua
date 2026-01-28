@@ -35,6 +35,29 @@ vim.filetype.add({
 	},
 })
 
+vim.api.nvim_create_user_command("Format", function()
+	local formatters = {
+		go = "gofmt -w %",
+		python = "black %",
+		lua = "stylua %",
+		rust = "rustfmt %",
+		terraform = "terraform fmt %",
+		hcl = "terraform fmt %",
+	}
+
+	local ft = vim.bo.filetype
+	local cmd = formatters[ft]
+
+	if cmd then
+		vim.cmd("silent write") -- write the file
+		vim.cmd("silent !" .. cmd) -- auto-format
+		vim.cmd("edit!") -- reload from disk
+		print("Formatted with " .. ft .. " formatter")
+	else
+		print("No formatter configured for filetype: " .. ft)
+	end
+end, { desc = "Format current file based on filetype" })
+
 -- AUTO COMMANDS (NON-LSP)
 -- Make the cursorline "move" with the focused window
 vim.api.nvim_create_autocmd("WinLeave", {
@@ -57,7 +80,7 @@ vim.pack.add({
 	"https://github.com/nvim-neotest/nvim-nio", -- Required by nvim-dap-ui
 	"https://github.com/leoluz/nvim-dap-go", -- Go debugging
 	"https://github.com/MagicDuck/grug-far.nvim", -- search and replace
-	"https://github.com/stevearc/conform.nvim", -- formatter
+	-- "https://github.com/stevearc/conform.nvim", -- formatter
 	"https://github.com/neovim/nvim-lspconfig", -- LSP configurations
 	"https://github.com/folke/todo-comments.nvim", -- highlight TODO comments
 	"https://github.com/folke/which-key.nvim", -- keybinding hints
@@ -156,6 +179,7 @@ require("which-key").setup({
 		{ "<leader>cr", vim.lsp.buf.rename, desc = "Rename" },
 		{ "[d", function() vim.diagnostic.jump({ count = -1 }) end, desc = "Previous diagnostic" },
 		{ "]d", function() vim.diagnostic.jump({ count = 1 }) end, desc = "Next diagnostic" },
+    { "<leader>cf", "<CMD>Format<CR>", desc = "Format"},
 		-- Window navigation
 		{ "<C-h>", "<C-w>h", desc = "Move to left window" },
 		{ "<C-j>", "<C-w>j", desc = "Move to lower window" },
@@ -254,36 +278,36 @@ require("which-key").setup({
 		{ "<c-s>", function() require("flash").toggle() end, desc = "Toggle Flash Search", mode = "c" },
 	},
 })
-require("conform").setup({
-	notify_on_error = false,
-	format_on_save = {
-		timeout_ms = 500,
-		lsp_format = "fallback",
-	},
-	formatters_by_ft = {
-		lua = { "stylua" },
-		nix = { "nixfmt" },
-		go = { "gofmt" },
-		python = { "ruff_format" },
-		terraform = { "terraform_fmt" },
-		zig = { "zigfmt" },
-		rust = { "rustfmt" },
-		kdl = { "kdlfmt" },
-		toml = { "taplo" },
-		bash = { "shfmt" },
-		sh = { "shfmt" },
-		-- Biome for JS/TS, prettier for other web files
-		javascript = { "biome" },
-		typescript = { "biome" },
-		javascriptreact = { "biome" },
-		typescriptreact = { "biome" },
-		json = { "biome" },
-		css = { "prettier" },
-		html = { "prettier" },
-		yaml = { "prettier" },
-		markdown = { "prettier" },
-	},
-})
+-- require("conform").setup({
+-- 	notify_on_error = false,
+-- 	format_on_save = {
+-- 		timeout_ms = 500,
+-- 		lsp_format = "fallback",
+-- 	},
+-- 	formatters_by_ft = {
+-- 		lua = { "stylua" },
+-- 		nix = { "nixfmt" },
+-- 		go = { "gofmt" },
+-- 		python = { "ruff_format" },
+-- 		terraform = { "terraform_fmt" },
+-- 		zig = { "zigfmt" },
+-- 		rust = { "rustfmt" },
+-- 		kdl = { "kdlfmt" },
+-- 		toml = { "taplo" },
+-- 		bash = { "shfmt" },
+-- 		sh = { "shfmt" },
+-- 		-- Biome for JS/TS, prettier for other web files
+-- 		javascript = { "biome" },
+-- 		typescript = { "biome" },
+-- 		javascriptreact = { "biome" },
+-- 		typescriptreact = { "biome" },
+-- 		json = { "biome" },
+-- 		css = { "prettier" },
+-- 		html = { "prettier" },
+-- 		yaml = { "prettier" },
+-- 		markdown = { "prettier" },
+-- 	},
+-- })
 
 -- DAP Config
 local dap, dapui = require("dap"), require("dapui")
