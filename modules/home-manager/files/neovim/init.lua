@@ -147,6 +147,9 @@ require("blink.cmp").setup({
 })
 require("dap-go").setup()
 require("oil").setup({
+	keymaps = {
+		["<C-s>"] = false, -- Disables the default preview toggle
+	},
 	view_options = {
 		show_hidden = true,
 	},
