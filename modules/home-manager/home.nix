@@ -91,6 +91,10 @@ in
         source = ./files/raycast/aerospace-workspace-shift-right.sh;
         executable = true;
       };
+      "${config.xdg.configHome}/raycast/scripts/aerospace-workspace-shift-reset.sh" = {
+        source = ./files/raycast/aerospace-workspace-shift-reset.sh;
+        executable = true;
+      };
     };
 
     # macOS-only activation scripts
