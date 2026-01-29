@@ -83,6 +83,14 @@ in
         source = ./files/raycast/aerospace-workspace-size-decrement.sh;
         executable = true;
       };
+      "${config.xdg.configHome}/raycast/scripts/aerospace-workspace-shift-left.sh" = {
+        source = ./files/raycast/aerospace-workspace-shift-left.sh;
+        executable = true;
+      };
+      "${config.xdg.configHome}/raycast/scripts/aerospace-workspace-shift-right.sh" = {
+        source = ./files/raycast/aerospace-workspace-shift-right.sh;
+        executable = true;
+      };
     };
 
     # macOS-only activation scripts
