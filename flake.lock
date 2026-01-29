@@ -9,11 +9,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1769287600,
-        "narHash": "sha256-YRSDePZyL9SivlIoat9EW4GjF4bgy6Be3Yh9/wVLc40=",
+        "lastModified": 1769662661,
+        "narHash": "sha256-fXn3qPjj06n0t1pIMaq7ITeobcs9Mbc+NVrsnrMLmfI=",
         "owner": "mholtzscher",
         "repo": "aerospace-utils",
-        "rev": "5108ba1078cf93bf991c9084301e916bcfe368e2",
+        "rev": "5e43a45c67b1641fc1ee970d3dfbc0e6a5f1bdf4",
         "type": "github"
       },
       "original": {
