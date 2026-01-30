@@ -8,18 +8,24 @@
   programs.zen-browser = {
     enable = true;
 
-    # Privacy and security policies (similar to Brave config)
+    # Privacy and security policies
     policies = {
-      # Disable telemetry
-      DisableTelemetry = true;
+      AutofillAddressEnabled = true;
+      AutofillCreditCardEnabled = false;
+      DisableAppUpdate = true;
+      DisableFeedbackCommands = true;
       DisableFirefoxStudies = true;
       DisablePocket = true;
-
-      # Disable Firefox accounts sync
-      DisableFirefoxAccounts = false; # Keep enabled for potential use
-
-      # Disable built-in password manager (use 1Password instead)
-      PasswordManagerEnabled = false;
+      DisableTelemetry = true;
+      DontCheckDefaultBrowser = true;
+      NoDefaultBookmarks = true;
+      OfferToSaveLogins = false;
+      EnableTrackingProtection = {
+        Value = true;
+        Locked = true;
+        Cryptomining = true;
+        Fingerprinting = true;
+      };
 
       # Block third-party cookies
       Cookies = {
@@ -28,62 +34,49 @@
         Default = "third-party";
       };
 
-      # Privacy settings
-      EnableTrackingProtection = {
-        Value = true;
-        Locked = true;
-        Cryptomining = true;
-        Fingerprinting = true;
-        EmailTracking = true;
-      };
-
-      # Disable search suggestions (sends keystrokes to search engine)
       SearchSuggestEnabled = false;
-
-      # HTTPS-Only mode
       HttpsOnlyMode = "enabled";
-
-      # Disable Firefox VPN ads
       MozillaVPN = false;
-
-      # Disable Firefox Relay ads
       FirefoxRelay = false;
 
-      # Extensions to install
-      ExtensionSettings = {
-        # uBlock Origin
-        "uBlock0@raymondhill.net" = {
-          install_url = "https://addons.mozilla.org/firefox/downloads/latest/uBlock0@raymondhill.net/latest.xpi";
-          installation_mode = "force_installed";
-        };
-        # 1Password
-        "{d634138d-c276-4fc8-924b-40a0ea21d284}" = {
-          install_url = "https://addons.mozilla.org/firefox/downloads/latest/{d634138d-c276-4fc8-924b-40a0ea21d284}/latest.xpi";
-          installation_mode = "force_installed";
-        };
-      };
+      # Extensions to install (1Password is unfree, must use ExtensionSettings)
+      # ExtensionSettings = {
+      #   # 1Password - installed via Mozilla store due to unfree license
+      #   "{d634138d-c276-4fc8-924b-40a0ea21d284}" = {
+      #     install_url = "https://addons.mozilla.org/firefox/downloads/latest/{d634138d-c276-4fc8-924b-40a0ea21d284}/latest.xpi";
+      #     installation_mode = "force_installed";
+      #   };
+      # };
 
       # Preferences
-      Preferences = {
-        # Disable WebRTC leak protection
-        "media.peerconnection.enabled" = true;
-        "media.peerconnection.ice.default_address_only" = true;
-        "media.peerconnection.ice.no_host" = true;
-
-        # Disable prefetching
-        "network.prefetch-next" = false;
-        "network.dns.disablePrefetch" = true;
-
-        # Disable Safe Browsing (sends URLs to Google)
-        "browser.safebrowsing.malware.enabled" = false;
-        "browser.safebrowsing.phishing.enabled" = false;
-        "browser.safebrowsing.downloads.enabled" = false;
-
-        # Disable sponsored content
-        "browser.newtabpage.activity-stream.showSponsored" = false;
-        "browser.newtabpage.activity-stream.showSponsoredTopSites" = false;
-      };
+      # Preferences = {
+      #   # Disable WebRTC leak protection
+      #   "media.peerconnection.enabled" = true;
+      #   "media.peerconnection.ice.default_address_only" = true;
+      #   "media.peerconnection.ice.no_host" = true;
+      #
+      #   # Disable prefetching
+      #   "network.prefetch-next" = false;
+      #   "network.dns.disablePrefetch" = true;
+      #
+      #   # Disable Safe Browsing (sends URLs to Google)
+      #   "browser.safebrowsing.malware.enabled" = false;
+      #   "browser.safebrowsing.phishing.enabled" = false;
+      #   "browser.safebrowsing.downloads.enabled" = false;
+      #
+      #   # Disable sponsored content
+      #   "browser.newtabpage.activity-stream.showSponsored" = false;
+      #   "browser.newtabpage.activity-stream.showSponsoredTopSites" = false;
+      # };
     };
+
+    # Extensions installed via rycee's firefox-addons
+    # profiles.default.extensions.packages =
+    #   with inputs.firefox-addons.packages.${pkgs.stdenv.hostPlatform.system}; [
+    #     vimium
+    #     darkreader
+    #     privacy-badger
+    #   ];
 
     # Search engines configuration
     profiles.default.search = {
