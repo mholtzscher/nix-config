@@ -13,7 +13,6 @@ with pkgs;
   # ugh - CLI tool for managing Nix configurations
   inputs.ugh.packages.${pkgs.stdenv.hostPlatform.system}.default
   google-cloud-sdk
-  brave
   nodejs_24
   lua
   zig

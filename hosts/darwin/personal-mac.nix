@@ -46,7 +46,9 @@
       dock = {
         persistent-apps = [
           "/Applications/Arc.app"
-          "${pkgs.brave}/Applications/Brave Browser.app"
+          "${
+            inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default
+          }/Applications/Zen Browser.app"
           "/Applications/Obsidian.app"
           "/System/Applications/Messages.app"
           "/Applications/WhatsApp.app"

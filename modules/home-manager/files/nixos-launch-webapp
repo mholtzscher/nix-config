@@ -34,11 +34,9 @@ case "$BROWSER" in
                 --force-dark-mode
         fi
         ;;
-    brave)
-        if command -v brave &> /dev/null; then
-            exec brave --app="$URL" \
-                --enable-features=WebUIDarkMode,WebContentsForceDark \
-                --force-dark-mode
+    zen-browser)
+        if command -v zen-browser &> /dev/null; then
+            exec zen-browser --new-window "$URL"
         fi
         ;;
     *)

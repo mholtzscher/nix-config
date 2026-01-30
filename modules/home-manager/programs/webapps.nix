@@ -33,7 +33,7 @@ let
           "firefox"
           "chromium"
           "google-chrome"
-          "brave"
+          "zen-browser"
         ];
         default = "firefox";
         description = "Browser to use for launching the app";
