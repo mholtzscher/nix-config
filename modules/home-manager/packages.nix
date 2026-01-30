@@ -24,6 +24,8 @@ with pkgs;
 ++ [
   buf
   cachix
+  cookiecutter
+  cruft
   codesnap
   dive
   dust
