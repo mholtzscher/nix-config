@@ -48,7 +48,7 @@
           "/Applications/Arc.app"
           "${
             inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default
-          }/Applications/Zen Browser.app"
+          }/Applications/Zen Browser (Beta).app"
           "/Applications/Obsidian.app"
           "/System/Applications/Messages.app"
           "/Applications/WhatsApp.app"
