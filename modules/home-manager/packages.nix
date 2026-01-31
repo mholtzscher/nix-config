@@ -22,7 +22,6 @@ with pkgs;
   inputs.grepai.packages.${pkgs.stdenv.hostPlatform.system}.default
 ]
 ++ [
-  brave
   buf
   cachix
   cookiecutter
