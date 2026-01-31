@@ -46,9 +46,6 @@
       dock = {
         persistent-apps = [
           "/Applications/Arc.app"
-          "${
-            inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default
-          }/Applications/Zen Browser.app"
           "/System/Applications/Messages.app"
           "/Applications/Slack.app"
           "/Applications/Ghostty.app"
