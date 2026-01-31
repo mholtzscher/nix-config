@@ -39,7 +39,7 @@ in
       pkgs.dockerfile-language-server
       pkgs.docker-compose-language-service
       pkgs.yaml-language-server
-      pkgs.marksman
+      # pkgs.marksman
 
       # Go packages
       pkgs.gopls

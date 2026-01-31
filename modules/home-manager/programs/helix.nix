@@ -9,7 +9,7 @@
         pkgs.dockerfile-language-server
         pkgs.docker-compose-language-service
         pkgs.yaml-language-server
-        pkgs.marksman
+        # pkgs.marksman
         pkgs.kotlin-language-server
 
         # Go packages

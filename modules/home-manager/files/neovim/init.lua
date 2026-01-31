@@ -38,6 +38,7 @@ vim.filetype.add({
 vim.api.nvim_create_user_command("Format", function()
 	local formatters = {
 		go = "gofmt -w %",
+		nix = "nixfmt %",
 		python = "black %",
 		lua = "stylua %",
 		rust = "rustfmt %",
@@ -303,7 +304,7 @@ vim.lsp.enable({
 	"jsonls",
 	"kotlin_lsp",
 	"lua_ls",
-	"marksman",
+	-- "marksman",
 	"nil_ls",
 	"nushell",
 	"ruff",
