@@ -79,29 +79,29 @@
     #   ];
 
     # Search engines configuration
-    profiles.default.search = {
-      force = true;
-      engines = {
-        "NixOS Packages" = {
-          urls = [
-            {
-              template = "https://search.nixos.org/packages?channel=unstable&from=0&size=50&sort=relevance&type=packages&query={searchTerms}";
-            }
-          ];
-          icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
-          definedAliases = [ "@nix" ];
-        };
-
-        "GitHub" = {
-          urls = [
-            {
-              template = "https://github.com/search?q={searchTerms}&type=repositories";
-            }
-          ];
-          icon = "https://github.com/favicon.ico";
-          definedAliases = [ "@gh" ];
-        };
-      };
-    };
+  #   profiles.default.search = {
+  #     force = true;
+  #     engines = {
+  #       "NixOS Packages" = {
+  #         urls = [
+  #           {
+  #             template = "https://search.nixos.org/packages?channel=unstable&from=0&size=50&sort=relevance&type=packages&query={searchTerms}";
+  #           }
+  #         ];
+  #         icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
+  #         definedAliases = [ "@nix" ];
+  #       };
+  #
+  #       "GitHub" = {
+  #         urls = [
+  #           {
+  #             template = "https://github.com/search?q={searchTerms}&type=repositories";
+  #           }
+  #         ];
+  #         icon = "https://github.com/favicon.ico";
+  #         definedAliases = [ "@gh" ];
+  #       };
+  #     };
+  #   };
   };
 }
