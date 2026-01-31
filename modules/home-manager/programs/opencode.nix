@@ -12,7 +12,11 @@
   programs = {
     opencode = {
       enable = !isWork;
-      package = inputs.opencode.packages.${pkgs.stdenv.hostPlatform.system}.default;
+      package = inputs.opencode.packages.${pkgs.stdenv.hostPlatform.system}.default.overrideAttrs (old: {
+        node_modules = old.node_modules.overrideAttrs (_: {
+          outputHash = "sha256-jGr2udrVeseioMWpIzpjYFfS1CN8GvNFwo6o92Aa5Oc=";
+        });
+      });
       settings = {
         # share = "disabled";
         username = "mholtzscher";

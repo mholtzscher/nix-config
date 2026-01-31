@@ -11,7 +11,6 @@ Agent guidelines for this multi-platform Nix flake configuration managing:
 
 ### Allowed Commands
 
-- ✅ `nb` or `darwin-rebuild build --flake ~/.config/nix-darwin` - Validate configuration
 - ✅ `nix flake check` - Check syntax
 - ✅ `nix flake update` - Update inputs (when explicitly requested)
 
@@ -23,7 +22,7 @@ Agent guidelines for this multi-platform Nix flake configuration managing:
 ### Workflow
 
 1. Make changes
-2. Validate with `nb`
+2. Validate
 3. Report errors if build fails
 4. Wait for user to run `nup` to apply
 
@@ -32,7 +31,6 @@ Agent guidelines for this multi-platform Nix flake configuration managing:
 ### Commands
 
 ```bash
-nb                                      # Validate configuration
 nup                                     # Apply configuration (user only)
 nfu                                     # Update inputs
 nix flake check                         # Check syntax
