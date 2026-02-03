@@ -38,7 +38,7 @@
       # Common modules shared by both platforms
       commonModules = [
         hostPath
-        ../modules/shared
+        ../modules-legacy/shared
         homeManagerModule
 
         # Global module arguments - available to all modules
@@ -75,8 +75,8 @@
 
       # Darwin-specific modules
       darwinModules = [
-        ../modules/darwin
-        ../modules/homebrew
+        ../modules-legacy/darwin
+        ../modules-legacy/homebrew
         inputs.nix-homebrew.darwinModules.nix-homebrew
         {
           # Used for backwards compatibility, please read the changelog before changing.
@@ -87,7 +87,7 @@
 
       # NixOS-specific modules
       nixosModules = [
-        ../modules/nixos
+        ../modules-legacy/nixos
         inputs.catppuccin.nixosModules.catppuccin
 
         # Conditional module loading based on feature flags
@@ -95,7 +95,7 @@
         (if graphical then inputs.dms.nixosModules.default else { })
         (if graphical then inputs.dms.nixosModules.greeter else { })
       ]
-      ++ (if graphical then [ ../modules/nixos/hosts/nixos-desktop ] else [ ]);
+      ++ (if graphical then [ ../modules-legacy/nixos/hosts/nixos-desktop ] else [ ]);
 
       # Combine platform-specific modules with common modules
       allModules = commonModules ++ (if isDarwin then darwinModules else nixosModules);

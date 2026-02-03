@@ -16,7 +16,7 @@ let
   # Fixes monitor resolution issues when switching between KVM inputs
   # Set to true after capturing EDID file with capture-edid script
   enableEdidOverride = true; # EDID override enabled for KVM resolution fix
-  edidBinPath = ../../../modules/nixos/hosts/nixos-desktop/edid/dp1.bin;
+  edidBinPath = ../../../modules-legacy/nixos/hosts/nixos-desktop/edid/dp1.bin;
 in
 {
   imports = [
@@ -50,8 +50,8 @@ in
       { ... }:
       {
         imports = [
-          ../../../modules/home-manager/home.nix
-          ../../../modules/home-manager/hosts/nixos-desktop/default.nix
+          ../../../modules-legacy/home-manager/home.nix
+          ../../../modules-legacy/home-manager/hosts/nixos-desktop/default.nix
         ];
       };
   };

@@ -6,7 +6,7 @@
 }:
 {
   imports = [
-    ../../modules/homebrew/hosts/personal-mac.nix
+    ../../modules-legacy/homebrew/hosts/personal-mac.nix
   ];
 
   users.users.${user} = {
@@ -24,8 +24,8 @@
       { ... }:
       {
         imports = [
-          ../../modules/home-manager/home.nix
-          ../../modules/home-manager/hosts/personal-mac.nix
+          ../../modules-legacy/home-manager/home.nix
+          ../../modules-legacy/home-manager/hosts/personal-mac.nix
         ];
       };
   };

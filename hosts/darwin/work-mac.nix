@@ -6,7 +6,7 @@
 }:
 {
   imports = [
-    ../../modules/homebrew/hosts/work-mac.nix
+    ../../modules-legacy/homebrew/hosts/work-mac.nix
   ];
 
   users.users.${user} = {
@@ -24,8 +24,8 @@
       { ... }:
       {
         imports = [
-          ../../modules/home-manager/home.nix
-          ../../modules/home-manager/hosts/work-mac.nix
+          ../../modules-legacy/home-manager/home.nix
+          ../../modules-legacy/home-manager/hosts/work-mac.nix
         ];
       };
   };
