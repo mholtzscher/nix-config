@@ -82,13 +82,6 @@
 
   outputs =
     inputs:
-    let
-      # Import lib helpers for creating system configurations (legacy support during migration)
-      lib = import ./lib {
-        inherit inputs;
-        self = inputs.self;
-      };
-    in
     inputs.flake-parts.lib.mkFlake { inherit inputs; } {
       # Systems to build for
       systems = [
@@ -97,59 +90,12 @@
       ];
 
       # Import dendritic modules from the new modules/ directory
-      # During migration, this will be empty or contain new-style modules
+      # These automatically define darwinConfigurations, nixosConfigurations, etc.
       imports = [ (inputs.import-tree ./modules) ];
 
       flake = {
-        # Legacy system configurations (during migration, these use modules-legacy/)
-        # These will gradually be replaced by dendritic host modules
-        darwinConfigurations = {
-          # Personal Mac (M1 Max)
-          "Michaels-M1-Max" = lib.mkSystem {
-            name = "personal-mac";
-            system = "aarch64-darwin";
-            darwin = true;
-            hostPath = ./hosts/darwin/personal-mac.nix;
-            user = "michael";
-          };
-
-          # Work Mac
-          "Michael-Holtzscher-Work" = lib.mkSystem {
-            name = "work-mac";
-            system = "aarch64-darwin";
-            darwin = true;
-            hostPath = ./hosts/darwin/work-mac.nix;
-            user = "michaelholtzcher";
-            isWork = true;
-          };
-        };
-
-        nixosConfigurations = {
-          # NixOS Desktop
-          nixos-desktop = lib.mkSystem {
-            name = "nixos-desktop";
-            system = "x86_64-linux";
-            hostPath = ./hosts/nixos/nixos-desktop;
-            user = "michael";
-            graphical = true;
-            gaming = true;
-          };
-        };
-
-        # Standalone home-manager configurations for non-NixOS Linux hosts
-        homeConfigurations = {
-          # Wanda - Ubuntu server with home-manager
-          # Activation: home-manager switch --flake .#wanda
-          wanda = lib.mkHome {
-            name = "wanda";
-            system = "x86_64-linux";
-            hostPath = ./hosts/ubuntu/wanda.nix;
-            user = "michael";
-          };
-        };
-
-        # Expose lib for external use
-        inherit lib;
+        # All system configurations are now defined by dendritic modules in modules/hosts/
+        # This is populated automatically by import-tree importing modules/hosts/*.nix
       };
 
       # Per-system outputs (packages, devShells, etc.)

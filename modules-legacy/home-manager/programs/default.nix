@@ -1,22 +1,21 @@
 { ... }:
 {
   imports = [
+    # Migrated to dendritic pattern (modules/features/):
+    # - bat, eza, fd, fzf, git, ripgrep, zoxide
+
+    # Still in legacy:
     ./atuin.nix
-    ./bat.nix
     ./zen.nix
     ./btop.nix
     ./bun.nix
     ./carapace.nix
     ./delta.nix
     ./direnv.nix
-    ./eza.nix
-    ./fd.nix
     ./firefox.nix
-    ./fzf.nix
     ./gh-dash.nix
     ./gh.nix
     ./ghostty.nix
-    ./git.nix
     ./go.nix
     ./helix.nix
     ./jujutsu.nix
@@ -31,7 +30,6 @@
     ./opencode.nix
     ./poetry.nix
     ./pyenv.nix
-    ./ripgrep.nix
     ./ssh.nix
     ./starship.nix
     ./uv.nix
@@ -40,6 +38,5 @@
     ./zed.nix
     ./zellij.nix
     ./zsh.nix
-    ./zoxide.nix
   ];
 }
