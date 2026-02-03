@@ -1,5 +1,5 @@
 {
-  description = "Multi-platform Nix flake for Darwin and NixOS systems (Dendritic Pattern Migration)";
+  description = "Multi-platform Nix flake for Darwin and NixOS systems (Dendritic Pattern)";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
@@ -89,13 +89,26 @@
         "x86_64-linux"
       ];
 
-      # Import dendritic modules from the new modules/ directory
-      # These automatically define darwinConfigurations, nixosConfigurations, etc.
-      imports = [ (inputs.import-tree ./modules) ];
+      # Import dendritic feature modules (but not host modules to avoid recursion)
+      # Feature modules export to flake.modules.homeManager.*, etc.
+      imports = [ (inputs.import-tree ./modules/features) ];
 
       flake = {
-        # All system configurations are now defined by dendritic modules in modules/hosts/
-        # This is populated automatically by import-tree importing modules/hosts/*.nix
+        # Host configurations - defined separately to avoid infinite recursion
+        # Hosts reference inputs.self.modules.homeManager.* which requires them
+        # to be defined outside of the module tree
+        darwinConfigurations = {
+          "Michaels-M1-Max" = import ./hosts/personal-mac-dendritic.nix { inherit inputs; };
+          "Michael-Holtzscher-Work" = import ./hosts/work-mac-dendritic.nix { inherit inputs; };
+        };
+
+        nixosConfigurations = {
+          nixos-desktop = import ./hosts/nixos-desktop-dendritic.nix { inherit inputs; };
+        };
+
+        homeConfigurations = {
+          wanda = import ./hosts/wanda-dendritic.nix { inherit inputs; };
+        };
       };
 
       # Per-system outputs (packages, devShells, etc.)
