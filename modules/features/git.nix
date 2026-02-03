@@ -25,12 +25,14 @@ in
         programs.git = {
           enable = true;
 
-          # Default identity (can be overridden per-host)
-          userName = "Michael Holtzscher";
-          userEmail = "michael@holtzscher.com";
-
           # Shared settings across all hosts
           settings = {
+            # Default identity (can be overridden per-host)
+            user = {
+              name = "Michael Holtzscher";
+              email = "michael@holtzscher.com";
+            };
+
             column.ui = "auto";
             branch.sort = "-committerdate";
             tag.sort = "version:refname";
@@ -61,7 +63,14 @@ in
           };
 
           lfs.enable = true;
-          delta.enable = true;
+        };
+
+        programs.delta = {
+          enable = true;
+          enableGitIntegration = true;
+          options = {
+            dark = true;
+          };
         };
       };
   };

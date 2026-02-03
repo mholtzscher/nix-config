@@ -91,7 +91,10 @@
 
       # Import dendritic feature modules (but not host modules to avoid recursion)
       # Feature modules export to flake.modules.homeManager.*, etc.
-      imports = [ (inputs.import-tree ./modules/features) ];
+      imports = [
+        ./modules/_base.nix
+        (inputs.import-tree ./modules/features)
+      ];
 
       flake = {
         # Host configurations - defined separately to avoid infinite recursion

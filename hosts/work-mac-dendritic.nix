@@ -21,6 +21,10 @@ inputs.nix-darwin.lib.darwinSystem {
 
     # Home-manager configuration with git email override
     {
+      # Used for backwards compatibility, please read the changelog before changing.
+      # $ darwin-rebuild changelog
+      system.stateVersion = 5;
+
       home-manager = {
         useGlobalPkgs = true;
         useUserPackages = true;
@@ -35,6 +39,12 @@ inputs.nix-darwin.lib.darwinSystem {
           currentSystemUser = user;
         };
         users.${user} = {
+          home = {
+            username = user;
+            homeDirectory = "/Users/${user}";
+            stateVersion = "24.11";
+          };
+          programs.home-manager.enable = true;
           imports = [
             # Core CLI tools - from dendritic modules
             inputs.self.modules.homeManager.bat
@@ -44,15 +54,40 @@ inputs.nix-darwin.lib.darwinSystem {
             inputs.self.modules.homeManager.zoxide
             inputs.self.modules.homeManager.fd
 
+            # Shell + prompt + env
+            inputs.self.modules.homeManager.zsh
+            inputs.self.modules.homeManager.starship
+            inputs.self.modules.homeManager.direnv
+            inputs.self.modules.homeManager.atuin
+
+            # SSH
+            inputs.self.modules.homeManager.ssh
+
             # Git - from dendritic modules (with work email override)
             inputs.self.modules.homeManager.git
+
+            # GitHub + JSON + monitoring
+            inputs.self.modules.homeManager.gh
+            inputs.self.modules.homeManager.gh-dash
+            inputs.self.modules.homeManager.jq
+            inputs.self.modules.homeManager.btop
+
+            # Tooling
+            inputs.self.modules.homeManager.mise
+            inputs.self.modules.homeManager.carapace
+            inputs.self.modules.homeManager.k9s
+            inputs.self.modules.homeManager.lazydocker
+            inputs.self.modules.homeManager.lazygit
+
+            # JS runtime
+            inputs.self.modules.homeManager.bun
 
             # Catppuccin theming
             inputs.catppuccin.homeModules.catppuccin
           ];
 
           # Override git email for work context
-          programs.git.userEmail = lib.mkForce "michaelholtzcher@company.com";
+          programs.git.settings.user.email = lib.mkForce "michaelholtzcher@company.com";
         };
       };
 

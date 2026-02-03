@@ -25,8 +25,33 @@ inputs.home-manager.lib.homeManagerConfiguration {
     inputs.self.modules.homeManager.zoxide
     inputs.self.modules.homeManager.fd
 
+    # Shell + prompt + env
+    inputs.self.modules.homeManager.zsh
+    inputs.self.modules.homeManager.starship
+    inputs.self.modules.homeManager.direnv
+    inputs.self.modules.homeManager.atuin
+
+    # SSH
+    inputs.self.modules.homeManager.ssh
+
     # Development tools - from dendritic modules
     inputs.self.modules.homeManager.git
+
+    # GitHub + JSON + monitoring
+    inputs.self.modules.homeManager.gh
+    inputs.self.modules.homeManager.gh-dash
+    inputs.self.modules.homeManager.jq
+    inputs.self.modules.homeManager.btop
+
+    # Tooling
+    inputs.self.modules.homeManager.mise
+    inputs.self.modules.homeManager.carapace
+    inputs.self.modules.homeManager.k9s
+    inputs.self.modules.homeManager.lazydocker
+    inputs.self.modules.homeManager.lazygit
+
+    # JS runtime
+    inputs.self.modules.homeManager.bun
 
     # Catppuccin theming
     inputs.catppuccin.homeModules.catppuccin
@@ -35,6 +60,8 @@ inputs.home-manager.lib.homeManagerConfiguration {
     {
       home.username = user;
       home.homeDirectory = "/home/${user}";
+      home.stateVersion = "24.11";
+      programs.home-manager.enable = true;
       targets.genericLinux.enable = true;
     }
   ];
