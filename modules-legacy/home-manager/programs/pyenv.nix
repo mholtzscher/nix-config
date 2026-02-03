@@ -1,8 +1,0 @@
-{ ... }:
-{
-  programs = {
-    pyenv = {
-      enable = false;
-    };
-  };
-}
