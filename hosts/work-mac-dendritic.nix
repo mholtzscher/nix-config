@@ -23,6 +23,7 @@ inputs.nix-darwin.lib.darwinSystem {
     inputs.self.modules.darwin.system
     inputs.self.modules.darwin.homebrewCommon
     inputs.self.modules.darwin.homebrewWorkMac
+    inputs.self.modules.darwin.hostWorkMac
 
     # Home-manager configuration with git email override
     {
@@ -76,34 +77,5 @@ inputs.nix-darwin.lib.darwinSystem {
       };
     }
 
-    # Legacy system config only (dock setup)
-    {
-      users.users.${user} = {
-        name = user;
-        home = "/Users/${user}";
-      };
-
-      system = {
-        primaryUser = user;
-        defaults = {
-          dock = {
-            persistent-apps = [
-              "/Applications/Arc.app"
-              "/System/Applications/Messages.app"
-              "/Applications/Slack.app"
-              "/Applications/Ghostty.app"
-              "/Applications/Postico.app"
-              "/Applications/IntelliJ IDEA.app"
-              "/System/Applications/Mail.app"
-              "/System/Applications/Calendar.app"
-              "/Applications/Todoist.app"
-              "/System/Applications/Music.app"
-              "/Users/michaelholtzcher/Applications/Google Gemini.app"
-              "/Users/michaelholtzcher/Applications/Reclaim.app"
-            ];
-          };
-        };
-      };
-    }
   ];
 }
