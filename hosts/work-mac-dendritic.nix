@@ -19,6 +19,11 @@ inputs.nix-darwin.lib.darwinSystem {
     # Import nix-homebrew module
     inputs.nix-homebrew.darwinModules.nix-homebrew
 
+    # Dendritic system modules
+    inputs.self.modules.darwin.system
+    inputs.self.modules.darwin.homebrewCommon
+    inputs.self.modules.darwin.homebrewWorkMac
+
     # Home-manager configuration with git email override
     {
       # Used for backwards compatibility, please read the changelog before changing.
@@ -71,12 +76,8 @@ inputs.nix-darwin.lib.darwinSystem {
       };
     }
 
-    # Legacy system config only (no home-manager bridge to avoid duplicates)
+    # Legacy system config only (dock setup)
     {
-      imports = [
-        ../modules-legacy/homebrew/hosts/work-mac.nix
-      ];
-
       users.users.${user} = {
         name = user;
         home = "/Users/${user}";

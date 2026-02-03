@@ -18,6 +18,11 @@ inputs.nix-darwin.lib.darwinSystem {
     # Import nix-homebrew module
     inputs.nix-homebrew.darwinModules.nix-homebrew
 
+    # Dendritic system modules
+    inputs.self.modules.darwin.system
+    inputs.self.modules.darwin.homebrewCommon
+    inputs.self.modules.darwin.homebrewPersonalMac
+
     # Home-manager configuration
     {
       # Used for backwards compatibility, please read the changelog before changing.
@@ -67,14 +72,8 @@ inputs.nix-darwin.lib.darwinSystem {
       };
     }
 
-    # Legacy system config (dock, system settings, homebrew)
-    # Note: We don't import the legacy home-manager modules since we use dendritic
+    # Legacy system config (dock setup)
     {
-      # Import just the system-level parts from legacy config
-      imports = [
-        ../modules-legacy/homebrew/hosts/personal-mac.nix
-      ];
-
       users.users.${user} = {
         name = user;
         home = "/Users/${user}";
