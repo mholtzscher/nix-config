@@ -60,7 +60,7 @@ in
         ];
 
         xdg.configFile."DankMaterialShell/themes/catppuccin-mocha-lavender.json".source =
-          ../../modules-legacy/home-manager/files/dms/catppuccin-mocha-lavender.json;
+          ../../files/dms/catppuccin-mocha-lavender.json;
 
         xdg.configFile."DankMaterialShell/settings.json".text = builtins.toJSON {
           currentThemeName = "custom";

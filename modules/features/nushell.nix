@@ -30,7 +30,7 @@ in
             # Add local bin and homebrew to PATH
             $env.PATH = ($env.PATH | prepend $"($env.HOME)/.local/bin" | prepend "/opt/homebrew/sbin" | prepend "/opt/homebrew/bin")
 
-            ${builtins.readFile ../../modules-legacy/home-manager/files/nushell/functions.nu}
+            ${builtins.readFile ../../files/nushell/functions.nu}
           '';
           settings = {
             edit_mode = "vi";

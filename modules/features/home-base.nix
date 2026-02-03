@@ -31,49 +31,49 @@ in
         home = {
           file = {
             "${config.xdg.configHome}/kafkactl/config.yml".source =
-              ../../modules-legacy/home-manager/files/kafkactl.yaml;
-            ".ideavimrc".source = ../../modules-legacy/home-manager/files/ideavimrc;
+              ../../files/kafkactl.yaml;
+            ".ideavimrc".source = ../../files/ideavimrc;
             ".idea-lazy.vim".source = lazyIdeaVim;
 
             "${config.xdg.configHome}/topiary/languages.ncl".text =
               builtins.replaceStrings
                 [ "TREE_SITTER_NU_PATH" ]
                 [ "${pkgs.tree-sitter-grammars.tree-sitter-nu}" ]
-                (builtins.readFile ../../modules-legacy/home-manager/files/topiary/languages.ncl);
+                (builtins.readFile ../../files/topiary/languages.ncl);
 
             "${config.xdg.configHome}/topiary/languages/nu.scm".source =
               "${inputs.topiaryNushell}/languages/nu.scm";
 
             "${config.xdg.configHome}/1Password/ssh/agent.toml".source =
-              ../../modules-legacy/home-manager/files/1password-agent.toml;
+              ../../files/1password-agent.toml;
           }
           // lib.optionalAttrs pkgs.stdenv.isDarwin {
             "${config.xdg.configHome}/raycast/scripts/toggle-aerospace.sh" = {
-              source = ../../modules-legacy/home-manager/files/raycast/toggle-aerospace.sh;
+              source = ../../files/raycast/toggle-aerospace.sh;
               executable = true;
             };
             "${config.xdg.configHome}/raycast/scripts/aerospace-workspace-size.sh" = {
-              source = ../../modules-legacy/home-manager/files/raycast/aerospace-workspace-size.sh;
+              source = ../../files/raycast/aerospace-workspace-size.sh;
               executable = true;
             };
             "${config.xdg.configHome}/raycast/scripts/aerospace-workspace-size-increment.sh" = {
-              source = ../../modules-legacy/home-manager/files/raycast/aerospace-workspace-size-increment.sh;
+              source = ../../files/raycast/aerospace-workspace-size-increment.sh;
               executable = true;
             };
             "${config.xdg.configHome}/raycast/scripts/aerospace-workspace-size-decrement.sh" = {
-              source = ../../modules-legacy/home-manager/files/raycast/aerospace-workspace-size-decrement.sh;
+              source = ../../files/raycast/aerospace-workspace-size-decrement.sh;
               executable = true;
             };
             "${config.xdg.configHome}/raycast/scripts/aerospace-workspace-shift-left.sh" = {
-              source = ../../modules-legacy/home-manager/files/raycast/aerospace-workspace-shift-left.sh;
+              source = ../../files/raycast/aerospace-workspace-shift-left.sh;
               executable = true;
             };
             "${config.xdg.configHome}/raycast/scripts/aerospace-workspace-shift-right.sh" = {
-              source = ../../modules-legacy/home-manager/files/raycast/aerospace-workspace-shift-right.sh;
+              source = ../../files/raycast/aerospace-workspace-shift-right.sh;
               executable = true;
             };
             "${config.xdg.configHome}/raycast/scripts/aerospace-workspace-shift-reset.sh" = {
-              source = ../../modules-legacy/home-manager/files/raycast/aerospace-workspace-shift-reset.sh;
+              source = ../../files/raycast/aerospace-workspace-shift-reset.sh;
               executable = true;
             };
           };
@@ -81,7 +81,7 @@ in
           activation = lib.mkIf pkgs.stdenv.isDarwin {
             aerospaceConfig = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
               run mkdir -p "${config.xdg.configHome}/aerospace"
-              run cp -f ${../../modules-legacy/home-manager/files/aerospace.toml} "${config.xdg.configHome}/aerospace/aerospace.toml"
+              run cp -f ${../../files/aerospace.toml} "${config.xdg.configHome}/aerospace/aerospace.toml"
               run chmod u+w "${config.xdg.configHome}/aerospace/aerospace.toml"
             '';
           };

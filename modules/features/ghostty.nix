@@ -41,9 +41,9 @@ in
             quick-terminal-screen = lib.mkIf pkgs.stdenv.isDarwin "macos-menu-bar";
 
             custom-shader = [
-              # "${../../modules-legacy/home-manager/files/ghostty/shaders/dvd_bounce_paytient.glsl}"
+              # "${../../files/ghostty/shaders/dvd_bounce_paytient.glsl}"
               # "${inputs.ghostty-shader-playground}/public/shaders/cursor_smear_rainbow.glsl"
-              # "${../../modules-legacy/home-manager/files/ghostty/shaders/cursor_smear_catppuccin.glsl}"
+              # "${../../files/ghostty/shaders/cursor_smear_catppuccin.glsl}"
               # "${inputs.ghostty-shader-playground}/public/shaders/party_sparks.glsl"
             ];
           };

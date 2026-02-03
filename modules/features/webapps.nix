@@ -111,7 +111,7 @@ in
 
         config = mkIf (cfgWebapps.enable && pkgs.stdenv.isLinux) {
           home.file.".local/bin/nixos-launch-webapp" = {
-            source = ../../modules-legacy/home-manager/files/nixos-launch-webapp;
+            source = ../../files/nixos-launch-webapp;
             executable = true;
           };
 

@@ -16,7 +16,7 @@ let
   # Fixes monitor resolution issues when switching between KVM inputs
   # Set to true after capturing EDID file with capture-edid script
   enableEdidOverride = true; # EDID override enabled for KVM resolution fix
-  edidBinPath = ../../../modules-legacy/nixos/hosts/nixos-desktop/edid/dp1.bin;
+  edidBinPath = ../../../files/edid/dp1.bin;
 in
 {
   imports = [
@@ -36,24 +36,6 @@ in
     shell = pkgs.zsh;
     # SSH authorized keys for remote access
     openssh.authorizedKeys.keys = sshPublicKeys;
-  };
-
-  # Home Manager configuration
-  home-manager = {
-    useGlobalPkgs = true;
-    useUserPackages = true;
-    backupFileExtension = "backup";
-    extraSpecialArgs = {
-      inherit inputs;
-    };
-    users.${user} =
-      { ... }:
-      {
-        imports = [
-          ../../../modules-legacy/home-manager/home.nix
-          ../../../modules-legacy/home-manager/hosts/nixos-desktop/default.nix
-        ];
-      };
   };
 
   # Enable NetworkManager for easy network management

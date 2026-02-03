@@ -22,7 +22,7 @@ in
       }:
       {
         home.file."${config.xdg.configHome}/opencode/skill/conventional-commit/SKILL.md".source =
-          ../../modules-legacy/home-manager/files/opencode/skills/conventional-commit.md;
+          ../../files/opencode/skills/conventional-commit.md;
 
         programs.opencode = {
           enable = !isWork;
@@ -49,7 +49,7 @@ in
               diff-review = {
                 description = "Perform a comprehensive code review of recent changes";
                 agent = "build";
-                template = "{file:${../../modules-legacy/home-manager/files/opencode/commands/diff-review.md}}";
+                template = "{file:${../../files/opencode/commands/diff-review.md}}";
               };
               slop = {
                 description = "Remove AI code slop";
@@ -72,17 +72,17 @@ in
               mermaid = {
                 mode = "subagent";
                 description = "Create Mermaid diagrams for flowcharts, sequences, ERDs, and architectures. Masters syntax for all diagram types and styling. Use PROACTIVELY for visual documentation, system diagrams, or process flows.";
-                prompt = "{file:${../../modules-legacy/home-manager/files/opencode/agents/mermaid.md}}";
+                prompt = "{file:${../../files/opencode/agents/mermaid.md}}";
               };
               architect-review = {
                 mode = "subagent";
                 description = "Master software architect specializing in modern architecture patterns, clean architecture, microservices, event-driven systems, and DDD. Reviews system designs and code changes for architectural integrity, scalability, and maintainability. Use PROACTIVELY for architectural decisions.";
-                prompt = "{file:${../../modules-legacy/home-manager/files/opencode/agents/architect-review.md}}";
+                prompt = "{file:${../../files/opencode/agents/architect-review.md}}";
               };
               research = {
                 mode = "subagent";
                 description = "Enterprise Research Assistant named \"Claudette\" that autonomously conducts comprehensive research with rigorous source verification and synthesis.";
-                prompt = "{file:${../../modules-legacy/home-manager/files/opencode/agents/research.md}}";
+                prompt = "{file:${../../files/opencode/agents/research.md}}";
               };
               lookup = {
                 model = "opencode/claude-haiku-4-5";

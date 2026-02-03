@@ -4,7 +4,6 @@
 let
   user = "michael";
   system = "x86_64-linux";
-  lib = inputs.nixpkgs.lib;
 in
 inputs.nixpkgs.lib.nixosSystem {
   inherit system;
@@ -30,44 +29,8 @@ inputs.nixpkgs.lib.nixosSystem {
     # Legacy NixOS system config (hardware, services, users, etc.)
     ./nixos/nixos-desktop/default.nix
 
-    # Compatibility: legacy host sets user shell = zsh
-    { programs.zsh.enable = true; }
-
-    # Required by legacy config (NVIDIA, etc.)
-    { nixpkgs.config.allowUnfree = true; }
-
-    # Home-manager configuration
-    {
-      home-manager = {
-        useGlobalPkgs = true;
-        useUserPackages = true;
-        backupFileExtension = "backup";
-        extraSpecialArgs = {
-          inherit inputs user;
-          self = inputs.self;
-          isWork = false;
-          isDarwin = false;
-          isLinux = true;
-          currentSystemName = "nixos-desktop";
-          currentSystemUser = user;
-        };
-        users.${user} = lib.mkForce {
-          home.stateVersion = "24.11";
-          programs.home-manager.enable = true;
-          imports = [
-            inputs.self.modules.homeManager.profileCommon
-
-            # Host-specific config
-            inputs.self.modules.homeManager.hostNixosDesktop
-
-            # Linux desktop extras
-            inputs.self.modules.homeManager.firefox
-            inputs.self.modules.homeManager.zen
-            inputs.self.modules.homeManager.webapps
-          ];
-        };
-      };
-    }
-
+    # Dendritic system modules
+    inputs.self.modules.nixos.desktopSystem
+    inputs.self.modules.nixos.desktopHm
   ];
 }

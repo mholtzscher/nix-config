@@ -44,7 +44,7 @@ in
           viAlias = true;
           vimAlias = true;
           vimdiffAlias = true;
-          initLua = builtins.readFile ../../modules-legacy/home-manager/files/neovim/init.lua;
+          initLua = builtins.readFile ../../files/neovim/init.lua;
           plugins = [
             pkgs.vimPlugins.nvim-treesitter.withAllGrammars
             tree-sitter-txtar
