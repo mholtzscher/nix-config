@@ -1,5 +1,5 @@
-# Personal Mac (M1 Max) - Dendritic Host Configuration
-# Uses the base git config with defaults
+# NixOS Desktop - Dendritic Host Configuration
+# Gaming and development workstation with Niri
 {
   config,
   lib,
@@ -8,21 +8,29 @@
 }:
 let
   user = "michael";
+  system = "x86_64-linux";
 in
 {
-  flake.darwinConfigurations."Michaels-M1-Max" = inputs.nix-darwin.lib.darwinSystem {
-    system = "aarch64-darwin";
+  flake.nixosConfigurations.nixos-desktop = inputs.nixpkgs.lib.nixosSystem {
+    inherit system;
     specialArgs = {
       inherit inputs user;
       self = inputs.self;
       isWork = false;
     };
     modules = [
-      # Import home-manager module
-      inputs.home-manager.darwinModules.home-manager
+      # Import home-manager NixOS module
+      inputs.home-manager.nixosModules.home-manager
 
-      # Import nix-homebrew module
-      inputs.nix-homebrew.darwinModules.nix-homebrew
+      # Import catppuccin
+      inputs.catppuccin.nixosModules.catppuccin
+
+      # Import Niri
+      inputs.niri.nixosModules.niri
+
+      # Import DMS
+      inputs.dms.nixosModules.default
+      inputs.dms.nixosModules.greeter
 
       # Home-manager configuration
       {
@@ -34,9 +42,9 @@ in
             inherit inputs user;
             self = inputs.self;
             isWork = false;
-            isDarwin = true;
-            isLinux = false;
-            currentSystemName = "personal-mac";
+            isDarwin = false;
+            isLinux = true;
+            currentSystemName = "nixos-desktop";
             currentSystemUser = user;
           };
           users.${user} = {
@@ -49,7 +57,7 @@ in
               inputs.self.modules.homeManager.zoxide
               inputs.self.modules.homeManager.fd
 
-              # Git - uses default email (michael@holtzscher.com)
+              # Development tools
               inputs.self.modules.homeManager.git
 
               # Catppuccin theming
@@ -57,18 +65,10 @@ in
             ];
           };
         };
-
-        # nix-homebrew configuration
-        nix-homebrew = {
-          enable = true;
-          enableRosetta = true;
-          inherit user;
-          autoMigrate = true;
-        };
       }
 
-      # Legacy bridge
-      ../../hosts/darwin/personal-mac.nix
+      # Legacy bridge - brings in all the NixOS system config
+      ../../hosts/nixos/nixos-desktop
     ];
   };
 }

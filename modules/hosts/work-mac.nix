@@ -1,5 +1,5 @@
-# Personal Mac (M1 Max) - Dendritic Host Configuration
-# Uses the base git config with defaults
+# Work Mac - Dendritic Host Configuration
+# Overrides git email in the home-manager config
 {
   config,
   lib,
@@ -7,15 +7,15 @@
   ...
 }:
 let
-  user = "michael";
+  user = "michaelholtzcher";
 in
 {
-  flake.darwinConfigurations."Michaels-M1-Max" = inputs.nix-darwin.lib.darwinSystem {
+  flake.darwinConfigurations."Michael-Holtzscher-Work" = inputs.nix-darwin.lib.darwinSystem {
     system = "aarch64-darwin";
     specialArgs = {
       inherit inputs user;
       self = inputs.self;
-      isWork = false;
+      isWork = true;
     };
     modules = [
       # Import home-manager module
@@ -24,7 +24,7 @@ in
       # Import nix-homebrew module
       inputs.nix-homebrew.darwinModules.nix-homebrew
 
-      # Home-manager configuration
+      # Home-manager configuration with git email override
       {
         home-manager = {
           useGlobalPkgs = true;
@@ -33,10 +33,10 @@ in
           extraSpecialArgs = {
             inherit inputs user;
             self = inputs.self;
-            isWork = false;
+            isWork = true;
             isDarwin = true;
             isLinux = false;
-            currentSystemName = "personal-mac";
+            currentSystemName = "work-mac";
             currentSystemUser = user;
           };
           users.${user} = {
@@ -49,12 +49,15 @@ in
               inputs.self.modules.homeManager.zoxide
               inputs.self.modules.homeManager.fd
 
-              # Git - uses default email (michael@holtzscher.com)
+              # Git with work email override
               inputs.self.modules.homeManager.git
 
               # Catppuccin theming
               inputs.catppuccin.homeModules.catppuccin
             ];
+
+            # Override git email for work context
+            programs.git.userEmail = lib.mkForce "michaelholtzcher@company.com";
           };
         };
 
@@ -68,7 +71,7 @@ in
       }
 
       # Legacy bridge
-      ../../hosts/darwin/personal-mac.nix
+      ../../hosts/darwin/work-mac.nix
     ];
   };
 }
