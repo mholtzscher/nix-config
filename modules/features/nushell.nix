@@ -1,0 +1,54 @@
+# Nushell - structured shell
+{ config, lib, ... }:
+let
+  cfg = config.myFeatures.nushell;
+in
+{
+  options.myFeatures.nushell = {
+    enable = lib.mkEnableOption "nushell configuration" // {
+      default = true;
+      description = "Enable nushell";
+    };
+  };
+
+  config = lib.mkIf cfg.enable {
+    flake.modules.homeManager.nushell =
+      {
+        pkgs,
+        inputs,
+        ...
+      }:
+      let
+        sharedAliases = import ../../modules-legacy/home-manager/shared-aliases.nix { inherit pkgs; };
+      in
+      {
+        programs.nushell = {
+          enable = true;
+          extraConfig = ''
+            use std/log;
+
+            # Import naws as a Nushell overlay
+            use ${inputs.naws}/naws/
+
+            # Add local bin and homebrew to PATH
+            $env.PATH = ($env.PATH | prepend $"($env.HOME)/.local/bin" | prepend "/opt/homebrew/sbin" | prepend "/opt/homebrew/bin")
+
+            ${builtins.readFile ../../modules-legacy/home-manager/files/nushell/functions.nu}
+          '';
+          shellAliases = sharedAliases.shellAliases;
+          settings = {
+            edit_mode = "vi";
+            show_banner = false;
+            cursor_shape = {
+              vi_insert = "line";
+              vi_normal = "block";
+            };
+          };
+          plugins = [
+            pkgs.nushellPlugins.formats
+            pkgs.nushellPlugins.polars
+          ];
+        };
+      };
+  };
+}

@@ -59,6 +59,11 @@ inputs.nix-darwin.lib.darwinSystem {
             inputs.self.modules.homeManager.direnv
             inputs.self.modules.homeManager.atuin
 
+            # Shells / terminal tooling
+            inputs.self.modules.homeManager.nushell
+            inputs.self.modules.homeManager.zellij
+            inputs.self.modules.homeManager.ghostty
+
             # SSH
             inputs.self.modules.homeManager.ssh
 
@@ -78,8 +83,24 @@ inputs.nix-darwin.lib.darwinSystem {
             inputs.self.modules.homeManager.lazydocker
             inputs.self.modules.homeManager.lazygit
 
+            # Editors
+            inputs.self.modules.homeManager.neovim
+            inputs.self.modules.homeManager.helix
+            inputs.self.modules.homeManager.yazi
+
             # JS runtime
             inputs.self.modules.homeManager.bun
+
+            # Languages
+            inputs.self.modules.homeManager.go
+            inputs.self.modules.homeManager.uv
+            inputs.self.modules.homeManager.jujutsu
+
+            # AI tooling
+            inputs.self.modules.homeManager.opencode
+
+            # Local LLM
+            inputs.self.modules.homeManager.ollama
 
             # Catppuccin theming
             inputs.catppuccin.homeModules.catppuccin

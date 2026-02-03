@@ -31,6 +31,10 @@ inputs.home-manager.lib.homeManagerConfiguration {
     inputs.self.modules.homeManager.direnv
     inputs.self.modules.homeManager.atuin
 
+    # Shells / terminal tooling
+    inputs.self.modules.homeManager.nushell
+    inputs.self.modules.homeManager.zellij
+
     # SSH
     inputs.self.modules.homeManager.ssh
 
@@ -52,6 +56,19 @@ inputs.home-manager.lib.homeManagerConfiguration {
 
     # JS runtime
     inputs.self.modules.homeManager.bun
+
+    # Editors
+    inputs.self.modules.homeManager.neovim
+    inputs.self.modules.homeManager.helix
+    inputs.self.modules.homeManager.yazi
+
+    # Languages
+    inputs.self.modules.homeManager.go
+    inputs.self.modules.homeManager.uv
+    inputs.self.modules.homeManager.jujutsu
+
+    # AI tooling
+    inputs.self.modules.homeManager.opencode
 
     # Catppuccin theming
     inputs.catppuccin.homeModules.catppuccin
