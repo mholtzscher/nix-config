@@ -89,28 +89,130 @@
         "x86_64-linux"
       ];
 
-      # Import dendritic feature modules (but not host modules to avoid recursion)
-      # Feature modules export to flake.modules.homeManager.*, etc.
+      # Import dendritic feature modules from semantic directories
+      # Feature modules export to flake.modules.homeManager.*, flake.modules.darwin.*, etc.
       imports = [
         ./modules/_base.nix
-        (inputs.import-tree ./modules/features)
+        (inputs.import-tree ./modules/programs)
+        (inputs.import-tree ./modules/system)
+        (inputs.import-tree ./modules/hosts)
+        (inputs.import-tree ./modules/nix)
       ];
 
       flake = {
-        # Host configurations - defined separately to avoid infinite recursion
-        # Hosts reference inputs.self.modules.homeManager.* which requires them
-        # to be defined outside of the module tree
+        # Darwin (macOS) configurations
         darwinConfigurations = {
-          "Michaels-M1-Max" = import ./hosts/personal-mac.nix { inherit inputs; };
-          "Michael-Holtzscher-Work" = import ./hosts/work-mac.nix { inherit inputs; };
+          "Michaels-M1-Max" =
+            let
+              user = "michael";
+            in
+            inputs.nix-darwin.lib.darwinSystem {
+              system = "aarch64-darwin";
+              specialArgs = {
+                inherit inputs user;
+                self = inputs.self;
+                isWork = false;
+              };
+              modules = [
+                inputs.home-manager.darwinModules.home-manager
+                inputs.nix-homebrew.darwinModules.nix-homebrew
+                inputs.self.modules.darwin.system
+                inputs.self.modules.darwin.base
+                inputs.self.modules.darwin.homebrewCommon
+                inputs.self.modules.darwin.homebrewPersonalMac
+                inputs.self.modules.darwin.hostPersonalMac
+                inputs.self.modules.darwin.hmPersonalMac
+              ];
+            };
+
+          "Michael-Holtzscher-Work" =
+            let
+              user = "michaelholtzcher";
+            in
+            inputs.nix-darwin.lib.darwinSystem {
+              system = "aarch64-darwin";
+              specialArgs = {
+                inherit inputs user;
+                self = inputs.self;
+                isWork = true;
+              };
+              modules = [
+                inputs.home-manager.darwinModules.home-manager
+                inputs.nix-homebrew.darwinModules.nix-homebrew
+                inputs.self.modules.darwin.system
+                inputs.self.modules.darwin.base
+                inputs.self.modules.darwin.homebrewCommon
+                inputs.self.modules.darwin.homebrewWorkMac
+                inputs.self.modules.darwin.hostWorkMac
+                inputs.self.modules.darwin.hmWorkMac
+              ];
+            };
         };
 
+        # NixOS configurations
         nixosConfigurations = {
-          nixos-desktop = import ./hosts/nixos-desktop.nix { inherit inputs; };
+          nixos-desktop =
+            let
+              user = "michael";
+              system = "x86_64-linux";
+            in
+            inputs.nixpkgs.lib.nixosSystem {
+              inherit system;
+              specialArgs = {
+                inherit inputs user;
+                self = inputs.self;
+                isWork = false;
+              };
+              modules = [
+                inputs.home-manager.nixosModules.home-manager
+                inputs.catppuccin.nixosModules.catppuccin
+                inputs.niri.nixosModules.niri
+                inputs.dms.nixosModules.default
+                inputs.dms.nixosModules.greeter
+                ./hosts/nixos/nixos-desktop
+                inputs.self.modules.nixos.desktopSystem
+                inputs.self.modules.nixos.packages
+                inputs.self.modules.nixos.gaming
+                inputs.self.modules.nixos.nvidia
+                inputs.self.modules.nixos.steam
+                inputs.self.modules.nixos.services
+                inputs.self.modules.nixos.wayland
+                inputs.self.modules.nixos.greeter
+                inputs.self.modules.nixos.desktopHm
+              ];
+            };
         };
 
+        # Standalone home-manager configurations (non-NixOS Linux)
         homeConfigurations = {
-          wanda = import ./hosts/wanda.nix { inherit inputs; };
+          wanda =
+            let
+              user = "michael";
+              system = "x86_64-linux";
+            in
+            inputs.home-manager.lib.homeManagerConfiguration {
+              pkgs = import inputs.nixpkgs { inherit system; };
+              extraSpecialArgs = {
+                inherit inputs user;
+                self = inputs.self;
+                isWork = false;
+                isDarwin = false;
+                isLinux = true;
+                currentSystemName = "wanda";
+                currentSystemUser = user;
+              };
+              modules = [
+                inputs.self.modules.homeManager.profileCommon
+                inputs.self.modules.homeManager.hostWanda
+                {
+                  home.username = user;
+                  home.homeDirectory = "/home/${user}";
+                  home.stateVersion = "24.11";
+                  programs.home-manager.enable = true;
+                  targets.genericLinux.enable = true;
+                }
+              ];
+            };
         };
       };
 
