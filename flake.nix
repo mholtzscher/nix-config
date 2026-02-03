@@ -90,6 +90,12 @@
       };
     in
     inputs.flake-parts.lib.mkFlake { inherit inputs; } {
+      # Systems to build for
+      systems = [
+        "aarch64-darwin"
+        "x86_64-linux"
+      ];
+
       # Import dendritic modules from the new modules/ directory
       # During migration, this will be empty or contain new-style modules
       imports = [ (inputs.import-tree ./modules) ];
