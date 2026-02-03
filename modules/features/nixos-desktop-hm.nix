@@ -44,11 +44,21 @@ in
             home.stateVersion = "24.11";
             programs.home-manager.enable = true;
             imports = [
+              # Common profile (CLI tools, shell, etc.)
               self.modules.homeManager.profileCommon
+
+              # Host-specific user config
               self.modules.homeManager.hostNixosDesktop
+
+              # Browsers
               self.modules.homeManager.firefox
               self.modules.homeManager.zen
-              self.modules.homeManager.webapps
+              self.modules.homeManager.webapps # Web apps module (defines programs.webapps option)
+
+              # Desktop environment
+              self.modules.homeManager.nixosComposition # Niri settings
+              self.modules.homeManager.nixosGaming # Gaming packages + MangoHud
+              self.modules.homeManager.nixosWallpaper # Awww wallpaper daemon
             ];
           };
         };

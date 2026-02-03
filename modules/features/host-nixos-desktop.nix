@@ -82,6 +82,23 @@ in
 
         services.easyeffects.enable = true;
 
+        # Web applications as native apps
+        programs.webapps = {
+          enable = true;
+          apps = [
+            {
+              name = "WhatsApp";
+              url = "https://web.whatsapp.com";
+              browser = "chromium";
+              comment = "WhatsApp Web Client";
+              categories = [
+                "Network"
+                "Chat"
+              ];
+            }
+          ];
+        };
+
         systemd.user.services."1password" = {
           Unit = {
             Description = "1Password";

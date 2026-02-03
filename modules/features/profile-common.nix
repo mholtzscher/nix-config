@@ -46,6 +46,7 @@ in
           self.modules.homeManager.git
           self.modules.homeManager.gh
           self.modules.homeManager.gh-dash
+          self.modules.homeManager.delta
 
           # Data / monitoring
           self.modules.homeManager.jq

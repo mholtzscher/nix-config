@@ -31,6 +31,10 @@ inputs.nixpkgs.lib.nixosSystem {
 
     # Dendritic system modules
     inputs.self.modules.nixos.desktopSystem
+    inputs.self.modules.nixos.packages # Desktop packages, fonts, 1Password
+    inputs.self.modules.nixos.gaming # ratbagd for gaming mouse
+
+    # Home-manager wiring
     inputs.self.modules.nixos.desktopHm
   ];
 }

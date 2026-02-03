@@ -1,4 +1,5 @@
 # NixOS Desktop system module
+# Base system configuration for NixOS desktop
 { config, lib, ... }:
 let
   cfg = config.myFeatures.nixosDesktopSystem;
