@@ -19,7 +19,6 @@ in
         ...
       }:
       let
-        sharedAliases = import ../../modules-legacy/home-manager/shared-aliases.nix { inherit pkgs; };
         workOnboardingScript = ''
           if [ -f /Users/michaelholtzcher/code/paytient/onboarding/engineering.sh ]; then
               source /Users/michaelholtzcher/code/paytient/onboarding/engineering.sh
@@ -33,7 +32,6 @@ in
 
         programs.zsh = {
           enable = true;
-          shellAliases = sharedAliases.shellAliases;
           initContent = ''
             ${if isWork then workOnboardingScript else ""}
 

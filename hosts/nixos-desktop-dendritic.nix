@@ -55,72 +55,15 @@ inputs.nixpkgs.lib.nixosSystem {
           home.stateVersion = "24.11";
           programs.home-manager.enable = true;
           imports = [
-            # Core CLI tools - from dendritic modules
-            inputs.self.modules.homeManager.bat
-            inputs.self.modules.homeManager.eza
-            inputs.self.modules.homeManager.fzf
-            inputs.self.modules.homeManager.ripgrep
-            inputs.self.modules.homeManager.zoxide
-            inputs.self.modules.homeManager.fd
+            inputs.self.modules.homeManager.profileCommon
 
-            # Shell + prompt + env
-            inputs.self.modules.homeManager.zsh
-            inputs.self.modules.homeManager.starship
-            inputs.self.modules.homeManager.direnv
-            inputs.self.modules.homeManager.atuin
+            # Host-specific config
+            inputs.self.modules.homeManager.hostNixosDesktop
 
-            # Shells / terminal tooling
-            inputs.self.modules.homeManager.nushell
-            inputs.self.modules.homeManager.zellij
-            inputs.self.modules.homeManager.ghostty
-
-            # SSH
-            inputs.self.modules.homeManager.ssh
-
-            # Development tools - from dendritic modules
-            inputs.self.modules.homeManager.git
-
-            # GitHub + JSON + monitoring
-            inputs.self.modules.homeManager.gh
-            inputs.self.modules.homeManager.gh-dash
-            inputs.self.modules.homeManager.jq
-            inputs.self.modules.homeManager.btop
-
-            # Tooling
-            inputs.self.modules.homeManager.mise
-            inputs.self.modules.homeManager.carapace
-            inputs.self.modules.homeManager.k9s
-            inputs.self.modules.homeManager.lazydocker
-            inputs.self.modules.homeManager.lazygit
-
-            # Editors
-            inputs.self.modules.homeManager.neovim
-            inputs.self.modules.homeManager.helix
-            inputs.self.modules.homeManager.yazi
-
-            # JS runtime
-            inputs.self.modules.homeManager.bun
-
-            # Languages
-            inputs.self.modules.homeManager.go
-            inputs.self.modules.homeManager.uv
-            inputs.self.modules.homeManager.jujutsu
-
-            # Browsers (Linux)
+            # Linux desktop extras
             inputs.self.modules.homeManager.firefox
             inputs.self.modules.homeManager.zen
-
-            # AI tooling
-            inputs.self.modules.homeManager.opencode
-
-            # Local LLM
-            inputs.self.modules.homeManager.ollama
-
-            # Web apps module (NixOS desktop can configure apps)
             inputs.self.modules.homeManager.webapps
-
-            # Catppuccin theming
-            inputs.catppuccin.homeModules.catppuccin
           ];
         };
       };

@@ -18,9 +18,6 @@ in
         inputs,
         ...
       }:
-      let
-        sharedAliases = import ../../modules-legacy/home-manager/shared-aliases.nix { inherit pkgs; };
-      in
       {
         programs.nushell = {
           enable = true;
@@ -35,7 +32,6 @@ in
 
             ${builtins.readFile ../../modules-legacy/home-manager/files/nushell/functions.nu}
           '';
-          shellAliases = sharedAliases.shellAliases;
           settings = {
             edit_mode = "vi";
             show_banner = false;

@@ -24,6 +24,8 @@ inputs.nix-darwin.lib.darwinSystem {
       # $ darwin-rebuild changelog
       system.stateVersion = 5;
 
+      nixpkgs.config.allowUnfree = true;
+
       home-manager = {
         useGlobalPkgs = true;
         useUserPackages = true;
@@ -45,65 +47,13 @@ inputs.nix-darwin.lib.darwinSystem {
           };
           programs.home-manager.enable = true;
           imports = [
-            # Core CLI tools - from dendritic modules
-            inputs.self.modules.homeManager.bat
-            inputs.self.modules.homeManager.eza
-            inputs.self.modules.homeManager.fzf
-            inputs.self.modules.homeManager.ripgrep
-            inputs.self.modules.homeManager.zoxide
-            inputs.self.modules.homeManager.fd
+            inputs.self.modules.homeManager.profileCommon
 
-            # Shell + prompt + env
-            inputs.self.modules.homeManager.zsh
-            inputs.self.modules.homeManager.starship
-            inputs.self.modules.homeManager.direnv
-            inputs.self.modules.homeManager.atuin
+            # Theme (enable explicitly on macOS)
+            inputs.self.modules.homeManager.catppuccinTheme
 
-            # Shells / terminal tooling
-            inputs.self.modules.homeManager.nushell
-            inputs.self.modules.homeManager.zellij
-            inputs.self.modules.homeManager.ghostty
-
-            # SSH
-            inputs.self.modules.homeManager.ssh
-
-            # Git - from dendritic modules (uses default email)
-            inputs.self.modules.homeManager.git
-
-            # GitHub + JSON + monitoring
-            inputs.self.modules.homeManager.gh
-            inputs.self.modules.homeManager.gh-dash
-            inputs.self.modules.homeManager.jq
-            inputs.self.modules.homeManager.btop
-
-            # Tooling
-            inputs.self.modules.homeManager.mise
-            inputs.self.modules.homeManager.carapace
-            inputs.self.modules.homeManager.k9s
-            inputs.self.modules.homeManager.lazydocker
-            inputs.self.modules.homeManager.lazygit
-
-            # Editors
-            inputs.self.modules.homeManager.neovim
-            inputs.self.modules.homeManager.helix
-            inputs.self.modules.homeManager.yazi
-
-            # JS runtime
-            inputs.self.modules.homeManager.bun
-
-            # Languages
-            inputs.self.modules.homeManager.go
-            inputs.self.modules.homeManager.uv
-            inputs.self.modules.homeManager.jujutsu
-
-            # AI tooling
-            inputs.self.modules.homeManager.opencode
-
-            # Local LLM
-            inputs.self.modules.homeManager.ollama
-
-            # Catppuccin theming
-            inputs.catppuccin.homeModules.catppuccin
+            # Host-specific config
+            inputs.self.modules.homeManager.hostPersonalMac
           ];
         };
       };
