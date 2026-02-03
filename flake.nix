@@ -101,16 +101,16 @@
         # Hosts reference inputs.self.modules.homeManager.* which requires them
         # to be defined outside of the module tree
         darwinConfigurations = {
-          "Michaels-M1-Max" = import ./hosts/personal-mac-dendritic.nix { inherit inputs; };
-          "Michael-Holtzscher-Work" = import ./hosts/work-mac-dendritic.nix { inherit inputs; };
+          "Michaels-M1-Max" = import ./hosts/personal-mac.nix { inherit inputs; };
+          "Michael-Holtzscher-Work" = import ./hosts/work-mac.nix { inherit inputs; };
         };
 
         nixosConfigurations = {
-          nixos-desktop = import ./hosts/nixos-desktop-dendritic.nix { inherit inputs; };
+          nixos-desktop = import ./hosts/nixos-desktop.nix { inherit inputs; };
         };
 
         homeConfigurations = {
-          wanda = import ./hosts/wanda-dendritic.nix { inherit inputs; };
+          wanda = import ./hosts/wanda.nix { inherit inputs; };
         };
       };
 
