@@ -4,6 +4,14 @@
   inputs,
   ...
 }:
+let
+  # Create a limited 'self' object that contains only the modules
+  # This avoids infinite recursion when evaluating host configurations
+  # (accessing inputs.self.darwinConfigurations would recurse)
+  selfModules = {
+    modules = config.flake.modules;
+  };
+in
 {
   # Dendritic pattern core options
   options.flake = {
@@ -27,6 +35,25 @@
       type = lib.types.attrsOf lib.types.unspecified;
       default = { };
       description = "Helper library functions for host configuration";
+    };
+
+    # Host configuration options (mergeable across modules)
+    darwinConfigurations = lib.mkOption {
+      type = lib.types.attrsOf lib.types.raw;
+      default = { };
+      description = "nix-darwin system configurations";
+    };
+
+    nixosConfigurations = lib.mkOption {
+      type = lib.types.attrsOf lib.types.raw;
+      default = { };
+      description = "NixOS system configurations";
+    };
+
+    homeConfigurations = lib.mkOption {
+      type = lib.types.attrsOf lib.types.raw;
+      default = { };
+      description = "Standalone home-manager configurations";
     };
   };
 
@@ -58,7 +85,7 @@
           inherit system;
           specialArgs = {
             inherit inputs user;
-            self = inputs.self;
+            self = selfModules;
             inherit isWork;
             currentSystemName = hostname;
             currentSystemUser = user;
@@ -76,7 +103,7 @@
                 backupFileExtension = "backup";
                 extraSpecialArgs = {
                   inherit inputs user;
-                  self = inputs.self;
+                  self = selfModules;
                   inherit isWork;
                   isDarwin = true;
                   isLinux = false;
@@ -111,7 +138,7 @@
           inherit system;
           specialArgs = {
             inherit inputs user;
-            self = inputs.self;
+            self = selfModules;
             inherit isWork;
             currentSystemName = hostname;
             currentSystemUser = user;
@@ -128,7 +155,7 @@
                 backupFileExtension = "backup";
                 extraSpecialArgs = {
                   inherit inputs user;
-                  self = inputs.self;
+                  self = selfModules;
                   inherit isWork;
                   isDarwin = false;
                   isLinux = true;
@@ -162,7 +189,7 @@
           pkgs = import inputs.nixpkgs { inherit system; };
           extraSpecialArgs = {
             inherit inputs user;
-            self = inputs.self;
+            self = selfModules;
             inherit isWork;
             isDarwin = false;
             isLinux = true;
