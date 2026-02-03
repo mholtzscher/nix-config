@@ -1,7 +1,7 @@
-{ pkgs, ... }:
+{ isDarwin, ... }:
 let
   nuConfig =
-    if pkgs.stdenv.isDarwin then
+    if isDarwin then
       "$HOME/Library/Application Support/nushell/config.nu"
     else
       "$HOME/.config/nushell/config.nu";

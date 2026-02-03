@@ -2,6 +2,7 @@
   config,
   lib,
   pkgs,
+  isLinux,
   ...
 }:
 with lib;
@@ -108,7 +109,7 @@ in
     };
   };
 
-  config = mkIf (cfg.enable && pkgs.stdenv.isLinux) {
+  config = mkIf (cfg.enable && isLinux) {
     # Install launcher script
     home.file.".local/bin/nixos-launch-webapp" = {
       source = ../files/nixos-launch-webapp;

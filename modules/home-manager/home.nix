@@ -2,15 +2,14 @@
 # This module works on both macOS (darwin) and NixOS (linux)
 #
 # Platform Detection:
-# - Use `pkgs.stdenv.isDarwin` for macOS-specific config
-# - Use `pkgs.stdenv.isLinux` for Linux-specific config
+# - Use `isDarwin` / `isLinux` module arguments (preferred)
 # - Use `lib.optionalAttrs` for conditional attribute sets (files)
 # - Use `lib.mkIf` for conditional options (programs, activation)
 #
 # Examples:
-# - Files: home.file = { ... } // lib.optionalAttrs pkgs.stdenv.isDarwin { ... };
-# - Activation: activation = lib.mkIf pkgs.stdenv.isDarwin { ... };
-# - Programs: config = lib.mkIf pkgs.stdenv.isDarwin { programs.foo = { ... }; };
+# - Files: home.file = { ... } // lib.optionalAttrs isDarwin { ... };
+# - Activation: activation = lib.mkIf isDarwin { ... };
+# - Programs: config = lib.mkIf isDarwin { programs.foo = { ... }; };
 
 {
   pkgs,
@@ -18,6 +17,7 @@
   lib,
   inputs,
   isWork,
+  isDarwin,
   ...
 }:
 let
@@ -60,7 +60,7 @@ in
       "${config.xdg.configHome}/1Password/ssh/agent.toml".source = ./files/1password-agent.toml;
     }
     # macOS-specific config files
-    // lib.optionalAttrs pkgs.stdenv.isDarwin {
+    // lib.optionalAttrs isDarwin {
       # "${config.xdg.configHome}/borders/bordersrc" = {
       #   source = ./files/bordersrc;
       #   executable = true;
@@ -98,7 +98,7 @@ in
     };
 
     # macOS-only activation scripts
-    activation = lib.mkIf pkgs.stdenv.isDarwin {
+    activation = lib.mkIf isDarwin {
       aerospaceConfig = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
         run mkdir -p "${config.xdg.configHome}/aerospace"
         run cp -f ${./files/aerospace.toml} "${config.xdg.configHome}/aerospace/aerospace.toml"

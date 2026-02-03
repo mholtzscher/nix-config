@@ -4,6 +4,9 @@
   ...
 }:
 let
+  # Shared LSP packages used by multiple editors
+  lspPackages = import ../lsp-packages.nix { inherit pkgs; };
+
   tree-sitter-txtar-grammar = pkgs.tree-sitter.buildGrammar {
     language = "txtar";
     version = "0.1.0";
@@ -34,48 +37,13 @@ in
       pkgs.vimPlugins.nvim-treesitter.withAllGrammars
       tree-sitter-txtar
     ];
-    extraPackages = [
-      pkgs.terraform-ls
-      pkgs.dockerfile-language-server
-      pkgs.docker-compose-language-service
-      pkgs.yaml-language-server
-      # pkgs.marksman
-
-      # Go packages
-      pkgs.gopls
-      pkgs.golangci-lint
-      pkgs.golangci-lint-langserver
-      pkgs.delve
-
-      # Rust
+    extraPackages = lspPackages ++ [
+      # Neovim-specific extras (not needed by Helix)
       pkgs.rust-analyzer
       pkgs.rustfmt
-
-      pkgs.nil
-      pkgs.nixfmt
-      pkgs.buf
-      pkgs.bash-language-server
-      pkgs.just-lsp
-      pkgs.lua-language-server
-      pkgs.ruff
-      pkgs.kdlfmt
-      pkgs.taplo # toml
       pkgs.stylua # lua formatter
       pkgs.shfmt # bash/sh formatter
       pkgs.harper # grammar checker
-
-      # Typescript stuff
-      pkgs.typescript-language-server
-      pkgs.prettier
-      pkgs.biome
-
-      # All provided by the extracted package
-      # vscode-css-language-server
-      # vscode-eslint-language-server
-      # vscode-html-language-server
-      # vscode-json-language-server
-      # vscode-markdown-language-server
-      pkgs.vscode-langservers-extracted
     ];
   };
 }

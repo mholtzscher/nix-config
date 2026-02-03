@@ -9,8 +9,8 @@
 { pkgs, inputs, ... }:
 {
   imports = [
-    ../../modules/home-manager/home.nix
-    ../../modules/home-manager/hosts/wanda
+    ../../../modules/home-manager/home.nix
+    ../../../modules/home-manager/hosts/wanda
   ];
 
   home = {

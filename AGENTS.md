@@ -44,24 +44,33 @@ flake.nix                              # Root flake, defines all hosts
 lib/
   └── default.nix                      # Helper functions (mkSystem, mkHome)
 hosts/
-  ├── darwin/                          # macOS-specific hosts
-  │   ├── personal-mac.nix             # Personal M1 Max config
-  │   └── work-mac.nix                 # Work Mac config
+  ├── darwin/                          # macOS-specific hosts (all directories)
+  │   ├── personal-mac/
+  │   │   └── default.nix              # Personal M1 Max config
+  │   └── work-mac/
+  │       └── default.nix              # Work Mac config
   ├── nixos/                           # NixOS-specific hosts
   │   └── nixos-desktop/               # Desktop gaming/dev config
-  │       ├── default.nix
-  │       └── hardware-configuration.nix
+  │       ├── default.nix              # Main entry point
+  │       ├── hardware-configuration.nix
+  │       ├── users.nix                # User account configuration
+  │       ├── networking.nix           # Network and firewall config
+  │       ├── audio.nix                # PipeWire audio config
+  │       ├── gpu.nix                  # NVIDIA GPU configuration
+  │       ├── boot.nix                 # Boot loader configuration
+  │       └── greeter.nix              # DMS login greeter
   └── ubuntu/                          # Ubuntu hosts (standalone home-manager)
-      └── wanda.nix                    # Headless server config
+      └── wanda/
+          └── default.nix              # Headless server config
 modules/
-  ├── darwin/                          # macOS system defaults
+  ├── darwin/                          # macOS system modules
   │   ├── default.nix                  # Entry point
-  │   └── darwin.nix                   # System defaults (dock, finder, trackpad)
-  ├── homebrew/                        # Homebrew package management (macOS only)
-  │   ├── default.nix                  # Common packages across all macOS hosts
-  │   └── hosts/                       # Host-specific Homebrew packages
-  │       ├── personal-mac.nix
-  │       └── work-mac.nix
+  │   ├── darwin.nix                   # System defaults (dock, finder, trackpad)
+  │   └── homebrew/                    # Homebrew package management
+  │       ├── default.nix              # Common packages across all macOS hosts
+  │       └── hosts/                   # Host-specific Homebrew packages
+  │           ├── personal-mac.nix
+  │           └── work-mac.nix
   ├── nixos/                           # NixOS-only modules
   │   ├── default.nix
   │   ├── fonts.nix
@@ -69,24 +78,25 @@ modules/
   │   └── hosts/                       # Host-specific NixOS system config
   │       └── nixos-desktop/           # Desktop environment modules
   │           ├── default.nix
-  │           ├── composition.nix      # Niri window manager + Waybar
-  │           ├── launcher.nix         # Vicinae app launcher
+  │           ├── composition.nix      # Niri window manager + keybindings
   │           ├── gaming.nix           # Steam, MangoHud, GameMode
   │           ├── theme.nix            # GTK/Qt theming
   │           ├── wallpaper.nix        # swaybg wallpaper daemon
   │           └── webapps.nix          # Web apps as native apps
   ├── shared/                          # Cross-platform modules
   │   ├── default.nix
-  │   ├── nix-settings.nix             # Shared nix config (gc, flakes, etc.)
-  │   └── users.nix                    # User management patterns
+  │   └── nix-settings.nix             # Shared nix config (gc, flakes, etc.)
   └── home-manager/                    # Cross-platform home-manager
       ├── home.nix                     # Entry point (with platform guards)
       ├── packages.nix                 # Nix packages (platform-aware)
+      ├── lsp-packages.nix             # Shared LSP servers for neovim/helix
       ├── shared-aliases.nix
-      ├── programs/                    # 34 cross-platform program modules
-      ├── hosts/                       # Host-specific user configs
-      │   ├── personal-mac.nix         # Personal Mac user packages/settings
-      │   ├── work-mac.nix             # Work Mac user packages/settings
+      ├── programs/                    # Cross-platform program modules
+      ├── hosts/                       # Host-specific user configs (all directories)
+      │   ├── personal-mac/
+      │   │   └── default.nix          # Personal Mac user packages/settings
+      │   ├── work-mac/
+      │   │   └── default.nix          # Work Mac user packages/settings
       │   ├── nixos-desktop/           # Desktop user packages/settings
       │   │   └── default.nix
       │   └── wanda/                   # Ubuntu server user packages/settings
@@ -104,7 +114,7 @@ modules/
   - Inspired by mitchellh/nixos-config unified approach
 - **Module loading architecture**:
   - **Shared**: `modules/shared/`, `modules/home-manager/programs/`, `modules/home-manager/files/`
-  - **Platform-specific**: `modules/darwin/`, `modules/homebrew/`, `modules/nixos/`
+  - **Platform-specific**: `modules/darwin/`, `modules/darwin/homebrew/`, `modules/nixos/`
   - **Host-specific**: `modules/home-manager/hosts/{hostname}/`, `modules/nixos/hosts/{hostname}/`
   - **Darwin flow**: Host → darwin modules → homebrew module → shared modules → nix-homebrew → home-manager
   - **NixOS flow**: Host → nixos modules (including conditional host modules) → shared modules → home-manager
@@ -114,7 +124,7 @@ modules/
   - `gaming = true` → Available in module args for gaming-specific config
 - **Platform separation**:
   - `modules/darwin/` - macOS system defaults (dock, finder, trackpad)
-  - `modules/homebrew/` - macOS package management with host-specific overrides
+  - `modules/darwin/homebrew/` - macOS package management with host-specific overrides
   - `modules/nixos/` - Core NixOS system config + conditional host-specific modules
   - `modules/nixos/hosts/` - Host-specific system config (desktop env, services, etc.)
   - `modules/shared/` - Cross-platform (nix settings, gc)
@@ -122,7 +132,7 @@ modules/
 - **Host-specific configs**: Each host has:
   - `modules/home-manager/hosts/{hostname}/default.nix` - User packages and home settings
   - `modules/nixos/hosts/{hostname}/` - System-level config (desktop environment, services)
-- **Platform guards**: Use `lib.mkIf pkgs.stdenv.isDarwin`, `lib.optionalAttrs`, or global module args
+- **Platform guards**: Use `lib.mkIf isDarwin`, `lib.optionalAttrs isDarwin`, or similar with module args
 - **Global module arguments**: All modules have access to `currentSystemName`, `currentSystemUser`, `isDarwin`, `isLinux`, `inputs`
   - NixOS modules also get `currentSystem`, `graphical`, `gaming`
   - Darwin modules also get `currentSystem`
@@ -134,28 +144,28 @@ modules/
 
 1. Create `modules/home-manager/programs/program-name.nix`
 2. Import in `modules/home-manager/programs/default.nix`
-3. If macOS-only, wrap with `config = lib.mkIf pkgs.stdenv.isDarwin { ... }`
+3. If macOS-only, wrap with `config = lib.mkIf isDarwin { ... }`
 4. Validate with `nb` (darwin) or `nix flake check` (both platforms)
 
 ### Add Program (Host-Specific)
 
 1. Add to appropriate host config:
-   - `modules/home-manager/hosts/personal-mac.nix` - Personal Mac user packages
-   - `modules/home-manager/hosts/work-mac.nix` - Work Mac user packages
+   - `modules/home-manager/hosts/personal-mac/default.nix` - Personal Mac user packages
+   - `modules/home-manager/hosts/work-mac/default.nix` - Work Mac user packages
    - `modules/home-manager/hosts/nixos-desktop/default.nix` - NixOS desktop user packages
 2. Validate with `nb` or `nix flake check`
 
 ### Add Host (Darwin)
 
-1. Create `hosts/darwin/hostname.nix` (copy existing)
-2. Create `modules/home-manager/hosts/hostname.nix` for host-specific config
+1. Create `hosts/darwin/hostname/default.nix` (copy existing)
+2. Create `modules/home-manager/hosts/hostname/default.nix` for host-specific config
 3. Add to `flake.nix`:
 ```nix
 darwinConfigurations."Host-Name" = lib.mkSystem {
   name = "friendly-name";           # Used in logs, module args
   system = "aarch64-darwin";        # Architecture
   darwin = true;                    # Required for Darwin
-  hostPath = ./hosts/darwin/hostname.nix;
+  hostPath = ./hosts/darwin/hostname;
   user = "username";                # Default: "michael"
 };
 ```
@@ -163,7 +173,7 @@ darwinConfigurations."Host-Name" = lib.mkSystem {
 
 ### Add Host (NixOS)
 
-1. Create `hosts/nixos/hostname.nix` (copy nixos-desktop.nix template)
+1. Create `hosts/nixos/hostname/default.nix` (copy nixos-desktop structure)
 2. Create `modules/home-manager/hosts/hostname/default.nix` for user-specific config
 3. Create `modules/nixos/hosts/hostname/` directory for system-level config (optional, based on host needs)
 4. Add to `flake.nix`:
@@ -171,7 +181,7 @@ darwinConfigurations."Host-Name" = lib.mkSystem {
 nixosConfigurations.hostname = lib.mkSystem {
   name = "friendly-name";           # Used in logs, module args
   system = "x86_64-linux";          # Architecture: "x86_64-linux" or "aarch64-linux"
-  hostPath = ./hosts/nixos/hostname.nix;
+  hostPath = ./hosts/nixos/hostname;
   user = "username";                # Default: "michael"
   graphical = true;                 # Default: true - loads GUI modules (Niri, Waybar, etc.)
   gaming = false;                   # Default: false - available in module args
@@ -179,7 +189,7 @@ nixosConfigurations.hostname = lib.mkSystem {
 ```
 5. Generate hardware configuration:
    ```bash
-   nixos-generate-config --root /mnt --show-hardware-config > hosts/nixos/hostname-hardware.nix
+   nixos-generate-config --root /mnt --show-hardware-config > hosts/nixos/hostname/hardware-configuration.nix
    ```
 6. Feature flags and module loading:
    - `graphical = true` → Conditionally loads `modules/nixos/hosts/hostname/` (for desktop environments)
@@ -190,13 +200,13 @@ nixosConfigurations.hostname = lib.mkSystem {
 
 For non-NixOS Linux hosts, use standalone home-manager via `mkHome`:
 
-1. Create `hosts/ubuntu/hostname.nix`:
+1. Create `hosts/ubuntu/hostname/default.nix`:
 ```nix
 { pkgs, inputs, ... }:
 {
   imports = [
-    ../../modules/home-manager/home.nix
-    ../../modules/home-manager/hosts/hostname
+    ../../../modules/home-manager/home.nix
+    ../../../modules/home-manager/hosts/hostname
   ];
   home = {
     username = "username";
@@ -212,7 +222,7 @@ For non-NixOS Linux hosts, use standalone home-manager via `mkHome`:
 homeConfigurations.hostname = lib.mkHome {
   name = "hostname";
   system = "x86_64-linux";
-  hostPath = ./hosts/ubuntu/hostname.nix;
+  hostPath = ./hosts/ubuntu/hostname;
   user = "username";
 };
 ```
@@ -243,19 +253,19 @@ home-manager switch --flake .#hostname
 - **Cross-platform Nix**: `modules/home-manager/packages.nix` (main list)
 - **macOS-only Nix**: `modules/home-manager/packages.nix` (in `lib.optionals pkgs.stdenv.isDarwin`)
 - **Homebrew** (macOS only):
-  - Common packages: `modules/homebrew/default.nix`
-  - Host-specific: `modules/homebrew/hosts/{personal-mac,work-mac}.nix`
-- **Host-specific**: Add to `modules/home-manager/hosts/*.nix`
+  - Common packages: `modules/darwin/homebrew/default.nix`
+  - Host-specific: `modules/darwin/homebrew/hosts/{personal-mac,work-mac}.nix`
+- **Host-specific**: Add to `modules/home-manager/hosts/{hostname}/default.nix`
 
 ### Add Homebrew Package (macOS)
 
 **Common package** (all macOS hosts):
-1. Edit `modules/homebrew/default.nix`
+1. Edit `modules/darwin/homebrew/default.nix`
 2. Add to appropriate list under `homebrew` config (`taps`, `brews`, `casks`, `masApps`)
 3. Validate with `nb` or `darwin-rebuild build --flake .`
 
 **Host-specific package**:
-1. Edit `modules/homebrew/hosts/{hostname}.nix`
+1. Edit `modules/darwin/homebrew/hosts/{hostname}.nix`
 2. Add to appropriate list under `homebrew` config (`brews`, `casks`, `masApps`)
 3. Validate with `nb` or `darwin-rebuild build --flake .`
 
@@ -264,7 +274,7 @@ home-manager switch --flake .#hostname
 ### macOS-Only Features
 
 These should use platform guards or stay in darwin modules:
-- Homebrew (top-level module at `modules/homebrew/`)
+- Homebrew (in `modules/darwin/homebrew/`)
 - Aerospace window manager (platform guarded in programs/aerospace.nix)
 - macOS system defaults (in `modules/darwin/darwin.nix`)
 - Raycast scripts (platform guarded in home.nix)
@@ -272,30 +282,30 @@ These should use platform guards or stay in darwin modules:
 
 ### NixOS-Only Features
 
-These stay in nixos modules or use `pkgs.stdenv.isLinux`:
+These stay in nixos modules or use `isLinux` module argument:
 - systemd services (core in `modules/nixos/nixos.nix`, host-specific in `modules/nixos/hosts/hostname/`)
 - Boot loader configuration (in hardware config or core nixos module)
 - Linux kernel modules (in hardware config)
-- Desktop environment configs (Niri, Waybar, Vicinae in `modules/nixos/hosts/hostname/composition.nix` etc.)
+- Desktop environment configs (Niri, Waybar in `modules/nixos/hosts/hostname/composition.nix` etc.)
 
 ### Cross-Platform with Conditions
 
-Use platform detection in home-manager:
+Use platform detection in home-manager via module arguments (preferred):
 ```nix
 # For files
 home.file = { /* shared files */ }
-  // lib.optionalAttrs pkgs.stdenv.isDarwin { /* macOS files */ };
+  // lib.optionalAttrs isDarwin { /* macOS files */ };
 
 # For programs
-config = lib.mkIf pkgs.stdenv.isDarwin {
+config = lib.mkIf isDarwin {
   programs.aerospace = { /* config */ };
 };
 
 # For activation
-activation = lib.mkIf pkgs.stdenv.isDarwin { /* macOS activation */ };
+activation = lib.mkIf isDarwin { /* macOS activation */ };
 ```
 
-**NEW: Use global module arguments** (available in any module):
+**Global module arguments** (available in any module):
 ```nix
 { config, lib, pkgs, isDarwin, isLinux, currentSystemName, currentSystemUser, ... }:
 {
@@ -329,7 +339,7 @@ activation = lib.mkIf pkgs.stdenv.isDarwin { /* macOS activation */ };
 
 **Platform-specific**: Different between macOS and Linux (use platform guards or platform-specific modules)
 - Example: Aerospace (macOS only), systemd services (Linux only)
-- Implement in: Shared programs with `lib.mkIf pkgs.stdenv.isDarwin`, platform modules, or conditional imports
+- Implement in: Shared programs with `lib.mkIf isDarwin`, platform modules, or conditional imports
 
 **Host-specific**: Different between individual machines (use `modules/{platform}/hosts/{hostname}/`)
 - Example: Git email, Discord (personal only), work tools (work only), desktop environment (desktop only)

@@ -1,45 +1,16 @@
 { pkgs, ... }:
+let
+  # Shared LSP packages used by multiple editors
+  lspPackages = import ../lsp-packages.nix { inherit pkgs; };
+in
 {
   programs = {
     helix = {
       enable = true;
       defaultEditor = false;
-      extraPackages = [
-        pkgs.terraform-ls
-        pkgs.dockerfile-language-server
-        pkgs.docker-compose-language-service
-        pkgs.yaml-language-server
-        # pkgs.marksman
+      extraPackages = lspPackages ++ [
+        # Helix-specific extras
         pkgs.kotlin-language-server
-
-        # Go packages
-        pkgs.gopls
-        pkgs.golangci-lint
-        pkgs.golangci-lint-langserver
-        pkgs.delve
-
-        pkgs.nil
-        pkgs.nixfmt
-        pkgs.buf
-        pkgs.bash-language-server
-        pkgs.just-lsp
-        pkgs.lua-language-server
-        pkgs.ruff
-        pkgs.kdlfmt
-        pkgs.taplo # toml
-
-        # Typescript stuff
-        pkgs.typescript-language-server
-        pkgs.prettier
-        pkgs.biome
-
-        # All provided by the extracted package
-        # vscode-css-language-server
-        # vscode-eslint-language-server
-        # vscode-html-language-server
-        # vscode-json-language-server
-        # vscode-markdown-language-server
-        pkgs.vscode-langservers-extracted
       ];
       settings = {
         editor = {

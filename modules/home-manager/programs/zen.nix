@@ -1,13 +1,13 @@
 # Zen browser - Linux only (NixOS)
 # macOS users should use Arc instead
 {
-  pkgs,
   lib,
+  isLinux,
   ...
 }:
 {
   programs.zen-browser = {
-    enable = pkgs.stdenv.isLinux;
+    enable = isLinux;
 
     # Privacy and security policies
     policies = {

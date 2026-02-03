@@ -76,7 +76,7 @@
       # Darwin-specific modules
       darwinModules = [
         ../modules/darwin
-        ../modules/homebrew
+        ../modules/darwin/homebrew
         inputs.nix-homebrew.darwinModules.nix-homebrew
         {
           # Used for backwards compatibility, please read the changelog before changing.

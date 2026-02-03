@@ -1,18 +1,18 @@
 {
-  pkgs,
   inputs,
   user,
+  pkgs,
   ...
 }:
 {
   imports = [
-    ../../modules/homebrew/hosts/personal-mac.nix
+    ../../../modules/darwin/homebrew/hosts/work-mac.nix
   ];
 
   users.users.${user} = {
     name = user;
     home = "/Users/${user}";
-    uid = 501;
+    # uid = 501;
   };
 
   home-manager = {
@@ -24,8 +24,8 @@
       { ... }:
       {
         imports = [
-          ../../modules/home-manager/home.nix
-          ../../modules/home-manager/hosts/personal-mac.nix
+          ../../../modules/home-manager/home.nix
+          ../../../modules/home-manager/hosts/work-mac
         ];
       };
   };
@@ -47,20 +47,18 @@
         persistent-apps = [
           "/Applications/Arc.app"
           "/System/Applications/Messages.app"
-          "/Applications/WhatsApp.app"
-          "${pkgs.discord}/Applications/Discord.app"
-          "/Applications/1Password.app"
+          "/Applications/Slack.app"
           "/Applications/Ghostty.app"
-          "/Applications/IntelliJ IDEA CE.app"
+          "/Applications/Postico.app"
+          "/Applications/IntelliJ IDEA.app"
           "/System/Applications/Mail.app"
           "/System/Applications/Calendar.app"
           "/Applications/Todoist.app"
           "/System/Applications/Music.app"
-          "/System/Applications/News.app"
+          "/Users/michaelholtzcher/Applications/Google Gemini.app"
+          "/Users/michaelholtzcher/Applications/Reclaim.app"
         ];
       };
-
     };
   };
-
 }

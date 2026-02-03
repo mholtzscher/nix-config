@@ -110,7 +110,7 @@
           name = "personal-mac";
           system = "aarch64-darwin";
           darwin = true;
-          hostPath = ./hosts/darwin/personal-mac.nix;
+          hostPath = ./hosts/darwin/personal-mac;
           user = "michael";
         };
 
@@ -119,7 +119,7 @@
           name = "work-mac";
           system = "aarch64-darwin";
           darwin = true;
-          hostPath = ./hosts/darwin/work-mac.nix;
+          hostPath = ./hosts/darwin/work-mac;
           user = "michaelholtzcher";
           isWork = true;
         };
@@ -144,7 +144,7 @@
         wanda = lib.mkHome {
           name = "wanda";
           system = "x86_64-linux";
-          hostPath = ./hosts/ubuntu/wanda.nix;
+          hostPath = ./hosts/ubuntu/wanda;
           user = "michael";
         };
       };
