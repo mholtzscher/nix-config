@@ -17,12 +17,11 @@ in
         pkgs,
         lib,
         config,
+        self,
         ...
       }:
       {
-        imports = [
-          ../../modules-legacy/home-manager/hosts/wanda/containers.nix
-        ];
+        imports = [ self.modules.homeManager.wandaContainers ];
 
         home.packages = with pkgs; [
           bandwhich
