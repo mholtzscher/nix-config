@@ -18,8 +18,7 @@ with pkgs;
   zig
 ]
 ++ lib.optionals (!isWork) [
-  # grepai - AI-powered semantic code search tool
-  inputs.grepai.packages.${pkgs.stdenv.hostPlatform.system}.default
+
 ]
 ++ [
   buf

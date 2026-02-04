@@ -61,10 +61,7 @@
       url = "github:AvengeMedia/DankMaterialShell";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    grepai = {
-      url = "github:yoanbernabeu/grepai";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+
     ugh = {
       url = "github:mholtzscher/ugh";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -95,7 +92,7 @@
       neovim-nightly,
       awww,
       dms,
-      grepai,
+
       ugh,
       zen-browser,
     }:
