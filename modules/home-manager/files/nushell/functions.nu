@@ -550,7 +550,7 @@ export def ai_commit [
     return 1
   }
 
-  let model = "opencode/gemini-3-flash"
+  let model = "opencode/big-pickle"
   log info $"Analyzing staged changes with AI using ($model)..."
 
   # Use OpenCode CLI to analyze the diff and generate commit message
