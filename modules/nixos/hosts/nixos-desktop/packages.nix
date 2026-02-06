@@ -23,15 +23,6 @@
     polkitPolicyOwners = [ "michael" ];
   };
 
-  # Enable 1Password integration with Zen browser
-  # See: https://github.com/0xc000022070/zen-browser-flake?tab=readme-ov-file#1password
-  environment.etc."1password/custom_allowed_browsers" = {
-    text = ''
-      .zen-wrapped
-    '';
-    mode = "0755";
-  };
-
   # Install Nerd Font packages (matching macOS configuration)
   fonts.packages = with pkgs; [
     nerd-fonts.iosevka

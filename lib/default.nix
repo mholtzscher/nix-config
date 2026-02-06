@@ -60,7 +60,6 @@
         # Home-manager specific module arguments - make variables available without explicit import
         {
           home-manager.sharedModules = [
-            inputs.zen-browser.homeModules.default
             {
               _module.args = {
                 inherit isWork;
@@ -154,7 +153,6 @@
 
       modules = [
         hostPath
-        inputs.zen-browser.homeModules.default
 
         # Module arguments for home-manager modules
         {

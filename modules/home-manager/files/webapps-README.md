@@ -46,7 +46,7 @@ Each app supports:
 - **name** (required): Display name in launcher
 - **url** (required): Web URL to open
 - **browser** (default: "firefox"): Browser to use
-  - Options: `firefox`, `chromium`, `google-chrome`, `zen-browser`
+  - Options: `firefox`, `chromium`, `google-chrome`
 - **comment** (optional): Description shown in launcher
 - **icon** (optional): Path to PNG icon file
 - **mimeType** (optional): MIME type handler (e.g., `x-scheme-handler/mailto`)
@@ -76,7 +76,6 @@ Different browsers launch web apps differently:
 
 - **Firefox**: Uses `--new-window --kiosk` for fullscreen app mode
 - **Chromium/Chrome**: Uses `--app=URL` for standalone window
-- **Zen Browser**: Uses `--new-window` for standalone window
 
 ## Desktop Categories
 
