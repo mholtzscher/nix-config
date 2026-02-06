@@ -22,7 +22,6 @@
   system.defaults = {
     NSGlobalDomain = {
       AppleKeyboardUIMode = 3;
-      AppleInterfaceStyle = "Dark";
       AppleShowAllExtensions = true;
       InitialKeyRepeat = 15;
       KeyRepeat = 2;
