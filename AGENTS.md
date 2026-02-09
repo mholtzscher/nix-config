@@ -81,7 +81,6 @@ modules/
   │           ├── composition.nix      # Niri window manager + keybindings
   │           ├── gaming.nix           # Steam, MangoHud, GameMode
   │           ├── theme.nix            # GTK/Qt theming
-  │           ├── wallpaper.nix        # swaybg wallpaper daemon
   │           └── webapps.nix          # Web apps as native apps
   ├── shared/                          # Cross-platform modules
   │   ├── default.nix

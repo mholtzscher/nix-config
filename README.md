@@ -66,7 +66,6 @@ A comprehensive, multi-platform Nix flake managing both macOS (Darwin) and NixOS
 │   │           ├── launcher.nix # Vicinae app launcher
 │   │           ├── gaming.nix   # Gaming (Steam, MangoHud, etc.)
 │   │           ├── theme.nix    # GTK/Qt theming & dark mode
-│   │           ├── wallpaper.nix # Wallpaper daemon (swaybg)
 │   │           └── webapps.nix  # Web apps as native apps
 │   ├── shared/                  # Cross-platform modules
 │   │   ├── default.nix
