@@ -102,8 +102,8 @@
     # Niri spawns it on-demand when X11 apps connect (no config needed)
     xwayland-satellite
     xwayland # Still needed as dependency for satellite
-    xorg.xhost
-    xorg.xdpyinfo
+    xhost
+    xdpyinfo
   ];
 
   programs = {
