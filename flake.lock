@@ -143,11 +143,11 @@
         "quickshell": "quickshell"
       },
       "locked": {
-        "lastModified": 1770661295,
-        "narHash": "sha256-YEzQBHbuCorZ/7+zZf76yssManVgz1jJEQHNwZ7hIZk=",
+        "lastModified": 1770695287,
+        "narHash": "sha256-dG00GMD1B70iFZ791kAA/eONUPkWuLwHfH+tTobfJYI=",
         "owner": "AvengeMedia",
         "repo": "DankMaterialShell",
-        "rev": "8c01deba86e9cd0b0505c85dd3cc777e15f1d99f",
+        "rev": "d88b04fc30d9a4f9befeef27ddb7861b44f120c0",
         "type": "github"
       },
       "original": {
@@ -430,11 +430,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1770595508,
-        "narHash": "sha256-d81J55C/ctzfofd10e4k8Bldm1eXKuVaQAewbZPjHN4=",
+        "lastModified": 1770681890,
+        "narHash": "sha256-ommto8XEvGMYGuvrIjj2VM1tFZkRoLLmSuie+fvTTOk=",
         "owner": "nix-community",
         "repo": "neovim-nightly-overlay",
-        "rev": "58b19445f29efe3b94db874fc64407099de0f0f7",
+        "rev": "3560c52c15aad8fccd4f62ae794b622969050202",
         "type": "github"
       },
       "original": {
@@ -446,11 +446,11 @@
     "neovim-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1770587030,
-        "narHash": "sha256-2CaAx32akEOjUwkKnkvMWsHLhMvoIZ/SsV4ByiEIxfg=",
+        "lastModified": 1770678367,
+        "narHash": "sha256-suvGeMX6UQdyGuSNRLH4zJ25b72XfQBDva7Fxm+PNiA=",
         "owner": "neovim",
         "repo": "neovim",
-        "rev": "19379d1255554041eb6d67423cfa83ca23e5be42",
+        "rev": "57fc77ed29ad9005d893a9dc2f37b3ad53aec4e6",
         "type": "github"
       },
       "original": {
@@ -662,11 +662,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1770676068,
-        "narHash": "sha256-gCD9K2Li31F3KhEpSBCT+8fAbqFree5phQw3CxrX+js=",
+        "lastModified": 1770697137,
+        "narHash": "sha256-Yg7Pb7P3UxzWWm1Nl4juZHIQbxzwNbNyfg4/GG0I8tg=",
         "owner": "sst",
         "repo": "opencode",
-        "rev": "832902c8e346b1fb988bd9864b0fe5b3b8ab9609",
+        "rev": "56a752092e78043258372ec7ff5b38c7fe8e622c",
         "type": "github"
       },
       "original": {
@@ -883,11 +883,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1770675431,
-        "narHash": "sha256-safIcGb/gcrzTFW8qihKDCwVESSIpgYeplWQof4PGWs=",
+        "lastModified": 1770686178,
+        "narHash": "sha256-ykrOJaZHZSXsm8B3mosxci8qPcgTCIw3JwFYJ5wMdvM=",
         "owner": "mholtzscher",
         "repo": "ugh",
-        "rev": "1a4ac291bd759794b45a2978fa8309020845e7df",
+        "rev": "5dff5b015c2ba3dde36b584204f464cb45f44973",
         "type": "github"
       },
       "original": {
