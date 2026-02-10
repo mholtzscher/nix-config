@@ -1,12 +1,10 @@
 {
   pkgs,
-  inputs,
   lib,
   isDarwin,
   ...
 }:
 {
-  # Catppuccin theme is automatically managed by catppuccin/nix module
   programs = {
     ghostty = {
       enable = true;
@@ -25,8 +23,9 @@
         window-height = 60;
         window-width = 200;
         quick-terminal-position = "center";
-        quick-terminal-size = "60%";
+        quick-terminal-size = "50%,50%";
         quick-terminal-screen = lib.mkIf isDarwin "macos-menu-bar";
+        window-save-state = "never"; # seems to fix the quick-terminal-size not working right
 
         custom-shader = [
           # "${../files/ghostty/shaders/dvd_bounce_paytient.glsl}"
