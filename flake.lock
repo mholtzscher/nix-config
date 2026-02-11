@@ -883,11 +883,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1770819168,
-        "narHash": "sha256-YJwbZxtEgutuH8t4JfWmMfExtZhd/CWcpxnp6Kx3HWw=",
+        "lastModified": 1770840092,
+        "narHash": "sha256-jee8Nfj4ic8sEZULWvyIZB7zZh442BAv8UdAjTYqqfo=",
         "owner": "mholtzscher",
         "repo": "ugh",
-        "rev": "f433b353c72217ef1f82d22fe38d4238ee5812dd",
+        "rev": "62d2a48581c71269a43530f036af1a7c5ada5a54",
         "type": "github"
       },
       "original": {
