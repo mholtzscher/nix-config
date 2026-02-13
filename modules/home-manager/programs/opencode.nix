@@ -26,6 +26,8 @@
       source = ../files/opencode/commands;
       recursive = true;
     };
+
+    "${config.xdg.configHome}/opencode/AGENTS.md".source = ../files/opencode/AGENTS.md;
   };
 
   programs = {
