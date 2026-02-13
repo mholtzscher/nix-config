@@ -1,24 +1,27 @@
 {
   pkgs,
+  lib,
   inputs,
   isWork,
   config,
   ...
 }:
 {
-  home.file."${config.xdg.configHome}/opencode/skills" = {
-    source = ../files/opencode/skills;
-    recursive = true;
-  };
+  home.file = lib.mkIf (!isWork) {
+    "${config.xdg.configHome}/opencode/skills" = {
+      source = ../files/opencode/skills;
+      recursive = true;
+    };
 
-  home.file."${config.xdg.configHome}/opencode/agents" = {
-    source = ../files/opencode/agents;
-    recursive = true;
-  };
+    "${config.xdg.configHome}/opencode/agents" = {
+      source = ../files/opencode/agents;
+      recursive = true;
+    };
 
-  home.file."${config.xdg.configHome}/opencode/commands" = {
-    source = ../files/opencode/commands;
-    recursive = true;
+    "${config.xdg.configHome}/opencode/commands" = {
+      source = ../files/opencode/commands;
+      recursive = true;
+    };
   };
 
   programs = {
