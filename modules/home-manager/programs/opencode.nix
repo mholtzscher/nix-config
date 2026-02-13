@@ -7,6 +7,10 @@
   ...
 }:
 {
+  home.sessionVariables = lib.mkIf (!isWork) {
+    OPENCODE_ENABLE_EXPERIMENTAL_MODELS = "true";
+  };
+
   home.file = lib.mkIf (!isWork) {
     "${config.xdg.configHome}/opencode/skills" = {
       source = ../files/opencode/skills;

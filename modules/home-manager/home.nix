@@ -111,9 +111,6 @@ in
 
       TOPIARY_CONFIG_FILE = "${config.xdg.configHome}/topiary/languages.ncl";
       TOPIARY_LANGUAGE_DIR = "${config.xdg.configHome}/topiary/languages";
-    }
-    // lib.optionalAttrs (!isWork) {
-      OPENCODE_ENABLE_EXPERIMENTAL_MODELS = "true";
     };
   };
 
