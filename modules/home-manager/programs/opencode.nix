@@ -37,6 +37,18 @@
       settings = {
         # share = "disabled";
         username = "mholtzscher";
+        permission = {
+          external_directory = {
+            "~/go/pkg/mod/**" = "allow";
+            "~/.cache/go-build/**" = "allow";
+            "~/Library/Caches/go-build/**" = "allow";
+          };
+          edit = {
+            "~/go/pkg/mod/**" = "deny";
+            "~/.cache/go-build/**" = "deny";
+            "~/Library/Caches/go-build/**" = "deny";
+          };
+        };
         keybinds = {
           "session_child_cycle" = "shift+right";
           "session_child_cycle_reverse" = "shift+left";
