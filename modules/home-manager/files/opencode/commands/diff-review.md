@@ -1,3 +1,8 @@
+---
+description: Perform a comprehensive code review of recent changes
+agent: build
+---
+
 # Code Review
 
 Thoroughly review the following git diff of my uncommitted changes.
@@ -67,4 +72,4 @@ Structure your response as:
 • Overall Rating: [1-10]  • Lines changed: [approximate count]  • Priority: [High/Medium/Low] for addressing these issues
 
 If There are no changes, respond with "No changes detected" and a dad-joke about programming.
-nsure every code change is shown as a diff for easy application.
+sure every code change is shown as a diff for easy application.
