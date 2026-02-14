@@ -46,6 +46,9 @@
       pull = {
         rebase = true;
       };
+      core = {
+        pager = "diffnav";
+      };
     };
     lfs.enable = true;
     # Delta theme managed by catppuccin (via delta.nix)
