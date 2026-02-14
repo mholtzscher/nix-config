@@ -299,7 +299,7 @@ vim.lsp.enable({
 	"eslint",
 	"golangci_lint_ls",
 	"gopls",
-	"harper_ls",
+-- "harper_ls",
 	"html",
 	"jsonls",
 	"kotlin_lsp",
@@ -318,9 +318,9 @@ vim.lsp.enable({
 })
 
 -- harper_ls only for markdown
-vim.lsp.config("harper_ls", {
-	filetypes = { "markdown" },
-})
+-- vim.lsp.config("harper_ls", {
+-- 	filetypes = { "markdown" },
+-- })
 
 -- lua_ls VIM support
 vim.lsp.config("lua_ls", {

@@ -43,7 +43,7 @@ in
       pkgs.rustfmt
       pkgs.stylua # lua formatter
       pkgs.shfmt # bash/sh formatter
-      pkgs.harper # grammar checker
+      # pkgs.harper # grammar checker
     ];
   };
 }
