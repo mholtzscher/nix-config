@@ -1,6 +1,12 @@
-{ pkgs, isWork, ... }:
+{
+  pkgs,
+  lib,
+  isDarwin,
+  isWork,
+  ...
+}:
 let
-  sharedAliases = import ../shared-aliases.nix { inherit pkgs; };
+  sharedAliases = import ../shared-aliases.nix { };
   workOnboardingScript = ''
     if [ -f /Users/michaelholtzcher/code/paytient/onboarding/engineering.sh ]; then
         source /Users/michaelholtzcher/code/paytient/onboarding/engineering.sh
@@ -11,7 +17,7 @@ in
   programs = {
     zsh = {
       enable = true;
-      shellAliases = sharedAliases.shellAliases // { };
+      shellAliases = sharedAliases.shellAliases;
       initContent = ''
         ${if isWork then workOnboardingScript else ""}
 

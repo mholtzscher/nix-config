@@ -1,10 +1,12 @@
 {
   pkgs,
+  lib,
+  isDarwin,
   inputs,
   ...
 }:
 let
-  sharedAliases = import ../shared-aliases.nix { inherit pkgs; };
+  sharedAliases = import ../shared-aliases.nix { };
 in
 {
   programs = {
@@ -22,7 +24,7 @@ in
 
         ${builtins.readFile ../files/nushell/functions.nu}
       '';
-      shellAliases = sharedAliases.shellAliases // { };
+      shellAliases = sharedAliases.shellAliases;
       settings = {
         edit_mode = "vi";
         show_banner = false;

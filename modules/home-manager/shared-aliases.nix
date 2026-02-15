@@ -1,6 +1,7 @@
 { ... }:
 {
   shellAliases = {
+    # Cross-platform aliases
     ngc = "nix-collect-garbage -d";
     nfc = "nix flake check";
 
