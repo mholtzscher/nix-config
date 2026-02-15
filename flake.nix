@@ -62,6 +62,10 @@
       url = "github:mholtzscher/ugh";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    today = {
+      url = "github:mholtzscher/today";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -85,6 +89,7 @@
       dms,
 
       ugh,
+      today,
     }:
     let
       # Import lib helpers for creating system configurations
