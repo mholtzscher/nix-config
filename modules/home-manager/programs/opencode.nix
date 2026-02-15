@@ -37,6 +37,7 @@
       settings = {
         # share = "disabled";
         username = "mholtzscher";
+        plugin = [ "@mohak34/opencode-notifier@latest" ];
         permission = {
           external_directory = {
             "~/go/pkg/mod/**" = "allow";
