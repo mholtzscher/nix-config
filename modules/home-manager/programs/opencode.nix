@@ -41,6 +41,7 @@
         permission = {
           bash = {
             "*" = "ask";
+            "just" = "allow";
             "ast-grep *" = "allow";
             "awk *" = "allow";
             "basename *" = "allow";
