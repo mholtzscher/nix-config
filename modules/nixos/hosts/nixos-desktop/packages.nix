@@ -10,6 +10,8 @@
     gnumake
     vscode
 
+    libnotify
+
     # Screenshot tools for Wayland
     grim
     slurp
