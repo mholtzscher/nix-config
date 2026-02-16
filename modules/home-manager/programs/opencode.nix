@@ -28,46 +28,6 @@
     };
 
     "${config.xdg.configHome}/opencode/AGENTS.md".source = ../files/opencode/AGENTS.md;
-
-    "${config.xdg.configHome}/opencode/opencode-notifier.json".text = builtins.toJSON {
-      notification = false;
-      sound = false;
-      command = {
-        enabled = true;
-        path = "${pkgs.bash}/bin/bash";
-        args = [
-          "-c"
-          ''
-            EVENT="$1"
-            MESSAGE="$2"
-            STATE_FILE="${config.xdg.stateHome}/opencode-notifier/state"
-
-            mkdir -p "$(dirname "$STATE_FILE")"
-
-            case "$EVENT" in
-              "session.created")
-                date +%s > "$STATE_FILE"
-                ;;
-              "complete"|"error"|"permission"|"question")
-                if [ -f "$STATE_FILE" ]; then
-                  START_TIME=$(cat "$STATE_FILE")
-                  CURRENT_TIME=$(date +%s)
-                  DURATION=$((CURRENT_TIME - START_TIME))
-                  if [ "$DURATION" -ge 30 ]; then
-                    if command -v osascript >/dev/null 2>&1; then
-                      osascript -e "display notification \"$MESSAGE\" with title \"OpenCode\""
-                    elif command -v notify-send >/dev/null 2>&1; then
-                      notify-send "OpenCode" "$MESSAGE"
-                    fi
-                  fi
-                  rm -f "$STATE_FILE"
-                fi
-                ;;
-            esac
-          ''
-        ];
-      };
-    };
   };
 
   programs = {
