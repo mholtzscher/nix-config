@@ -28,6 +28,12 @@
     };
 
     "${config.xdg.configHome}/opencode/AGENTS.md".source = ../files/opencode/AGENTS.md;
+
+    "${config.xdg.configHome}/opencode/opencode-notifier.json".text = builtins.toJSON {
+      command = {
+        minDuration = 30;
+      };
+    };
   };
 
   programs = {
