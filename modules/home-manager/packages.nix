@@ -42,6 +42,7 @@ with pkgs;
   kdlfmt
   ko
   kubernetes-helm
+  libnotify
   nixfmt
   nil
   oras
