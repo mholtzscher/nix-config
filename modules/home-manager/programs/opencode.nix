@@ -41,6 +41,7 @@
         permission = {
           bash = {
             "*" = "ask";
+            "nix flake check" = "allow";
             "just *" = "allow";
             "ast-grep *" = "allow";
             "awk *" = "allow";
