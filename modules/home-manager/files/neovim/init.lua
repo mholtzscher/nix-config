@@ -71,7 +71,7 @@ vim.api.nvim_create_autocmd("WinEnter", {
 	command = "set cursorline",
 })
 
-vim.pack.add({
+	vim.pack.add({
 	"https://github.com/catppuccin/nvim", -- catppuccin theme
 	"https://github.com/stevearc/oil.nvim", -- file explorer
 	"https://github.com/sebdah/vim-delve", -- Go debugging
@@ -91,6 +91,19 @@ vim.pack.add({
 	"https://github.com/lewis6991/gitsigns.nvim",
 	"https://github.com/esmuellert/codediff.nvim",
 	"https://github.com/MunifTanjim/nui.nvim",
+	"https://github.com/dmtrKovalenko/fff.nvim", -- fuzzy file finder
+	})
+
+-- Download/build fff.nvim Rust binary after pack update
+vim.api.nvim_create_autocmd("PackChanged", {
+	callback = function(event)
+		if event.data.updated and event.data.kind == "git" then
+			local ok, fff_download = pcall(require, "fff.download")
+			if ok then
+				fff_download.download_or_build_binary()
+			end
+		end
+	end,
 })
 
 vim.cmd("colorscheme catppuccin-mocha")
@@ -117,6 +130,12 @@ require("snacks").setup({
 	scroll = { enabled = true },
 	statuscolumn = { enabled = true },
 	words = { enabled = true },
+})
+
+require("fff").setup({
+	layout = {
+		prompt_position = "top",
+	},
 })
 
 require("mini.icons").setup()
@@ -202,9 +221,9 @@ require("which-key").setup({
 		{ "<leader>sr", function() require("grug-far").open() end, desc = "Search and replace" },
 		{ "<leader>sr", function() require("grug-far").open({ startCursorRow = 4, prefills = { search = vim.fn.expand("<cword>") } }) end, desc = "Search and replace (word)", mode = "x" },
 		-- Top Pickers & Explorer
-		{ "<leader><space>", function() Snacks.picker.smart() end, desc = "Smart Find Files" },
+		{ "<leader><space>", function() require("fff").find_files() end, desc = "FFF - Fuzzy Files" },
 		{ "<leader>,", function() Snacks.picker.buffers() end, desc = "Buffers" },
-		{ "<leader>/", function() Snacks.picker.grep() end, desc = "Grep" },
+		{ "<leader>/", function() require("fff").live_grep() end, desc = "FFF - Grep" },
 		{ "<leader>:", function() Snacks.picker.command_history() end, desc = "Command History" },
 		{ "<leader>n", function() Snacks.picker.notifications() end, desc = "Notification History" },
 		{ "<leader>e", "<CMD>Oil<CR>", desc = "File Explorer (Oil)" },
@@ -212,7 +231,7 @@ require("which-key").setup({
 		-- Find
 		{ "<leader>fb", function() Snacks.picker.buffers() end, desc = "Buffers" },
 		{ "<leader>fc", function() Snacks.picker.files({ cwd = vim.fn.stdpath("config") }) end, desc = "Find Config File" },
-		{ "<leader>ff", function() Snacks.picker.files() end, desc = "Find Files" },
+		{ "<leader>ff", function() require("fff").find_files() end, desc = "FFF - Fuzzy Files" },
 		{ "<leader>fg", function() Snacks.picker.git_files() end, desc = "Find Git Files" },
 		{ "<leader>fp", function() Snacks.picker.projects() end, desc = "Projects" },
 		{ "<leader>fr", function() Snacks.picker.recent() end, desc = "Recent" },
