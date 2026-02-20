@@ -97,7 +97,7 @@ vim.api.nvim_create_autocmd("WinEnter", {
 -- Download/build fff.nvim Rust binary after pack update
 vim.api.nvim_create_autocmd("PackChanged", {
 	callback = function(event)
-		if event.data.updated and event.data.kind == "git" then
+		if event.data.updated then
 			local ok, fff_download = pcall(require, "fff.download")
 			if ok then
 				fff_download.download_or_build_binary()
