@@ -68,7 +68,7 @@
             "gh * approve*" = "ask";
             "gh * close*" = "ask";
             "gh * comment*" = "ask";
-            "gh * create*" = "ask";
+            "gh * create*" = "allow";
             "gh * delete*" = "ask";
             "gh * edit*" = "ask";
             "gh * merge*" = "ask";
