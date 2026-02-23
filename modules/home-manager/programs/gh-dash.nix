@@ -15,7 +15,7 @@
           }
           {
             filters = "is:open owner:mholtzscher";
-            title = "mholtzscher";
+            title = "Owner";
             limit = 20;
           }
         ];
