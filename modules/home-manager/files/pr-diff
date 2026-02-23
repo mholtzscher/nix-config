@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+# Open PR diff in codediff.nvim
+# Usage: pr-diff <repo-path> <pr-number> <base-ref-name>
+
+REPO_PATH="$1"
+PR_NUMBER="$2"
+BASE_REF_NAME="$3"
+
+cd "$REPO_PATH" || exit 1
+
+# Fetch the base branch and PR to ensure we have latest
+git fetch origin "$BASE_REF_NAME"
+git fetch origin "pull/$PR_NUMBER/head:pr-$PR_NUMBER"
+
+# Open nvim with codediff showing PR diff (using origin/base for accurate merge-base)
+nvim -c ":CodeDiff origin/$BASE_REF_NAME...pr-$PR_NUMBER"

@@ -32,18 +32,19 @@
 
         repoPaths = {
           "paytient/m3p" = "~/code/m3p";
+          "mholtzscher/*" = "~/code/*";
         };
 
         smartFilteringAtLaunch = false;
 
         keybindings = {
-          # prs = [
-          #   {
-          #     name = "Octo";
-          #     key = "O";
-          #     command = "zellij run --name '{{.RepoName}} PR#{{.PrNumber}}' --cwd {{.RepoPath}} -- nvim -c ':silent Octo pr edit {{.PrNumber}}'";
-          #   }
-          # ];
+          prs = [
+            {
+              name = "CodeDiff";
+              key = "D";
+              command = "$HOME/bin/pr-diff {{.RepoPath}} {{.PrNumber}} {{.BaseRefName}}";
+            }
+          ];
         };
 
       };

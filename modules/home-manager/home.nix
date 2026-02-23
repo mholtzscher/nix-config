@@ -49,6 +49,10 @@ in
       # Cross-platform config files
       "${config.xdg.configHome}/kafkactl/config.yml".source = ./files/kafkactl.yaml;
       ".ideavimrc".source = ./files/ideavimrc;
+      "bin/pr-diff" = {
+        source = ./files/pr-diff;
+        executable = true;
+      };
       ".idea-lazy.vim".source = lazyIdeaVim;
 
       ## Topiary Config
