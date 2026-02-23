@@ -37,13 +37,13 @@
         smartFilteringAtLaunch = false;
 
         keybindings = {
-          prs = [
-            {
-              name = "Octo";
-              key = "O";
-              command = "zellij run --name '{{.RepoName}} PR#{{.PrNumber}}' --cwd {{.RepoPath}} -- nvim -c ':silent Octo pr edit {{.PrNumber}}'";
-            }
-          ];
+          # prs = [
+          #   {
+          #     name = "Octo";
+          #     key = "O";
+          #     command = "zellij run --name '{{.RepoName}} PR#{{.PrNumber}}' --cwd {{.RepoPath}} -- nvim -c ':silent Octo pr edit {{.PrNumber}}'";
+          #   }
+          # ];
         };
 
       };
