@@ -37,13 +37,24 @@ plugins {
     welcome-screen location="zellij:session-manager" {
         welcome_screen true
     }
+    sessionizer location="https://github.com/laperlej/zellij-sessionizer/releases/latest/download/zellij-sessionizer.wasm" {
+        cwd "/"
+        root_dirs "/home/michael/code;/home/michael;/Users/michaelholtzcher/code/paytient;/Users/michaelholtzcher/.config"
+        session_layout ":compact"
+    }
 }
 load_plugins {
 
 }
 keybinds clear-defaults=true {
     normal {
-
+        bind "f" {
+            LaunchOrFocusPlugin "sessionizer" {
+                floating true
+                move_to_focused_tab true
+            }
+            SwitchToMode "Locked"
+        }
     }
     locked {
         bind "ctrl g" {
