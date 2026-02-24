@@ -92,7 +92,9 @@ vim.api.nvim_create_autocmd("WinEnter", {
 	"https://github.com/esmuellert/codediff.nvim",
 	"https://github.com/MunifTanjim/nui.nvim",
 	"https://github.com/dmtrKovalenko/fff.nvim", -- fuzzy file finder
-	})
+	"https://github.com/selimacerbas/live-server.nvim", -- HTTP server for markdown preview
+	"https://github.com/selimacerbas/markdown-preview.nvim", -- markdown preview in browser
+})
 
 -- Download/build fff.nvim Rust binary after pack update
 vim.api.nvim_create_autocmd("PackChanged", {
@@ -177,6 +179,11 @@ require("oil").setup({
 require("todo-comments").setup()
 require("gitsigns").setup()
 require("grug-far").setup()
+require("markdown_preview").setup({
+	port = 8421,
+	open_browser = true,
+	debounce_ms = 300,
+})
 require("which-key").setup({
 	-- stylua: ignore
 	spec = {
@@ -217,6 +224,9 @@ require("which-key").setup({
 		{ "<leader>wd", "<CMD>close<CR>", desc = "Delete window" },
 		-- Plugins
 		{ "<leader>l", function() vim.pack.update() end, desc = "Update plugins" },
+		-- Markdown Preview
+		{ "<leader>mp", "<CMD>MarkdownPreview<CR>", desc = "Markdown Preview" },
+		{ "<leader>ms", "<CMD>MarkdownPreviewStop<CR>", desc = "Stop Preview" },
 		-- Search and replace
 		{ "<leader>sr", function() require("grug-far").open() end, desc = "Search and replace" },
 		{ "<leader>sr", function() require("grug-far").open({ startCursorRow = 4, prefills = { search = vim.fn.expand("<cword>") } }) end, desc = "Search and replace (word)", mode = "x" },
