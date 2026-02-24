@@ -39,7 +39,7 @@ plugins {
     }
     sessionizer location="https://github.com/laperlej/zellij-sessionizer/releases/latest/download/zellij-sessionizer.wasm" {
         cwd "/"
-        root_dirs "/home/michael/code;/home/michael;/Users/michaelholtzcher/code/paytient;/Users/michaelholtzcher/.config"
+        root_dirs "/home/michael/code;/home/michael;/Users/michael/.config;/Users/michael/code/vibes;/Users/michaelholtzcher/code/paytient;/Users/michaelholtzcher/.config"
         session_layout ":compact"
     }
 }
