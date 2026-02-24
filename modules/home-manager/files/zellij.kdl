@@ -42,6 +42,7 @@ plugins {
         root_dirs "/home/michael/code;/home/michael;/Users/michael/.config;/Users/michael/code/vibes;/Users/michaelholtzcher/code/paytient;/Users/michaelholtzcher/.config"
         session_layout ":compact"
     }
+    zsm location="https://github.com/liam-mackie/zsm/releases/download/v0.4.1/zsm.wasm" {}
 }
 load_plugins {
 
@@ -49,9 +50,12 @@ load_plugins {
 keybinds clear-defaults=true {
     normal {
         bind "f" {
-            LaunchOrFocusPlugin "sessionizer" {
+            LaunchOrFocusPlugin "zsm" {
+                // Default layout for Ctrl+Enter quick creation
+                default_layout "compact"
                 floating true
                 move_to_focused_tab true
+                base_paths "/home/michael|/Users/michael/code/vibes|/Users/michaelholtzcher|/Users/michaelholtzcher/code"
             }
             SwitchToMode "Locked"
         }
