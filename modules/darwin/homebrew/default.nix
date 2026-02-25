@@ -14,6 +14,7 @@
       "hashicorp/tap"
       "FelixKratz/formulae"
       "jetbrains/utils"
+      "1jehuang/mmdr"
     ];
     brews = [
       "awscli"
@@ -21,6 +22,7 @@
       "JetBrains/utils/kotlin-lsp"
       "mas"
       "podman"
+      "1jehuang/mmdr/mmdr"
     ];
     casks = [
       "arc"

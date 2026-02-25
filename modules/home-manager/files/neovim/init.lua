@@ -71,7 +71,7 @@ vim.api.nvim_create_autocmd("WinEnter", {
 	command = "set cursorline",
 })
 
-	vim.pack.add({
+vim.pack.add({
 	"https://github.com/catppuccin/nvim", -- catppuccin theme
 	"https://github.com/stevearc/oil.nvim", -- file explorer
 	"https://github.com/sebdah/vim-delve", -- Go debugging
@@ -101,9 +101,7 @@ vim.api.nvim_create_autocmd("PackChanged", {
 	callback = function(event)
 		if event.data.updated then
 			local ok, fff_download = pcall(require, "fff.download")
-			if ok then
-				fff_download.download_or_build_binary()
-			end
+			if ok then fff_download.download_or_build_binary() end
 		end
 	end,
 })
@@ -183,6 +181,7 @@ require("markdown_preview").setup({
 	port = 8421,
 	open_browser = true,
 	debounce_ms = 300,
+	mermaid_renderer = "rust",
 })
 require("which-key").setup({
 	-- stylua: ignore
@@ -328,7 +327,7 @@ vim.lsp.enable({
 	"eslint",
 	"golangci_lint_ls",
 	"gopls",
--- "harper_ls",
+	-- "harper_ls",
 	"html",
 	"jsonls",
 	"kotlin_lsp",
