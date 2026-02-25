@@ -1,7 +1,9 @@
 layout {
     pane split_direction="vertical" {
         pane command="nvim"
-        pane command="oc" focus=true
+        pane command="nu" focus=true {
+            args "-c" "source ~/.config/nushell/config.nu; oc"
+        }
     }
     pane size=1 borderless=true {
         plugin location="compact-bar"
