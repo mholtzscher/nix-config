@@ -1,0 +1,9 @@
+layout {
+    pane split_direction="vertical" {
+        pane command="nvim"
+        pane command="opencode" focus=true
+    }
+    pane size=1 borderless=true {
+        plugin location="compact-bar"
+    }
+}
