@@ -39,7 +39,7 @@
         username = "mholtzscher";
         plugin = [ "@mohak34/opencode-notifier" ];
         permission = {
-          # bash = {
+          bash = {
           #   "*" = "ask";
           #   "nix flake check" = "allow";
           #   "just *" = "allow";
@@ -143,7 +143,7 @@
           #   "z *" = "allow";
           #   "zip *" = "allow";
           #   "zoxide *" = "allow";
-          # };
+          };
           external_directory = {
             "~/go/pkg/mod/**" = "allow";
             "~/.cache/go-build/**" = "allow";
