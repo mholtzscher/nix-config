@@ -6,7 +6,7 @@
   ...
 }:
 let
-  sharedAliases = import ../shared-aliases.nix { };
+  sharedAliases = import ../shared-aliases.nix { inherit isWork; };
   workOnboardingScript = ''
     if [ -f /Users/michaelholtzcher/code/paytient/onboarding/engineering.sh ]; then
         source /Users/michaelholtzcher/code/paytient/onboarding/engineering.sh

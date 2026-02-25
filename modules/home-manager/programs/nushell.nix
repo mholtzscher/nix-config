@@ -2,11 +2,12 @@
   pkgs,
   lib,
   isDarwin,
+  isWork,
   inputs,
   ...
 }:
 let
-  sharedAliases = import ../shared-aliases.nix { };
+  sharedAliases = import ../shared-aliases.nix { inherit isWork; };
 in
 {
   programs = {

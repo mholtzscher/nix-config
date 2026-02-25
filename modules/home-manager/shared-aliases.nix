@@ -1,4 +1,7 @@
-{ ... }:
+{
+  isWork ? false,
+  ...
+}:
 {
   shellAliases = {
     # Cross-platform aliases
@@ -17,8 +20,7 @@
 
     clean = "git clean -Xdf";
 
-    oc = "opencode";
-    ocp = "sh ~/code/paytient/opencode/start";
+    oc = if isWork then "sh ~/code/paytient/opencode/start" else "opencode";
 
     pbj = "pbpaste | jq";
 
