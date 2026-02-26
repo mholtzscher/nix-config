@@ -4,6 +4,8 @@
 }:
 {
   shellAliases = {
+    sg = "ast-grep";
+
     # Cross-platform aliases
     ngc = "nix-collect-garbage -d";
     nfc = "nix flake check";
