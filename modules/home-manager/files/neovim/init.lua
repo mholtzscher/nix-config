@@ -88,15 +88,14 @@ vim.pack.add({
 	"https://github.com/nvim-mini/mini.ai", -- better text objects
 	"https://github.com/folke/flash.nvim", -- jump navigation
 	{ src = "https://github.com/Saghen/blink.cmp", version = vim.version.range("*") }, -- completion
+	{ src = "https://github.com/Saghen/blink.compat", version = vim.version.range("2.*") }, -- blink source compatibility
 	"https://github.com/lewis6991/gitsigns.nvim",
 	"https://github.com/esmuellert/codediff.nvim",
 	"https://github.com/MunifTanjim/nui.nvim",
 	"https://github.com/dmtrKovalenko/fff.nvim", -- fuzzy file finder
 	"https://github.com/selimacerbas/live-server.nvim", -- HTTP server for markdown preview
 	"https://github.com/selimacerbas/markdown-preview.nvim", -- markdown preview in browser
-	"https://github.com/zbirenbaum/copilot.lua", -- github copilot
-	"https://github.com/copilotlsp-nvim/copilot-lsp", -- copilot NES support
-	"https://github.com/giuxtaposition/blink-cmp-copilot", -- copilot source for blink
+	"https://github.com/ThePrimeagen/99", -- AI workflow
 })
 
 -- Download/build fff.nvim Rust binary after pack update
@@ -144,32 +143,13 @@ require("fff").setup({
 require("mini.icons").setup()
 require("mini.ai").setup()
 require("flash").setup()
-
-vim.g.copilot_nes_debounce = 500
-require("copilot").setup({
-	panel = { enabled = false },
-	suggestion = {
-		enabled = true,
-		auto_trigger = true,
-		hide_during_completion = true,
-		keymap = {
-			accept = "<C-l>",
-			accept_word = false,
-			accept_line = false,
-			next = false,
-			prev = false,
-			dismiss = "<C-\\>",
-			toggle_auto_trigger = false,
-		},
+local _99 = require("99")
+_99.setup({
+	completion = {
+		source = "blink",
 	},
-	nes = {
-		enabled = true,
-		auto_trigger = true,
-		keymap = {
-			accept_and_goto = "<M-u>",
-			accept = "<M-y>",
-			dismiss = "<C-]>",
-		},
+	md_files = {
+		"AGENTS.md",
 	},
 })
 require("blink.cmp").setup({
@@ -192,15 +172,7 @@ require("blink.cmp").setup({
 		keymap = { preset = "cmdline" },
 	},
 	sources = {
-		default = { "lsp", "path", "buffer", "copilot" },
-		providers = {
-			copilot = {
-				name = "copilot",
-				module = "blink-cmp-copilot",
-				score_offset = 100,
-				async = true,
-			},
-		},
+		default = { "lsp", "path", "buffer" },
 	},
 	signature = { enabled = true },
 })
@@ -224,12 +196,13 @@ require("markdown_preview").setup({
 })
 require("which-key").setup({
 	-- stylua: ignore
-	spec = {
-		-- Group names
-		{ "<leader>b", group = "Buffer" },
-		{ "<leader>c", group = "Code" },
-		{ "<leader>f", group = "Find" },
-		{ "<leader>g", group = "Git" },
+		spec = {
+			-- Group names
+			{ "<leader>b", group = "Buffer" },
+			{ "<leader>9", group = "99" },
+			{ "<leader>c", group = "Code" },
+			{ "<leader>f", group = "Find" },
+			{ "<leader>g", group = "Git" },
 		{ "<leader>s", group = "Search" },
 		{ "<leader>u", group = "UI" },
 		{ "<leader>w", group = "Window" },
@@ -243,23 +216,6 @@ require("which-key").setup({
 		-- LSP
 		{ "<leader>k", vim.lsp.buf.hover, desc = "Hover documentation" },
 		{ "<leader>ca", vim.lsp.buf.code_action, desc = "Code actions" },
-		{
-			"<leader>ce",
-			function()
-				local client = vim.lsp.get_clients({ bufnr = 0, name = "copilot" })[1]
-					or vim.lsp.get_clients({ name = "copilot" })[1]
-					or vim.lsp.get_clients({ bufnr = 0, name = "copilot_ls" })[1]
-					or vim.lsp.get_clients({ name = "copilot_ls" })[1]
-
-				if not client then
-					vim.notify("Copilot LSP not running for this buffer", vim.log.levels.WARN)
-					return
-				end
-
-				require("copilot-lsp.nes").request_nes(client)
-			end,
-			desc = "Copilot NES request",
-		},
 		{ "<leader>cr", vim.lsp.buf.rename, desc = "Rename" },
 		{ "[d", function() vim.diagnostic.jump({ count = -1 }) end, desc = "Previous diagnostic" },
 		{ "]d", function() vim.diagnostic.jump({ count = 1 }) end, desc = "Next diagnostic" },
@@ -279,6 +235,10 @@ require("which-key").setup({
 		{ "<leader>wd", "<CMD>close<CR>", desc = "Delete window" },
 		-- Plugins
 		{ "<leader>l", function() vim.pack.update() end, desc = "Update plugins" },
+		{ "<leader>9s", function() _99.search() end, desc = "99 Search" },
+		{ "<leader>9o", function() _99.open() end, desc = "99 Open previous" },
+		{ "<leader>9x", function() _99.stop_all_requests() end, desc = "99 Stop requests" },
+		{ "<leader>9v", function() _99.visual() end, mode = "v", desc = "99 Visual replace" },
 		-- Markdown Preview
 		{ "<leader>mp", "<CMD>MarkdownPreview<CR>", desc = "Markdown Preview" },
 		{ "<leader>ms", "<CMD>MarkdownPreviewStop<CR>", desc = "Stop Preview" },
