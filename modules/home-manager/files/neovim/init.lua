@@ -148,13 +148,26 @@ require("flash").setup()
 vim.g.copilot_nes_debounce = 500
 require("copilot").setup({
 	panel = { enabled = false },
-	suggestion = { enabled = false },
+	suggestion = {
+		enabled = true,
+		auto_trigger = true,
+		hide_during_completion = true,
+		keymap = {
+			accept = "<C-l>",
+			accept_word = false,
+			accept_line = false,
+			next = false,
+			prev = false,
+			dismiss = "<C-\\>",
+			toggle_auto_trigger = false,
+		},
+	},
 	nes = {
 		enabled = true,
 		auto_trigger = true,
 		keymap = {
-			accept_and_goto = "<M-l>",
-			accept = "<M-j>",
+			accept_and_goto = "<M-u>",
+			accept = "<M-y>",
 			dismiss = "<C-]>",
 		},
 	},
@@ -230,6 +243,23 @@ require("which-key").setup({
 		-- LSP
 		{ "<leader>k", vim.lsp.buf.hover, desc = "Hover documentation" },
 		{ "<leader>ca", vim.lsp.buf.code_action, desc = "Code actions" },
+		{
+			"<leader>ce",
+			function()
+				local client = vim.lsp.get_clients({ bufnr = 0, name = "copilot" })[1]
+					or vim.lsp.get_clients({ name = "copilot" })[1]
+					or vim.lsp.get_clients({ bufnr = 0, name = "copilot_ls" })[1]
+					or vim.lsp.get_clients({ name = "copilot_ls" })[1]
+
+				if not client then
+					vim.notify("Copilot LSP not running for this buffer", vim.log.levels.WARN)
+					return
+				end
+
+				require("copilot-lsp.nes").request_nes(client)
+			end,
+			desc = "Copilot NES request",
+		},
 		{ "<leader>cr", vim.lsp.buf.rename, desc = "Rename" },
 		{ "[d", function() vim.diagnostic.jump({ count = -1 }) end, desc = "Previous diagnostic" },
 		{ "]d", function() vim.diagnostic.jump({ count = 1 }) end, desc = "Next diagnostic" },
