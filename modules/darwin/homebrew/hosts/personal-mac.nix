@@ -3,7 +3,6 @@
 {
   homebrew = {
     taps = [
-      "opgginc/opencode-bar"
     ];
     brews = [
       "hashicorp/tap/terraform"
@@ -16,7 +15,6 @@
       "capacities"
       "intellij-idea-ce"
       "opencode-desktop"
-      "opencode-bar"
     ];
     masApps = {
       "WhatsApp" = 310633997;
