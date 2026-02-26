@@ -9,7 +9,7 @@
 {
   home.sessionVariables = lib.mkIf (!isWork) {
     OPENCODE_ENABLE_EXPERIMENTAL_MODELS = "true";
-    OPENCODE_EXPERIMENTAL = "true";
+    # OPENCODE_EXPERIMENTAL = "true";
   };
 
   home.file = lib.mkIf (!isWork) {
