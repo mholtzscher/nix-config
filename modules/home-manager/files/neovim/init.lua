@@ -94,6 +94,9 @@ vim.pack.add({
 	"https://github.com/dmtrKovalenko/fff.nvim", -- fuzzy file finder
 	"https://github.com/selimacerbas/live-server.nvim", -- HTTP server for markdown preview
 	"https://github.com/selimacerbas/markdown-preview.nvim", -- markdown preview in browser
+	"https://github.com/zbirenbaum/copilot.lua", -- github copilot
+	"https://github.com/copilotlsp-nvim/copilot-lsp", -- copilot NES support
+	"https://github.com/giuxtaposition/blink-cmp-copilot", -- copilot source for blink
 })
 
 -- Download/build fff.nvim Rust binary after pack update
@@ -141,6 +144,21 @@ require("fff").setup({
 require("mini.icons").setup()
 require("mini.ai").setup()
 require("flash").setup()
+
+vim.g.copilot_nes_debounce = 500
+require("copilot").setup({
+	panel = { enabled = false },
+	suggestion = { enabled = false },
+	nes = {
+		enabled = true,
+		auto_trigger = true,
+		keymap = {
+			accept_and_goto = "<M-l>",
+			accept = "<M-j>",
+			dismiss = "<C-]>",
+		},
+	},
+})
 require("blink.cmp").setup({
 	keymap = {
 		preset = "enter",
@@ -161,7 +179,15 @@ require("blink.cmp").setup({
 		keymap = { preset = "cmdline" },
 	},
 	sources = {
-		default = { "lsp", "path", "buffer" },
+		default = { "lsp", "path", "buffer", "copilot" },
+		providers = {
+			copilot = {
+				name = "copilot",
+				module = "blink-cmp-copilot",
+				score_offset = 100,
+				async = true,
+			},
+		},
 	},
 	signature = { enabled = true },
 })
