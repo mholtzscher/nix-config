@@ -18,16 +18,11 @@ you cut will be cut again.
 
 **Fight entropy. Leave the codebase better than you found it.**
 
-
 ## Testing
 
 - Write tests that verify semantically correct behavior
 - **Failing tests are acceptable** when they expose genuine bugs and test correct behavior
-
-## Git,VCS, SCM, Pull Requests, Commits
-
-- **Never** add Claude to attribution or as a contributor PRs, commits, messages, or PR descriptions
-- **gh CLI available** for GitHub operations (PRs, issues, etc.)
+- Add new test cases for each specific bug encountered.
 
 ## Plans
 
@@ -41,5 +36,3 @@ Invoke for: code review, architecture decisions, debugging analysis, refactor pl
 ### Librarian
 Invoke for: understanding 3rd party libraries/packages, exploring remote repositories, discovering open source patterns.
 
-### Overseer
-Invoke for: task orchestration, milestone/task/subtask management, finding next ready work, recording learnings, tracking multi-session work.
