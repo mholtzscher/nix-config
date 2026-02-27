@@ -44,6 +44,7 @@ vim.api.nvim_create_user_command("Format", function()
 		rust = "rustfmt %",
 		terraform = "terraform fmt %",
 		hcl = "terraform fmt %",
+		markdown = "prettier --parser markdown --prose-wrap always --write %",
 	}
 
 	local ft = vim.bo.filetype
