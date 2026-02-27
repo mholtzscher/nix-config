@@ -7,12 +7,14 @@
   ...
 }:
 {
-  home.sessionVariables = lib.mkIf (!isWork) {
+  # home.sessionVariables = lib.mkIf (!isWork) {
+  home.sessionVariables = {
     OPENCODE_ENABLE_EXPERIMENTAL_MODELS = "true";
     # OPENCODE_EXPERIMENTAL = "true";
   };
 
-  home.file = lib.mkIf (!isWork) {
+  # home.file = lib.mkIf (!isWork) {
+  home.file = {
     "${config.xdg.configHome}/opencode/skills" = {
       source = ../files/opencode/skills;
       recursive = true;
@@ -32,7 +34,8 @@
   };
 
   # Use activation copy (not HM symlink) so opencode tools deps resolve/load correctly.
-  home.activation.opencodeTools = lib.mkIf (!isWork) (
+  # home.activation.opencodeTools = lib.mkIf (!isWork) (
+  home.activation.opencodeTools = (
     lib.hm.dag.entryAfter [ "writeBoundary" ] ''
       dst="${config.xdg.configHome}/opencode/tools"
       src="${../files/opencode/tools}"
@@ -213,7 +216,7 @@
         };
         mcp = {
           gh_grep = {
-            enabled = true;
+            enabled = !isWork;
             type = "remote";
             url = "https://mcp.grep.app/";
           };
@@ -224,7 +227,7 @@
               "-y"
               "opensrc-mcp"
             ];
-            enabled = true;
+            enabled = !isWork;
           };
         };
       };
