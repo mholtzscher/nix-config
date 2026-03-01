@@ -10,6 +10,21 @@ Each result on stdout: `{"data": <json>}`
 
 Errors on stderr: `{"error": {"code": "...", "message": "...", "retryable": true|false, "details": {}}}`
 
+**Pagination Metadata:**
+
+For paginated list/search operations (`jira issue search`, `confluence space list`, `confluence page search`), a pagination record is emitted after all data records when more results are available:
+
+```json
+{"pagination":{"hasMore":true,"nextCursor":"abc123","returned":50}}
+```
+
+Fields:
+- `hasMore`: Boolean indicating if additional results exist
+- `nextCursor`: Token/cursor to fetch the next page
+- `returned`: Number of records returned in this batch
+
+When `hasMore` is false or pagination is not applicable (e.g., `confluence page comments`), the pagination record is omitted entirely.
+
 Best for programmatic consumption. One JSON object per line.
 
 ### Text
@@ -17,6 +32,8 @@ Best for programmatic consumption. One JSON object per line.
 Each result on stdout: raw JSON string + newline.
 
 Errors on stderr: `CODE: message`
+
+**Note:** Pagination metadata is not emitted in text format.
 
 ### Special case: `confluence page view`
 

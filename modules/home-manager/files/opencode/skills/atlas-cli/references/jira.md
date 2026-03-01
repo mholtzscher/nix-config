@@ -37,21 +37,23 @@ By default, known nested objects are collapsed to scalar values:
 
 ## issue search
 
-Search issues using JQL. `--jql` is required.
+Search issues using JQL. `--query` is required.
 
 ```bash
-atlas jira issue search --jql "project = PROJ AND status = 'In Progress'"
-atlas jira issue search --jql "assignee = currentUser() ORDER BY updated DESC" --limit 10
-atlas jira issue search --jql "sprint in openSprints()" --fields sprint,labels
+atlas jira issue search --query "project = PROJ AND status = 'In Progress'"
+atlas jira issue search --query "assignee = currentUser() ORDER BY updated DESC" --limit 10
+atlas jira issue search --query "sprint in openSprints()" --fields sprint,labels
 ```
 
 | Flag | Type | Default | Description |
 |------|------|---------|-------------|
-| `--jql` | string | - | JQL query (required) |
+| `--query` | string | - | JQL query (required) |
 | `--fields` | string slice | - | Additional fields |
 | `--expand` | string slice | - | Jira expand parameters |
 | `--raw` | bool | `false` | Full payload |
 | `--limit` | int | `50` | Max total results |
+| `--page-size` | int | `50` | Results per API request |
+| `--page-token` | string | - | Resume from specific position |
 
 ### Common JQL patterns
 
@@ -80,14 +82,15 @@ Jira JQL is not a semantic search engine. It does not automatically match relate
 
 **Example dynamic search for "performance":**
 ```bash
-# Search various related terms separately
-atlas jira issue search --jql "text ~ 'performance'"
-atlas jira issue search --jql "summary ~ 'performance'"
-atlas jira issue search --jql "text ~ 'slow'"
-atlas jira issue search --jql "text ~ 'latency'"
-atlas jira issue search --jql "text ~ 'optimization'"
-atlas jira issue search --jql "labels = 'performance'"
-atlas jira issue search --jql "summary ~ 'speed'"
+# Search multiple related terms in a single query
+atlas jira issue search --query "text ~ 'performance' OR text ~ 'slow' OR text ~ 'latency' OR text ~ 'optimization' OR summary ~ 'performance' OR summary ~ 'speed' OR labels = 'performance'"
+```
+
+For more granular control over field matching, search terms can also be run separately:
+```bash
+atlas jira issue search --query "text ~ 'performance'"       # body text
+atlas jira issue search --query "summary ~ 'performance'"     # title only
+atlas jira issue search --query "labels = 'performance'"      # exact label match
 ```
 
 ## issue comments

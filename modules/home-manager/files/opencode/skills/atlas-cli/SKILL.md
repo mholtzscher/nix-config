@@ -31,7 +31,7 @@ Jira:
 
 ```bash
 atlas jira issue describe PROJ-123
-atlas jira issue search --jql "project = PROJ AND status != Done" --limit 10
+atlas jira issue search --query "project = PROJ AND status != Done" --limit 10
 atlas jira issue comments PROJ-123
 atlas jira project list
 atlas jira issue types
@@ -47,7 +47,7 @@ atlas confluence space list
 atlas confluence space describe DEV
 atlas confluence page describe 12345678
 atlas confluence page view 12345678 --format markdown
-atlas confluence page search --cql "space = DEV AND title ~ 'architecture'" --limit 10
+atlas confluence page search --query "space = DEV AND title ~ 'architecture'" --limit 10
 atlas confluence page comments 12345678
 ```
 
