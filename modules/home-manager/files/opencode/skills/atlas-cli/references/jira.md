@@ -65,6 +65,31 @@ text ~ "search term"                        # full-text search
 ORDER BY updated DESC                       # sort by recently updated
 ```
 
+### Search Strategy
+
+Jira JQL is not a semantic search engine. It does not automatically match related terms, synonyms, or variations. When searching, you must manually try multiple related terms and contexts.
+
+**Best practices:**
+- Search both `summary` and `description` separately: `summary ~ "term"` vs `text ~ "term"`
+- Try synonyms and variations: "bug" vs "defect" vs "issue", "PR" vs "pull request"
+- Search abbreviations: "API" vs "application programming interface"
+- Check labels: `labels = "topic"` may find better results than text search
+- Use wildcards: `summary ~ "deploy*"` matches "deploy", "deployment", "deploying"
+- Search by project first: `project = PROJ AND text ~ "topic"` to narrow results
+- Try exact phrase vs partial: `"exact phrase"` vs `term`
+
+**Example dynamic search for "performance":**
+```bash
+# Search various related terms separately
+atlas jira issue search --jql "text ~ 'performance'"
+atlas jira issue search --jql "summary ~ 'performance'"
+atlas jira issue search --jql "text ~ 'slow'"
+atlas jira issue search --jql "text ~ 'latency'"
+atlas jira issue search --jql "text ~ 'optimization'"
+atlas jira issue search --jql "labels = 'performance'"
+atlas jira issue search --jql "summary ~ 'speed'"
+```
+
 ## issue comments
 
 Get comments on an issue. Comments include the body content as plain text (ADF converted to readable text).

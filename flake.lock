@@ -31,11 +31,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1772329098,
-        "narHash": "sha256-+/D+8Eo1eAQdwJo75hNqLmSPw7Sn86DJXbjKWxjhFPQ=",
+        "lastModified": 1772330826,
+        "narHash": "sha256-wDAA8LF3omICEIZgCH8Tlq5/HC+XIVq3Ri7jUokDgpI=",
         "owner": "mholtzscher",
         "repo": "atlas",
-        "rev": "a8d6cef21150a6f4ac4ca9d1aa8387107c071d8f",
+        "rev": "3f2855865217f56d53c269b11a2b3bc3d5af9f2e",
         "type": "github"
       },
       "original": {

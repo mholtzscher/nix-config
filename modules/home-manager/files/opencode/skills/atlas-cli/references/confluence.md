@@ -86,6 +86,29 @@ ancestor = 12345678                          # child pages under parent
 text ~ "search term"                         # full-text search
 ```
 
+### Search Strategy
+
+Confluence CQL is not a semantic search engine. It does not automatically match related terms, synonyms, or variations. When searching, you must manually try multiple related terms and contexts.
+
+**Best practices:**
+- Search both `title` and `text` separately: `title ~ "term"` vs `text ~ "term"`
+- Try synonyms and variations: "config" vs "configuration", "auth" vs "authentication"
+- Search abbreviations: "API" vs "application programming interface"
+- Check labels: `label = "topic"` may find better results than text search
+- Use wildcards sparingly: `title ~ "deploy*"` matches "deploy", "deployment", "deploying"
+- Search by space first: `space = TEAM AND text ~ "topic"` to narrow results
+
+**Example dynamic search for "economics":**
+```bash
+# Search various related terms separately
+atlas confluence page search --cql "text ~ 'economics'"
+atlas confluence page search --cql "title ~ 'economics'"
+atlas confluence page search --cql "text ~ 'pricing'"
+atlas confluence page search --cql "text ~ 'cost'"
+atlas confluence page search --cql "text ~ 'revenue'"
+atlas confluence page search --cql "label = 'economics'"
+```
+
 ## page comments
 
 Get footer comments on a page. Performs DFS traversal of comment threads (fetches replies recursively). Comments include the body content as plain text.
