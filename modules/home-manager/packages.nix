@@ -14,6 +14,8 @@ with pkgs;
   inputs.ugh.packages.${pkgs.stdenv.hostPlatform.system}.default
   # today - CLI tool
   inputs.today.packages.${pkgs.stdenv.hostPlatform.system}.default
+  # atlas - Atlassian CLI
+  inputs.atlas.packages.${pkgs.stdenv.hostPlatform.system}.default
   google-cloud-sdk
   nodejs_24
   lua

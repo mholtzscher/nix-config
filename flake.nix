@@ -41,6 +41,10 @@
       url = "github:mholtzscher/open-file";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    atlas = {
+      url = "github:mholtzscher/atlas";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     melt = {
       url = "github:mholtzscher/melt";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -83,6 +87,7 @@
       opencode,
       aerospace-utils,
       open-file,
+      atlas,
       melt,
       difftui,
       neovim-nightly,
