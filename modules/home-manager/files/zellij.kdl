@@ -53,7 +53,7 @@ keybinds clear-defaults=true {
             LaunchOrFocusPlugin "zsm" {
                 // Default layout for Ctrl+Enter quick creation
                 default_layout "compact"
-                floating true
+                // floating true
                 move_to_focused_tab true
                 base_paths "/home/michael|/Users/michael/code/vibes|/Users/michaelholtzcher|/Users/michaelholtzcher/code"
             }
