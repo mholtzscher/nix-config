@@ -3,6 +3,7 @@
 {
   homebrew = {
     taps = [
+      "wontaeyang/hrm"
     ];
     brews = [
       "hashicorp/tap/terraform"
@@ -14,6 +15,7 @@
       "1password-cli"
       "capacities"
       "intellij-idea-ce"
+      "hrm"
       "opencode-desktop"
     ];
     masApps = {
