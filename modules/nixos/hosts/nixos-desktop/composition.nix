@@ -149,6 +149,13 @@
             "dms.service"
           ];
 
+          # Dictation - speech-to-text using whisper.cpp
+          "Mod+Slash".action.spawn = [
+            "bash"
+            "-c"
+            "exec $HOME/bin/dictate"
+          ];
+
           # Applications
           "Mod+T".action.spawn = "ghostty";
           "Mod+E".action.spawn = "nautilus";
