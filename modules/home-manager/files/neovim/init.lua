@@ -133,6 +133,7 @@ require("snacks").setup({
 	scroll = { enabled = true },
 	statuscolumn = { enabled = true },
 	words = { enabled = true },
+	scratch = { enabled = true },
 })
 
 require("fff").setup({
@@ -313,6 +314,8 @@ require("which-key").setup({
 		{ "<leader>sS", function() Snacks.picker.lsp_workspace_symbols() end, desc = "LSP Workspace Symbols" },
 		-- Other
 		{ "<leader>bd", function() Snacks.bufdelete() end, desc = "Delete Buffer" },
+		{ "<leader>bs", function() Snacks.scratch() end, desc = "Scratch Buffer" },
+		{ "<leader>bS", function() Snacks.scratch.select() end, desc = "Scratch Select" },
 		{ "<leader>cR", function() Snacks.rename.rename_file() end, desc = "Rename File" },
 		{ "<leader>un", function() Snacks.notifier.hide() end, desc = "Dismiss All Notifications" },
 		{ "<leader>uC", function() Snacks.picker.colorschemes() end, desc = "Colorschemes" },
