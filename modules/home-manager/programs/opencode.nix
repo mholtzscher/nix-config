@@ -53,7 +53,6 @@
       settings = {
         # share = "disabled";
         username = "mholtzscher";
-        plugin = [ "@mohak34/opencode-notifier" ];
         permission = {
           bash = {
             #   "*" = "ask";
