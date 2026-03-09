@@ -1,9 +1,46 @@
 {
   pkgs,
   lib,
+  inputs,
   config,
   ...
 }:
+let
+  system = pkgs.stdenv.hostPlatform.system;
+
+  # Upstream uses buildRustPackage + Cargo.lock with git deps; nixpkgs requires
+  # outputHashes for those. We wrap buildRustPackage so desktop.nix picks it up
+  # during evaluation (overrideAttrs is too late).
+  rustPlatformWithOutputHashes = pkgs.rustPlatform // {
+    buildRustPackage =
+      attrsOrFn:
+      let
+        attrsFn = if builtins.isFunction attrsOrFn then attrsOrFn else (_: attrsOrFn);
+      in
+      pkgs.rustPlatform.buildRustPackage (
+        finalAttrs:
+        let
+          attrs = attrsFn finalAttrs;
+        in
+        attrs
+        // {
+          cargoLock = (attrs.cargoLock or { }) // {
+            outputHashes = (attrs.cargoLock.outputHashes or { }) // {
+              # Fill with real hash (Nix prints it on first build).
+              "specta-2.0.0-rc.22" = "sha256-YsyOAnXELLKzhNlJ35dHA6KGbs0wTAX/nlQoW8wWyJQ=";
+              "tauri-2.9.5" = "sha256-dv5E/+A49ZBvnUQUkCGGJ21iHrVvrhHKNcpUctivJ8M=";
+              "tauri-specta-2.0.0-rc.21" = "sha256-n2VJ+B1nVrh6zQoZyfMoctqP+Csh7eVHRXwUQuiQjaQ=";
+            };
+          };
+        }
+      );
+  };
+
+  opencodeDesktopSource = pkgs.callPackage "${inputs.opencode}/nix/desktop.nix" {
+    rustPlatform = rustPlatformWithOutputHashes;
+    opencode = inputs.opencode.packages.${system}.opencode;
+  };
+in
 {
   # NixOS Desktop-specific home-manager configuration
   # Desktop environment setup is now in modules/nixos/desktop/
@@ -37,6 +74,9 @@
   home.packages = with pkgs; [
     awscli2 # AWS command-line interface
     vesktop # Discord client with better Wayland support
+
+    # Latest desktop app from upstream repo, pinned by this flake's `inputs.opencode`.
+    opencodeDesktopSource
 
     # Linux desktop-specific GUI tools
     nautilus # File manager
