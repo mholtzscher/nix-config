@@ -145,6 +145,18 @@ in
         printf '%s' "$s"
       }
 
+      read_state_file() {
+        local path="$1"
+
+        if [ ! -f "$path" ]; then
+          return 0
+        fi
+
+        local value
+        IFS= read -r value < "$path" || true
+        printf '%s' "$value"
+      }
+
       mkdir -p "$MODEL_DIR"
 
       if [ ! -f "$MODEL_PATH" ]; then
@@ -170,8 +182,8 @@ in
       fi
 
       if [ -f "$PID_FILE" ]; then
-        pid="$(<"$PID_FILE" 2>/dev/null || true)"
-        audio_file="$(<"$REC_FILE" 2>/dev/null || true)"
+        pid="$(read_state_file "$PID_FILE")"
+        audio_file="$(read_state_file "$REC_FILE")"
 
         rm -f "$PID_FILE" "$REC_FILE"
 
