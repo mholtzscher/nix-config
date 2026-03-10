@@ -53,6 +53,7 @@
       settings = {
         # share = "disabled";
         username = "mholtzscher";
+        agent.explore.model = "openai/gpt-5.3-codex-spark";
         permission = {
           bash = {
             #   "*" = "ask";
