@@ -35,16 +35,16 @@
 
   # Use activation copy (not HM symlink) so opencode tools deps resolve/load correctly.
   # home.activation.opencodeTools = lib.mkIf (!isWork) (
-  home.activation.opencodeTools = (
-    lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-      dst="${config.xdg.configHome}/opencode/tools"
-      src="${../files/opencode/tools}"
-
-      rm -rf "$dst"
-      mkdir -p "$dst"
-      cp -R "$src"/. "$dst"/
-    ''
-  );
+  # home.activation.opencodeTools = (
+  #   lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+  #     dst="${config.xdg.configHome}/opencode/tools"
+  #     src="${../files/opencode/tools}"
+  #
+  #     rm -rf "$dst"
+  #     mkdir -p "$dst"
+  #     cp -R "$src"/. "$dst"/
+  #   ''
+  # );
 
   programs = {
     opencode = {
@@ -53,13 +53,16 @@
       settings = {
         # share = "disabled";
         username = "mholtzscher";
+        agent.plan = {
+          model = "openai/gpt-5.4";
+          reasoningEffort = "high";
+        };
         agent.explore.model = "openai/gpt-5.3-codex-spark";
         permission = {
           bash = {
             #   "*" = "ask";
             #   "nix flake check" = "allow";
             #   "just *" = "allow";
-            #   "ast-grep *" = "allow";
             #   "awk *" = "allow";
             #   "basename *" = "allow";
             #   "biome *" = "allow";
