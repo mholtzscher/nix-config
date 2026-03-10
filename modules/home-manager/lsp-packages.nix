@@ -40,6 +40,9 @@ with pkgs;
   taplo # TOML
 
   # TypeScript / JavaScript
+  svelte-language-server
+  tailwindcss-language-server
+  emmet-language-server
   typescript-language-server
   prettier
   biome

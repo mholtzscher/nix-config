@@ -40,17 +40,23 @@ vim.api.nvim_create_user_command("Format", function()
 		go = "gofmt -w %",
 		json = "prettier --parser json --write %",
 		jsonc = "prettier --parser json --write %",
+		html = "prettier --parser html --write %",
+		javascript = "prettier --parser babel --write %",
+		javascriptreact = "prettier --parser babel --write %",
 		nix = "nixfmt %",
 		python = "black %",
 		lua = "stylua %",
 		rust = "rustfmt %",
+		svelte = "prettier --parser svelte --write %",
 		terraform = "terraform fmt %",
+		typescript = "prettier --parser typescript --write %",
+		typescriptreact = "prettier --parser typescript --write %",
 		hcl = "terraform fmt %",
 		markdown = "prettier --parser markdown --prose-wrap always --write %",
 		yaml = "prettier --parser yaml --write %",
 	}
 
-	local ft = vim.bo.filetype
+	local ft = vim.bo.filetype -- formatter keys use Neovim filetypes, not file extensions
 	local cmd = formatters[ft]
 
 	if cmd then
@@ -347,6 +353,7 @@ vim.lsp.enable({
 	"cssls",
 	"docker_compose_language_service",
 	"dockerls",
+	"emmet_language_server",
 	"eslint",
 	"golangci_lint_ls",
 	"gopls",
@@ -360,7 +367,9 @@ vim.lsp.enable({
 	"nushell",
 	"ruff",
 	"rust_analyzer",
+	"svelte",
 	"taplo",
+	"tailwindcss",
 	"terraformls",
 	"ts_ls",
 	"ty",
