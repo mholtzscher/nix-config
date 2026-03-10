@@ -38,6 +38,8 @@ vim.filetype.add({
 vim.api.nvim_create_user_command("Format", function()
 	local formatters = {
 		go = "gofmt -w %",
+		json = "prettier --parser json --write %",
+		jsonc = "prettier --parser json --write %",
 		nix = "nixfmt %",
 		python = "black %",
 		lua = "stylua %",
@@ -45,6 +47,7 @@ vim.api.nvim_create_user_command("Format", function()
 		terraform = "terraform fmt %",
 		hcl = "terraform fmt %",
 		markdown = "prettier --parser markdown --prose-wrap always --write %",
+		yaml = "prettier --parser yaml --write %",
 	}
 
 	local ft = vim.bo.filetype
