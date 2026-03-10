@@ -25,7 +25,6 @@ with pkgs;
 
 ]
 ++ [
-  ast-grep
   buf
   cachix
   cookiecutter

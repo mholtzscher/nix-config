@@ -180,7 +180,7 @@ lsp_workspace_symbols(filePath=".", query="function")
 lsp_find_references(filePath="...", line=X, character=Y)
 ```
 
-**LSP Fallback**: If unavailable, rely on explore agents + AST-grep.
+**LSP Fallback**: If unavailable, rely on explore agents.
 
 **Merge: bash + LSP + existing + Task agent results. Mark "discovery" as completed.**
 
