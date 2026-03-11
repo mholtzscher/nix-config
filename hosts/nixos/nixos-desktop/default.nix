@@ -96,6 +96,7 @@
 
     # Browsers
     chromium
+    inputs.helium.packages.${pkgs.system}.default
 
     # XWayland integration via xwayland-satellite (recommended by Niri)
     # xwayland-satellite handles X11 app support automatically

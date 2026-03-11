@@ -70,6 +70,10 @@
       url = "github:mholtzscher/today";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    helium = {
+      url = "github:AlvaroParker/helium-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -95,6 +99,7 @@
 
       ugh,
       today,
+      helium,
     }:
     let
       # Import lib helpers for creating system configurations
