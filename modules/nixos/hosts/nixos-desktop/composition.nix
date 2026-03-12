@@ -42,7 +42,7 @@
           ];
 
           focus-ring = {
-            width = 2;
+            width = 0;
           };
 
           border = {
