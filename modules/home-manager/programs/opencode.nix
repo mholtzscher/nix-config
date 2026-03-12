@@ -57,7 +57,8 @@
           model = "openai/gpt-5.4";
           reasoningEffort = "high";
         };
-        agent.explore.model = "openai/gpt-5.3-codex-spark";
+        # agent.explore.model = "openai/gpt-5.3-codex-spark";
+        agent.explore.model = "opencode/gemini-3-flash";
         permission = {
           bash = {
             #   "*" = "ask";
