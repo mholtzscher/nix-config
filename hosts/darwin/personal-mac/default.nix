@@ -40,11 +40,6 @@
     autoMigrate = true;
   };
 
-  # Add Helium browser (Nix package via flake input)
-  environment.systemPackages = [
-    inputs.helium.packages.${pkgs.system}.default
-  ];
-
   system = {
     primaryUser = user;
     defaults = {

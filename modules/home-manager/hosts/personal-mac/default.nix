@@ -10,7 +10,7 @@
 
     # macOS-only packages
     aerospace
-    inputs.aerospace-utils.packages.${pkgs.system}.default
+    inputs.aerospace-utils.packages.${pkgs.stdenv.hostPlatform.system}.default
     mkalias
     pokemon-colorscripts-mac
   ];
