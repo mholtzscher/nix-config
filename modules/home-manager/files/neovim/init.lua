@@ -105,6 +105,7 @@ vim.pack.add({
 	"https://github.com/dmtrKovalenko/fff.nvim", -- fuzzy file finder
 	"https://github.com/selimacerbas/live-server.nvim", -- HTTP server for markdown preview
 	"https://github.com/selimacerbas/markdown-preview.nvim", -- markdown preview in browser
+	"https://github.com/windwp/nvim-ts-autotag", -- auto close HTML tags
 	-- "https://github.com/ThePrimeagen/99", -- AI workflow
 })
 
@@ -154,6 +155,13 @@ require("fff").setup({
 require("mini.icons").setup()
 require("mini.ai").setup()
 require("flash").setup()
+require("nvim-ts-autotag").setup({
+	opts = {
+		enable_close = true,
+		enable_rename = true,
+		enable_close_on_slash = false,
+	},
+})
 -- local _99 = require("99")
 -- _99.setup({
 -- 	completion = {
@@ -245,7 +253,7 @@ require("which-key").setup({
 		{ "<leader>|", "<CMD>vsplit<CR>", desc = "Split window right" },
 		{ "<leader>wd", "<CMD>close<CR>", desc = "Delete window" },
 		-- Plugins
-		-- { "<leader>l", function() vim.pack.update() end, desc = "Update plugins" },
+		{ "<leader>l", function() vim.pack.update() end, desc = "Update plugins" },
 		-- { "<leader>9s", function() _99.search() end, desc = "99 Search" },
 		-- { "<leader>9o", function() _99.open() end, desc = "99 Open previous" },
 		-- { "<leader>9x", function() _99.stop_all_requests() end, desc = "99 Stop requests" },
