@@ -105,7 +105,7 @@ vim.pack.add({
 	"https://github.com/dmtrKovalenko/fff.nvim", -- fuzzy file finder
 	"https://github.com/selimacerbas/live-server.nvim", -- HTTP server for markdown preview
 	"https://github.com/selimacerbas/markdown-preview.nvim", -- markdown preview in browser
-	"https://github.com/ThePrimeagen/99", -- AI workflow
+	-- "https://github.com/ThePrimeagen/99", -- AI workflow
 })
 
 -- Download/build fff.nvim Rust binary after pack update
@@ -154,15 +154,15 @@ require("fff").setup({
 require("mini.icons").setup()
 require("mini.ai").setup()
 require("flash").setup()
-local _99 = require("99")
-_99.setup({
-	completion = {
-		source = "blink",
-	},
-	md_files = {
-		"AGENTS.md",
-	},
-})
+-- local _99 = require("99")
+-- _99.setup({
+-- 	completion = {
+-- 		source = "blink",
+-- 	},
+-- 	md_files = {
+-- 		"AGENTS.md",
+-- 	},
+-- })
 require("blink.cmp").setup({
 	keymap = {
 		preset = "enter",
@@ -208,10 +208,10 @@ require("markdown_preview").setup({
 require("which-key").setup({
 	-- stylua: ignore
 		spec = {
-			-- Group names
-			{ "<leader>b", group = "Buffer" },
-			{ "<leader>9", group = "99" },
-			{ "<leader>c", group = "Code" },
+		-- Group names
+		{ "<leader>b", group = "Buffer" },
+		-- { "<leader>9", group = "99" },
+		{ "<leader>c", group = "Code" },
 			{ "<leader>f", group = "Find" },
 			{ "<leader>g", group = "Git" },
 		{ "<leader>s", group = "Search" },
@@ -245,11 +245,11 @@ require("which-key").setup({
 		{ "<leader>|", "<CMD>vsplit<CR>", desc = "Split window right" },
 		{ "<leader>wd", "<CMD>close<CR>", desc = "Delete window" },
 		-- Plugins
-		{ "<leader>l", function() vim.pack.update() end, desc = "Update plugins" },
-		{ "<leader>9s", function() _99.search() end, desc = "99 Search" },
-		{ "<leader>9o", function() _99.open() end, desc = "99 Open previous" },
-		{ "<leader>9x", function() _99.stop_all_requests() end, desc = "99 Stop requests" },
-		{ "<leader>9v", function() _99.visual() end, mode = "v", desc = "99 Visual replace" },
+		-- { "<leader>l", function() vim.pack.update() end, desc = "Update plugins" },
+		-- { "<leader>9s", function() _99.search() end, desc = "99 Search" },
+		-- { "<leader>9o", function() _99.open() end, desc = "99 Open previous" },
+		-- { "<leader>9x", function() _99.stop_all_requests() end, desc = "99 Stop requests" },
+		-- { "<leader>9v", function() _99.visual() end, mode = "v", desc = "99 Visual replace" },
 		-- Markdown Preview
 		{ "<leader>mp", "<CMD>MarkdownPreview<CR>", desc = "Markdown Preview" },
 		{ "<leader>ms", "<CMD>MarkdownPreviewStop<CR>", desc = "Stop Preview" },
