@@ -497,6 +497,22 @@ export def nb [] {
   }
 }
 
+# Build with timing visualization using nix-output-monitor (nom)
+# Shows per-derivation build times and progress
+export def nbt [] {
+  if (which nom | is-empty) {
+    log error "nix-output-monitor (nom) not installed. Run nb instead."
+    return 1
+  }
+
+  if ($nu.os-info.name == "macos") {
+    darwin-rebuild build --flake ~/.config/nix-config o+e>| nom
+  } else {
+    log error "nom build not supported on this platform"
+    return 1
+  }
+}
+
 # Platform-aware Nix apply/switch command
 # On macOS: sudo darwin-rebuild switch
 # On Linux: sudo nixos-rebuild switch --flake ~/.config/nix-config#desktop
@@ -507,6 +523,27 @@ export def nup [] {
     sudo darwin-rebuild switch --flake ~/.config/nix-config
   } else {
     log error "Unsupported OS: ($nu.os-info.name)"
+    return 1
+  }
+}
+
+# Switch with timing visualization using nix-output-monitor (nom)
+# Shows per-derivation build times and progress during switch
+export def nupt [] {
+  if (which nom | is-empty) {
+    log error "nix-output-monitor (nom) not installed. Run nup instead."
+    return 1
+  }
+
+  # Pre-authenticate sudo so password prompt works
+  sudo -v
+
+  if ($nu.os-info.name == "macos") {
+    sudo darwin-rebuild switch --flake ~/.config/nix-config o+e>| nom
+  } else if ($nu.os-info.name == "linux") {
+    sudo nixos-rebuild switch --flake ~/nix-config o+e>| nom
+  } else {
+    log error "nom not yet supported for this platform's switch type"
     return 1
   }
 }

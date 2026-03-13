@@ -61,8 +61,9 @@ with pkgs;
   kdlfmt
   ko
   kubernetes-helm
-  nixfmt
   nil
+  nixfmt
+  nix-output-monitor
   oras
   procs
   rm-improved
