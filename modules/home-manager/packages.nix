@@ -4,8 +4,25 @@
   isWork ? false,
 }:
 
+let
+  rtk = pkgs.rustPlatform.buildRustPackage rec {
+    pname = "rtk";
+    version = "0.29.0";
+    src = inputs.rtk;
+    cargoHash = "sha256-gNJjtQah7NFSgFVYJftK19dECzDvLCi2E33na2PtKmc=";
+    doCheck = false; # Tests fail in Nix sandbox due to permission issues
+    meta = {
+      description = "CLI proxy that reduces LLM token consumption";
+      homepage = "https://github.com/rtk-ai/rtk";
+      license = pkgs.lib.licenses.mit;
+    };
+  };
+in
+
 with pkgs;
 [
+  # rtk - CLI proxy that reduces LLM token consumption
+  rtk
   # melt - TUI for managing Nix flake inputs
   inputs.melt.packages.${pkgs.stdenv.hostPlatform.system}.default
   # difftui - A TUI diff tool (disabled: bun2nix dependency broken)

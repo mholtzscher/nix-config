@@ -74,6 +74,10 @@
       url = "github:AlvaroParker/helium-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    rtk = {
+      url = "github:rtk-ai/rtk";
+      flake = false;
+    };
   };
 
   outputs =
@@ -100,6 +104,7 @@
       ugh,
       today,
       helium,
+      rtk,
     }:
     let
       # Import lib helpers for creating system configurations
