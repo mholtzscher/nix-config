@@ -41,7 +41,6 @@
     ];
     masApps = {
       "Numbers" = 409203825;
-      "Hazeover" = 430798174;
       "Postico" = 6446933691;
       "Todoist" = 585829637;
     };
