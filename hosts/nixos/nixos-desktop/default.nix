@@ -75,6 +75,26 @@
     libinput.enable = true;
   };
 
+  # LLM inference server with GPU acceleration
+  # Auto-starts llama-server with all GPU layers enabled on port 8080
+  # Note: 999 is not a hard limit - llama.cpp will offload all available layers to GPU
+  systemd.services.llama-server = {
+    enable = true;
+    after = [ "network.target" ];
+    wantedBy = [ "multi-user.target" ];
+    serviceConfig = {
+      Type = "simple";
+      ExecStart = "${
+        pkgs.llama-cpp.override { cudaSupport = true; }
+      }/bin/llama-server --n-gpu-layers 999 --ctx-size 65536";
+      Restart = "on-failure";
+      User = user;
+      Group = "users";
+      WorkingDirectory = "/home/${user}";
+      Environment = "HOME=/home/${user}";
+    };
+  };
+
   # Environment variables for Wayland
   environment.sessionVariables = {
     NIXOS_OZONE_WL = "1";
@@ -105,6 +125,9 @@
     xwayland # Still needed as dependency for satellite
     xhost
     xdpyinfo
+
+    # LLM inference with GPU acceleration
+    (llama-cpp.override { cudaSupport = true; })
   ];
 
   programs = {
