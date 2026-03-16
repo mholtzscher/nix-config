@@ -105,6 +105,7 @@ vim.pack.add({
 	"https://github.com/dmtrKovalenko/fff.nvim", -- fuzzy file finder
 	"https://github.com/selimacerbas/live-server.nvim", -- HTTP server for markdown preview
 	"https://github.com/selimacerbas/markdown-preview.nvim", -- markdown preview in browser
+	"https://github.com/windwp/nvim-autopairs", -- auto pairs and HTML tag newline
 	"https://github.com/windwp/nvim-ts-autotag", -- auto close HTML tags
 	-- "https://github.com/ThePrimeagen/99", -- AI workflow
 })
@@ -125,6 +126,22 @@ vim.cmd("colorscheme catppuccin-mocha")
 vim.api.nvim_create_autocmd("FileType", {
 	pattern = "*",
 	callback = function(args) pcall(vim.treesitter.start, args.buf) end,
+})
+
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = {
+		"html",
+		"xml",
+		"javascriptreact",
+		"typescriptreact",
+		"svelte",
+		"vue",
+		"astro",
+	},
+	-- Needed so autopairs <CR> indents correctly after nvim-ts-autotag splits HTML tags.
+	callback = function(args)
+		vim.bo[args.buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+	end,
 })
 
 -- PLUGIN SETUP
@@ -155,6 +172,9 @@ require("fff").setup({
 require("mini.icons").setup()
 require("mini.ai").setup()
 require("flash").setup()
+require("nvim-autopairs").setup({
+	map_cr = false,
+})
 require("nvim-ts-autotag").setup({
 	opts = {
 		enable_close = true,
@@ -174,6 +194,13 @@ require("nvim-ts-autotag").setup({
 require("blink.cmp").setup({
 	keymap = {
 		preset = "enter",
+		["<CR>"] = {
+			function(cmp)
+				if cmp.is_visible() then return cmp.accept() end
+				return require("nvim-autopairs").autopairs_cr()
+			end,
+			"fallback",
+		},
 		["<Tab>"] = { "select_next", "fallback" },
 		["<S-Tab>"] = { "select_prev", "fallback" },
 	},
