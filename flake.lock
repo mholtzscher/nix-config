@@ -889,11 +889,11 @@
     "rtk": {
       "flake": false,
       "locked": {
-        "lastModified": 1773665132,
-        "narHash": "sha256-aB9SWF9jYHeH3Apz5v4mQptLa6tS9cIfyfo6rHqsD8w=",
+        "lastModified": 1773328680,
+        "narHash": "sha256-QGHCa8rO4YBFXdrz78FhWKFxY7DmRxCXM8iYQv4yTYE=",
         "owner": "rtk-ai",
         "repo": "rtk",
-        "rev": "4467296bd1056a934cf5f2bf4062f04301f4aa67",
+        "rev": "188ec996b34806d0b5b72b527952c019d3766d8f",
         "type": "github"
       },
       "original": {
