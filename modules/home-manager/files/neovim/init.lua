@@ -112,7 +112,9 @@ vim.pack.add({
 	"https://github.com/milanglacier/minuet-ai.nvim", -- AI code completion
 })
 
--- Minuet AI setup for llama.cpp
+local ollama_completion_model = vim.env.OLLAMA_MINUET_MODEL or "qwen2.5-coder:7b"
+
+-- Minuet AI setup for Ollama
 local minuet = require("minuet")
 minuet.setup({
 	provider = "openai_fim_compatible",
@@ -126,24 +128,14 @@ minuet.setup({
 	provider_options = {
 		openai_fim_compatible = {
 			api_key = "TERM",
-			name = "Llama.cpp",
-			end_point = "http://localhost:35711/v1/completions",
-			model = "unsloth/Qwen3.5-35B-A3B-GGUF:UD-IQ4_XS",
+			name = "Ollama",
+			end_point = "http://127.0.0.1:11434/v1/completions",
+			model = ollama_completion_model,
 			stream = true,
 			optional = {
-				max_tokens = 64,
+				max_tokens = 56,
 				top_p = 0.9,
 				temperature = 0.6,
-			},
-			template = {
-				prompt = function(context_before_cursor, context_after_cursor, _)
-					return "<|fim_prefix|>"
-						.. context_before_cursor
-						.. "<|fim_suffix|>"
-						.. context_after_cursor
-						.. "<|fim_middle|>"
-				end,
-				suffix = false,
 			},
 		},
 	},
