@@ -108,6 +108,45 @@ vim.pack.add({
 	"https://github.com/windwp/nvim-autopairs", -- auto pairs and HTML tag newline
 	"https://github.com/windwp/nvim-ts-autotag", -- auto close HTML tags
 	-- "https://github.com/ThePrimeagen/99", -- AI workflow
+	"https://github.com/nvim-lua/plenary.nvim", -- Required by minuet-ai.nvim
+	"https://github.com/milanglacier/minuet-ai.nvim", -- AI code completion
+})
+
+-- Minuet AI setup for llama.cpp
+local minuet = require("minuet")
+minuet.setup({
+	provider = "openai_fim_compatible",
+	n_completions = 1,
+	context_window = 512,
+	request_timeout = 10,
+	debounce = 200,
+	throttle = 500,
+	notify = "error",
+	add_single_line_entry = true,
+	provider_options = {
+		openai_fim_compatible = {
+			api_key = "TERM",
+			name = "Llama.cpp",
+			end_point = "http://localhost:35711/v1/completions",
+			model = "unsloth/Qwen3.5-35B-A3B-GGUF:UD-IQ4_XS",
+			stream = true,
+			optional = {
+				max_tokens = 64,
+				top_p = 0.9,
+				temperature = 0.6,
+			},
+			template = {
+				prompt = function(context_before_cursor, context_after_cursor, _)
+					return "<|fim_prefix|>"
+						.. context_before_cursor
+						.. "<|fim_suffix|>"
+						.. context_after_cursor
+						.. "<|fim_middle|>"
+				end,
+				suffix = false,
+			},
+		},
+	},
 })
 
 -- Download/build fff.nvim Rust binary after pack update
@@ -218,7 +257,16 @@ require("blink.cmp").setup({
 		keymap = { preset = "cmdline" },
 	},
 	sources = {
-		default = { "lsp", "path", "buffer" },
+		default = { "lsp", "path", "buffer", "minuet" },
+		providers = {
+			minuet = {
+				name = "minuet",
+				module = "minuet.blink",
+				async = true,
+				timeout_ms = 3000,
+				score_offset = 50,
+			},
+		},
 	},
 	signature = { enabled = true },
 })
