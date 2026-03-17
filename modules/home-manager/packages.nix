@@ -64,11 +64,9 @@ with pkgs;
   nil
   nixfmt
   nix-output-monitor
-  oras
   procs
   rm-improved
   slides
-  sops
   statix
   tldr
   topiary
