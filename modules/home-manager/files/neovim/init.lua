@@ -35,40 +35,6 @@ vim.filetype.add({
 	},
 })
 
-vim.api.nvim_create_user_command("Format", function()
-	local formatters = {
-		go = "gofmt -w %",
-		json = "prettier --parser json --write %",
-		jsonc = "prettier --parser json --write %",
-		html = "prettier --parser html --write %",
-		javascript = "prettier --parser babel --write %",
-		javascriptreact = "prettier --parser babel --write %",
-		nix = "nixfmt %",
-		python = "black %",
-		lua = "stylua %",
-		rust = "rustfmt %",
-		svelte = "prettier --parser svelte --write %",
-		terraform = "terraform fmt %",
-		typescript = "prettier --parser typescript --write %",
-		typescriptreact = "prettier --parser typescript --write %",
-		hcl = "terraform fmt %",
-		markdown = "prettier --parser markdown --prose-wrap always --write %",
-		yaml = "prettier --parser yaml --write %",
-	}
-
-	local ft = vim.bo.filetype -- formatter keys use Neovim filetypes, not file extensions
-	local cmd = formatters[ft]
-
-	if cmd then
-		vim.cmd("silent write") -- write the file
-		vim.cmd("silent !" .. cmd) -- auto-format
-		vim.cmd("edit!") -- reload from disk
-		print("Formatted with " .. ft .. " formatter")
-	else
-		print("No formatter configured for filetype: " .. ft)
-	end
-end, { desc = "Format current file based on filetype" })
-
 -- AUTO COMMANDS (NON-LSP)
 -- Make the cursorline "move" with the focused window
 vim.api.nvim_create_autocmd("WinLeave", {
@@ -92,6 +58,7 @@ vim.pack.add({
 	"https://github.com/leoluz/nvim-dap-go", -- Go debugging
 	"https://github.com/MagicDuck/grug-far.nvim", -- search and replace
 	"https://github.com/neovim/nvim-lspconfig", -- LSP configurations
+	"https://github.com/stevearc/conform.nvim", -- formatting
 	"https://github.com/folke/todo-comments.nvim", -- highlight TODO comments
 	"https://github.com/folke/which-key.nvim", -- keybinding hints
 	"https://github.com/nvim-mini/mini.icons", -- file icons
@@ -106,9 +73,7 @@ vim.pack.add({
 	"https://github.com/selimacerbas/markdown-preview.nvim", -- markdown preview in browser
 	"https://github.com/windwp/nvim-autopairs", -- auto pairs and HTML tag newline
 	"https://github.com/windwp/nvim-ts-autotag", -- auto close HTML tags
-  "https://github.com/joryeugene/dadbod-grip.nvim",
-	-- "https://github.com/MunifTanjim/nui.nvim",
-	-- "https://github.com/ThePrimeagen/99", -- AI workflow
+	"https://github.com/joryeugene/dadbod-grip.nvim",
 })
 
 -- Download/build fff.nvim Rust binary after pack update
@@ -140,9 +105,7 @@ vim.api.nvim_create_autocmd("FileType", {
 		"astro",
 	},
 	-- Needed so autopairs <CR> indents correctly after nvim-ts-autotag splits HTML tags.
-	callback = function(args)
-		vim.bo[args.buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
-	end,
+	callback = function(args) vim.bo[args.buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()" end,
 })
 
 -- PLUGIN SETUP
@@ -169,10 +132,47 @@ require("fff").setup({
 		prompt_position = "top",
 	},
 })
-
+require("dadbod-grip").setup({
+	picker = "snacks",
+})
 require("mini.icons").setup()
 require("mini.ai").setup()
 require("flash").setup()
+require("conform").setup({
+	notify_on_error = true,
+	format_on_save = {
+		timeout_ms = 5000,
+		lsp_format = "never",
+	},
+	formatters_by_ft = {
+		bash = { "shfmt" },
+		go = { "gofmt" },
+		hcl = { "terraform_fmt" },
+		html = { "prettier" },
+		javascript = { "prettier" },
+		javascriptreact = { "prettier" },
+		json = { "prettier" },
+		jsonc = { "prettier" },
+		lua = { "stylua" },
+		markdown = { "prettier_markdown" },
+		nix = { "nixfmt" },
+		python = { "ruff_format" },
+		rust = { "rustfmt" },
+		sh = { "shfmt" },
+		svelte = { "prettier" },
+		terraform = { "terraform_fmt" },
+		typescript = { "prettier" },
+		typescriptreact = { "prettier" },
+		yaml = { "prettier" },
+		zsh = { "shfmt" },
+	},
+	formatters = {
+		prettier_markdown = {
+			inherit = "prettier",
+			append_args = { "--prose-wrap", "always" },
+		},
+	},
+})
 require("nvim-autopairs").setup({
 	map_cr = false,
 })
@@ -183,15 +183,6 @@ require("nvim-ts-autotag").setup({
 		enable_close_on_slash = false,
 	},
 })
--- local _99 = require("99")
--- _99.setup({
--- 	completion = {
--- 		source = "blink",
--- 	},
--- 	md_files = {
--- 		"AGENTS.md",
--- 	},
--- })
 require("blink.cmp").setup({
 	keymap = {
 		preset = "enter",
@@ -246,7 +237,6 @@ require("which-key").setup({
 		spec = {
 		-- Group names
 		{ "<leader>b", group = "Buffer" },
-		-- { "<leader>9", group = "99" },
 		{ "<leader>c", group = "Code" },
 			{ "<leader>f", group = "Find" },
 			{ "<leader>g", group = "Git" },
@@ -266,7 +256,7 @@ require("which-key").setup({
 		{ "<leader>cr", vim.lsp.buf.rename, desc = "Rename" },
 		{ "[d", function() vim.diagnostic.jump({ count = -1 }) end, desc = "Previous diagnostic" },
 		{ "]d", function() vim.diagnostic.jump({ count = 1 }) end, desc = "Next diagnostic" },
-    { "<leader>cf", "<CMD>Format<CR>", desc = "Format"},
+		{ "<leader>cf", function() require("conform").format({ async = false, timeout_ms = 5000, lsp_format = "never" }) end, desc = "Format" },
 		-- Window navigation
 		{ "<C-h>", "<C-w>h", desc = "Move to left window" },
 		{ "<C-j>", "<C-w>j", desc = "Move to lower window" },
@@ -282,10 +272,6 @@ require("which-key").setup({
 		{ "<leader>wd", "<CMD>close<CR>", desc = "Delete window" },
 		-- Plugins
 		{ "<leader>l", function() vim.pack.update() end, desc = "Update plugins" },
-		-- { "<leader>9s", function() _99.search() end, desc = "99 Search" },
-		-- { "<leader>9o", function() _99.open() end, desc = "99 Open previous" },
-		-- { "<leader>9x", function() _99.stop_all_requests() end, desc = "99 Stop requests" },
-		-- { "<leader>9v", function() _99.visual() end, mode = "v", desc = "99 Visual replace" },
 		-- Markdown Preview
 		{ "<leader>mp", "<CMD>MarkdownPreview<CR>", desc = "Markdown Preview" },
 		{ "<leader>ms", "<CMD>MarkdownPreviewStop<CR>", desc = "Stop Preview" },

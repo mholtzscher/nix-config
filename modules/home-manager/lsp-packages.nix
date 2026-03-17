@@ -4,6 +4,7 @@
 with pkgs;
 [
   # Infrastructure
+  terraform
   terraform-ls
   dockerfile-language-server
   docker-compose-language-service
