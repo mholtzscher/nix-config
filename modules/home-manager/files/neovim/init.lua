@@ -134,6 +134,7 @@ require("fff").setup({
 })
 require("dadbod-grip").setup({
 	picker = "snacks",
+	completion = false,
 })
 require("mini.icons").setup()
 require("mini.ai").setup()
@@ -210,7 +211,10 @@ require("blink.cmp").setup({
 		keymap = { preset = "cmdline" },
 	},
 	sources = {
-		default = { "lsp", "path", "buffer" },
+		providers = {
+			dadbod_grip = { name = "Grip SQL", module = "dadbod-grip.completion.blink" },
+		},
+		default = { "lsp", "path", "buffer", "dadbod_grip" },
 	},
 	signature = { enabled = true },
 })
