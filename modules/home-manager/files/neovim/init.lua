@@ -101,14 +101,14 @@ vim.pack.add({
 	{ src = "https://github.com/Saghen/blink.compat", version = vim.version.range("2.*") }, -- blink source compatibility
 	"https://github.com/lewis6991/gitsigns.nvim",
 	"https://github.com/esmuellert/codediff.nvim",
-	"https://github.com/MunifTanjim/nui.nvim",
 	"https://github.com/dmtrKovalenko/fff.nvim", -- fuzzy file finder
 	"https://github.com/selimacerbas/live-server.nvim", -- HTTP server for markdown preview
 	"https://github.com/selimacerbas/markdown-preview.nvim", -- markdown preview in browser
 	"https://github.com/windwp/nvim-autopairs", -- auto pairs and HTML tag newline
 	"https://github.com/windwp/nvim-ts-autotag", -- auto close HTML tags
-	-- "https://github.com/ThePrimeagen/99", -- AI workflow
   "https://github.com/joryeugene/dadbod-grip.nvim",
+	-- "https://github.com/MunifTanjim/nui.nvim",
+	-- "https://github.com/ThePrimeagen/99", -- AI workflow
 })
 
 -- Download/build fff.nvim Rust binary after pack update
