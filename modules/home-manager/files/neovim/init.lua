@@ -108,6 +108,7 @@ vim.pack.add({
 	"https://github.com/windwp/nvim-autopairs", -- auto pairs and HTML tag newline
 	"https://github.com/windwp/nvim-ts-autotag", -- auto close HTML tags
 	-- "https://github.com/ThePrimeagen/99", -- AI workflow
+  "https://github.com/joryeugene/dadbod-grip.nvim",
 })
 
 -- Download/build fff.nvim Rust binary after pack update

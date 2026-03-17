@@ -10,6 +10,7 @@
     aerospace
     inputs.aerospace-utils.packages.${pkgs.stdenv.hostPlatform.system}.default
     mkalias
+    mariadb.client
     pokemon-colorscripts-mac
   ];
 }
