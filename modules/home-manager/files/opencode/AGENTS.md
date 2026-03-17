@@ -1,38 +1,51 @@
-- In all interaction and commit messages, be extremely concise and sacrifice grammar for the sake of concision.
+# OPENCODE
 
-## Code Quality Standards
+## OVERVIEW
 
-- Make minimal, surgical changes
-- **Never compromise type safety**: No `any`, no non-null assertion operator (`!`), no type assertions (`as Type`)
-- **Make illegal states unrepresentable**: Model domain with ADTs/discriminated unions; parse inputs at boundaries into typed structures; if state can't exist, code can't mishandle it
-- **Abstractions**: Consciously constrained, pragmatically parameterised, doggedly documented
+Repo-local OpenCode config tree synced by `modules/home-manager/programs/opencode.nix` into `${config.xdg.configHome}/opencode`.
+This dir holds persona defs, slash commands, reusable skills, and small runtime plugins.
 
-### **ENTROPY REMINDER**
-This codebase will outlive you. Every shortcut you take becomes
-someone else's burden. Every hack compounds into technical debt
-that slows the whole team down.
+## WHERE TO LOOK
 
-You are not just writing code. You are shaping the future of this
-project. The patterns you establish will be copied. The corners
-you cut will be cut again.
+| Task | Location | Notes |
+|------|----------|-------|
+| Change package / permissions / MCP / models | `modules/home-manager/programs/opencode.nix` | Wiring lives there, not here |
+| Adjust subagent personas | `agents/` | YAML frontmatter + prompt body |
+| Add slash command | `commands/` | Thin entrypoint; load skills when workflow is non-trivial |
+| Add reusable knowledge/workflow | `skills/` | See `skills/AGENTS.md` |
+| Change runtime interception | `plugins/` | Keep tiny; prefer docs/scripts first |
 
-**Fight entropy. Leave the codebase better than you found it.**
+## STRUCTURE
 
-## Testing
+```text
+opencode/
+|- AGENTS.md           # umbrella rules for this subtree
+|- agents/             # persona definitions
+|- commands/           # user-facing task entrypoints
+|- skills/             # reusable workflow/domain packs
+`- plugins/            # runtime hooks
+```
 
-- Write tests that verify semantically correct behavior
-- **Failing tests are acceptable** when they expose genuine bugs and test correct behavior
-- Add new test cases for each specific bug encountered.
+## CONVENTIONS
 
-## Plans
+- Keep naming kebab-case.
+- Keep text telegraphic; brevity beats polish here.
+- Use YAML frontmatter for agent and skill entry files.
+- Keep commands thin: route to skills, do not stuff long policy docs into command files.
+- Keep deep background in `skills/*/references/`; keep entry files short enough to scan fast.
 
-- At the end of each plan, give me a list of unresolved questions to answer, if any. Make the questions extremely concise. Sacrifice grammar for the sake of concision.
+## ANTI-PATTERNS
 
-## Specialized Subagents
+- Do not duplicate skill-authoring rules here; put them in `skills/AGENTS.md`.
+- Do not turn plugins into general-purpose automation if a script or skill can do it.
+- Do not bury repo-global policy in one command or one agent file.
+- Do not add empty placeholder trees unless a command/skill/agent will load them now.
 
-### Oracle
-Invoke for: code review, architecture decisions, debugging analysis, refactor planning, second opinion.
+## LOCAL RULES
 
-### Librarian
-Invoke for: understanding 3rd party libraries/packages, exploring remote repositories, discovering open source patterns.
-
+- In interaction and commit messages, be extremely concise; sacrifice grammar for concision.
+- Make minimal, surgical changes.
+- Never use `any`, non-null assertions, or type assertions.
+- Make illegal states unrepresentable; parse inputs at boundaries.
+- Use Oracle for code review / planning / debugging second opinion.
+- Use Librarian for third-party library or remote-repo research.
