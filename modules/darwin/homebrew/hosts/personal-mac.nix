@@ -8,6 +8,7 @@
     brews = [
       "hashicorp/tap/terraform"
       "mockery"
+      "ollama"
       "pyenv-virtualenv"
     ];
     casks = [
