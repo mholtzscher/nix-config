@@ -9,7 +9,7 @@ Shared home-manager program modules: one file per program, imported through `def
 | Task | Location | Notes |
 |------|----------|-------|
 | Add a new shared program | `default.nix` | New module is inactive until imported here |
-| Add shell workflow helpers | `zsh.nix` | `nb`, `nup`, `nbt`, `nupt` live here |
+| Add shell workflow helpers | `zsh.nix`, `nushell.nix`, `../files/nushell/functions.nu` | Rebuild helpers in zsh; broader workflow helpers in Nushell |
 | Change OpenCode setup | `opencode.nix` | Wires package, permissions, MCP, shipped config tree |
 | Change editor/terminal defaults | `helix.nix`, `neovim.nix`, `ghostty.nix`, `zellij.nix` | Follow existing module shape |
 | NixOS-only program wrapper | `webapps.nix` | Keep platform guard inside module |
@@ -20,16 +20,16 @@ Shared home-manager program modules: one file per program, imported through `def
 ```text
 programs/
 |- default.nix         # import registry
-|- zsh.nix             # shell helpers + init content
+|- zsh.nix             # zsh config + rebuild helpers
+|- nushell.nix         # nushell config + function loader
 |- opencode.nix        # AI CLI package + config sync
-|- ghostty.nix         # example of local platform guards
 `- *.nix               # one module per program/tool
 ```
 
 ## CONVENTIONS
 
 - Keep one concern per file: one program, one module.
-- Import every new module in `default.nix`; alphabetical order is current style.
+- Import every new module in `default.nix`; keep order consistent with nearby entries.
 - Prefer `isDarwin` / `isLinux` module args over raw `pkgs.stdenv` checks when available.
 - Put large file-backed config under `../files/` and map it in, instead of embedding giant strings.
 - Keep shared modules host-agnostic; machine-specific packages/settings belong in `modules/home-manager/hosts/*`.

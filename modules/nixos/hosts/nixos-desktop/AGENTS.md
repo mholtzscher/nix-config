@@ -11,7 +11,7 @@ Desktop-only NixOS host layer for `nixos-desktop`: composition, gaming extras, d
 | See import boundary | `default.nix` | Registry for this host subtree |
 | Add desktop system packages / fonts / 1Password | `packages.nix` | System-level only |
 | Change Niri / DMS / monitor / keybind behavior | `composition.nix` | Injects user-session config via `home-manager.sharedModules` |
-| Change gaming extras | `gaming.nix` | Ratbagd + MangoHud + user packages; Steam itself is enabled elsewhere |
+| Change gaming extras | `gaming.nix` | Ratbagd + MangoHud + HM gaming packages; coordinate with host entry for system toggles |
 | Change desktop web apps | `webapps.nix` | Home-manager program config injected here |
 | KVM display quirks | `edid/` | Hardware-local assets and capture helper |
 
@@ -39,5 +39,5 @@ nixos-desktop/
 
 - Do not move machine-local monitor rules into shared home-manager config.
 - Do not add generic Linux packages here if they are not desktop-specific.
-- Do not treat `gaming.nix` as the place to enable core Steam/NixOS services already owned elsewhere.
+- Do not treat `gaming.nix` as the place for host-level Steam or gamemode toggles owned by `hosts/nixos/nixos-desktop/default.nix`.
 - Do not edit `edid/dp1.bin` casually; recapture intentionally with the helper if hardware changes.

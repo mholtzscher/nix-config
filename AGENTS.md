@@ -1,9 +1,5 @@
 # PROJECT KNOWLEDGE BASE
 
-**Generated:** 2026-03-17
-**Commit:** 7da2925
-**Branch:** main
-
 ## OVERVIEW
 
 Personal multi-platform Nix flake for 2 Darwin hosts, 1 NixOS desktop, 1 Ubuntu home-manager host.
@@ -71,7 +67,7 @@ Core flow: `flake.nix` declares hosts, `lib/default.nix` builds systems and inje
 ```bash
 nix flake check        # safe cross-platform validation
 nb                     # platform-aware validate helper
-nf path/to/file.nix    # format nix file(s)
+nf                     # format all .nix files under CWD
 nfu                    # flake update; only when requested
 ```
 
@@ -82,4 +78,3 @@ nfu                    # flake update; only when requested
   - `modules/home-manager/programs/AGENTS.md`
   - `modules/nixos/hosts/nixos-desktop/AGENTS.md`
   - `modules/home-manager/files/opencode/AGENTS.md`
-  - `modules/home-manager/files/opencode/skills/AGENTS.md`
