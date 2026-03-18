@@ -75,7 +75,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     rtk = {
-      url = "github:rtk-ai/rtk";
+      url = "github:rtk-ai/rtk/develop";
       flake = false;
     };
   };
