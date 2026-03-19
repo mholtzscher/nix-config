@@ -268,14 +268,14 @@ in
 
     # Idle Management (desktop - AC power only)
     acLockTimeout = 600; # 10 min - lock screen
-    acMonitorTimeout = 720; # 12 min - turn off display
+    acMonitorTimeout = 0; # Keep display on; DMS DPMS blanking breaks KVM reconnect on lock
     acSuspendTimeout = 0; # Never auto-suspend
 
     # Lock behavior
     lockBeforeSuspend = true;
     fadeToLockEnabled = true;
     fadeToLockGracePeriod = 5;
-    fadeToDpmsEnabled = true;
+    fadeToDpmsEnabled = false; # Same issue as above; lock stays enabled, only DPMS is disabled
     fadeToDpmsGracePeriod = 5;
   };
 
