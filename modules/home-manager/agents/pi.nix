@@ -47,6 +47,11 @@ in
     skillFiles
     // {
       ".pi/agent/settings.json".source = ./files/pi/settings.json;
+
+      ".pi/agent/prompts" = {
+        source = ./files/pi/prompts;
+        recursive = true;
+      };
     }
   );
 }
