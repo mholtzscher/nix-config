@@ -1,6 +1,7 @@
 { ... }:
 {
   imports = [
+    ./agent-assets.nix
     ./atuin.nix
     ./bat.nix
     ./btop.nix

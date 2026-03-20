@@ -6,6 +6,22 @@
   config,
   ...
 }:
+let
+  mkPathAsset = targets: path: {
+    inherit targets;
+    source = {
+      type = "path";
+      inherit path;
+    };
+  };
+
+  opencodeTargets = [ "opencode" ];
+  piTargets = [ "pi" ];
+  sharedSkillTargets = [
+    "opencode"
+    "pi"
+  ];
+in
 {
   # home.sessionVariables = lib.mkIf (!isWork) {
   home.sessionVariables = {
@@ -15,27 +31,10 @@
 
   # home.file = lib.mkIf (!isWork) {
   home.file = {
-    "${config.xdg.configHome}/opencode/skills" = {
-      source = ../files/opencode/skills;
-      recursive = true;
-    };
-
-    "${config.xdg.configHome}/opencode/agents" = {
-      source = ../files/opencode/agents;
-      recursive = true;
-    };
-
-    "${config.xdg.configHome}/opencode/commands" = {
-      source = ../files/opencode/commands;
-      recursive = true;
-    };
-
     "${config.xdg.configHome}/opencode/plugins" = {
       source = ../files/opencode/plugins;
       recursive = true;
     };
-
-    "${config.xdg.configHome}/opencode/AGENTS.md".source = ../files/opencode/AGENTS.md;
   };
 
   # Use activation copy (not HM symlink) so opencode tools deps resolve/load correctly.
@@ -52,6 +51,43 @@
   # );
 
   programs = {
+    "agent-assets" = {
+      enable = true;
+      targets = {
+        opencode.enable = true;
+        pi.enable = true;
+      };
+
+      docs."AGENTS.md" = mkPathAsset sharedSkillTargets ../files/opencode/AGENTS.md;
+
+      agents = {
+        "code-reviewer" = mkPathAsset opencodeTargets ../files/opencode/agents/code-reviewer.md;
+        librarian = mkPathAsset opencodeTargets ../files/opencode/agents/librarian.md;
+        mermaid = mkPathAsset opencodeTargets ../files/opencode/agents/mermaid.md;
+        oracle = mkPathAsset opencodeTargets ../files/opencode/agents/oracle.md;
+        sensei = mkPathAsset opencodeTargets ../files/opencode/agents/sensei.md;
+      };
+
+      commands = {
+        "build-skill" = mkPathAsset opencodeTargets ../files/opencode/commands/build-skill.md;
+        "diff-review" = mkPathAsset opencodeTargets ../files/opencode/commands/diff-review.md;
+        "index-knowledge" = mkPathAsset opencodeTargets ../files/opencode/commands/index-knowledge.md;
+        "plan-spec" = mkPathAsset opencodeTargets ../files/opencode/commands/plan-spec.md;
+        slop = mkPathAsset opencodeTargets ../files/opencode/commands/slop.md;
+        yeet = mkPathAsset opencodeTargets ../files/opencode/commands/yeet.md;
+      };
+
+      skills = {
+        "atlas-cli" = mkPathAsset sharedSkillTargets ../files/opencode/skills/atlas-cli;
+        "build-skill" = mkPathAsset sharedSkillTargets ../files/opencode/skills/build-skill;
+        "conventional-commit" = mkPathAsset piTargets ../files/opencode/skills/conventional-commits;
+        "conventional-commits" = mkPathAsset opencodeTargets ../files/opencode/skills/conventional-commits;
+        "index-knowledge" = mkPathAsset sharedSkillTargets ../files/opencode/skills/index-knowledge;
+        librarian = mkPathAsset sharedSkillTargets ../files/opencode/skills/librarian;
+        "spec-planner" = mkPathAsset sharedSkillTargets ../files/opencode/skills/spec-planner;
+      };
+    };
+
     opencode = {
       enable = !isWork;
       package = inputs.opencode.packages.${pkgs.stdenv.hostPlatform.system}.default;
