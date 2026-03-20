@@ -35,6 +35,14 @@ in
     inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system}.pi
   ];
 
+  home.activation = lib.mkIf (!isWork) {
+    piAuth = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+      dst="${config.home.homeDirectory}/.pi/agent/auth.json"
+      run mkdir -p "$(dirname "$dst")"
+      run install -m 600 ${./files/pi/auth.json} "$dst"
+    '';
+  };
+
   home.file = lib.optionalAttrs (!isWork) (
     skillFiles
     // {

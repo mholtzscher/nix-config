@@ -1,3 +1,5 @@
 {
-  "defaultThinkingLevel": "high"
+  "defaultThinkingLevel": "high",
+  "defaultProvider": "opencode",
+  "defaultModel": "gpt-5.4"
 }
