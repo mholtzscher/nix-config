@@ -15,7 +15,7 @@ Steps:
 4. Generate a branch name based on the changes following pattern: <type>/<brief-description>-<timestamp>
    Examples: feat/add-user-auth-20250206, fix/login-bug-20250206, docs/update-readme-20250206
 5. Create and checkout the new branch
-6. Create a conventional commit message based on the changes (use conventional-commit skill)
+6. Create a conventional commit message based on the changes (use conventional-commits skill)
 7. Push the branch to origin
 8. Create a pull request using gh pr create with title matching commit message and brief description
 

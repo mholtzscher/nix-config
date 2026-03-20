@@ -1,6 +1,11 @@
 {
   description = "Multi-platform Nix flake for Darwin and NixOS systems";
 
+  nixConfig = {
+    extra-substituters = [ "https://cache.numtide.com" ];
+    extra-trusted-public-keys = [ "niks3.numtide.com-1:DTx8wZduET09hRmMtKdQDxNNthLQETkc/yaX7M4qK0g=" ];
+  };
+
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     nix-darwin = {
@@ -27,10 +32,6 @@
     catppuccin.url = "github:catppuccin/nix";
     niri = {
       url = "github:sodiboo/niri-flake";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    opencode = {
-      url = "github:anomalyco/opencode";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     aerospace-utils = {
@@ -61,6 +62,10 @@
       url = "github:AvengeMedia/DankMaterialShell";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    llm-agents = {
+      url = "github:numtide/llm-agents.nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     ugh = {
       url = "github:mholtzscher/ugh";
@@ -73,10 +78,6 @@
     helium = {
       url = "github:AlvaroParker/helium-nix";
       inputs.nixpkgs.follows = "nixpkgs";
-    };
-    rtk = {
-      url = "github:rtk-ai/rtk/develop";
-      flake = false;
     };
   };
 
@@ -92,7 +93,6 @@
       ghostty-shader-playground,
       catppuccin,
       niri,
-      opencode,
       aerospace-utils,
       open-file,
       atlas,
@@ -100,11 +100,11 @@
       difftui,
       neovim-nightly,
       dms,
+      llm-agents,
 
       ugh,
       today,
       helium,
-      rtk,
     }:
     let
       # Import lib helpers for creating system configurations

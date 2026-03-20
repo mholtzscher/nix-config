@@ -1,5 +1,5 @@
 ---
-name: conventional-commit
+name: conventional-commits
 description: Git commit guidelines using conventional commits. Use when creating commits or writing commit messages.
 license: MIT
 ---

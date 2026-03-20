@@ -6,36 +6,52 @@
   config,
   ...
 }:
-{
-  # home.sessionVariables = lib.mkIf (!isWork) {
-  home.sessionVariables = {
-    OPENCODE_ENABLE_EXPERIMENTAL_MODELS = "true";
-    # OPENCODE_EXPERIMENTAL = "true";
-  };
+let
+  skillSources = import ./files/skills;
 
-  # home.file = lib.mkIf (!isWork) {
-  home.file = {
-    "${config.xdg.configHome}/opencode/skills" = {
-      source = ../files/opencode/skills;
+  # Selectively load skills for opencode agent
+  # Add skill names here to enable them
+  opencodeSkills = [
+    "atlas-cli"
+    "build-skill"
+    "conventional-commits"
+    "index-knowledge"
+    "librarian"
+    "spec-planner"
+  ];
+
+  # Generate file mappings for selected skills
+  mkSkillFiles = skillName: {
+    "${config.xdg.configHome}/opencode/skills/${skillName}" = {
+      source = skillSources.${skillName};
       recursive = true;
     };
+  };
 
+  skillFiles = lib.foldl' (acc: skill: acc // mkSkillFiles skill) { } opencodeSkills;
+in
+{
+  home.sessionVariables = {
+    OPENCODE_ENABLE_EXPERIMENTAL_MODELS = "true";
+  };
+
+  home.file = skillFiles // {
     "${config.xdg.configHome}/opencode/agents" = {
-      source = ../files/opencode/agents;
+      source = ./files/opencode/agents;
       recursive = true;
     };
 
     "${config.xdg.configHome}/opencode/commands" = {
-      source = ../files/opencode/commands;
+      source = ./files/commands;
       recursive = true;
     };
 
     "${config.xdg.configHome}/opencode/plugins" = {
-      source = ../files/opencode/plugins;
+      source = ./files/opencode/plugins;
       recursive = true;
     };
 
-    "${config.xdg.configHome}/opencode/AGENTS.md".source = ../files/opencode/AGENTS.md;
+    "${config.xdg.configHome}/opencode/AGENTS.md".source = ./files/opencode/AGENTS.md;
   };
 
   # Use activation copy (not HM symlink) so opencode tools deps resolve/load correctly.
@@ -43,7 +59,7 @@
   # home.activation.opencodeTools = (
   #   lib.hm.dag.entryAfter [ "writeBoundary" ] ''
   #     dst="${config.xdg.configHome}/opencode/tools"
-  #     src="${../files/opencode/tools}"
+  #     src="${./tools}"
   #
   #     rm -rf "$dst"
   #     mkdir -p "$dst"
@@ -54,7 +70,7 @@
   programs = {
     opencode = {
       enable = !isWork;
-      package = inputs.opencode.packages.${pkgs.stdenv.hostPlatform.system}.default;
+      package = inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system}.opencode;
       settings = {
         # share = "disabled";
         username = "mholtzscher";

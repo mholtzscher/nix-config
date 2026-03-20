@@ -29,6 +29,7 @@ let
 in
 {
   imports = [
+    ./agents
     ./programs
     inputs.catppuccin.homeModules.catppuccin
   ];
