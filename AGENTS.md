@@ -5,14 +5,17 @@ Guidance for this multi-platform Nix flake repo.
 ## Safety
 
 - Never apply Nix changes directly.
-- Allowed validation: `nix flake check`
+- Allowed validation: `darwin-rebuild build`, `nixos-rebuild build`, `home-manager build`
 - Allowed update command only when user asks: `nix flake update`
-- Forbidden unless user explicitly asks: `darwin-rebuild switch`, `nup`, `sudo darwin-rebuild switch`, or any other apply command
+- Forbidden: `darwin-rebuild switch`, `nixos-rebuild switch`, `home-manager switch`, `nup`, or any other apply command. The user runs these manually outside the agent.
 
 ## Workflow
 
 1. Make minimal changes.
-2. Validate with `nix flake check` when config changes.
+2. Validate with platform-specific build (dry-run, doesn't activate):
+   - Darwin: `darwin-rebuild build --flake .#<hostname>`
+   - NixOS: `nixos-rebuild build --flake .#<hostname>`
+   - Ubuntu/standalone home-manager: `home-manager build --flake .#<user>@<hostname>`
 3. Report failures clearly.
 4. User runs apply commands.
 
