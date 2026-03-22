@@ -1,5 +1,6 @@
 {
   "defaultThinkingLevel": "high",
   "defaultProvider": "opencode",
-  "defaultModel": "kimi-k2.5"
+  "defaultModel": "kimi-k2.5",
+  "theme": "catppuccin-mocha"
 }
