@@ -52,6 +52,11 @@ in
         source = ./files/pi/prompts;
         recursive = true;
       };
+
+      ".pi/agent/extensions" = {
+        source = ./files/pi/extensions;
+        recursive = true;
+      };
     }
   );
 }
