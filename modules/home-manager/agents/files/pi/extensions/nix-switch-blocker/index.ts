@@ -16,6 +16,7 @@ const BLOCKED_PATTERNS = [
   /^sudo\s+nixos-rebuild\s+switch/,
   /^home-manager\s+switch/,
   /\bnup\b/, // Common macOS nix update + switch alias (word boundary)
+  /\bnupt\b/, // Variation of nup alias
 ];
 
 // Commands that are allowed (for validation)
