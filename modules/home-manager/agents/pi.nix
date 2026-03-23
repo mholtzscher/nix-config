@@ -16,6 +16,7 @@ let
     "build-skill"
     "conventional-commits"
     "index-knowledge"
+    "mermaid"
     # "librarian"
     "spec-planner"
   ];

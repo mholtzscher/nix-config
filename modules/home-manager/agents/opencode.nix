@@ -17,6 +17,7 @@ let
     "conventional-commits"
     "index-knowledge"
     "librarian"
+    "mermaid"
     "spec-planner"
   ];
 
