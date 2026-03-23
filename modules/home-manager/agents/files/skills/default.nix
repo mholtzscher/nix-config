@@ -4,5 +4,6 @@
   "conventional-commits" = ./conventional-commits;
   "index-knowledge" = ./index-knowledge;
   librarian = ./librarian;
+  mermaid = ./mermaid;
   "spec-planner" = ./spec-planner;
 }
