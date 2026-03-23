@@ -8,18 +8,19 @@
 let
   nuExe = lib.getExe config.programs.nushell.package;
   ghosttyKeybinds = [
-    "alt+n=new_split:auto"
-    "alt+d=new_split:down"
-    "alt+r=new_split:right"
-    "alt+h=goto_split:left"
-    "alt+left=goto_split:left"
-    "alt+j=goto_split:down"
-    "alt+down=goto_split:down"
-    "alt+k=goto_split:up"
-    "alt+up=goto_split:up"
-    "alt+l=goto_split:right"
-    "alt+right=goto_split:right"
-  ] ++ lib.optionals isDarwin [
+    # "alt+n=new_split:auto"
+    # "alt+d=new_split:down"
+    # "alt+r=new_split:right"
+    # "alt+h=goto_split:left"
+    # "alt+left=goto_split:left"
+    # "alt+j=goto_split:down"
+    # "alt+down=goto_split:down"
+    # "alt+k=goto_split:up"
+    # "alt+up=goto_split:up"
+    # "alt+l=goto_split:right"
+    # "alt+right=goto_split:right"
+  ]
+  ++ lib.optionals isDarwin [
     "global:cmd+alt+/=toggle_quick_terminal"
   ];
 in
@@ -39,8 +40,8 @@ in
         keybind = ghosttyKeybinds;
         macos-option-as-alt = lib.mkIf isDarwin true;
 
-        command = nuExe;
-        shell-integration = "nushell";
+        # command = nuExe;
+        # shell-integration = "nushell";
 
         window-height = 60;
         window-width = 200;
