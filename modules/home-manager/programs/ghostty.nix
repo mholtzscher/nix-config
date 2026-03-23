@@ -1,9 +1,13 @@
 {
   pkgs,
   lib,
+  config,
   isDarwin,
   ...
 }:
+let
+  nuExe = lib.getExe config.programs.nushell.package;
+in
 {
   programs = {
     ghostty = {
@@ -19,6 +23,9 @@
         window-decoration = true;
         keybind = lib.mkIf isDarwin "global:cmd+alt+/=toggle_quick_terminal";
         macos-option-as-alt = lib.mkIf isDarwin true;
+
+        command = nuExe;
+        shell-integration = "nushell";
 
         window-height = 60;
         window-width = 200;
