@@ -7,6 +7,21 @@
 }:
 let
   nuExe = lib.getExe config.programs.nushell.package;
+  ghosttyKeybinds = [
+    "alt+n=new_split:auto"
+    "alt+d=new_split:down"
+    "alt+r=new_split:right"
+    "alt+h=goto_split:left"
+    "alt+left=goto_split:left"
+    "alt+j=goto_split:down"
+    "alt+down=goto_split:down"
+    "alt+k=goto_split:up"
+    "alt+up=goto_split:up"
+    "alt+l=goto_split:right"
+    "alt+right=goto_split:right"
+  ] ++ lib.optionals isDarwin [
+    "global:cmd+alt+/=toggle_quick_terminal"
+  ];
 in
 {
   programs = {
@@ -21,7 +36,7 @@ in
         background-opacity = 0.9;
         mouse-hide-while-typing = true;
         window-decoration = true;
-        keybind = lib.mkIf isDarwin "global:cmd+alt+/=toggle_quick_terminal";
+        keybind = ghosttyKeybinds;
         macos-option-as-alt = lib.mkIf isDarwin true;
 
         command = nuExe;
