@@ -7,6 +7,7 @@ This directory contains skills for AI agents. Skills are selectively loaded per 
 - `atlas-cli`: Atlassian CLI (Jira/Confluence)
 - `build-skill`: Skill building utilities
 - `conventional-commits`: Git commit conventions
+- `gradle`: Gradle build/test execution guidance
 - `index-knowledge`: Knowledge base indexing
 - `librarian`: Multi-repo exploration
 - `spec-planner`: Spec development and planning

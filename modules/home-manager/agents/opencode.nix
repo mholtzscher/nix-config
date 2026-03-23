@@ -15,6 +15,7 @@ let
     "atlas-cli"
     "build-skill"
     "conventional-commits"
+    "gradle"
     "index-knowledge"
     "librarian"
     "mermaid"
