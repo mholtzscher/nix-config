@@ -4,6 +4,9 @@
   user,
   ...
 }:
+let
+  ghosttyPackage = if pkgs.stdenv.hostPlatform.isDarwin then pkgs.ghostty-bin else pkgs.ghostty;
+in
 {
   imports = [
     ../../../modules/darwin/homebrew/hosts/personal-mac.nix
@@ -50,7 +53,7 @@
           "/Applications/WhatsApp.app"
           "${pkgs.discord}/Applications/Discord.app"
           "/Applications/1Password.app"
-          "/Applications/Ghostty.app"
+          "${ghosttyPackage}/Applications/Ghostty.app"
           "/Applications/IntelliJ IDEA CE.app"
           "/System/Applications/Mail.app"
           "/System/Applications/Calendar.app"

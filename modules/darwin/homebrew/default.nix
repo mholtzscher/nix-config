@@ -30,7 +30,6 @@
       "cleanshot"
       "deskpad"
       "docker-desktop"
-      "ghostty"
       "jetbrains-toolbox"
       "nightfall"
       "obsidian"
