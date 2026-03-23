@@ -159,7 +159,7 @@
           # Applications
           "Mod+T".action.spawn = "ghostty";
           "Mod+E".action.spawn = "nautilus";
-          "Mod+B".action.spawn = "firefox";
+          "Mod+B".action.spawn = "helium";
 
           # Hotkey overlay
           "Mod+Shift+Slash".action.show-hotkey-overlay = { };
