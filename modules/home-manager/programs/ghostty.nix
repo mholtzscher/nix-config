@@ -12,7 +12,7 @@ in
   programs = {
     ghostty = {
       enable = true;
-      package = if isDarwin then null else pkgs.ghostty;
+      package = if isDarwin then pkgs.ghostty-bin else pkgs.ghostty;
       settings = {
         font-family = "Iosevka Nerd Font";
         font-size = if isDarwin then "13" else "11";
