@@ -18,19 +18,22 @@ require_env() {
 }
 
 url_encode() {
+  [[ $# -gt 0 ]] || die "url_encode: missing argument"
   jq -rn --arg value "$1" '$value | @uri'
 }
 
-cql_escape() {
+atlassian_escape() {
   local value="${1//\\/\\\\}"
   value="${value//\"/\\\"}"
   printf '%s' "$value"
 }
 
+cql_escape() {
+  atlassian_escape "$1"
+}
+
 jql_escape() {
-  local value="${1//\\/\\\\}"
-  value="${value//\"/\\\"}"
-  printf '%s' "$value"
+  atlassian_escape "$1"
 }
 
 join_by() {
@@ -55,10 +58,12 @@ atlassian_base_url() {
 }
 
 atlassian_email() {
+  [[ -n "${ATLASSIAN_EMAIL:-}" ]] || die "ATLASSIAN_EMAIL is not set"
   printf '%s' "$ATLASSIAN_EMAIL"
 }
 
 atlassian_api_token() {
+  [[ -n "${ATLASSIAN_API_TOKEN:-}" ]] || die "ATLASSIAN_API_TOKEN is not set"
   printf '%s' "$ATLASSIAN_API_TOKEN"
 }
 
@@ -138,7 +143,7 @@ atlassian_get_json() {
       cat "$body_file" >&2
     fi
     rm -f "$body_file"
-    exit 1
+    die "HTTP $status from ${service_name} API"
   fi
 
   cat "$body_file"
