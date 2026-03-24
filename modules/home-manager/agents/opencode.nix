@@ -13,6 +13,7 @@ let
   # Add skill names here to enable them
   opencodeSkills = [
     "atlas-cli"
+    "atlassian-api"
     "build-skill"
     "conventional-commits"
     "gradle"

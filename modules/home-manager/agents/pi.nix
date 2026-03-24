@@ -12,7 +12,7 @@ let
   # Selectively load skills for pi agent
   # Add skill names here to enable them
   piSkills = [
-    # "atlas-cli"
+    "atlassian-api"
     "build-skill"
     "conventional-commits"
     "gradle"

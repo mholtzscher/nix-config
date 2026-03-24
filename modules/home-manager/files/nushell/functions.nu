@@ -672,6 +672,24 @@ Return ONLY the commit message, nothing else. No explanations, no markdown code 
   }
 }
 
+# Set Atlassian API credentials from 1Password
+# Sets: ATLASSIAN_EMAIL, ATLASSIAN_BASE_URL, ATLASSIAN_API_TOKEN
+export def --env atlassian [] {
+  _require_tool op
+
+  let email = (op item get Atlassian --fields email --reveal | str trim)
+  let base_url = (op item get Atlassian --fields base-url --reveal | str trim)
+  let api_token = (op item get Atlassian --fields api-key --reveal | str trim)
+
+  load-env {
+    ATLASSIAN_EMAIL: $email
+    ATLASSIAN_BASE_URL: $base_url
+    ATLASSIAN_API_TOKEN: $api_token
+  }
+
+  log info "Atlassian API credentials loaded from 1Password"
+}
+
 # Theme settings - Catppuccin Mocha
 # $env.config.color_config =  {
 #   binary: '#cba6f7'

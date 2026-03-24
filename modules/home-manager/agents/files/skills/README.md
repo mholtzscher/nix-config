@@ -5,6 +5,7 @@ This directory contains skills for AI agents. Skills are selectively loaded per 
 ## Available Skills
 
 - `atlas-cli`: Atlassian CLI (Jira/Confluence)
+- `atlassian-api`: Atlassian Jira/Confluence API helpers implemented with curl, bash, and jq
 - `build-skill`: Skill building utilities
 - `conventional-commits`: Git commit conventions
 - `gradle`: Gradle build/test execution guidance
@@ -36,6 +37,7 @@ modules/home-manager/
 │   ├── pi.nix            # pi config with skill list
 │   └── skills/           # shared skill definitions
 │       ├── atlas-cli/
+│       ├── atlassian-api/
 │       ├── build-skill/
 │       └── ...
 ```
