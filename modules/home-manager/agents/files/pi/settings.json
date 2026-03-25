@@ -2,5 +2,7 @@
   "defaultThinkingLevel": "high",
   "defaultProvider": "opencode",
   "defaultModel": "kimi-k2.5",
-  "theme": "catppuccin-mocha"
+  "theme": "catppuccin-mocha",
+  "packages": ["npm:pi-subagents", "npm:pi-web-access"],
+  "npmCommand": ["mise", "exec", "node@20", "--", "npm"]
 }
