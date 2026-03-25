@@ -43,7 +43,7 @@ in
   };
 
   home = {
-    stateVersion = "24.11";
+    stateVersion = "25.05";
     packages = import ./packages.nix { inherit pkgs inputs isWork; };
 
     file = {
