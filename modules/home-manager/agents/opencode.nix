@@ -69,7 +69,7 @@ in
           reasoningEffort = "high";
         };
         # agent.explore.model = "openai/gpt-5.3-codex-spark";
-        agent.explore.model = "opencode/gemini-3-flash";
+        agent.explore.model = "opencode/gpt-5.4-mini";
         permission = {
           bash = { };
           external_directory = {
