@@ -4,5 +4,5 @@
   "defaultModel": "kimi-k2.5",
   "theme": "catppuccin-mocha",
   "packages": ["npm:pi-subagents", "npm:pi-web-access"],
-  "npmCommand": ["mise", "exec", "node@20", "--", "npm"]
+  "npmCommand": ["mise", "exec", "node@24", "--", "npm"]
 }
