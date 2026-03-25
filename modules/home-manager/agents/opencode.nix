@@ -12,7 +12,7 @@ let
   # Selectively load skills for opencode agent
   # Add skill names here to enable them
   opencodeSkills = [
-    "atlas-cli"
+    # "atlas-cli"
     "atlassian-api"
     "build-skill"
     "conventional-commits"
