@@ -27,7 +27,6 @@ with pkgs;
   cookiecutter
   cruft
   codesnap
-  diffnav
   dive
   dust
   glow

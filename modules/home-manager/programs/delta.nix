@@ -1,7 +1,7 @@
 {
   programs.delta = {
     enable = true;
-    enableGitIntegration = false;
+    enableGitIntegration = true;
     options = {
       # side-by-side = true;
       dark = true;
