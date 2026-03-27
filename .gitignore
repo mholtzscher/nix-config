@@ -5,3 +5,7 @@ result-*
 # Ignore automatically generated direnv output
 .direnv
 .beads
+
+# Local pi extension development dependencies
+modules/home-manager/agents/files/pi/extensions/node_modules/
+modules/home-manager/agents/files/pi/extensions/package-lock.json
