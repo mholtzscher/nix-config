@@ -9,6 +9,13 @@
 let
   skillSources = import ./files/skills;
 
+  filteredExtensionsSource = builtins.path {
+    path = ./files/pi/extensions;
+    name = "pi-extensions";
+    filter = path: type:
+      type == "directory" || lib.hasSuffix ".ts" (builtins.baseNameOf path);
+  };
+
   # Selectively load skills for pi agent
   # Add skill names here to enable them
   piSkills = [
@@ -52,7 +59,7 @@ in
       };
 
       ".pi/agent/extensions" = {
-        source = ./files/pi/extensions;
+        source = filteredExtensionsSource;
         recursive = true;
       };
     }
