@@ -1,44 +1,16 @@
 {
   pkgs,
-  lib,
   inputs,
   isWork,
   config,
   ...
 }:
-let
-  skillSources = import ./files/skills;
-
-  # Selectively load skills for opencode agent
-  # Add skill names here to enable them
-  opencodeSkills = [
-    # "atlas-cli"
-    "atlassian-api"
-    "build-skill"
-    "conventional-commits"
-    "gradle"
-    "index-knowledge"
-    "librarian"
-    "mermaid"
-    "spec-planner"
-  ];
-
-  # Generate file mappings for selected skills
-  mkSkillFiles = skillName: {
-    "${config.xdg.configHome}/opencode/skills/${skillName}" = {
-      source = skillSources.${skillName};
-      recursive = true;
-    };
-  };
-
-  skillFiles = lib.foldl' (acc: skill: acc // mkSkillFiles skill) { } opencodeSkills;
-in
 {
   home.sessionVariables = {
     OPENCODE_ENABLE_EXPERIMENTAL_MODELS = "true";
   };
 
-  home.file = skillFiles // {
+  home.file = {
     "${config.xdg.configHome}/opencode/agents" = {
       source = ./files/opencode/agents;
       recursive = true;

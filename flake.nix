@@ -61,6 +61,10 @@
       url = "github:numtide/llm-agents.nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    agent-skills = {
+      url = "github:Kyure-A/agent-skills-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     ugh = {
       url = "github:mholtzscher/ugh";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -95,6 +99,7 @@
       neovim-nightly,
       dms,
       llm-agents,
+      agent-skills,
       ugh,
       today,
       helium,

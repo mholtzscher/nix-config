@@ -3,65 +3,35 @@
   lib,
   inputs,
   isWork,
-  config,
   ...
 }:
 let
-  skillSources = import ./files/skills;
-
   filteredExtensionsSource = builtins.path {
     path = ./files/pi/extensions;
     name = "pi-extensions";
-    filter = path: type:
-      type == "directory" || lib.hasSuffix ".ts" (builtins.baseNameOf path);
+    filter = path: type: type == "directory" || lib.hasSuffix ".ts" (builtins.baseNameOf path);
   };
-
-  # Selectively load skills for pi agent
-  # Add skill names here to enable them
-  piSkills = [
-    "atlassian-api"
-    "build-skill"
-    "conventional-commits"
-    "gradle"
-    "index-knowledge"
-    "mermaid"
-    # "librarian"
-    "spec-planner"
-  ];
-
-  # Generate file mappings for selected skills
-  mkSkillFiles = skillName: {
-    ".pi/agent/skills/${skillName}" = {
-      source = skillSources.${skillName};
-      recursive = true;
-    };
-  };
-
-  skillFiles = lib.foldl' (acc: skill: acc // mkSkillFiles skill) { } piSkills;
 in
 {
   home.packages = lib.optionals (!isWork) [
     inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system}.pi
   ];
 
-  home.file = lib.optionalAttrs (!isWork) (
-    skillFiles
-    // {
-      ".pi/agent/settings.json".source = ./files/pi/settings.json;
+  home.file = lib.optionalAttrs (!isWork) {
+    ".pi/agent/settings.json".source = ./files/pi/settings.json;
 
-      ".pi/agent/themes" = {
-        source = ./files/pi/themes;
-      };
+    ".pi/agent/themes" = {
+      source = ./files/pi/themes;
+    };
 
-      ".pi/agent/prompts" = {
-        source = ./files/pi/prompts;
-        recursive = true;
-      };
+    ".pi/agent/prompts" = {
+      source = ./files/pi/prompts;
+      recursive = true;
+    };
 
-      ".pi/agent/extensions" = {
-        source = filteredExtensionsSource;
-        recursive = true;
-      };
-    }
-  );
+    ".pi/agent/extensions" = {
+      source = filteredExtensionsSource;
+      recursive = true;
+    };
+  };
 }

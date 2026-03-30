@@ -22,6 +22,27 @@
         "type": "github"
       }
     },
+    "agent-skills": {
+      "inputs": {
+        "home-manager": "home-manager",
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1774607140,
+        "narHash": "sha256-0P89BLGEzRUumWKSOEayi+Dal6mIlVumlBgcyk5Qo6s=",
+        "owner": "Kyure-A",
+        "repo": "agent-skills-nix",
+        "rev": "e29bef0e9e56c4cc683cead15a6eda1d6fb1074e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Kyure-A",
+        "repo": "agent-skills-nix",
+        "type": "github"
+      }
+    },
     "atlas": {
       "inputs": {
         "flake-utils": "flake-utils_2",
@@ -580,6 +601,27 @@
     "home-manager": {
       "inputs": {
         "nixpkgs": [
+          "agent-skills",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1773608492,
+        "narHash": "sha256-QZteyExJYSQzgxqdsesDPbQgjctGG7iKV/6ooyQPITk=",
+        "owner": "nix-community",
+        "repo": "home-manager",
+        "rev": "9a40ec3b78fc688d0908485887d355caa5666d18",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "home-manager",
+        "type": "github"
+      }
+    },
+    "home-manager_2": {
+      "inputs": {
+        "nixpkgs": [
           "nixpkgs"
         ]
       },
@@ -964,13 +1006,14 @@
     "root": {
       "inputs": {
         "aerospace-utils": "aerospace-utils",
+        "agent-skills": "agent-skills",
         "atlas": "atlas",
         "catppuccin": "catppuccin",
         "difftui": "difftui",
         "dms": "dms",
         "ghostty-shader-playground": "ghostty-shader-playground",
         "helium": "helium",
-        "home-manager": "home-manager",
+        "home-manager": "home-manager_2",
         "llm-agents": "llm-agents",
         "melt": "melt",
         "naws": "naws",

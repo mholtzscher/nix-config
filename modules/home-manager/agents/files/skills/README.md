@@ -1,6 +1,6 @@
 # Agent Skills Configuration
 
-This directory contains skills for AI agents. Skills are selectively loaded per agent.
+This directory contains shared skills for your agents. Skill content lives here, while installation and selection are managed declaratively via `agent-skills-nix`.
 
 ## Available Skills
 
@@ -11,11 +11,12 @@ This directory contains skills for AI agents. Skills are selectively loaded per 
 - `gradle`: Gradle build/test execution guidance
 - `index-knowledge`: Knowledge base indexing
 - `librarian`: Multi-repo exploration
+- `mermaid`: Mermaid chart authoring and validation guidance
 - `spec-planner`: Spec development and planning
 
 ## Adding Skills
 
-1. Create a new directory here
+1. Create a new directory under `modules/home-manager/agents/files/skills/<name>/`
 2. Add a `SKILL.md` file with frontmatter:
    ```yaml
    ---
@@ -23,21 +24,22 @@ This directory contains skills for AI agents. Skills are selectively loaded per 
    description: What this skill does
    ---
    ```
-3. Reference the skill in agent configs:
-    - `modules/home-manager/agents/opencode.nix` (opencodeSkills list)
-    - `modules/home-manager/agents/pi.nix` (piSkills list)
-    - `modules/home-manager/agents/skills/default.nix` (source path map)
+3. Add the skill ID to the shared allowlist in `modules/home-manager/agents/agent-skills.nix`
+
+No source-path map or per-agent skill list updates are needed.
 
 ## Directory Structure
 
 ```
 modules/home-manager/
 ├── agents/
-│   ├── opencode.nix      # opencode config with skill list
-│   ├── pi.nix            # pi config with skill list
-│   └── skills/           # shared skill definitions
-│       ├── atlas-cli/
-│       ├── atlassian-api/
-│       ├── build-skill/
-│       └── ...
+│   ├── agent-skills.nix  # shared agent-skills-nix configuration
+│   ├── opencode.nix      # opencode config
+│   ├── pi.nix            # pi config
+│   └── files/
+│       └── skills/       # shared skill definitions
+│           ├── atlas-cli/
+│           ├── atlassian-api/
+│           ├── build-skill/
+│           └── ...
 ```
