@@ -747,6 +747,22 @@
         "type": "github"
       }
     },
+    "mholtzscher-skills": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1774905677,
+        "narHash": "sha256-nfUYxl/aaGG/iqLJlA/FTrpoOXrV3hbtUjjdsvh7HsA=",
+        "owner": "mholtzscher",
+        "repo": "skills",
+        "rev": "c370b5141cd4d339a2839d0615259ec98c6b7cc6",
+        "type": "github"
+      },
+      "original": {
+        "owner": "mholtzscher",
+        "repo": "skills",
+        "type": "github"
+      }
+    },
     "naws": {
       "flake": false,
       "locked": {
@@ -1033,6 +1049,7 @@
         "home-manager": "home-manager_2",
         "llm-agents": "llm-agents",
         "melt": "melt",
+        "mholtzscher-skills": "mholtzscher-skills",
         "naws": "naws",
         "neovim-nightly": "neovim-nightly",
         "niri": "niri",

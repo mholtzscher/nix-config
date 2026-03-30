@@ -12,7 +12,7 @@
 
     sources = {
       local = {
-        path = ./files/skills;
+        input = "mholtzscher-skills";
         filter.maxDepth = 1;
       };
 

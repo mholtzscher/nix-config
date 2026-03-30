@@ -69,6 +69,10 @@
       url = "github:anthropics/skills";
       flake = false;
     };
+    mholtzscher-skills = {
+      url = "github:mholtzscher/skills";
+      flake = false;
+    };
     ugh = {
       url = "github:mholtzscher/ugh";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -105,6 +109,7 @@
       llm-agents,
       agent-skills,
       anthropic-skills,
+      mholtzscher-skills,
       ugh,
       today,
       helium,
