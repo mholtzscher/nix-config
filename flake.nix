@@ -65,6 +65,10 @@
       url = "github:Kyure-A/agent-skills-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    anthropic-skills = {
+      url = "github:anthropics/skills";
+      flake = false;
+    };
     ugh = {
       url = "github:mholtzscher/ugh";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -100,6 +104,7 @@
       dms,
       llm-agents,
       agent-skills,
+      anthropic-skills,
       ugh,
       today,
       helium,

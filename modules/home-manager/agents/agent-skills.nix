@@ -10,19 +10,27 @@
   programs.agent-skills = {
     enable = true;
 
-    sources.local = {
-      path = ./files/skills;
-      filter.maxDepth = 1;
+    sources = {
+      local = {
+        path = ./files/skills;
+        filter.maxDepth = 1;
+      };
+
+      anthropic = {
+        input = "anthropic-skills";
+        subdir = "skills";
+        idPrefix = "anthropic";
+      };
     };
 
     skills.enable = [
       "atlassian-api"
-      # "build-skill"
       "conventional-commits"
       "gradle"
       "index-knowledge"
       # "librarian"
       # "mermaid"
+      "anthropic/skill-creator"
       "spec-planner"
     ];
 
