@@ -4,6 +4,7 @@
   "theme": "catppuccin-mocha",
   "packages": [
     "npm:pi-boomerang",
+    "npm:pi-mcp-adapter",
     "npm:pi-web-access",
     "npm:@plannotator/pi-extension"
   ],
