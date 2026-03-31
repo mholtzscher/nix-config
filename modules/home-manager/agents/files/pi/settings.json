@@ -6,7 +6,8 @@
     "npm:pi-boomerang",
     "npm:pi-mcp-adapter",
     "npm:pi-web-access",
-    "npm:@plannotator/pi-extension"
+    "npm:@plannotator/pi-extension",
+    "git:https://github.com/badlogic/pi-diff-review"
   ],
   "npmCommand": ["mise", "exec", "node@24", "--", "npm"]
 }
