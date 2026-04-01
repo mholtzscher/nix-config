@@ -39,9 +39,9 @@
       "visual-studio-code"
     ];
     masApps = {
-      "Numbers" = 409203825;
-      "Postico" = 6446933691;
-      "Todoist" = 585829637;
+      # "Numbers" = 361304891;
+      # "Postico" = 6446933691;
+      # "Todoist" = 585829637;
     };
   };
 
