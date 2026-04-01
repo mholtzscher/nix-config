@@ -231,6 +231,22 @@
         "type": "github"
       }
     },
+    "cloudflare-skills": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1774619134,
+        "narHash": "sha256-blJpJ9wC9GB4CGQvEQUdxMyGOUlBYHUbob1hSTMRM9g=",
+        "owner": "cloudflare",
+        "repo": "skills",
+        "rev": "ed57ea9dcb5d520f6ed055d3b1418993ed1ae593",
+        "type": "github"
+      },
+      "original": {
+        "owner": "cloudflare",
+        "repo": "skills",
+        "type": "github"
+      }
+    },
     "difftui": {
       "inputs": {
         "bun2nix": "bun2nix",
@@ -1042,6 +1058,7 @@
         "anthropic-skills": "anthropic-skills",
         "atlas": "atlas",
         "catppuccin": "catppuccin",
+        "cloudflare-skills": "cloudflare-skills",
         "difftui": "difftui",
         "dms": "dms",
         "ghostty-shader-playground": "ghostty-shader-playground",

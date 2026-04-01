@@ -69,6 +69,10 @@
       url = "github:anthropics/skills";
       flake = false;
     };
+    cloudflare-skills = {
+      url = "github:cloudflare/skills";
+      flake = false;
+    };
     mholtzscher-skills = {
       url = "github:mholtzscher/skills";
       flake = false;
@@ -113,6 +117,7 @@
       llm-agents,
       agent-skills,
       anthropic-skills,
+      cloudflare-skills,
       mholtzscher-skills,
       vercel-agent-browser,
       ugh,

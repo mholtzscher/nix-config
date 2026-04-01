@@ -22,6 +22,13 @@
         idPrefix = "anthropic";
       };
 
+      cloudflare = {
+        input = "cloudflare-skills";
+        subdir = "skills";
+        idPrefix = "cloudflare";
+        filter.maxDepth = 1;
+      };
+
       vercel = {
         input = "vercel-agent-browser";
         subdir = "skills";
@@ -37,6 +44,15 @@
       # "mermaid"
       "anthropic/frontend-design"
       "anthropic/skill-creator"
+      "cloudflare/agents-sdk"
+      # "cloudflare/building-ai-agent-on-cloudflare"
+      # "cloudflare/building-mcp-server-on-cloudflare"
+      "cloudflare/cloudflare"
+      "cloudflare/durable-objects"
+      # "cloudflare/sandbox-sdk"
+      # "cloudflare/web-perf"
+      "cloudflare/workers-best-practices"
+      "cloudflare/wrangler"
       "agent-browser"
       "spec-planner"
     ];
