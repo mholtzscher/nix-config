@@ -1059,7 +1059,8 @@
         "open-file": "open-file",
         "today": "today",
         "topiaryNushell": "topiaryNushell",
-        "ugh": "ugh"
+        "ugh": "ugh",
+        "vercel-agent-browser": "vercel-agent-browser"
       }
     },
     "rust-overlay": {
@@ -1340,6 +1341,22 @@
       "original": {
         "owner": "mholtzscher",
         "repo": "ugh",
+        "type": "github"
+      }
+    },
+    "vercel-agent-browser": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1774940997,
+        "narHash": "sha256-CaFNAtDJqCXu/EwP1YqlrQIK1yu+CDyIdTndrTHhCM0=",
+        "owner": "vercel-labs",
+        "repo": "agent-browser",
+        "rev": "89595836c6b7108fc9398495a734b546887889c9",
+        "type": "github"
+      },
+      "original": {
+        "owner": "vercel-labs",
+        "repo": "agent-browser",
         "type": "github"
       }
     },

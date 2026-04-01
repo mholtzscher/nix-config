@@ -21,6 +21,11 @@
         subdir = "skills";
         idPrefix = "anthropic";
       };
+
+      vercel = {
+        input = "vercel-agent-browser";
+        subdir = "skills";
+      };
     };
 
     skills.enable = [
@@ -30,7 +35,9 @@
       "index-knowledge"
       # "librarian"
       # "mermaid"
+      "anthropic/frontend-design"
       "anthropic/skill-creator"
+      "agent-browser"
       "spec-planner"
     ];
 

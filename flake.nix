@@ -73,6 +73,10 @@
       url = "github:mholtzscher/skills";
       flake = false;
     };
+    vercel-agent-browser = {
+      url = "github:vercel-labs/agent-browser";
+      flake = false;
+    };
     ugh = {
       url = "github:mholtzscher/ugh";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -110,6 +114,7 @@
       agent-skills,
       anthropic-skills,
       mholtzscher-skills,
+      vercel-agent-browser,
       ugh,
       today,
       helium,
