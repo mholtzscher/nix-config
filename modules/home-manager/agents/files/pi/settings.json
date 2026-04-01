@@ -7,7 +7,8 @@
     "npm:pi-mcp-adapter",
     "npm:pi-web-access",
     "npm:@plannotator/pi-extension",
-    "git:https://github.com/badlogic/pi-diff-review"
+    "git:https://github.com/badlogic/pi-diff-review",
+    "npm:pi-powerline-footer"
   ],
   "npmCommand": ["mise", "exec", "node@24", "--", "npm"]
 }
