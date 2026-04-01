@@ -233,7 +233,7 @@
 
     # Lock behavior
     lockBeforeSuspend = true;
-    fadeToLockEnabled = true;
+    fadeToLockEnabled = false;
     fadeToLockGracePeriod = 5;
     fadeToDpmsEnabled = false; # Same issue as above; lock stays enabled, only DPMS is disabled
     fadeToDpmsGracePeriod = 5;
