@@ -18,6 +18,7 @@ with pkgs;
   inputs.atlas.packages.${pkgs.stdenv.hostPlatform.system}.default
   google-cloud-sdk
   nodejs_24
+  pnpm
   lua
   zig
 ]
