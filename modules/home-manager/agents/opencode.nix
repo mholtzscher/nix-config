@@ -35,7 +35,7 @@
       package = inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system}.opencode;
       settings = {
         # share = "disabled";
-        plugin = [ "@plannotator/opencode@latest" ];
+        # plugin = [ "@plannotator/opencode@latest" ];
         username = "mholtzscher";
         agent.plan = {
           model = "openai/gpt-5.4";
@@ -66,10 +66,10 @@
           };
           # webfetch = "ask";
         };
-        keybinds = {
-          "session_child_cycle" = "shift+right";
-          "session_child_cycle_reverse" = "shift+left";
-        };
+        # keybinds = {
+        #   "session_child_cycle" = "shift+right";
+        #   "session_child_cycle_reverse" = "shift+left";
+        # };
         lsp = {
           nushell = {
             command = [
