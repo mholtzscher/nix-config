@@ -29,6 +29,9 @@ in
     enable = true;
     package = inputs.neovim-nightly.packages.${pkgs.stdenv.hostPlatform.system}.default;
     defaultEditor = true;
+    # Pin the new defaults here so Home Manager upgrades stay quiet and explicit.
+    withRuby = false;
+    withPython3 = false;
     viAlias = true;
     vimAlias = true;
     vimdiffAlias = true;
