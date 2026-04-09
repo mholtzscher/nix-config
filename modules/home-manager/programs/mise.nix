@@ -5,7 +5,7 @@
       enable = true;
       globalConfig = {
         tools = {
-          plannotator = "github:backnotprop/plannotator";
+          "github:backnotprop/plannotator" = "latest";
         };
       };
     };
