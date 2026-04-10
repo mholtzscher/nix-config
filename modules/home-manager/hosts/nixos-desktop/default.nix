@@ -227,7 +227,7 @@
     use24HourClock = false;
 
     # Idle Management (desktop - AC power only)
-    acLockTimeout = 600; # 10 min - lock screen
+    acLockTimeout = 0; # Disabled for diagnosis: lock path appears to wedge KVM reconnect
     acMonitorTimeout = 0; # Keep display on; DMS DPMS blanking breaks KVM reconnect on lock
     acSuspendTimeout = 0; # Never auto-suspend
 
