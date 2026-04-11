@@ -73,6 +73,10 @@
       url = "github:cloudflare/skills";
       flake = false;
     };
+    addyosmani-agent-skills = {
+      url = "github:addyosmani/agent-skills";
+      flake = false;
+    };
     mholtzscher-skills = {
       url = "github:mholtzscher/skills";
       flake = false;
@@ -118,6 +122,7 @@
       agent-skills,
       anthropic-skills,
       cloudflare-skills,
+      addyosmani-agent-skills,
       mholtzscher-skills,
       vercel-agent-browser,
       ugh,
