@@ -47,33 +47,108 @@ vim.api.nvim_create_autocmd("WinEnter", {
 	command = "set cursorline",
 })
 
+-- LSP Config
+vim.lsp.enable({
+	"bashls",
+	"cssls",
+	"docker_compose_language_service",
+	"dockerls",
+	"emmet_language_server",
+	"eslint",
+	"golangci_lint_ls",
+	"gopls",
+	-- "harper_ls",
+	"html",
+	"jsonls",
+	"kotlin_lsp",
+	"lua_ls",
+	-- "marksman",
+	"nil_ls",
+	"nushell",
+	"ruff",
+	"rust_analyzer",
+	"svelte",
+	"taplo",
+	"tailwindcss",
+	"terraformls",
+	"ts_ls",
+	"ty",
+	"yamlls",
+	"zls",
+})
+
+-- lua_ls VIM support
+vim.lsp.config("lua_ls", {
+	on_init = function(client)
+		if client.workspace_folders then
+			local path = client.workspace_folders[1].name
+			if path ~= vim.fn.stdpath("config") and (vim.uv.fs_stat(path .. "/.luarc.json") or vim.uv.fs_stat(path .. "/.luarc.jsonc")) then
+				return
+			end
+		end
+
+		client.config.settings.Lua = vim.tbl_deep_extend("force", client.config.settings.Lua, {
+			runtime = {
+				version = "LuaJIT",
+				path = {
+					"lua/?.lua",
+					"lua/?/init.lua",
+				},
+			},
+			workspace = {
+				checkThirdParty = false,
+				library = {
+					vim.env.VIMRUNTIME,
+				},
+			},
+		})
+	end,
+	settings = {
+		Lua = {},
+	},
+})
+
+-- Enable native treesitter highlighting for all filetypes with available parsers
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = "*",
+	callback = function(args) pcall(vim.treesitter.start, args.buf) end,
+})
+
+-- General Plugins With No Setup
 vim.pack.add({
-	"https://github.com/catppuccin/nvim", -- catppuccin theme
-	"https://github.com/stevearc/oil.nvim", -- file explorer
-	"https://github.com/sebdah/vim-delve", -- Go debugging
-	"https://github.com/folke/snacks.nvim", -- picker, notifications, and more
-	"https://github.com/rcarriga/nvim-dap-ui", -- DAP UI
-	"https://github.com/mfussenegger/nvim-dap", -- Debug Adapter Protocol
-	"https://github.com/nvim-neotest/nvim-nio", -- Required by nvim-dap-ui
-	"https://github.com/leoluz/nvim-dap-go", -- Go debugging
-	"https://github.com/MagicDuck/grug-far.nvim", -- search and replace
 	"https://github.com/neovim/nvim-lspconfig", -- LSP configurations
-	"https://github.com/stevearc/conform.nvim", -- formatting
-	"https://github.com/folke/todo-comments.nvim", -- highlight TODO comments
-	"https://github.com/folke/which-key.nvim", -- keybinding hints
-	"https://github.com/nvim-mini/mini.icons", -- file icons
-	"https://github.com/nvim-mini/mini.ai", -- better text objects
-	"https://github.com/folke/flash.nvim", -- jump navigation
-	{ src = "https://github.com/Saghen/blink.cmp", version = vim.version.range("*") }, -- completion
-	{ src = "https://github.com/Saghen/blink.compat", version = vim.version.range("2.*") }, -- blink source compatibility
-	"https://github.com/lewis6991/gitsigns.nvim",
 	"https://github.com/esmuellert/codediff.nvim",
-	"https://github.com/dmtrKovalenko/fff.nvim", -- fuzzy file finder
-	"https://github.com/selimacerbas/live-server.nvim", -- HTTP server for markdown preview
-	"https://github.com/selimacerbas/markdown-preview.nvim", -- markdown preview in browser
-	"https://github.com/windwp/nvim-autopairs", -- auto pairs and HTML tag newline
-	"https://github.com/windwp/nvim-ts-autotag", -- auto close HTML tags
-	"https://github.com/joryeugene/dadbod-grip.nvim",
+})
+
+-- snacks
+vim.pack.add({ "https://github.com/folke/snacks.nvim" })
+require("snacks").setup({
+	bigfile = { enabled = true },
+	bufdelete = { enabled = true },
+	gh = { enabled = true },
+	git = { enabled = true },
+	gitbrowse = { enabled = true },
+	indent = { enabled = true },
+	input = { enabled = true },
+	lazygit = { enabled = true },
+	notifier = { enabled = true },
+	picker = { enabled = true },
+	rename = { enabled = true },
+	scroll = { enabled = true },
+	statuscolumn = { enabled = true },
+	words = { enabled = true },
+	scratch = { enabled = true },
+})
+
+-- oil.nvim
+vim.pack.add({ "https://github.com/stevearc/oil.nvim" })
+require("oil").setup({
+	keymaps = {
+		["<C-s>"] = false, -- Disables the default preview toggle
+	},
+	view_options = {
+		show_hidden = true,
+	},
 })
 
 -- fff.nvim
@@ -93,54 +168,31 @@ require("fff").setup({
 	},
 })
 
+-- catppuccin theme
+vim.pack.add({ "https://github.com/catppuccin/nvim" })
 vim.cmd("colorscheme catppuccin-mocha")
 
--- Enable native treesitter highlighting for all filetypes with available parsers
-vim.api.nvim_create_autocmd("FileType", {
-	pattern = "*",
-	callback = function(args) pcall(vim.treesitter.start, args.buf) end,
-})
-
-vim.api.nvim_create_autocmd("FileType", {
-	pattern = {
-		"html",
-		"xml",
-		"javascriptreact",
-		"typescriptreact",
-		"svelte",
-		"vue",
-		"astro",
-	},
-	-- Needed so autopairs <CR> indents correctly after nvim-ts-autotag splits HTML tags.
-	callback = function(args) vim.bo[args.buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()" end,
-})
-
--- PLUGIN SETUP
-require("snacks").setup({
-	bigfile = { enabled = true },
-	bufdelete = { enabled = true },
-	gh = { enabled = true },
-	git = { enabled = true },
-	gitbrowse = { enabled = true },
-	indent = { enabled = true },
-	input = { enabled = true },
-	lazygit = { enabled = true },
-	notifier = { enabled = true },
-	picker = { enabled = true },
-	rename = { enabled = true },
-	scroll = { enabled = true },
-	statuscolumn = { enabled = true },
-	words = { enabled = true },
-	scratch = { enabled = true },
-})
-
+-- dadbod-grip.nvim
+vim.pack.add({ "https://github.com/joryeugene/dadbod-grip.nvim" })
 require("dadbod-grip").setup({
 	picker = "snacks",
 	completion = false,
 })
+
+-- mini
+vim.pack.add({
+	"https://github.com/nvim-mini/mini.icons", -- file icons
+	"https://github.com/nvim-mini/mini.ai", -- better text objects
+})
 require("mini.icons").setup()
 require("mini.ai").setup()
+
+-- flash
+vim.pack.add({ "https://github.com/folke/flash.nvim" })
 require("flash").setup()
+
+-- conform
+vim.pack.add({ "https://github.com/stevearc/conform.nvim" })
 require("conform").setup({
 	notify_on_error = true,
 	format_on_save = {
@@ -176,6 +228,12 @@ require("conform").setup({
 		},
 	},
 })
+
+-- nvim-autopairs
+vim.pack.add({
+	"https://github.com/windwp/nvim-autopairs", -- auto pairs and HTML tag newline
+	"https://github.com/windwp/nvim-ts-autotag", -- auto close HTML tags
+})
 require("nvim-autopairs").setup({
 	map_cr = false,
 })
@@ -185,6 +243,25 @@ require("nvim-ts-autotag").setup({
 		enable_rename = true,
 		enable_close_on_slash = false,
 	},
+})
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = {
+		"html",
+		"xml",
+		"javascriptreact",
+		"typescriptreact",
+		"svelte",
+		"vue",
+		"astro",
+	},
+	-- Needed so autopairs <CR> indents correctly after nvim-ts-autotag splits HTML tags.
+	callback = function(args) vim.bo[args.buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()" end,
+})
+
+-- blink.cmp
+vim.pack.add({
+	{ src = "https://github.com/Saghen/blink.cmp", version = vim.version.range("*") }, -- completion
+	{ src = "https://github.com/Saghen/blink.compat", version = vim.version.range("2.*") }, -- blink source compatibility
 })
 require("blink.cmp").setup({
 	keymap = {
@@ -220,24 +297,33 @@ require("blink.cmp").setup({
 	},
 	signature = { enabled = true },
 })
-require("dap-go").setup()
-require("oil").setup({
-	keymaps = {
-		["<C-s>"] = false, -- Disables the default preview toggle
-	},
-	view_options = {
-		show_hidden = true,
-	},
-})
+
+-- todo-comments
+vim.pack.add({ "https://github.com/folke/todo-comments.nvim" })
 require("todo-comments").setup()
+
+-- gitsigns
+vim.pack.add({ "https://github.com/lewis6991/gitsigns.nvim" })
 require("gitsigns").setup()
+
+-- grug-far
+vim.pack.add({ "https://github.com/MagicDuck/grug-far.nvim" })
 require("grug-far").setup()
+
+-- markdown-preview
+vim.pack.add({
+	"https://github.com/selimacerbas/live-server.nvim", -- HTTP server for markdown preview
+	"https://github.com/selimacerbas/markdown-preview.nvim", -- markdown preview in browser
+})
 require("markdown_preview").setup({
 	port = 8421,
 	open_browser = true,
 	debounce_ms = 300,
 	mermaid_renderer = "rust",
 })
+
+-- which-key.nvim
+vim.pack.add({ "https://github.com/folke/which-key.nvim" })
 require("which-key").setup({
 	-- stylua: ignore
 		spec = {
@@ -368,75 +454,17 @@ require("which-key").setup({
 })
 
 -- DAP Config
+vim.pack.add({
+	"https://github.com/sebdah/vim-delve", -- Go debugging
+	"https://github.com/rcarriga/nvim-dap-ui", -- DAP UI
+	"https://github.com/mfussenegger/nvim-dap", -- Debug Adapter Protocol
+	"https://github.com/nvim-neotest/nvim-nio", -- Required by nvim-dap-ui
+	"https://github.com/leoluz/nvim-dap-go", -- Go debugging
+})
+require("dap-go").setup()
 local dap, dapui = require("dap"), require("dapui")
 dapui.setup()
 dap.listeners.before.attach.dapui_config = function() dapui.open() end
 dap.listeners.before.launch.dapui_config = function() dapui.open() end
 dap.listeners.before.event_terminated.dapui_config = function() dapui.close() end
 dap.listeners.before.event_exited.dapui_config = function() dapui.close() end
-
--- LSP Config
-vim.lsp.enable({
-	"bashls",
-	"cssls",
-	"docker_compose_language_service",
-	"dockerls",
-	"emmet_language_server",
-	"eslint",
-	"golangci_lint_ls",
-	"gopls",
-	-- "harper_ls",
-	"html",
-	"jsonls",
-	"kotlin_lsp",
-	"lua_ls",
-	-- "marksman",
-	"nil_ls",
-	"nushell",
-	"ruff",
-	"rust_analyzer",
-	"svelte",
-	"taplo",
-	"tailwindcss",
-	"terraformls",
-	"ts_ls",
-	"ty",
-	"yamlls",
-	"zls",
-})
-
--- harper_ls only for markdown
--- vim.lsp.config("harper_ls", {
--- 	filetypes = { "markdown" },
--- })
-
--- lua_ls VIM support
-vim.lsp.config("lua_ls", {
-	on_init = function(client)
-		if client.workspace_folders then
-			local path = client.workspace_folders[1].name
-			if path ~= vim.fn.stdpath("config") and (vim.uv.fs_stat(path .. "/.luarc.json") or vim.uv.fs_stat(path .. "/.luarc.jsonc")) then
-				return
-			end
-		end
-
-		client.config.settings.Lua = vim.tbl_deep_extend("force", client.config.settings.Lua, {
-			runtime = {
-				version = "LuaJIT",
-				path = {
-					"lua/?.lua",
-					"lua/?/init.lua",
-				},
-			},
-			workspace = {
-				checkThirdParty = false,
-				library = {
-					vim.env.VIMRUNTIME,
-				},
-			},
-		})
-	end,
-	settings = {
-		Lua = {},
-	},
-})
