@@ -76,14 +76,21 @@ vim.pack.add({
 	"https://github.com/joryeugene/dadbod-grip.nvim",
 })
 
--- Download/build fff.nvim Rust binary after pack update
+-- fff.nvim
+vim.pack.add({ "https://github.com/dmtrKovalenko/fff.nvim" })
 vim.api.nvim_create_autocmd("PackChanged", {
-	callback = function(event)
-		if event.data.updated then
-			local ok, fff_download = pcall(require, "fff.download")
-			if ok then fff_download.download_or_build_binary() end
+	callback = function(ev)
+		local name, kind = ev.data.spec.name, ev.data.kind
+		if name == "fff.nvim" and (kind == "install" or kind == "update") then
+			if not ev.data.active then vim.cmd.packadd("fff.nvim") end
+			require("fff.download").download_or_build_binary()
 		end
 	end,
+})
+require("fff").setup({
+	layout = {
+		prompt_position = "top",
+	},
 })
 
 vim.cmd("colorscheme catppuccin-mocha")
@@ -127,11 +134,6 @@ require("snacks").setup({
 	scratch = { enabled = true },
 })
 
-require("fff").setup({
-	layout = {
-		prompt_position = "top",
-	},
-})
 require("dadbod-grip").setup({
 	picker = "snacks",
 	completion = false,
