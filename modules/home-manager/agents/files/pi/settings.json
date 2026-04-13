@@ -2,12 +2,6 @@
   "defaultProvider": "opencode",
   "defaultModel": "gpt-5.4",
   "theme": "catppuccin-mocha",
-  "packages": [
-    "npm:pi-boomerang",
-    "npm:pi-mcp-adapter",
-    "npm:pi-web-access",
-    "npm:@plannotator/pi-extension",
-    "npm:pi-powerline-footer"
-  ],
+  "packages": ["npm:@plannotator/pi-extension", "npm:pi-powerline-footer"],
   "npmCommand": ["mise", "exec", "node@24", "--", "npm"]
 }
