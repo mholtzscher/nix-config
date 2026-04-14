@@ -1,7 +1,7 @@
 {
   "defaultProvider": "opencode",
   "defaultModel": "gpt-5.4",
-  "theme": "catppuccin-mocha",
+  "theme": "dark",
   "packages": ["npm:@plannotator/pi-extension", "npm:pi-powerline-footer"],
   "npmCommand": ["mise", "exec", "node@24", "--", "npm"]
 }
