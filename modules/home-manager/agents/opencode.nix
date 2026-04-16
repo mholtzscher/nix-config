@@ -1,21 +1,59 @@
 {
   pkgs,
+  lib,
   inputs,
   isWork,
   config,
+  currentSystemName,
   ...
 }:
+let
+  agentTemplates = {
+    dwight = ./files/opencode/agents/dwight.md;
+    librarian = ./files/opencode/agents/librarian.md;
+    oracle = ./files/opencode/agents/oracle.md;
+    sensei = ./files/opencode/agents/sensei.md;
+  };
+
+  agentModelDefaults = {
+    dwight = "opencode/glm-5.1";
+    librarian = "openai/gpt-5.4-mini";
+    oracle = "opencode/gpt-5.4";
+  };
+
+  # Host-specific agent model overrides.
+  agentModelOverrides = {
+    personal-mac = { };
+    work-mac = {
+      dwight = "github-copilot/gemini-3.1-pro-preview";
+      librarian = "github-copilot/gpt-5.4-mini";
+      oracle = "github-copilot/gpt-5.4-mini";
+      sensei = "github-copilot/gpt-5.4-mini";
+    };
+    nixos-desktop = { };
+    wanda = { };
+  };
+
+  currentAgentModelOverrides = agentModelOverrides.${currentSystemName} or { };
+
+  renderedAgentFiles = lib.mapAttrs' (
+    agentName: template:
+    let
+      model = currentAgentModelOverrides.${agentName} or (agentModelDefaults.${agentName} or null);
+    in
+    lib.nameValuePair "${config.xdg.configHome}/opencode/agents/${agentName}.md" {
+      source = pkgs.replaceVars template {
+        modelHeader = if model == null then "" else "model: ${model}";
+      };
+    }
+  ) agentTemplates;
+in
 {
   home.sessionVariables = {
     OPENCODE_ENABLE_EXPERIMENTAL_MODELS = "true";
   };
 
-  home.file = {
-    "${config.xdg.configHome}/opencode/agents" = {
-      source = ./files/opencode/agents;
-      recursive = true;
-    };
-
+  home.file = renderedAgentFiles // {
     "${config.xdg.configHome}/opencode/commands" = {
       source = ./files/commands;
       recursive = true;

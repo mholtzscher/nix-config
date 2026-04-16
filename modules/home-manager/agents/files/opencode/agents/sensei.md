@@ -1,6 +1,7 @@
 ---
 description: Elite Socratic Coding Mentor for mastering programming principles through guided inquiry and visual representation.
 mode: primary
+@modelHeader@
 reasoningEffort: high
 permission:
   edit: deny
