@@ -117,7 +117,7 @@ vim.api.nvim_create_autocmd("FileType", {
 -- General Plugins With No Setup
 vim.pack.add({
 	"https://github.com/neovim/nvim-lspconfig", -- LSP configurations
-	"https://github.com/esmuellert/codediff.nvim",
+	-- "https://github.com/esmuellert/codediff.nvim",
 })
 
 -- snacks
@@ -306,6 +306,12 @@ require("todo-comments").setup()
 vim.pack.add({ "https://github.com/lewis6991/gitsigns.nvim" })
 require("gitsigns").setup()
 
+-- diffview
+vim.pack.add({ "https://github.com/dlyongemallo/diffview.nvim" })
+require("diffview").setup({
+	enhanced_diff_hl = true,
+})
+
 -- grug-far
 vim.pack.add({ "https://github.com/MagicDuck/grug-far.nvim" })
 require("grug-far").setup()
@@ -398,6 +404,13 @@ require("which-key").setup({
 		{ "<leader>gp", function() Snacks.picker.gh_pr() end, desc = "GitHub Pull Requests (open)" },
 		{ "<leader>gP", function() Snacks.picker.gh_pr({ state = "all" }) end, desc = "GitHub Pull Requests (all)" },
 		{ "<leader>gs", function() Snacks.picker.git_status() end, desc = "Git Status" },
+		{ "<leader>dv", "<CMD>DiffviewToggle<CR>", desc = "Toggle Diffview" },
+		{ "<leader>do", "<CMD>DiffviewOpen<CR>", desc = "Diffview open" },
+		{ "<leader>dc", "<CMD>DiffviewClose<CR>", desc = "Diffview close" },
+		{ "<leader>dh", "<CMD>DiffviewFileHistory %<CR>", desc = "File history (current file)" },
+		{ "<leader>dH", "<CMD>DiffviewFileHistory<CR>", desc = "File history (repo)" },
+		{ "<leader>dl", "<CMD>.DiffviewFileHistory --follow<CR>", desc = "Line history" },
+		{ "<leader>dh", "<Esc><CMD>'<,'>DiffviewFileHistory --follow<CR>", desc = "Range history", mode = "x" },
 		{ "<leader>gS", function() Snacks.picker.git_stash() end, desc = "Git Stash" },
 		-- Grep
 		{ "<leader>sb", function() Snacks.picker.lines() end, desc = "Buffer Lines" },
