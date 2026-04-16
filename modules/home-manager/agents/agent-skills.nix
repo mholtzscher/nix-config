@@ -82,7 +82,7 @@
       "cloudflare/workers-best-practices"
       "cloudflare/wrangler"
       "agent-browser"
-      # "spec-planner"
+      "spec-planner"
     ];
 
     targets.pi = {
