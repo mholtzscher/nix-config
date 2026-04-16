@@ -76,7 +76,7 @@
       # "cloudflare/building-ai-agent-on-cloudflare"
       # "cloudflare/building-mcp-server-on-cloudflare"
       "cloudflare/cloudflare"
-      # "cloudflare/durable-objects"
+      "cloudflare/durable-objects"
       # "cloudflare/sandbox-sdk"
       # "cloudflare/web-perf"
       "cloudflare/workers-best-practices"
