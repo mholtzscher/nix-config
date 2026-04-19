@@ -775,6 +775,22 @@
         "type": "github"
       }
     },
+    "mattpocock-skills": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1776427901,
+        "narHash": "sha256-LF+V0Qb3f6fmlBTIEHZw6H7RYzCrHIHZgolpNbww6Q4=",
+        "owner": "mattpocock",
+        "repo": "skills",
+        "rev": "8868f54212dfcf450b665d2e2a5bf521ada64c3e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "mattpocock",
+        "repo": "skills",
+        "type": "github"
+      }
+    },
     "melt": {
       "inputs": {
         "flake-utils": "flake-utils_4",
@@ -1100,6 +1116,7 @@
         "helium": "helium",
         "home-manager": "home-manager_2",
         "llm-agents": "llm-agents",
+        "mattpocock-skills": "mattpocock-skills",
         "melt": "melt",
         "mholtzscher-skills": "mholtzscher-skills",
         "naws": "naws",
