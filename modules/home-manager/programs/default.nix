@@ -24,6 +24,7 @@
     ./lazydocker.nix
     ./lazygit.nix
     ./mise.nix
+    ./nh.nix
     ./neovim.nix
     ./nushell.nix
     ./ollama.nix

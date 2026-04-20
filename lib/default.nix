@@ -131,7 +131,10 @@
       isWork ? false,
     }:
     let
-      pkgs = import inputs.nixpkgs { inherit system; };
+      pkgs = import inputs.nixpkgs {
+        inherit system;
+        config.allowUnfree = true;
+      };
       isDarwin = false;
       isLinux = true;
     in

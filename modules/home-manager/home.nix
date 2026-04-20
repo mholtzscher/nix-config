@@ -114,6 +114,8 @@ in
 
     sessionVariables = {
       COMPOSE_PROFILES = "default";
+      NH_DARWIN_FLAKE = "${config.home.homeDirectory}/.config/nix-config";
+      NH_OS_FLAKE = "/home/michael/nix-config";
 
       TOPIARY_CONFIG_FILE = "${config.xdg.configHome}/topiary/languages.ncl";
       TOPIARY_LANGUAGE_DIR = "${config.xdg.configHome}/topiary/languages";
