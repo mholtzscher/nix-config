@@ -74,7 +74,7 @@ in
       settings = {
         # share = "disabled";
         plugin = [
-          "@plannotator/opencode@0.17.10"
+          "@plannotator/opencode@0.18.0"
           "@slkiser/opencode-quota"
         ];
         username = "mholtzscher";
