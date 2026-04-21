@@ -86,6 +86,10 @@ if.app-name-regex-substring = "Ghostty"
 run = ["move-node-to-workspace Ghostty"]
 
 [[on-window-detected]]
+if.app-name-regex-substring = "Neovide"
+run = ["move-node-to-workspace Ghostty"]
+
+[[on-window-detected]]
 if.app-name-regex-substring = 'WhatsApp'
 run = ['move-node-to-workspace Messaging']
 
