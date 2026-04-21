@@ -232,7 +232,7 @@
     acSuspendTimeout = 0; # Never auto-suspend
 
     # Lock behavior
-    lockBeforeSuspend = true;
+    lockBeforeSuspend = false;
     fadeToLockEnabled = false;
     fadeToLockGracePeriod = 5;
     fadeToDpmsEnabled = false; # Same issue as above; lock stays enabled, only DPMS is disabled
