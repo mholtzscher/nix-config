@@ -107,33 +107,52 @@
     xdpyinfo
   ];
 
-  programs = {
-    # Niri window manager (scrollable tiling Wayland compositor)
-    # Configuration via programs.niri.settings in modules/nixos/hosts/nixos-desktop/composition.nix
-    niri.enable = true;
+  programs =
+    let
+      quickshellRev = "d60498adc038526b3d155e8ad61e51e78e6e32eb";
+      quickshellPackage =
+        pkgs.callPackage
+          (
+            (pkgs.fetchFromGitHub {
+              owner = "quickshell-mirror";
+              repo = "quickshell";
+              rev = quickshellRev;
+              hash = "sha256-0CTVYyznIl8QC6PpMoOSM2Qo4sIdHp3j3wV8lU7wON8=";
+            })
+            + "/default.nix"
+          )
+          {
+            gitRev = quickshellRev;
+          };
+    in
+    {
+      # Niri window manager (scrollable tiling Wayland compositor)
+      # Configuration via programs.niri.settings in modules/nixos/hosts/nixos-desktop/composition.nix
+      niri.enable = true;
 
-    # DankMaterialShell (Wayland desktop shell) - from flake for IdleMonitor support
-    dank-material-shell = {
-      enable = true;
-      systemd.enable = true;
-      systemd.target = "niri.service";
+      # Test newer Quickshell for KVM/output hotplug recovery issues.
+      dank-material-shell = {
+        enable = true;
+        systemd.enable = true;
+        systemd.target = "niri.service";
+        quickshell.package = quickshellPackage;
+      };
+
+      # Enable browsers
+      firefox.enable = true;
+
+      # Gaming configuration
+      steam = {
+        enable = true;
+        remotePlay.openFirewall = false; # Open ports for Steam Remote Play
+        dedicatedServer.openFirewall = false; # Open ports for Source Dedicated Server
+        localNetworkGameTransfers.openFirewall = false; # Open ports for Steam Local Network Game Transfers
+        gamescopeSession.enable = false;
+      }; # Enable gamescope compositor option
+
+      # Enable gamemode for performance optimizations during gaming
+      gamemode.enable = true;
     };
-
-    # Enable browsers
-    firefox.enable = true;
-
-    # Gaming configuration
-    steam = {
-      enable = true;
-      remotePlay.openFirewall = false; # Open ports for Steam Remote Play
-      dedicatedServer.openFirewall = false; # Open ports for Source Dedicated Server
-      localNetworkGameTransfers.openFirewall = false; # Open ports for Steam Local Network Game Transfers
-      gamescopeSession.enable = false;
-    }; # Enable gamescope compositor option
-
-    # Enable gamemode for performance optimizations during gaming
-    gamemode.enable = true;
-  };
 
   # Performance tuning for gaming
   powerManagement.cpuFreqGovernor = "performance";
