@@ -87,6 +87,7 @@
       "cloudflare/wrangler"
       "agent-browser"
       "spec-planner"
+      "visual-explainer-tailwind"
       # "mattpocock/caveman"
       # "mattpocock/design-an-interface"
       # "mattpocock/domain-model"
