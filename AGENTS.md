@@ -5,17 +5,24 @@ Guidance for this multi-platform Nix flake repo.
 ## Safety
 
 - Never apply Nix changes directly.
-- Allowed validation: `darwin-rebuild build`, `nixos-rebuild build`, `home-manager build`
+- Allowed validation: `nh darwin build`, `nh os build`, `nh home build`
 - Allowed update command only when user asks: `nix flake update`
-- Forbidden: `darwin-rebuild switch`, `nixos-rebuild switch`, `home-manager switch`, `nup`, or any other apply command. The user runs these manually outside the agent.
+- Forbidden: `nh darwin switch`, `nh os switch`, `nh home switch`, `darwin-rebuild switch`, `nixos-rebuild switch`, `home-manager switch`, `nup`, or any other apply command. The user runs these manually outside the agent.
+
+## Nix Commands
+
+Prefer `nh` over raw `darwin-rebuild`, `nixos-rebuild`, `home-manager` commands. It auto-detects the flake ref and provides better output.
+
+| Platform | Validate (allowed) | Apply (forbidden) |
+|---|---|---|
+| Darwin | `nh darwin build .#<hostname>` | `nh darwin switch .#<hostname>` |
+| NixOS | `nh os build .#<hostname>` | `nh os switch .#<hostname>` |
+| Home-manager | `nh home build .#<user>@<hostname>` | `nh home switch .#<user>@<hostname>` |
 
 ## Workflow
 
 1. Make minimal changes.
-2. Validate with platform-specific build (dry-run, doesn't activate):
-   - Darwin: `darwin-rebuild build --flake .#<hostname>`
-   - NixOS: `nixos-rebuild build --flake .#<hostname>`
-   - Ubuntu/standalone home-manager: `home-manager build --flake .#<user>@<hostname>`
+2. Validate with `nh` build (dry-run, doesn't activate) — see table above.
 3. Report failures clearly.
 4. User runs apply commands.
 
