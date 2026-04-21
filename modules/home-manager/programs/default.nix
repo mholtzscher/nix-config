@@ -25,6 +25,7 @@
     ./lazygit.nix
     ./mise.nix
     ./nh.nix
+    ./neovide.nix
     ./neovim.nix
     ./nushell.nix
     ./ollama.nix
