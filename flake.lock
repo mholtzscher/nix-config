@@ -883,6 +883,22 @@
         "type": "github"
       }
     },
+    "nicobailon-visual-explainer": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1774753729,
+        "narHash": "sha256-gaFtCysH6k5ogkb+6yvnwnAeuJqR4kK5OHbHdr64/hk=",
+        "owner": "nicobailon",
+        "repo": "visual-explainer",
+        "rev": "9a97a5818bebbcb61cccf8941d533b82a1ce958b",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nicobailon",
+        "repo": "visual-explainer",
+        "type": "github"
+      }
+    },
     "niri": {
       "inputs": {
         "niri-stable": "niri-stable",
@@ -1121,6 +1137,7 @@
         "mholtzscher-skills": "mholtzscher-skills",
         "naws": "naws",
         "neovim-nightly": "neovim-nightly",
+        "nicobailon-visual-explainer": "nicobailon-visual-explainer",
         "niri": "niri",
         "nix-darwin": "nix-darwin",
         "nix-homebrew": "nix-homebrew",

@@ -46,6 +46,13 @@
         input = "vercel-agent-browser";
         subdir = "skills";
       };
+
+      nicobailon = {
+        input = "nicobailon-visual-explainer";
+        subdir = "plugins";
+        idPrefix = "nicobailon";
+        filter.maxDepth = 1;
+      };
     };
 
     skills.enable = [
@@ -87,7 +94,7 @@
       "cloudflare/wrangler"
       "agent-browser"
       "spec-planner"
-      "visual-explainer"
+      "nicobailon/visual-explainer"
       # "mattpocock/caveman"
       # "mattpocock/design-an-interface"
       # "mattpocock/domain-model"

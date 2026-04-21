@@ -89,6 +89,10 @@
       url = "github:vercel-labs/agent-browser";
       flake = false;
     };
+    nicobailon-visual-explainer = {
+      url = "github:nicobailon/visual-explainer";
+      flake = false;
+    };
     ugh = {
       url = "github:mholtzscher/ugh";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -130,6 +134,7 @@
       mattpocock-skills,
       mholtzscher-skills,
       vercel-agent-browser,
+      nicobailon-visual-explainer,
       ugh,
       today,
       helium,
