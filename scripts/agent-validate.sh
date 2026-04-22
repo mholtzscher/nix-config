@@ -104,12 +104,12 @@ fi
 # Run build
 if [[ "$BUILD_CMD" == "home" ]]; then
   INSTALLABLE=".#${USER}@${HOST}"
-  echo "→ nh home build $INSTALLABLE"
-  nh home build "$INSTALLABLE"
+  echo "→ nh home build -q --no-nom $INSTALLABLE"
+  nh home build -q --no-nom "$INSTALLABLE"
 else
   INSTALLABLE=".#${HOST}"
-  echo "→ nh $BUILD_CMD build $INSTALLABLE"
-  nh "$BUILD_CMD" build "$INSTALLABLE"
+  echo "→ nh $BUILD_CMD build -q --no-nom $INSTALLABLE"
+  nh "$BUILD_CMD" build -q --no-nom "$INSTALLABLE"
 fi
 
 echo ""
