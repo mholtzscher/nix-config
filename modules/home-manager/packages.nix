@@ -43,7 +43,6 @@ with pkgs;
   kubernetes-helm
   nil
   nixfmt
-  nix-output-monitor
   procs
   rm-improved
   slides
