@@ -6,6 +6,5 @@
     ./pi.nix
     ./rtk.nix
     ./agent-browser.nix
-    ./copilot-cli.nix
   ];
 }
