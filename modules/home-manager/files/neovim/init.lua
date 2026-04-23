@@ -306,6 +306,10 @@ require("todo-comments").setup()
 vim.pack.add({ "https://github.com/lewis6991/gitsigns.nvim" })
 require("gitsigns").setup()
 
+-- lensline
+vim.pack.add({ "https://github.com/oribarilan/lensline.nvim" })
+require("lensline").setup()
+
 -- diffview
 vim.pack.add({ "https://github.com/dlyongemallo/diffview.nvim" })
 require("diffview").setup({
