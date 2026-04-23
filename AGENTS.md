@@ -46,6 +46,7 @@ User: Runs switch command manually
 - Add macOS package-manager config in `modules/darwin/homebrew/`
 - Add host-specific user config in `modules/home-manager/hosts/{hostname}/`
 - Add host-specific NixOS system config in `modules/nixos/hosts/{hostname}/`
+- When adding a Neovim plugin, use `vim.pack` and configure it in `init.lua`
 - Use platform guards like `lib.mkIf isDarwin` for OS-specific behavior
 - Use host modules for machine-specific behavior
 
