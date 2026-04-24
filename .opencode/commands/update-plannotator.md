@@ -1,15 +1,16 @@
 ---
-description: Update plannotator to the latest version in mise and opencode configs
+description: Update plannotator versions in Nix and opencode configs
 ---
 
-Update the plannotator version to the latest release in the following files:
+Update plannotator to the latest GitHub release in the following files:
 
-1. `modules/home-manager/programs/mise.nix` — Update the version string in `tools."github:backnotprop/plannotator"`
-2. `modules/home-manager/agents/opencode.nix` — Update the version in `plugin."@plannotator/opencode"`
+1. `pkgs/plannotator/default.nix` — Update the CLI package `version`, release asset names if needed, and release asset hashes.
+2. `modules/home-manager/agents/opencode.nix` — Update the opencode plugin version in `plugin."@plannotator/opencode"`.
 
 Steps:
-1. Use `webfetch` on `https://api.github.com/repos/backnotprop/plannotator/releases/latest` to determine the latest version (extract from `tag_name`, e.g. `v0.19.1` -> `0.19.1`).
-2. Read both files.
-3. Edit both files to replace the old version number with the new one. Keep exact formatting (quoted string, no `v` prefix).
-4. Run `./scripts/agent-validate.sh` to validate the changes.
-5. Report the old and new versions, and whether validation passed.
+1. Run `./scripts/update-plannotator.sh latest --validate`.
+2. To pin a specific release instead, run `./scripts/update-plannotator.sh <version> --validate`, for example `./scripts/update-plannotator.sh 0.19.0 --validate`.
+3. Do not run `nix flake update` for this task.
+4. Report the old version, new version, updated files, and whether validation passed. If validation fails, include the command and the relevant error output.
+
+The script fetches the GitHub release metadata, extracts the CLI asset digests for `plannotator-darwin-arm64` and `plannotator-linux-x64`, converts those SHA-256 digests to Nix SRI hashes, updates the Nix package, and updates the opencode plugin pin.

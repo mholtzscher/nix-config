@@ -16,6 +16,8 @@ with pkgs;
   inputs.today.packages.${pkgs.stdenv.hostPlatform.system}.default
   # atlas - Atlassian CLI
   inputs.atlas.packages.${pkgs.stdenv.hostPlatform.system}.default
+  # plannotator - interactive plan review CLI
+  (pkgs.callPackage ../../pkgs/plannotator { })
   google-cloud-sdk
   nodejs_24
   pnpm
