@@ -28,7 +28,6 @@
     ./neovide.nix
     ./neovim.nix
     ./nushell.nix
-    ./ollama.nix
     ./poetry.nix
     ./pyenv.nix
     ./ripgrep.nix

@@ -38,6 +38,8 @@
     awscli2 # AWS command-line interface
     vesktop # Discord client with better Wayland support
 
+    ollama-cuda # Local LLM server (run on-demand: ollama serve)
+
     # Linux desktop-specific GUI tools
     nautilus # File manager
     imv # Image viewer
