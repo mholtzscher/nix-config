@@ -89,32 +89,42 @@ digest_to_sri() {
   nix hash convert --hash-algo sha256 --to sri "$hex"
 }
 
-darwin_asset="plannotator-darwin-arm64"
-linux_asset="plannotator-linux-x64"
-darwin_digest=$(asset_digest "$darwin_asset")
-linux_digest=$(asset_digest "$linux_asset")
+platform_assets=(
+  "aarch64-darwin:plannotator-darwin-arm64"
+  "x86_64-linux:plannotator-linux-x64"
+)
+hash_updates=()
 
-if [[ -z "$darwin_digest" || -z "$linux_digest" ]]; then
-  echo "Release $tag_name is missing one or more required CLI assets." >&2
-  echo "Required assets: $darwin_asset, $linux_asset" >&2
-  exit 1
-fi
+for platform_asset in "${platform_assets[@]}"; do
+  IFS=: read -r platform asset_name <<<"$platform_asset"
+  digest=$(asset_digest "$asset_name")
 
-darwin_hash=$(digest_to_sri "$darwin_digest")
-linux_hash=$(digest_to_sri "$linux_digest")
+  if [[ -z "$digest" ]]; then
+    echo "Release $tag_name is missing required CLI asset: $asset_name" >&2
+    exit 1
+  fi
+
+  hash=$(digest_to_sri "$digest")
+  hash_updates+=("$platform:$asset_name:$hash")
+done
 
 NEW_VERSION="$new_version" perl -0pi -e 's/version = "[^"]+";/version = "$ENV{NEW_VERSION}";/' "$package_file"
-DARWIN_HASH="$darwin_hash" perl -0pi -e 's/(aarch64-darwin = \{\n\s+name = "plannotator-darwin-arm64";\n\s+hash = ")sha256-[^"]+(";)/$1$ENV{DARWIN_HASH}$2/' "$package_file"
-LINUX_HASH="$linux_hash" perl -0pi -e 's/(x86_64-linux = \{\n\s+name = "plannotator-linux-x64";\n\s+hash = ")sha256-[^"]+(";)/$1$ENV{LINUX_HASH}$2/' "$package_file"
 NEW_VERSION="$new_version" perl -0pi -e 's/\@plannotator\/opencode\@[^\"]+/\@plannotator\/opencode\@$ENV{NEW_VERSION}/g' "$opencode_file"
+
+for hash_update in "${hash_updates[@]}"; do
+  IFS=: read -r platform asset_name hash <<<"$hash_update"
+  PLATFORM="$platform" ASSET_NAME="$asset_name" HASH="$hash" perl -0pi -e 's/(\Q$ENV{PLATFORM}\E = \{\n\s+name = "\Q$ENV{ASSET_NAME}\E";\n\s+hash = ")sha256-[^"]+(";)/$1$ENV{HASH}$2/' "$package_file"
+done
 
 echo "Updated plannotator: $old_version -> $new_version"
 echo "Updated files:"
 echo "  $package_file"
 echo "  $opencode_file"
 echo "Hashes:"
-echo "  $darwin_asset: $darwin_hash"
-echo "  $linux_asset: $linux_hash"
+for hash_update in "${hash_updates[@]}"; do
+  IFS=: read -r _ asset_name hash <<<"$hash_update"
+  echo "  $asset_name: $hash"
+done
 
 if [[ "$validate" == true ]]; then
   "$repo_root/scripts/agent-validate.sh"
