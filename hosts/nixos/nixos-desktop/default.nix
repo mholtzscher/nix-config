@@ -139,7 +139,7 @@
       };
 
       # Enable browsers
-      firefox.enable = true;
+      firefox.enable = false;
 
       # Gaming configuration
       steam = {

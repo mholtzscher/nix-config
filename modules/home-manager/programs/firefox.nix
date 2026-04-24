@@ -5,7 +5,7 @@
 }:
 {
   programs.firefox = {
-    enable = isLinux;
+    enable = false;
 
     policies = {
       "AutofillAddressEnabled" = false;
