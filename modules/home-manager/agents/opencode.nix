@@ -64,7 +64,7 @@ in
       recursive = true;
     };
 
-    "${config.xdg.configHome}/opencode/AGENTS.md".source = ./files/opencode/AGENTS.md;
+    # "${config.xdg.configHome}/opencode/AGENTS.md".source = ./files/opencode/AGENTS.md;
   };
 
   programs = {
