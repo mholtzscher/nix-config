@@ -1,7 +1,7 @@
 {
   "defaultProvider": "opencode",
   "defaultModel": "kimi-k2.6",
-  "theme": "dark",
+  "theme": "oh-p-dark",
   "packages": [
     "npm:@plannotator/pi-extension@0.19.1",
     "npm:pi-powerline-footer",
