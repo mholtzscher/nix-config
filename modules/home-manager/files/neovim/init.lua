@@ -29,11 +29,7 @@ vim.diagnostic.config({
 	virtual_lines = { current_line = true },
 })
 
-vim.filetype.add({
-	extension = {
-		txtar = "txtar",
-	},
-})
+
 
 -- AUTO COMMANDS (NON-LSP)
 -- Make the cursorline "move" with the focused window
