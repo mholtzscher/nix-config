@@ -44,8 +44,9 @@ done
 repo_root=$(git rev-parse --show-toplevel)
 package_file="$repo_root/pkgs/plannotator/default.nix"
 opencode_file="$repo_root/modules/home-manager/agents/opencode.nix"
+pi_settings_file="$repo_root/modules/home-manager/agents/files/pi/settings.json"
 
-if [[ ! -f "$package_file" || ! -f "$opencode_file" ]]; then
+if [[ ! -f "$package_file" || ! -f "$opencode_file" || ! -f "$pi_settings_file" ]]; then
   echo "Run this script from inside the nix-config repository." >&2
   exit 1
 fi
@@ -110,6 +111,7 @@ done
 
 NEW_VERSION="$new_version" perl -0pi -e 's/version = "[^"]+";/version = "$ENV{NEW_VERSION}";/' "$package_file"
 NEW_VERSION="$new_version" perl -0pi -e 's/\@plannotator\/opencode\@[^\"]+/\@plannotator\/opencode\@$ENV{NEW_VERSION}/g' "$opencode_file"
+NEW_VERSION="$new_version" perl -0pi -e 's/npm:\@plannotator\/pi-extension\@[^\"]+/npm:\@plannotator\/pi-extension\@$ENV{NEW_VERSION}/g' "$pi_settings_file"
 
 for hash_update in "${hash_updates[@]}"; do
   IFS=: read -r platform asset_name hash <<<"$hash_update"
@@ -120,6 +122,7 @@ echo "Updated plannotator: $old_version -> $new_version"
 echo "Updated files:"
 echo "  $package_file"
 echo "  $opencode_file"
+echo "  $pi_settings_file"
 echo "Hashes:"
 for hash_update in "${hash_updates[@]}"; do
   IFS=: read -r _ asset_name hash <<<"$hash_update"
