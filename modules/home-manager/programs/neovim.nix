@@ -17,7 +17,7 @@ let
       hash = "sha256-7ZyBeYYwonEbxjJKlOzoFqIh7zVV+JJQEHzw11WcO1E=";
     };
   };
-  tree-sitter-txtar = pkgs.runCommand "nvim-treesitter-txtar" { } ''
+  tree-sitter-txtar = pkgs.runCommand "nvim-treesitter-txtar" { pname = "nvim-treesitter-txtar"; } ''
     mkdir -p $out/parser
     mkdir -p $out/queries/txtar
     ln -s ${tree-sitter-txtar-grammar}/parser $out/parser/txtar.so

@@ -24,6 +24,7 @@ in
         $env.PATH = ($env.PATH | prepend $"($env.HOME)/.local/bin" | prepend "/opt/homebrew/sbin" | prepend "/opt/homebrew/bin")
 
         ${builtins.readFile ../files/nushell/functions.nu}
+        ${builtins.readFile ../files/nushell/kitty-sessionizer.nu}
       '';
       shellAliases = sharedAliases.shellAliases;
       settings = {
