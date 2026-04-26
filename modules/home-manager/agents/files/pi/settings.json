@@ -5,7 +5,8 @@
   "packages": [
     "npm:@plannotator/pi-extension@0.19.1",
     "npm:pi-powerline-footer",
-    "https://github.com/MasuRii/pi-tool-display"
+    "npm:pi-tool-display",
+    "npm:@ifi/oh-pi-themes"
   ],
   "npmCommand": ["mise", "exec", "node@24", "--", "npm"]
 }
