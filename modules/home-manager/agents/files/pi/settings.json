@@ -6,7 +6,9 @@
     "npm:@plannotator/pi-extension@0.19.1",
     "npm:pi-powerline-footer",
     "npm:pi-tool-display",
-    "npm:@ifi/oh-pi-themes"
+    "npm:@ifi/oh-pi-themes",
+    "npm:pi-btw",
+    "npm:pi-rtk-optimizer"
   ],
   "npmCommand": ["mise", "exec", "node@24", "--", "npm"]
 }
