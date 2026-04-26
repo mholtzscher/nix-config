@@ -20,10 +20,6 @@ in
   home.file = lib.optionalAttrs (!isWork) {
     ".pi/agent/settings.json".source = ./files/pi/settings.json;
 
-    ".pi/agent/themes" = {
-      source = ./files/pi/themes;
-    };
-
     ".pi/agent/prompts" = {
       source = ./files/pi/prompts;
       recursive = true;
