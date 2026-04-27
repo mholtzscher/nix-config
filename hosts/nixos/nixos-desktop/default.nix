@@ -107,36 +107,16 @@
     xdpyinfo
   ];
 
-  programs =
-    let
-      quickshellRev = "d60498adc038526b3d155e8ad61e51e78e6e32eb";
-      quickshellPackage =
-        pkgs.callPackage
-          (
-            (pkgs.fetchFromGitHub {
-              owner = "quickshell-mirror";
-              repo = "quickshell";
-              rev = quickshellRev;
-              hash = "sha256-0CTVYyznIl8QC6PpMoOSM2Qo4sIdHp3j3wV8lU7wON8=";
-            })
-            + "/default.nix"
-          )
-          {
-            gitRev = quickshellRev;
-          };
-    in
-    {
-      # Niri window manager (scrollable tiling Wayland compositor)
-      # Configuration via programs.niri.settings in modules/nixos/hosts/nixos-desktop/composition.nix
-      niri.enable = true;
+  programs = {
+    # Niri window manager (scrollable tiling Wayland compositor)
+    # Configuration via programs.niri.settings in modules/nixos/hosts/nixos-desktop/composition.nix
+    niri.enable = true;
 
-      # Test newer Quickshell for KVM/output hotplug recovery issues.
-      dank-material-shell = {
-        enable = true;
-        systemd.enable = true;
-        systemd.target = "niri.service";
-        quickshell.package = quickshellPackage;
-      };
+    dank-material-shell = {
+      enable = true;
+      systemd.enable = true;
+      systemd.target = "niri.service";
+    };
 
       # Enable browsers
       firefox.enable = false;
