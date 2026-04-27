@@ -142,5 +142,9 @@ if.app-name-regex-substring = 'MOTIV Mix'
 run = ['move-node-to-workspace EverythingElse']
 
 [[on-window-detected]]
+if.app-name-regex-substring = 'Insta360'
+run = ['move-node-to-workspace EverythingElse']
+
+[[on-window-detected]]
 if.app-name-regex-substring = 'CatoClient'
 run = ['move-node-to-workspace EverythingElse']
