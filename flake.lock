@@ -800,11 +800,11 @@
     "mholtzscher-skills": {
       "flake": false,
       "locked": {
-        "lastModified": 1777408367,
-        "narHash": "sha256-ZQ07RziX+m5QQLdmUvnCsH5Q8Fly6fxH0C0R/OnkU8A=",
+        "lastModified": 1777409847,
+        "narHash": "sha256-TZYLqgArk8yJxXvv4XONIFIXiNhoJlzseuRGtR4I7mM=",
         "owner": "mholtzscher",
         "repo": "skills",
-        "rev": "a55e572c34e7b01c05e0cbdb9500cc67048c78d3",
+        "rev": "b773805483027bcf456ed05508643aa2600e9be0",
         "type": "github"
       },
       "original": {
