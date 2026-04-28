@@ -522,7 +522,7 @@ export def ai_commit [
     return 1
   }
 
-  let model = "opencode/gpt-5.4-mini"
+  let model = "opencode-go/deepseek-v4-flash"
   log info $"Analyzing staged changes with AI using ($model)..."
 
   # Use OpenCode CLI to analyze the diff and generate commit message
