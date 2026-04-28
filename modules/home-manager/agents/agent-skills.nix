@@ -116,6 +116,7 @@
       # "mattpocock/ubiquitous-language"
       # "mattpocock/write-a-skill"
       # "mattpocock/zoom-out"
+      "zellij-tasks"
     ];
 
     targets.pi = {
