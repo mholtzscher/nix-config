@@ -786,11 +786,11 @@
     "mholtzscher-skills": {
       "flake": false,
       "locked": {
-        "lastModified": 1777409847,
-        "narHash": "sha256-TZYLqgArk8yJxXvv4XONIFIXiNhoJlzseuRGtR4I7mM=",
+        "lastModified": 1777471816,
+        "narHash": "sha256-blo5DGJUc+hB1SO6OgZMju5EyXsSaMQYWmln3Tr0HDk=",
         "owner": "mholtzscher",
         "repo": "skills",
-        "rev": "b773805483027bcf456ed05508643aa2600e9be0",
+        "rev": "bcfe2a0e45e7fd7ba54d32128d24dc3974ddf1fa",
         "type": "github"
       },
       "original": {
