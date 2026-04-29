@@ -1,8 +1,45 @@
-{ ... }:
+{
+  pkgs,
+  user,
+  ...
+}:
+let
+  refreshDisplays = pkgs.writeShellScriptBin "refresh-displays" ''
+    set -eu
+
+    found=0
+    for status in /sys/class/drm/card*-DP-*/status /sys/class/drm/card*-HDMI-A-*/status; do
+      [ -e "$status" ] || continue
+      found=1
+      echo detect > "$status"
+    done
+
+    if [ "$found" -eq 0 ]; then
+      echo "No DisplayPort/HDMI DRM connectors found" >&2
+      exit 1
+    fi
+  '';
+in
 {
   # Wayland composition stack: Niri window manager + DankMaterialShell
   # This module manages the setup for the desktop environment
   # Note: Niri module is loaded from inputs in lib/default.nix when graphical=true
+
+  environment.systemPackages = [
+    refreshDisplays
+  ];
+
+  security.sudo.extraRules = [
+    {
+      users = [ user ];
+      commands = [
+        {
+          command = "${refreshDisplays}/bin/refresh-displays";
+          options = [ "NOPASSWD" ];
+        }
+      ];
+    }
+  ];
 
   # Niri settings + DMS keybinds via home-manager
   home-manager.sharedModules = [
@@ -147,6 +184,14 @@
             "--user"
             "restart"
             "dms.service"
+          ];
+
+          # Force DRM display connector re-detection after a missed KVM hotplug event.
+          # Press blind if the KVM returns with no visible output.
+          "Mod+Shift+O".action.spawn = [
+            "sudo"
+            "-n"
+            "${refreshDisplays}/bin/refresh-displays"
           ];
 
           # Dictation - speech-to-text using whisper.cpp
