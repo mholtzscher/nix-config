@@ -8,7 +8,6 @@
     "npm:pi-btw",
     "npm:pi-fff",
     "npm:pi-powerline-footer",
-    "npm:pi-rtk-optimizer",
     "npm:pi-web-access"
   ],
   "npmCommand": ["mise", "exec", "node@24", "--", "npm"]
