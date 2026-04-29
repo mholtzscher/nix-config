@@ -15,7 +15,6 @@
       local = {
         input = "mholtzscher-skills";
         idPrefix = "mholtzscher";
-        filter.maxDepth = 1;
       };
 
       anthropic = {
@@ -28,13 +27,12 @@
         input = "cloudflare-skills";
         subdir = "skills";
         idPrefix = "cloudflare";
-        filter.maxDepth = 1;
       };
 
       mattpocock = {
         input = "mattpocock-skills";
         idPrefix = "mattpocock";
-        filter.maxDepth = 1;
+        subdir = "skills/engineering";
       };
 
       vercel = {
@@ -47,7 +45,6 @@
         input = "nicobailon-visual-explainer";
         subdir = "plugins";
         idPrefix = "nicobailon";
-        filter.maxDepth = 1;
       };
     };
 
