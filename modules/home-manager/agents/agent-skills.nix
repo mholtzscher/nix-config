@@ -49,14 +49,14 @@
     };
 
     skills.enable = [
+      "anthropic/frontend-design"
+      "anthropic/skill-creator"
+      "mattpocock/grill-with-docs"
+      "mattpocock/improve-codebase-architecture"
+      "mattpocock/tdd"
       "mholtzscher/atlassian-api"
       "mholtzscher/conventional-commits"
       "mholtzscher/spec-planner"
-      "anthropic/frontend-design"
-      "anthropic/skill-creator"
-      "mattpocock/tdd"
-      "mattpocock/grill-with-docs"
-      "mattpocock/improve-codebase-architecture"
       "vercel/agent-browser"
     ]
     ++ lib.optionals (!isWork) [
