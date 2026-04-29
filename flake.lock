@@ -1,21 +1,5 @@
 {
   "nodes": {
-    "addyosmani-agent-skills": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1777324904,
-        "narHash": "sha256-jnbz2d7KN9PxnGi7Fy6N0rChKRUPKEE2BFpRiPOA1Xg=",
-        "owner": "addyosmani",
-        "repo": "agent-skills",
-        "rev": "19e49a094d79540e635b107cb3490926ddeac7a3",
-        "type": "github"
-      },
-      "original": {
-        "owner": "addyosmani",
-        "repo": "agent-skills",
-        "type": "github"
-      }
-    },
     "aerospace-utils": {
       "inputs": {
         "flake-utils": "flake-utils",
@@ -1103,7 +1087,6 @@
     },
     "root": {
       "inputs": {
-        "addyosmani-agent-skills": "addyosmani-agent-skills",
         "aerospace-utils": "aerospace-utils",
         "agent-skills": "agent-skills",
         "anthropic-skills": "anthropic-skills",

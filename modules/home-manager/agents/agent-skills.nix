@@ -1,5 +1,6 @@
 {
   config,
+  lib,
   inputs,
   isWork,
   ...
@@ -13,6 +14,7 @@
     sources = {
       local = {
         input = "mholtzscher-skills";
+        idPrefix = "mholtzscher";
         filter.maxDepth = 1;
       };
 
@@ -29,13 +31,6 @@
         filter.maxDepth = 1;
       };
 
-      addyosmani = {
-        input = "addyosmani-agent-skills";
-        subdir = "skills";
-        idPrefix = "addyosmani";
-        filter.maxDepth = 1;
-      };
-
       mattpocock = {
         input = "mattpocock-skills";
         idPrefix = "mattpocock";
@@ -45,6 +40,7 @@
       vercel = {
         input = "vercel-agent-browser";
         subdir = "skills";
+        idPrefix = "vercel";
       };
 
       nicobailon = {
@@ -56,35 +52,17 @@
     };
 
     skills.enable = [
-      "atlassian-api"
-      "conventional-commits"
-      # "addyosmani/api-and-interface-design"
-      # "addyosmani/browser-testing-with-devtools"
-      # "addyosmani/ci-cd-and-automation"
-      # "addyosmani/code-review-and-quality"
-      # "addyosmani/code-simplification"
-      # "addyosmani/context-engineering"
-      # "addyosmani/debugging-and-error-recovery"
-      # "addyosmani/deprecation-and-migration"
-      # "addyosmani/documentation-and-adrs"
-      # "addyosmani/frontend-ui-engineering"
-      # "addyosmani/git-workflow-and-versioning"
-      # "addyosmani/idea-refine"
-      # "addyosmani/incremental-implementation"
-      # "addyosmani/performance-optimization"
-      # "addyosmani/planning-and-task-breakdown"
-      # "addyosmani/security-and-hardening"
-      # "addyosmani/shipping-and-launch"
-      # "addyosmani/source-driven-development"
-      # "addyosmani/spec-driven-development"
-      # "addyosmani/test-driven-development"
-      # "addyosmani/using-agent-skills"
-      # "gradle"
-      # "index-knowledge"
-      # "librarian"
-      # "mermaid"
+      "mholtzscher/atlassian-api"
+      "mholtzscher/conventional-commits"
+      "mholtzscher/spec-planner"
       "anthropic/frontend-design"
       "anthropic/skill-creator"
+      "mattpocock/tdd"
+      "mattpocock/grill-with-docs"
+      "mattpocock/improve-codebase-architecture"
+      "vercel/agent-browser"
+    ]
+    ++ lib.optionals (!isWork) [
       "cloudflare/agents-sdk"
       "cloudflare/cloudflare"
       "cloudflare/durable-objects"
@@ -92,31 +70,8 @@
       "cloudflare/web-perf"
       "cloudflare/workers-best-practices"
       "cloudflare/wrangler"
-      "agent-browser"
-      "spec-planner"
+      "mholtzscher/zellij-tasks"
       "nicobailon/visual-explainer"
-      # "mattpocock/caveman"
-      # "mattpocock/design-an-interface"
-      # "mattpocock/domain-model"
-      # "mattpocock/edit-article"
-      # "mattpocock/git-guardrails-claude-code"
-      # "mattpocock/github-triage"
-      # "mattpocock/grill-me"
-      # "mattpocock/improve-codebase-architecture"
-      # "mattpocock/migrate-to-shoehorn"
-      # "mattpocock/obsidian-vault"
-      # "mattpocock/qa"
-      # "mattpocock/request-refactor-plan"
-      # "mattpocock/scaffold-exercises"
-      # "mattpocock/setup-pre-commit"
-      # "mattpocock/tdd"
-      # "mattpocock/to-issues"
-      # "mattpocock/to-prd"
-      # "mattpocock/triage-issue"
-      # "mattpocock/ubiquitous-language"
-      # "mattpocock/write-a-skill"
-      # "mattpocock/zoom-out"
-      "zellij-tasks"
     ];
 
     targets.pi = {
