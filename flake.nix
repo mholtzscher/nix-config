@@ -53,9 +53,14 @@
       url = "github:nix-community/neovim-nightly-overlay";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    quickshell = {
+      url = "git+https://git.outfoxxed.me/quickshell/quickshell";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     dms = {
       url = "github:AvengeMedia/DankMaterialShell";
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.quickshell.follows = "quickshell";
     };
     llm-agents = {
       url = "github:numtide/llm-agents.nix";
@@ -121,6 +126,7 @@
       melt,
       difftui,
       neovim-nightly,
+      quickshell,
       dms,
       llm-agents,
       agent-skills,
