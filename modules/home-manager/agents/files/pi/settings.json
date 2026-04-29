@@ -3,7 +3,7 @@
   "defaultModel": "kimi-k2.6",
   "theme": "oh-p-dark",
   "packages": [
-    "npm:@plannotator/pi-extension@0.19.1",
+    "npm:@plannotator/pi-extension",
     "npm:pi-powerline-footer",
     "npm:@ifi/oh-pi-themes",
     "npm:pi-btw",
