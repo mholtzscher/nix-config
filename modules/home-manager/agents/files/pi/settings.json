@@ -1,14 +1,15 @@
 {
-  "defaultProvider": "opencode",
-  "defaultModel": "kimi-k2.6",
+  "defaultProvider": "opencode-go",
+  "defaultModel": "deepseek-v4-flash",
   "theme": "oh-p-dark",
   "packages": [
-    "npm:@plannotator/pi-extension",
-    "npm:pi-powerline-footer",
     "npm:@ifi/oh-pi-themes",
+    "npm:@plannotator/pi-extension",
     "npm:pi-btw",
+    "npm:pi-fff",
+    "npm:pi-powerline-footer",
     "npm:pi-rtk-optimizer",
-    "npm:pi-fff"
+    "npm:pi-web-access"
   ],
   "npmCommand": ["mise", "exec", "node@24", "--", "npm"]
 }
