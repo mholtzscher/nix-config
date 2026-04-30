@@ -8,7 +8,8 @@
     "npm:pi-btw",
     "npm:pi-fff",
     "npm:pi-powerline-footer",
-    "npm:pi-web-access"
+    "npm:pi-web-access",
+    "npm:@stenn/tps-monitor"
   ],
   "npmCommand": ["mise", "exec", "node@24", "--", "npm"]
 }
