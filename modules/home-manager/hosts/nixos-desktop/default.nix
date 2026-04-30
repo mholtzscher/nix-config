@@ -256,15 +256,15 @@ in {
     use24HourClock = false;
 
     # Idle Management (desktop - AC power only)
-    acLockTimeout = 0; # Disabled for diagnosis: lock path appears to wedge KVM reconnect
-    acMonitorTimeout = 0; # Keep display on; DMS DPMS blanking breaks KVM reconnect on lock
+    acLockTimeout = 600; # 10 min - lock screen (recoverable via Mod+Shift+O)
+    acMonitorTimeout = 720; # 12 min - DPMS display off (recoverable via Mod+Shift+O)
     acSuspendTimeout = 0; # Never auto-suspend
 
     # Lock behavior
-    lockBeforeSuspend = false;
-    fadeToLockEnabled = false;
+    lockBeforeSuspend = true;
+    fadeToLockEnabled = true;
     fadeToLockGracePeriod = 5;
-    fadeToDpmsEnabled = false; # Same issue as above; lock stays enabled, only DPMS is disabled
+    fadeToDpmsEnabled = true; # All recoverable via Mod+Shift+O if KVM wedges
     fadeToDpmsGracePeriod = 5;
   };
 
