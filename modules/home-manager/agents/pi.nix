@@ -25,6 +25,8 @@ in
       recursive = true;
     };
 
+    ".pi/agent/models.json".source = ./files/pi/models.json;
+
     ".pi/agent/extensions" = {
       source = filteredExtensionsSource;
       recursive = true;
