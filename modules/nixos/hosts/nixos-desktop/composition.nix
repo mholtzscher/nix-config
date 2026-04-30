@@ -7,17 +7,33 @@ let
   refreshDisplays = pkgs.writeShellScriptBin "refresh-displays" ''
     set -eu
 
-    found=0
-    for status in /sys/class/drm/card*-DP-*/status /sys/class/drm/card*-HDMI-A-*/status; do
-      [ -e "$status" ] || continue
-      found=1
-      echo detect > "$status"
-    done
+    NIRI_MSG="${pkgs.niri}/bin/niri msg"
 
-    if [ "$found" -eq 0 ]; then
-      echo "No DisplayPort/HDMI DRM connectors found" >&2
-      exit 1
+    # Step 1: Try Niri DPMS power cycle — this forces DisplayPort link re-negotiation
+    # which is what KVMs need after switching back.
+    if $NIRI_MSG action power-off-monitors 2>/dev/null; then
+      sleep 1
+      $NIRI_MSG action power-on-monitors
+      echo "KVM recovery: DPMS power cycle completed via Niri"
+      exit 0
     fi
+
+    echo "Niri DPMS not available, trying wlr-randr fallback..." >&2
+
+    # Step 2: Try wlr-randr as a fallback
+    if command -v wlr-randr >/dev/null 2>&1; then
+      for output in DP-1 HDMI-A-1; do
+        if wlr-randr --output "$output" --off 2>/dev/null; then
+          sleep 1
+          wlr-randr --output "$output" --on 2>/dev/null || true
+          echo "KVM recovery: cycled $output via wlr-randr"
+        fi
+      done
+      exit 0
+    fi
+
+    echo "No display management tool available (niri/wlr-randr)" >&2
+    exit 1
   '';
 in
 {
@@ -29,17 +45,7 @@ in
     refreshDisplays
   ];
 
-  security.sudo.extraRules = [
-    {
-      users = [ user ];
-      commands = [
-        {
-          command = "${refreshDisplays}/bin/refresh-displays";
-          options = [ "NOPASSWD" ];
-        }
-      ];
-    }
-  ];
+
 
   # Niri settings + DMS keybinds via home-manager
   home-manager.sharedModules = [
@@ -186,11 +192,10 @@ in
             "dms.service"
           ];
 
-          # Force DRM display connector re-detection after a missed KVM hotplug event.
+          # Force DisplayPort link re-negotiation after a missed KVM hotplug event.
           # Press blind if the KVM returns with no visible output.
+          # Powers monitors off/on via DPMS to trigger GPU link re-training.
           "Mod+Shift+O".action.spawn = [
-            "sudo"
-            "-n"
             "${refreshDisplays}/bin/refresh-displays"
           ];
 
