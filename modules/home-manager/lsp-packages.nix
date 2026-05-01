@@ -46,7 +46,7 @@ with pkgs;
   emmet-language-server
   typescript-language-server
   prettier
-  biome
+  # biome
 
   # VSCode language servers (CSS, HTML, JSON, ESLint, Markdown)
   vscode-langservers-extracted
