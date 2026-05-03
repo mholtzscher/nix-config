@@ -522,15 +522,19 @@ export def ai_commit [
     return 1
   }
 
-  let model = "gpt-5.4-mini"
+  let model = "opencode-go/deepseek-v4-flash"
   log info $"Analyzing staged changes with AI using pi and ($model)..."
 
   # Use pi in print mode to analyze the diff and generate a commit message.
-  # NOTE: We pipe the staged diff via stdin to avoid "Argument list too long"
-  # errors when the diff is large.
-  let commit_prompt = "/skill:conventional-commits\nAnalyze the staged git diff provided on stdin and create a single conventional commit message that best describes the changes.\n\nReturn ONLY the commit message, nothing else. No explanations, no markdown code blocks, just the commit message text."
+  let commit_prompt = $"Analyze the following staged git diff and create a conventional commit message that best describes the changes:
 
-  let pi_result = ($staged_diff | pi -p --no-session --no-tools --model $model $commit_prompt | complete)
+Staged changes:
+```($staged_diff)
+```
+
+Return ONLY the commit message, nothing else. No explanations, no markdown code blocks, just the commit message text."
+
+  let pi_result = (pi -p --no-session --no-tools --model $model $commit_prompt | complete)
 
   if $pi_result.exit_code != 0 {
     log error "Failed to generate commit message with pi"
