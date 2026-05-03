@@ -22,6 +22,8 @@ in
       defaultProvider = "opencode-go";
       defaultModel = "deepseek-v4-flash";
       theme = "oh-p-dark";
+      workingVibe = "Bruce Schneier";
+      workingVibeMode = "file";
       packages = [
         "npm:@ifi/oh-pi-themes"
         "npm:@plannotator/pi-extension"
@@ -72,6 +74,11 @@ in
 
     ".pi/agent/extensions" = {
       source = filteredExtensionsSource;
+      recursive = true;
+    };
+
+    ".pi/agent/vibes" = {
+      source = ./files/pi/vibes;
       recursive = true;
     };
   };
