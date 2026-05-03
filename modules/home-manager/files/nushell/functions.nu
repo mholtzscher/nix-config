@@ -497,7 +497,7 @@ export def nfu [] {
   }
 }
 
-# AI-powered conventional commit using opencode
+# AI-powered conventional commit using pi
 # Analyzes staged changes and generates a conventional commit message
 # Usage: ai_commit          # With confirmation prompt
 #        ai_commit --yes    # Skip confirmation (auto-commit)
@@ -505,7 +505,7 @@ export def ai_commit [
   --yes (-y) # Skip confirmation and commit immediately
 ] {
   _require_tool git
-  _require_tool opencode
+  _require_tool pi
 
   # Check if we're in a git repository
   let git_check = (git rev-parse --is-inside-work-tree | complete)
@@ -522,57 +522,26 @@ export def ai_commit [
     return 1
   }
 
-  let model = "opencode-go/deepseek-v4-flash"
-  log info $"Analyzing staged changes with AI using ($model)..."
+  let model = "gpt-5.4-mini"
+  log info $"Analyzing staged changes with AI using pi and ($model)..."
 
-  # Use OpenCode CLI to analyze the diff and generate commit message
-  # --format json gives us structured output with events we can parse
-  # NOTE: We pipe the prompt via stdin to avoid "Argument list too long" errors on Linux
-  # when the diff is large (Linux has lower ARG_MAX than macOS)
-  let commit_prompt = $"/skill:conventional-commits
+  # Use pi in print mode to analyze the diff and generate a commit message.
+  # NOTE: We pipe the staged diff via stdin to avoid "Argument list too long"
+  # errors when the diff is large.
+  let commit_prompt = "/skill:conventional-commits\nAnalyze the staged git diff provided on stdin and create a single conventional commit message that best describes the changes.\n\nReturn ONLY the commit message, nothing else. No explanations, no markdown code blocks, just the commit message text."
 
-Analyze the following staged git diff and create a conventional commit message:
+  let pi_result = ($staged_diff | pi -p --no-session --no-tools --model $model $commit_prompt | complete)
 
-Staged changes:
-```($staged_diff)
-```
-
-Return ONLY the commit message, nothing else. No explanations, no markdown code blocks, just the commit message text."
-
-  let opencode_result = ($commit_prompt | opencode run --format json --model $model - | complete)
-
-  if $opencode_result.exit_code != 0 {
-    log error "Failed to generate commit message with opencode"
-    log error $opencode_result.stderr
+  if $pi_result.exit_code != 0 {
+    log error "Failed to generate commit message with pi"
+    log error $pi_result.stderr
     return
   }
 
-  # Parse JSON output to extract the text content from response events
-  # OpenCode sends multiple JSON events with structure: {"type":"text","part":{"text":"..."}}
-  # Only keep the last message if multiple are returned.
-  let commit_parts = (
-    $opencode_result.stdout
-    | lines
-    | where {|line| ($line | str trim) != "" }
-    | each {|line|
-      try {
-        $line | from json
-      } catch {
-        null
-      }
-    }
-    | where $it != null
-    | where {|event| $event.type? == "text" }
-    | get part.text
-  )
-  let commit_message = if ($commit_parts | is-empty) {
-    ""
-  } else {
-    $commit_parts | last | str trim
-  }
+  let commit_message = ($pi_result.stdout | str trim)
 
   if ($commit_message | is-empty) {
-    log error "opencode returned an empty commit message"
+    log error "pi returned an empty commit message"
     return
   }
 
