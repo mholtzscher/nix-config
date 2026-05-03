@@ -507,6 +507,9 @@ keybinds clear-defaults=true {
         bind "Alt ]" {
             NextSwapLayout
         }
+        bind "Alt t" {
+            NewTab
+        }
         bind "Alt p" {
             TogglePaneInGroup
         }
