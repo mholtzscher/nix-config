@@ -118,21 +118,21 @@
       systemd.target = "niri.service";
     };
 
-      # Enable browsers
-      firefox.enable = false;
+    # Enable browsers
+    firefox.enable = false;
 
-      # Gaming configuration
-      steam = {
-        enable = true;
-        remotePlay.openFirewall = false; # Open ports for Steam Remote Play
-        dedicatedServer.openFirewall = false; # Open ports for Source Dedicated Server
-        localNetworkGameTransfers.openFirewall = false; # Open ports for Steam Local Network Game Transfers
-        gamescopeSession.enable = false;
-      }; # Enable gamescope compositor option
+    # Gaming configuration
+    steam = {
+      enable = true;
+      remotePlay.openFirewall = false; # Open ports for Steam Remote Play
+      dedicatedServer.openFirewall = false; # Open ports for Source Dedicated Server
+      localNetworkGameTransfers.openFirewall = false; # Open ports for Steam Local Network Game Transfers
+      gamescopeSession.enable = false;
+    }; # Enable gamescope compositor option
 
-      # Enable gamemode for performance optimizations during gaming
-      gamemode.enable = true;
-    };
+    # Enable gamemode for performance optimizations during gaming
+    gamemode.enable = true;
+  };
 
   # Performance tuning for gaming
   powerManagement.cpuFreqGovernor = "performance";

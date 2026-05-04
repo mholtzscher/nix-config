@@ -34,7 +34,13 @@ in
         "npm:pi-powerline-footer"
         "npm:pi-web-access"
       ];
-      npmCommand = [ "mise" "exec" "node@24" "--" "npm" ];
+      npmCommand = [
+        "mise"
+        "exec"
+        "node@24"
+        "--"
+        "npm"
+      ];
     };
 
     ".pi/agent/prompts" = {
@@ -57,7 +63,10 @@ in
               id = "local";
               name = "Local Model";
               reasoning = true;
-              input = [ "text" "image" ];
+              input = [
+                "text"
+                "image"
+              ];
               contextWindow = 131072;
               maxTokens = 81920;
               cost = {

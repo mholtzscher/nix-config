@@ -27,7 +27,8 @@ let
       --fit on \
       --ctx-size 131072
   '';
-in {
+in
+{
   # NixOS Desktop-specific home-manager configuration
   # Desktop environment setup is now in modules/nixos/desktop/
   # This file contains only user-specific packages and services
