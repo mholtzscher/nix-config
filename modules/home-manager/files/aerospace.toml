@@ -148,3 +148,7 @@ run = ['move-node-to-workspace EverythingElse']
 [[on-window-detected]]
 if.app-name-regex-substring = 'CatoClient'
 run = ['move-node-to-workspace EverythingElse']
+
+[[on-window-detected]]
+if.app-id = 'com.pais.handy' # Replace this with your exact App ID
+run = 'layout floating'
