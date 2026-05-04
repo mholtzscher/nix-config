@@ -92,17 +92,15 @@ in
     useFahrenheit = true;
     use24HourClock = false;
 
-    # Idle Management (desktop - AC power only)
-    acLockTimeout = 600; # 10 min - lock screen (recoverable via Mod+Shift+O)
-    acMonitorTimeout = 720; # 12 min - DPMS display off (recoverable via Mod+Shift+O)
+    # Idle Management (desktop - AC power only) — all disabled
+    acLockTimeout = 0; # Never lock screen
+    acMonitorTimeout = 0; # Never turn off display (DPMS)
     acSuspendTimeout = 0; # Never auto-suspend
 
     # Lock behavior
-    lockBeforeSuspend = true;
-    fadeToLockEnabled = true;
-    fadeToLockGracePeriod = 5;
-    fadeToDpmsEnabled = true; # All recoverable via Mod+Shift+O if KVM wedges
-    fadeToDpmsGracePeriod = 5;
+    lockBeforeSuspend = false;
+    fadeToLockEnabled = false;
+    fadeToDpmsEnabled = false;
   };
 
   # Audio effects processing for microphone and system audio
