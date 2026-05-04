@@ -18,6 +18,8 @@ with pkgs;
   inputs.atlas.packages.${pkgs.stdenv.hostPlatform.system}.default
   # plannotator - interactive plan review CLI
   (pkgs.callPackage ../../pkgs/plannotator { })
+  # ghui - GitHub TUI
+  (pkgs.callPackage ../../pkgs/ghui { })
   google-cloud-sdk
   nodejs_24
   pnpm
