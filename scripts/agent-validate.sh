@@ -3,6 +3,11 @@ set -euo pipefail
 
 cd "$(dirname "$0")/.."
 
+echo "→ Running nixfmt on all *.nix files..."
+find . -name '*.nix' -not -path './.direnv/*' -print0 | xargs -0 nixfmt
+
+echo "Format OK."
+
 OS="$(uname -s)"
 
 if [[ "$OS" == "Darwin" ]]; then
