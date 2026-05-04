@@ -45,8 +45,6 @@ in
     refreshDisplays
   ];
 
-
-
   # Niri settings + DMS keybinds via home-manager
   home-manager.sharedModules = [
     {
@@ -199,11 +197,13 @@ in
             "${refreshDisplays}/bin/refresh-displays"
           ];
 
-          # Dictation - speech-to-text using whisper.cpp
+          # Dictation - speech-to-text using Handy (signal-based)
+          # Sends SIGUSR2 to toggle transcription on/off
           "Mod+Slash".action.spawn = [
-            "bash"
-            "-c"
-            "exec $HOME/bin/dictate"
+            "pkill"
+            "-USR2"
+            "-x"
+            "handy"
           ];
 
           # Applications
@@ -466,6 +466,12 @@ in
               "solaar"
               "-w"
               "hide"
+            ];
+          }
+          # Handy - speech-to-text daemon (toggled via Mod+Slash)
+          {
+            command = [
+              "handy --start-hidden"
             ];
           }
         ];
