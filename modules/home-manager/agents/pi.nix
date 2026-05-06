@@ -48,6 +48,10 @@ in
       recursive = true;
     };
 
+    ".pi/web-search.json".text = builtins.toJSON {
+      workflow = "none";
+    };
+
     ".pi/agent/models.json".text = builtins.toJSON {
       providers = {
         llama-cpp = {
