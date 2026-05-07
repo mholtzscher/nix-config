@@ -66,7 +66,7 @@ in
 
         # Layout settings
         layout = {
-          gaps = 16;
+          gaps = 10;
           center-focused-column = "always";
 
           # DMS integrates wallpapers into the overview; keep layout background transparent.
