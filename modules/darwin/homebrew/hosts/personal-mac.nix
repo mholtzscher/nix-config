@@ -17,7 +17,6 @@
       "capacities"
       "intellij-idea-ce"
       "hrm"
-      "opencode-desktop"
     ];
     masApps = {
       # "WhatsApp" = 310633997;

@@ -21,7 +21,6 @@
       "borders"
       "JetBrains/utils/kotlin-lsp"
       "mas"
-      "podman"
       "1jehuang/mmdr/mmdr"
     ];
     casks = [
@@ -32,8 +31,6 @@
       "docker-desktop"
       "jetbrains-toolbox"
       "nightfall"
-      "obsidian"
-      "postman"
       "raycast"
       "slack"
       "visual-studio-code"
