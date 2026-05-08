@@ -18,7 +18,6 @@
     ./git.nix
     ./go.nix
     ./helix.nix
-    ./jujutsu.nix
     ./jq.nix
     ./k9s.nix
     ./lazydocker.nix
@@ -29,7 +28,6 @@
     ./neovim.nix
     ./nushell.nix
     ./poetry.nix
-    ./pyenv.nix
     ./ripgrep.nix
     ./ssh.nix
     ./starship.nix

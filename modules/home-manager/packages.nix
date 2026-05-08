@@ -43,8 +43,6 @@ with pkgs;
   jc
   just
   kdlfmt
-  ko
-  kubernetes-helm
   nil
   nixfmt
   procs

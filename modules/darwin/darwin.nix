@@ -62,64 +62,6 @@
       "com.jetbrains.intellij.ce" = {
         ApplePressAndHoldEnabled = false;
       };
-      "com.surteesstudios.Bartender" = {
-        UseBartenderBar = 1;
-        TriggerSettings = {
-          Battery1 = {
-            description = "";
-            icon = {
-              SFSymbolName = "bolt.fill";
-              isTemplate = 1;
-            };
-            isActive = 1;
-            isSpecial = 0;
-            menuBarItemsToActivate = {
-              "com.apple.controlcenter-Battery" = "Battery";
-            };
-            name = "Show Battery when battery condition met";
-            triggerSpecificDict = {
-              "Battery-When" = "OnBatteryPower";
-              "Battery-percentage" = 50;
-            };
-            type = [ "Battery" ];
-          };
-          TimeMachine1 = {
-            description = "";
-            icon = {
-              SFSymbolName = "bolt.fill";
-              isTemplate = 1;
-            };
-            isActive = 1;
-            isSpecial = 0;
-            menuBarItemsToActivate = {
-              "com.apple.systemuiserver-TimeMachine.TMMenuExtraHost" = "SystemUIServer";
-              "com.apple.systemuiserver-TimeMachineMenuExtra.TMMenuExtraHost" = "Time Machine";
-            };
-            name = "Show Time Machine when time machine is backing up.";
-            triggerSpecificDict = {
-              Script = "tmutil status | awk -F'=' '/Running/ {print $2*1}'";
-            };
-            type = [ "Script" ];
-          };
-          WiFi1 = {
-            description = "";
-            icon = {
-              SFSymbolName = "bolt.fill";
-              isTemplate = 1;
-            };
-            isActive = 1;
-            isSpecial = 0;
-            menuBarItemsToActivate = {
-              "com.apple.controlcenter-WiFi" = "Wi-Fi";
-            };
-            name = "Show Wi-Fi when Wi-Fi condition met";
-            triggerSpecificDict = {
-              ShowOn = "AllDisconnected";
-            };
-            type = [ "WiFi" ];
-          };
-        };
-      };
       "pl.maketheweb.cleanshotx" = {
         afterScreenshotActions = [
           0

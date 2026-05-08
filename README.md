@@ -404,7 +404,7 @@ nf <file>.nix                               # Format nix file
 **Program Modules (home-manager):**
 - **Shells**: zsh, nushell
 - **Editors**: helix, zed
-- **Git**: git, gh, gh-dash, jujutsu, lazygit, delta
+- **Git**: git, gh, gh-dash, lazygit, delta
 - **Terminal**: ghostty, zellij, starship
 - **Dev Tools**: bun, go, poetry, pyenv, uv
 - **Cloud**: opencode (CLI for Claude)
