@@ -33,6 +33,7 @@ in
         "npm:pi-interview"
         "npm:pi-powerline-footer"
         "npm:pi-web-access"
+        "npm:pi-code-previews"
       ];
       npmCommand = [
         "mise"
