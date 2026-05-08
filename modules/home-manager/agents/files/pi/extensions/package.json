@@ -14,13 +14,13 @@
     "check": "tsc --noEmit"
   },
   "peerDependencies": {
-    "@mariozechner/pi-coding-agent": "*",
-    "@mariozechner/pi-tui": "*",
+    "@earendil-works/pi-coding-agent": "*",
+    "@earendil-works/pi-tui": "*",
     "@sinclair/typebox": "*"
   },
   "devDependencies": {
-    "@mariozechner/pi-coding-agent": "0.62.0",
-    "@mariozechner/pi-tui": "0.62.0",
+    "@earendil-works/pi-coding-agent": "0.74.0",
+    "@earendil-works/pi-tui": "0.74.0",
     "@sinclair/typebox": "0.34.48",
     "@types/node": "^24.5.2",
     "typescript": "^5.9.2"
