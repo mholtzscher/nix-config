@@ -59,6 +59,11 @@ in
       recursive = true;
     };
 
+    "${config.xdg.configHome}/opencode/plugins" = {
+      source = ./files/opencode/plugins;
+      recursive = true;
+    };
+
     # "${config.xdg.configHome}/opencode/AGENTS.md".source = ./files/opencode/AGENTS.md;
   };
 
