@@ -27,10 +27,8 @@ in
       packages = [
         "npm:@ifi/oh-pi-themes"
         "npm:@plannotator/pi-extension"
-        "npm:glimpseui"
         "npm:pi-btw"
         "npm:pi-fff"
-        "npm:pi-interview"
         "npm:pi-powerline-footer"
         "npm:pi-web-access"
         "./packages/render-mermaid"
