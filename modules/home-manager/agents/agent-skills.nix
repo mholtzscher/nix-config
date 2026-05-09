@@ -23,11 +23,11 @@
         idPrefix = "anthropic";
       };
 
-      cloudflare = {
-        input = "cloudflare-skills";
-        subdir = "skills";
-        idPrefix = "cloudflare";
-      };
+      # cloudflare = {
+      #   input = "cloudflare-skills";
+      #   subdir = "skills";
+      #   idPrefix = "cloudflare";
+      # };
 
       mattpocock = {
         input = "mattpocock-skills";
@@ -54,19 +54,19 @@
       "mattpocock/grill-with-docs"
       "mattpocock/improve-codebase-architecture"
       "mattpocock/tdd"
-      "mholtzscher/atlassian-api"
+      # "mholtzscher/atlassian-api"
       "mholtzscher/conventional-commits"
       "mholtzscher/spec-planner"
       "vercel/agent-browser"
     ]
     ++ lib.optionals (!isWork) [
-      "cloudflare/agents-sdk"
-      "cloudflare/cloudflare"
-      "cloudflare/durable-objects"
-      "cloudflare/sandbox-sdk"
-      "cloudflare/web-perf"
-      "cloudflare/workers-best-practices"
-      "cloudflare/wrangler"
+      # "cloudflare/agents-sdk"
+      # "cloudflare/cloudflare"
+      # "cloudflare/durable-objects"
+      # "cloudflare/sandbox-sdk"
+      # "cloudflare/web-perf"
+      # "cloudflare/workers-best-practices"
+      # "cloudflare/wrangler"
       "mholtzscher/zellij-tasks"
       "nicobailon/visual-explainer"
     ];
