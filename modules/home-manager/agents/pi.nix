@@ -18,6 +18,8 @@ in
   ];
 
   home.file = lib.optionalAttrs (!isWork) {
+    ".pi/agent/AGENTS.md".source = ./files/karpathy-agents.md;
+
     ".pi/agent/settings.json".text = builtins.toJSON {
       defaultProvider = "opencode-go";
       defaultModel = "deepseek-v4-flash";
