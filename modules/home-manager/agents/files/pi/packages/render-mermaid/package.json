@@ -1,0 +1,14 @@
+{
+  "name": "pi-render-mermaid",
+  "private": true,
+  "type": "module",
+  "keywords": ["pi-package"],
+  "pi": {
+    "extensions": ["./extensions"]
+  },
+  "dependencies": {},
+  "peerDependencies": {
+    "@earendil-works/pi-ai": "*",
+    "@earendil-works/pi-coding-agent": "*"
+  }
+}

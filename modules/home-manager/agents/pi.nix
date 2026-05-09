@@ -21,7 +21,7 @@ in
     ".pi/agent/settings.json".text = builtins.toJSON {
       defaultProvider = "opencode-go";
       defaultModel = "deepseek-v4-flash";
-      theme = "oh-p-dark";
+      theme = "tokyo-night";
       workingVibe = "Bruce Schneier";
       workingVibeMode = "file";
       packages = [
@@ -33,7 +33,7 @@ in
         "npm:pi-interview"
         "npm:pi-powerline-footer"
         "npm:pi-web-access"
-        "npm:pi-code-previews"
+        "./packages/render-mermaid"
       ];
       npmCommand = [
         "mise"
@@ -88,6 +88,11 @@ in
 
     ".pi/agent/extensions" = {
       source = filteredExtensionsSource;
+      recursive = true;
+    };
+
+    ".pi/agent/packages" = {
+      source = ./files/pi/packages;
       recursive = true;
     };
 
