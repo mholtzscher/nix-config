@@ -62,6 +62,9 @@
   };
 
   services = {
+    # Enable fingerprint reader support via fprintd.
+    fprintd.enable = true;
+
     # Disable DPMS to prevent screen blanking issues with KVM switching
     logind.settings.Login = {
       HandlePowerKey = "ignore";
@@ -73,6 +76,14 @@
 
     # Enable mouse/touchpad input support
     libinput.enable = true;
+  };
+
+  security.pam.services = {
+    greetd.fprintAuth = true;
+    login.fprintAuth = true;
+    polkit-1.fprintAuth = true;
+    sudo.fprintAuth = true;
+    swaylock.fprintAuth = true;
   };
 
   # Environment variables for Wayland
