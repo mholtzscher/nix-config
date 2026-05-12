@@ -29,8 +29,6 @@ vim.diagnostic.config({
 	virtual_lines = { current_line = true },
 })
 
-
-
 -- AUTO COMMANDS (NON-LSP)
 -- Make the cursorline "move" with the focused window
 vim.api.nvim_create_autocmd("WinLeave", {
@@ -61,6 +59,8 @@ vim.lsp.enable({
 	-- "marksman",
 	"nil_ls",
 	"nushell",
+	"oxfmt",
+	"oxlint",
 	"ruff",
 	"rust_analyzer",
 	"svelte",
@@ -200,10 +200,10 @@ require("conform").setup({
 		go = { "gofmt" },
 		hcl = { "terraform_fmt" },
 		html = { "prettier" },
-		javascript = { "prettier" },
-		javascriptreact = { "prettier" },
-		json = { "prettier" },
-		jsonc = { "prettier" },
+		javascript = { "oxfmt" },
+		javascriptreact = { "oxfmt" },
+		json = { "oxfmt" },
+		jsonc = { "oxfmt" },
 		lua = { "stylua" },
 		markdown = { "prettier_markdown" },
 		nix = { "nixfmt" },
@@ -212,8 +212,8 @@ require("conform").setup({
 		sh = { "shfmt" },
 		svelte = { "prettier" },
 		terraform = { "terraform_fmt" },
-		typescript = { "prettier" },
-		typescriptreact = { "prettier" },
+		typescript = { "oxfmt" },
+		typescriptreact = { "oxfmt" },
 		yaml = { "prettier" },
 		zsh = { "shfmt" },
 	},

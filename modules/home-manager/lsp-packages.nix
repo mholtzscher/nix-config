@@ -45,6 +45,8 @@ with pkgs;
   tailwindcss-language-server
   emmet-language-server
   typescript-language-server
+  oxlint
+  oxfmt
   prettier
   # biome
 
