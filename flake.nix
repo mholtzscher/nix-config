@@ -113,6 +113,10 @@
       url = "github:AlvaroParker/helium-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    hunk = {
+      url = "github:modem-dev/hunk";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -147,6 +151,7 @@
       ugh,
       today,
       helium,
+      hunk,
     }:
     let
       # Import lib helpers for creating system configurations

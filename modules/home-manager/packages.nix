@@ -21,7 +21,7 @@ with pkgs;
   # ghui - GitHub TUI
   (pkgs.callPackage ../../pkgs/ghui { })
   # hunk - review-first terminal diff viewer
-  (pkgs.callPackage ../../pkgs/hunk { })
+  inputs.hunk.packages.${pkgs.stdenv.hostPlatform.system}.default
   google-cloud-sdk
   nodejs_24
   pnpm
