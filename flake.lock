@@ -288,11 +288,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1778609419,
-        "narHash": "sha256-aLIFZI7OvIWtp4uJ7PO/ezwKh/XCHuS4X4A8UJI8Stc=",
+        "lastModified": 1778678864,
+        "narHash": "sha256-bYSqaJA+gWrbhPNi/caSr9kDxozaOlserzfB+zcHT+U=",
         "owner": "AvengeMedia",
         "repo": "DankMaterialShell",
-        "rev": "392eaea5fcd12a6b5c8094aaab35584be54daf1a",
+        "rev": "0dfa95ffe40d20a89df07d8bc80f1b6bfa79bd50",
         "type": "github"
       },
       "original": {
@@ -811,11 +811,11 @@
         "treefmt-nix": "treefmt-nix_3"
       },
       "locked": {
-        "lastModified": 1778622304,
-        "narHash": "sha256-SgBDJfY+g2sp+gDKWYb3ixuORppljPye5ni3PatnQGk=",
+        "lastModified": 1778650849,
+        "narHash": "sha256-rGb5Lywt3gMaWaVBLlWNTgypCWjiekuYG0i39Q6qusY=",
         "owner": "numtide",
         "repo": "llm-agents.nix",
-        "rev": "5a20300e2a82ce37cceefa9af2e601f7bf62893d",
+        "rev": "63eaec5890d3dfab83d7fdee5a2dd2bad06e165b",
         "type": "github"
       },
       "original": {
@@ -827,11 +827,11 @@
     "mattpocock-skills": {
       "flake": false,
       "locked": {
-        "lastModified": 1778571379,
-        "narHash": "sha256-jdUTec3217Bc+h5npjKOlIBHp3rhEd/sRKzDV2N7XIc=",
+        "lastModified": 1778677518,
+        "narHash": "sha256-5Rr5BQe8bdQXWt/H6QjYpoM4X+GuWPK26rU2VSqTZVI=",
         "owner": "mattpocock",
         "repo": "skills",
-        "rev": "f304057d61d3df3c9fd992ac2b6e3833cb9325fb",
+        "rev": "e74f0061bb67222181640effa98c675bdb2fdaa7",
         "type": "github"
       },
       "original": {

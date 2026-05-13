@@ -68,7 +68,7 @@
       # "cloudflare/workers-best-practices"
       # "cloudflare/wrangler"
       "mholtzscher/zellij-tasks"
-      "nicobailon/visual-explainer"
+      # "nicobailon/visual-explainer"
     ];
 
     targets.pi = {
