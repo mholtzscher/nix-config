@@ -48,22 +48,6 @@ load_plugins {
 
 }
 keybinds clear-defaults=true {
-    normal {
-        bind "f" {
-            Run "@zziPath@" {
-                floating true
-                close_on_exit true
-            }
-            SwitchToMode "Locked"
-        }
-        bind "s" {
-            Run "@zzsPath@" {
-                floating true
-                close_on_exit true
-            }
-            SwitchToMode "Locked"
-        }
-    }
     locked {
         bind "ctrl g" {
             SwitchToMode "Normal"
