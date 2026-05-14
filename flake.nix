@@ -67,7 +67,6 @@
     dms = {
       url = "github:AvengeMedia/DankMaterialShell";
       inputs.nixpkgs.follows = "nixpkgs";
-      inputs.quickshell.follows = "quickshell";
     };
     llm-agents = {
       url = "github:numtide/llm-agents.nix";
