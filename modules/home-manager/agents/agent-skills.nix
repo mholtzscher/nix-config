@@ -40,12 +40,6 @@
         subdir = "skills";
         idPrefix = "vercel";
       };
-
-      nicobailon = {
-        input = "nicobailon-visual-explainer";
-        subdir = "plugins";
-        idPrefix = "nicobailon";
-      };
     };
 
     skills.enable = [
@@ -68,7 +62,6 @@
       # "cloudflare/workers-best-practices"
       # "cloudflare/wrangler"
       "mholtzscher/zellij-tasks"
-      # "nicobailon/visual-explainer"
     ];
 
     targets.pi = {
