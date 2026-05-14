@@ -515,7 +515,7 @@ keybinds clear-defaults=true {
             NewTab
         }
         bind "Alt w" {
-            LaunchOrFocusPlugin "file:@zitreeWasm@" {
+            LaunchOrFocusPlugin "file:@treeminWasm@" {
                 floating true
                 move_to_focused_tab true
                 worktree_dir_name ".worktrees"
@@ -523,6 +523,15 @@ keybinds clear-defaults=true {
                 remote "origin"
                 auto_fetch "true"
                 worktree_naming_pattern "branch"
+            }
+        }
+        bind "Alt z" {
+            LaunchOrFocusPlugin "file:@seshminWasm@" {
+                floating true
+                move_to_focused_tab true
+                default_layout "compact"
+                session_separator "."
+                show_resurrectable_sessions "false"
             }
         }
         bind "Alt p" {

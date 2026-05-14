@@ -1,7 +1,9 @@
 { pkgs, ... }:
 let
-  enableZitree = true;
-  zitreeWasm = if enableZitree then "${../../../pkgs/zitree/zitree.wasm}" else "@zitreeWasm@";
+  enableTreemin = true;
+  enableSeshmin = true;
+  treeminWasm = if enableTreemin then "${../../../pkgs/treemin/treemin.wasm}" else "@treeminWasm@";
+  seshminWasm = if enableSeshmin then "${../../../pkgs/seshmin/seshmin.wasm}" else "@seshminWasm@";
 
   zz = pkgs.writeShellScriptBin "zz" ''
     query="$*"
@@ -48,7 +50,7 @@ in
   # doesn't properly escape attribute names with spaces in plugin configs
   xdg.configFile."zellij/config.kdl".text =
     builtins.replaceStrings
-      [ "@zitreeWasm@" "@zziPath@" "@zzsPath@" ]
-      [ zitreeWasm "${zzi}/bin/zzi" "${zzs}/bin/zzs" ]
+      [ "@treeminWasm@" "@seshminWasm@" "@zziPath@" "@zzsPath@" ]
+      [ treeminWasm seshminWasm "${zzi}/bin/zzi" "${zzs}/bin/zzs" ]
       (builtins.readFile ../files/zellij.kdl);
 }
