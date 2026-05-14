@@ -31,6 +31,7 @@ in
         "git:github.com/nicobailon/visual-explainer"
         "npm:@ifi/oh-pi-themes"
         "npm:@plannotator/pi-extension"
+        "npm:pi-boomerang"
         "npm:pi-btw"
         "npm:pi-fff"
         "npm:pi-powerline-footer"
