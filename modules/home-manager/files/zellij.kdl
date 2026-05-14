@@ -514,18 +514,17 @@ keybinds clear-defaults=true {
         bind "Alt t" {
             NewTab
         }
-        // Disabled until zitree is production ready.
-        // bind "Alt w" {
-        //     LaunchOrFocusPlugin "file:@zitreeWasm@" {
-        //         floating true
-        //         move_to_focused_tab true
-        //         worktree_dir_name ".worktrees"
-        //         session_prefix "wt"
-        //         remote "origin"
-        //         auto_fetch "true"
-        //         worktree_naming_pattern "branch"
-        //     }
-        // }
+        bind "Alt w" {
+            LaunchOrFocusPlugin "file:@zitreeWasm@" {
+                floating true
+                move_to_focused_tab true
+                worktree_dir_name ".worktrees"
+                session_prefix "wt"
+                remote "origin"
+                auto_fetch "true"
+                worktree_naming_pattern "branch"
+            }
+        }
         bind "Alt p" {
             TogglePaneInGroup
         }

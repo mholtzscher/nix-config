@@ -5,8 +5,12 @@ usage() {
   cat <<'USAGE'
 Usage: scripts/update-zitree.sh <commit|latest> [--validate]
 
-Updates pkgs/zitree/default.nix to a GitHub commit and refreshes both the
-source hash and Cargo vendor hash.
+Clones Brobicheau/zitree, builds the release WASI plugin, vendors the built
+WASM at pkgs/zitree/zitree.wasm, and records the upstream revision in
+pkgs/zitree/source.json.
+
+This intentionally keeps Home Manager from compiling the Rust plugin during
+normal Nix builds (notably slow on Darwin).
 USAGE
 }
 
@@ -28,7 +32,7 @@ if [[ $# -eq 2 ]]; then
   esac
 fi
 
-for command in curl jq nix nix-prefetch-url perl; do
+for command in curl git jq nix; do
   if ! command -v "$command" >/dev/null 2>&1; then
     echo "Missing required command: $command" >&2
     exit 1
@@ -36,24 +40,18 @@ for command in curl jq nix nix-prefetch-url perl; do
 done
 
 repo_root=$(git rev-parse --show-toplevel)
-package_file="$repo_root/pkgs/zitree/default.nix"
-
-if [[ ! -f "$package_file" ]]; then
-  echo "Could not find package file: $package_file" >&2
-  exit 1
-fi
+wasm_file="$repo_root/pkgs/zitree/zitree.wasm"
+metadata_file="$repo_root/pkgs/zitree/source.json"
 
 if [[ "$requested_rev" == "latest" ]]; then
   commit_json=$(curl --fail --silent --show-error --location \
     "https://api.github.com/repos/Brobicheau/zitree/commits/main")
-  new_rev=$(jq -r '.sha' <<<"$commit_json")
 else
-  new_rev="$requested_rev"
   commit_json=$(curl --fail --silent --show-error --location \
-    "https://api.github.com/repos/Brobicheau/zitree/commits/$new_rev")
-  new_rev=$(jq -r '.sha' <<<"$commit_json")
+    "https://api.github.com/repos/Brobicheau/zitree/commits/$requested_rev")
 fi
 
+new_rev=$(jq -r '.sha' <<<"$commit_json")
 if [[ -z "$new_rev" || "$new_rev" == "null" ]]; then
   echo "Could not resolve zitree commit: $requested_rev" >&2
   exit 1
@@ -64,59 +62,93 @@ if [[ -z "$commit_date" || "$commit_date" == "null" ]]; then
   echo "Could not determine commit date for $new_rev" >&2
   exit 1
 fi
-
-old_version=$(perl -ne 'print "$1\n" and exit if /version = "([^"]+)";/' "$package_file")
-old_rev=$(perl -ne 'print "$1\n" and exit if /rev = "([^"]+)";/' "$package_file")
 new_version="unstable-$commit_date"
 
-tarball_url="https://github.com/Brobicheau/zitree/archive/$new_rev.tar.gz"
-echo "→ Prefetching source $new_rev"
-src_hash_base32=$(nix-prefetch-url --unpack "$tarball_url" 2>/dev/null | tail -n1)
-src_hash=$(nix hash convert --hash-algo sha256 --to sri "$src_hash_base32")
+old_version="unknown"
+old_rev="unknown"
+if [[ -f "$metadata_file" ]]; then
+  old_version=$(jq -r '.version // "unknown"' "$metadata_file")
+  old_rev=$(jq -r '.rev // "unknown"' "$metadata_file")
+fi
 
-backup=$(mktemp)
-cp "$package_file" "$backup"
+tmpdir=$(mktemp -d)
+backup_dir=$(mktemp -d)
+cleanup() {
+  rm -rf "$tmpdir" "$backup_dir"
+}
+trap cleanup EXIT
+
+[[ -f "$wasm_file" ]] && cp "$wasm_file" "$backup_dir/zitree.wasm"
+[[ -f "$metadata_file" ]] && cp "$metadata_file" "$backup_dir/source.json"
 restore_on_error() {
-  cp "$backup" "$package_file"
-  rm -f "$backup"
+  if [[ -f "$backup_dir/zitree.wasm" ]]; then
+    rm -f "$wasm_file"
+    install -Dm644 "$backup_dir/zitree.wasm" "$wasm_file"
+  else
+    rm -f "$wasm_file"
+  fi
+
+  if [[ -f "$backup_dir/source.json" ]]; then
+    rm -f "$metadata_file"
+    install -Dm644 "$backup_dir/source.json" "$metadata_file"
+  else
+    rm -f "$metadata_file"
+  fi
 }
 trap restore_on_error ERR
 
-NEW_VERSION="$new_version" NEW_REV="$new_rev" SRC_HASH="$src_hash" perl -0pi -e '
-  s/version = "[^"]+";/version = "$ENV{NEW_VERSION}";/;
-  s/rev = "[^"]+";/rev = "$ENV{NEW_REV}";/;
-  s/(src = fetchFromGitHub \{.*?hash = ")sha256-[^"]+";/$1$ENV{SRC_HASH}";/s;
-  s/cargoHash = "sha256-[^"]+";/cargoHash = lib.fakeHash;/;
-' "$package_file"
+echo "→ Cloning Brobicheau/zitree at $new_rev"
+git clone --quiet https://github.com/Brobicheau/zitree "$tmpdir/zitree"
+git -C "$tmpdir/zitree" checkout --quiet "$new_rev"
 
-build_expr='let flake = builtins.getFlake (toString ./.); pkgs = import flake.inputs.nixpkgs { system = builtins.currentSystem; }; in pkgs.pkgsCross.wasi32.callPackage ./pkgs/zitree { }'
+cat >"$tmpdir/build-zitree.nix" <<NIX
+let
+  flake = builtins.getFlake "$repo_root";
+  pkgs = import flake.inputs.nixpkgs { system = builtins.currentSystem; };
+in
+pkgs.pkgsCross.wasi32.rustPlatform.buildRustPackage {
+  pname = "zitree";
+  version = "update-script";
+  src = ./zitree;
 
-echo "→ Calculating Cargo vendor hash"
-set +e
-build_output=$(cd "$repo_root" && nix build --no-link --impure --expr "$build_expr" 2>&1)
-build_status=$?
-set -e
+  cargoLock.lockFile = ./zitree/Cargo.lock;
 
-cargo_hash=$(perl -ne 'print "$1\n" if /got:\s+(sha256-[A-Za-z0-9+\/=]+)/' <<<"$build_output" | tail -n1)
-if [[ -z "$cargo_hash" ]]; then
-  echo "$build_output" >&2
-  echo "Could not determine Cargo vendor hash" >&2
-  exit "$build_status"
-fi
+  env.RUSTFLAGS = "-C linker=wasm-ld";
+  nativeBuildInputs = [ pkgs.pkgsCross.wasi32.lld ];
 
-CARGO_HASH="$cargo_hash" perl -0pi -e \
-  's/cargoHash = lib\.fakeHash;/cargoHash = "$ENV{CARGO_HASH}";/' \
-  "$package_file"
+  cargoBuildFlags = [ "--target=wasm32-wasip1" ];
+  doCheck = false;
+
+  installPhase = ''
+    runHook preInstall
+
+    if [[ -f target/wasm32-wasip1/release/treemin.wasm ]]; then
+      install -Dm644 target/wasm32-wasip1/release/treemin.wasm \
+        \$out/zitree.wasm
+    else
+      install -Dm644 target/wasm32-wasip1/release/zitree.wasm \
+        \$out/zitree.wasm
+    fi
+
+    runHook postInstall
+  '';
+}
+NIX
+
+echo "→ Building release WASM with Nix"
+built_out=$(cd "$tmpdir" && nix build --no-link --print-out-paths --impure --expr 'import ./build-zitree.nix')
+rm -f "$wasm_file"
+install -Dm644 "$built_out/zitree.wasm" "$wasm_file"
+jq --null-input \
+  --arg version "$new_version" \
+  --arg rev "$new_rev" \
+  '{version: $version, rev: $rev}' >"$metadata_file"
 
 trap - ERR
-rm -f "$backup"
 
 echo "Updated zitree: $old_version ($old_rev) -> $new_version ($new_rev)"
-echo "Hashes:"
-echo "  source: $src_hash"
-echo "  cargo:  $cargo_hash"
-echo "Updated files:"
-echo "  $package_file"
+echo "Vendored WASM: $wasm_file ($(du -h "$wasm_file" | cut -f1))"
+echo "Metadata: $metadata_file"
 
 if [[ "$validate" == true ]]; then
   "$repo_root/scripts/agent-validate.sh"

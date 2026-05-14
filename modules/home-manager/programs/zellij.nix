@@ -1,8 +1,7 @@
 { pkgs, ... }:
 let
-  enableZitree = false;
-  zitree = pkgs.pkgsCross.wasi32.callPackage ../../../pkgs/zitree { };
-  zitreeWasm = if enableZitree then "${zitree}/lib/zellij/plugins/zitree.wasm" else "@zitreeWasm@";
+  enableZitree = true;
+  zitreeWasm = if enableZitree then "${../../../pkgs/zitree/zitree.wasm}" else "@zitreeWasm@";
 
   zz = pkgs.writeShellScriptBin "zz" ''
     query="$*"
