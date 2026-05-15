@@ -501,6 +501,7 @@ keybinds clear-defaults=true {
         bind "Alt w" {
             LaunchOrFocusPlugin "file:@treeminWasm@" {
                 // floating true
+                truncate_session_names false
                 move_to_focused_tab true
                 worktree_dir_name ".worktrees"
                 session_prefix "wt"
