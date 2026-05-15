@@ -1,12 +1,10 @@
 {
   pkgs,
   lib,
-  config,
   isDarwin,
   ...
 }:
 let
-  nuExe = lib.getExe config.programs.nushell.package;
   ghosttyKeybinds = [
     # "alt+n=new_split:auto"
     # "alt+d=new_split:down"
@@ -40,8 +38,7 @@ in
         keybind = ghosttyKeybinds;
         macos-option-as-alt = lib.mkIf isDarwin true;
 
-        # command = nuExe;
-        # shell-integration = "nushell";
+        command = "zsh -l -i -c 'exec nu'";
 
         window-height = 60;
         window-width = 200;
