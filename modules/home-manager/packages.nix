@@ -20,8 +20,6 @@ with pkgs;
   (pkgs.callPackage ../../pkgs/plannotator { })
   # ghui - GitHub TUI
   (pkgs.callPackage ../../pkgs/ghui { })
-  # hunk - review-first terminal diff viewer
-  inputs.hunk.packages.${pkgs.stdenv.hostPlatform.system}.default
   google-cloud-sdk
   nodejs_24
   pnpm

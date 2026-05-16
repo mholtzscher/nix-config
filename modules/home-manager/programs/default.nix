@@ -18,6 +18,7 @@
     ./git.nix
     ./go.nix
     ./helix.nix
+    ./hunk.nix
     ./jq.nix
     ./k9s.nix
     ./lazydocker.nix
