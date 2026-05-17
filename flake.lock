@@ -1178,6 +1178,22 @@
         "url": "https://git.outfoxxed.me/quickshell/quickshell"
       }
     },
+    "roerohan-skills": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1778925402,
+        "narHash": "sha256-VJuKnP4ECdTr+R16Vp6b1Mp/wPPO2mkKCUhcVO+5kMg=",
+        "owner": "roerohan",
+        "repo": "skills",
+        "rev": "9017cec74237c607c9a626288e847df211f1e4e8",
+        "type": "github"
+      },
+      "original": {
+        "owner": "roerohan",
+        "repo": "skills",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "aerospace-utils": "aerospace-utils",
@@ -1206,6 +1222,7 @@
         "nixpkgs": "nixpkgs_2",
         "open-file": "open-file",
         "quickshell": "quickshell",
+        "roerohan-skills": "roerohan-skills",
         "today": "today",
         "topiaryNushell": "topiaryNushell",
         "ugh": "ugh",
