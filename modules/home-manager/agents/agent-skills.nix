@@ -35,6 +35,11 @@
         subdir = "skills/engineering";
       };
 
+      roerohan = {
+        input = "roerohan-skills";
+        idPrefix = "roerohan";
+      };
+
       vercel = {
         input = "vercel-agent-browser";
         subdir = "skills";
@@ -48,6 +53,7 @@
       "mattpocock/grill-with-docs"
       "mattpocock/improve-codebase-architecture"
       "mattpocock/tdd"
+      "roerohan/diff-walkthrough"
       # "mholtzscher/atlassian-api"
       "mholtzscher/conventional-commits"
       "mholtzscher/spec-planner"

@@ -92,6 +92,10 @@
       url = "github:mholtzscher/skills";
       flake = false;
     };
+    roerohan-skills = {
+      url = "github:roerohan/skills";
+      flake = false;
+    };
     vercel-agent-browser = {
       url = "github:vercel-labs/agent-browser";
       flake = false;
@@ -145,6 +149,7 @@
       cloudflare-skills,
       mattpocock-skills,
       mholtzscher-skills,
+      roerohan-skills,
       vercel-agent-browser,
       nicobailon-visual-explainer,
       ugh,
