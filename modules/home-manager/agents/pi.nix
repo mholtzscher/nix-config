@@ -21,7 +21,7 @@ in
     ".pi/agent/AGENTS.md".source = ./files/karpathy-agents.md;
 
     ".pi/agent/settings.json".text = builtins.toJSON {
-      defaultProvider = "openai";
+      defaultProvider = "openai-codex";
       defaultModel = "gpt-5.5";
       defaultThinkingLevel = "medium";
       theme = "tokyo-night";
