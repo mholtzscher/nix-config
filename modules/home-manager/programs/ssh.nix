@@ -12,23 +12,23 @@
       includes = lib.optionals (!isWork) [
         "~/.ssh/1Password/config"
       ];
-      matchBlocks = lib.optionalAttrs (!isWork) {
+      settings = lib.optionalAttrs (!isWork) {
         mina-nas = {
-          hostname = "10.69.69.156";
-          user = "root";
+          HostName = "10.69.69.156";
+          User = "root";
         };
 
         max-nas = {
-          hostname = "10.69.69.186";
-          user = "root";
+          HostName = "10.69.69.186";
+          User = "root";
         };
 
         wanda = {
-          hostname = "10.69.69.60";
-          user = "michael";
+          HostName = "10.69.69.60";
+          User = "michael";
         };
         "*" = {
-          identityAgent =
+          IdentityAgent =
             if isDarwin then
               "\"~/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock\""
             else

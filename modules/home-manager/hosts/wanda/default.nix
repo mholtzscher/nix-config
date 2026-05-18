@@ -34,10 +34,9 @@
 
   programs.ssh = {
     enable = true;
-    matchBlocks."nas" = {
-      host = "nas nas-a nas-b";
-      hostname = "nas-a.internal";
-      user = "storage";
+    settings."nas nas-a nas-b" = {
+      HostName = "nas-a.internal";
+      User = "storage";
     };
   };
 }
