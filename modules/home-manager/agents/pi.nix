@@ -21,8 +21,9 @@ in
     ".pi/agent/AGENTS.md".source = ./files/karpathy-agents.md;
 
     ".pi/agent/settings.json".text = builtins.toJSON {
-      defaultProvider = "opencode-go";
-      defaultModel = "deepseek-v4-flash";
+      defaultProvider = "openai";
+      defaultModel = "gpt-5.5";
+      defaultThinkingLevel = "medium";
       theme = "tokyo-night";
       workingVibe = "Bruce Schneier";
       workingVibeMode = "file";
