@@ -45,6 +45,12 @@
         subdir = "skills";
         idPrefix = "vercel";
       };
+
+      hunk = {
+        input = "hunk";
+        subdir = "skills";
+        idPrefix = "hunk";
+      };
     };
 
     skills.enable = [
@@ -58,6 +64,7 @@
       "mholtzscher/conventional-commits"
       "mholtzscher/spec-planner"
       "vercel/agent-browser"
+      "hunk/hunk-review"
     ]
     ++ lib.optionals (!isWork) [
       # "cloudflare/agents-sdk"
