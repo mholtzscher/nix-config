@@ -332,6 +332,7 @@ require("which-key").setup({
 		-- Group names
 		{ "<leader>b", group = "Buffer" },
 		{ "<leader>c", group = "Code" },
+		{ "<leader>D", group = "Database" },
 			{ "<leader>f", group = "Find" },
 			{ "<leader>g", group = "Git" },
 		{ "<leader>s", group = "Search" },
@@ -369,6 +370,21 @@ require("which-key").setup({
 		-- Markdown Preview
 		{ "<leader>mp", "<CMD>MarkdownPreview<CR>", desc = "Markdown Preview" },
 		{ "<leader>ms", "<CMD>MarkdownPreviewStop<CR>", desc = "Stop Preview" },
+		-- dadbod-grip.nvim
+		{ "<leader>Dc", "<CMD>GripConnect<CR>", desc = "DB connect" },
+		{ "<leader>DT", "<CMD>GripToggle<CR>", desc = "DB toggle workspace" },
+		{ "<leader>Dg", "<CMD>Grip<CR>", desc = "DB open grid/query/file" },
+		{ "<leader>Dt", "<CMD>GripTables<CR>", desc = "DB tables" },
+		{ "<leader>Ds", "<CMD>GripSchema<CR>", desc = "DB schema" },
+		{ "<leader>Dq", "<CMD>GripQuery<CR>", desc = "DB query pad" },
+		{ "<leader>Dh", "<CMD>GripHistory<CR>", desc = "DB query history" },
+		{ "<leader>DS", "<CMD>GripSave<CR>", desc = "DB save query" },
+		{ "<leader>DL", "<CMD>GripLoad<CR>", desc = "DB load query" },
+		{ "<leader>Dx", "<CMD>GripExplain<CR>", desc = "DB explain query" },
+		{ "<leader>Dp", "<CMD>GripProfile<CR>", desc = "DB profile table" },
+		{ "<leader>DP", "<CMD>GripProperties<CR>", desc = "DB table properties" },
+		{ "<leader>Da", "<CMD>GripAsk<CR>", desc = "DB ask AI" },
+		{ "<leader>DC", "<CMD>GripCreate<CR>", desc = "DB create table" },
 		-- Search and replace
 		{ "<leader>sr", function() require("grug-far").open() end, desc = "Search and replace" },
 		{ "<leader>sr", function() require("grug-far").open({ startCursorRow = 4, prefills = { search = vim.fn.expand("<cword>") } }) end, desc = "Search and replace (word)", mode = "x" },
