@@ -382,7 +382,8 @@ require("which-key").setup({
 		{ "-", "<CMD>Oil<CR>", desc = "Open parent directory" },
 		-- Find
 		{ "<leader>fb", function() Snacks.picker.buffers() end, desc = "Buffers" },
-		{ "<leader>fc", function() Snacks.picker.files({ cwd = vim.fn.stdpath("config") }) end, desc = "Find Config File" },
+    { "<leader>fc", function() require('fff').live_grep({ query = vim.fn.expand("<cword>") }) end, desc = 'Search current word'},
+		-- { "<leader>fc", function() Snacks.picker.files({ cwd = vim.fn.stdpath("config") }) end, desc = "Find Config File" },
 		{ "<leader>ff", function() require("fff").find_files() end, desc = "FFF - Fuzzy Files" },
 		{ "<leader>fg", function() Snacks.picker.git_files() end, desc = "Find Git Files" },
 		{ "<leader>fp", function() Snacks.picker.projects() end, desc = "Projects" },
