@@ -56,7 +56,7 @@ in
           "/Applications/IntelliJ IDEA.app"
           "/System/Applications/Mail.app"
           "/System/Applications/Calendar.app"
-          "/Applications/Todoist.app"
+          # "/Applications/Todoist.app"
           "/System/Applications/Music.app"
           "/Users/michaelholtzcher/Applications/Google Gemini.app"
           "/Users/michaelholtzcher/Applications/Reclaim.app"

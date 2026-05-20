@@ -57,7 +57,7 @@ in
           "/Applications/IntelliJ IDEA CE.app"
           "/System/Applications/Mail.app"
           "/System/Applications/Calendar.app"
-          "/Applications/Todoist.app"
+          # "/Applications/Todoist.app"
           "/System/Applications/Music.app"
           "/System/Applications/News.app"
         ];

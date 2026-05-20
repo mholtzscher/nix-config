@@ -105,9 +105,9 @@ run = ['move-node-to-workspace IntelliJ']
 if.app-name-regex-substring = 'Code'
 run = ['move-node-to-workspace VSCode']
 
-[[on-window-detected]]
-if.app-name-regex-substring = 'Todoist'
-run = ['move-node-to-workspace Tools']
+# [[on-window-detected]]
+# if.app-name-regex-substring = 'Todoist'
+# run = ['move-node-to-workspace Tools']
 
 [[on-window-detected]]
 if.app-name-regex-substring = 'Reclaim'
