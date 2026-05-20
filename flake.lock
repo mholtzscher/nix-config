@@ -284,11 +284,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1779230565,
-        "narHash": "sha256-KkToCZkeZFJwnGtYDzWpfiNL9cS4DGEegLJC86FVb9g=",
+        "lastModified": 1779242613,
+        "narHash": "sha256-c5m4hcfxbxi8OFCI4iKTU/o7aDISWHC15v30MuDaVp8=",
         "owner": "AvengeMedia",
         "repo": "DankMaterialShell",
-        "rev": "463476384027ba16a497df1798fca4191183ae70",
+        "rev": "548c2305fb562b55eff2a0b37d97bf8341e884c8",
         "type": "github"
       },
       "original": {
@@ -737,11 +737,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1779221294,
-        "narHash": "sha256-n8JdbCwBiD7Y+VuFMJUoooFiIMctdX5xNq5MnAHd+xg=",
+        "lastModified": 1779244374,
+        "narHash": "sha256-OX+TsaHKvPdzHgcGjXU6ugZCTctOG3dKbjD7AvoN5dQ=",
         "owner": "modem-dev",
         "repo": "hunk",
-        "rev": "77d4c8ababf41432f646d17bd564cb4e0863b74c",
+        "rev": "02c4a4a3c0899f68c0a7baa0e7d35e02a98335f4",
         "type": "github"
       },
       "original": {
@@ -807,11 +807,11 @@
         "treefmt-nix": "treefmt-nix_3"
       },
       "locked": {
-        "lastModified": 1779239252,
-        "narHash": "sha256-vqSXzqzeC8VXZ4dKUNPcBz6py3rkSkfMC6dstYdxZok=",
+        "lastModified": 1779257624,
+        "narHash": "sha256-pXnXgFvoFQKt4gDnOx0OjKSsv0T51QmN5thbzWf9WX0=",
         "owner": "numtide",
         "repo": "llm-agents.nix",
-        "rev": "7c72587e3ed4e4b36560e43f1775d5a13fc46cac",
+        "rev": "3c69691d60d50f87cc0d5f6222992b63c90b010d",
         "type": "github"
       },
       "original": {
@@ -823,11 +823,11 @@
     "mattpocock-skills": {
       "flake": false,
       "locked": {
-        "lastModified": 1779206822,
-        "narHash": "sha256-XIC1bJQVtV82KmCnh6OTIL3ENWAAajA/TzcdcwBKl7k=",
+        "lastModified": 1779266813,
+        "narHash": "sha256-Qwuu27f95xgAJ4hdv/4TNahHhprCMIxl1H9f9ymEsno=",
         "owner": "mattpocock",
         "repo": "skills",
-        "rev": "d54c497aa94400a496d3f2c38be10fa5f284c5a9",
+        "rev": "b8be62ffacb0118fa3eaa29a0923c87c8c11985c",
         "type": "github"
       },
       "original": {
@@ -845,11 +845,11 @@
         "rust-overlay": "rust-overlay"
       },
       "locked": {
-        "lastModified": 1779206327,
-        "narHash": "sha256-FCCiC0AWZUTi+dUdK2AvQaEsOP9PmEsEeoYZIyUDTfA=",
+        "lastModified": 1779243421,
+        "narHash": "sha256-PEvsLYB4J7OwgyhRHp26PgWPPC/nwq0RoIF0OOXQaJQ=",
         "owner": "mholtzscher",
         "repo": "melt",
-        "rev": "86ba5dc5603582547da28f015494d364e8f7b371",
+        "rev": "a72dca6e42923d3d9708d71eee97763d5d83b698",
         "type": "github"
       },
       "original": {

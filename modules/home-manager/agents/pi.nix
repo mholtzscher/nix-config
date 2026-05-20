@@ -48,6 +48,7 @@ in
           };
         };
       };
+
       theme = "tokyo-night";
       workingVibe = "Bruce Schneier";
       workingVibeMode = "file";
