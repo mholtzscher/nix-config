@@ -35,8 +35,8 @@ in
             thinking = "high";
           };
           planner = {
-            model = "openai-codex/gpt-5.5";
-            thinking = "medium";
+            model = "openai-codex/gpt-5.4";
+            thinking = "high";
           };
           researcher = {
             model = "opencode-go/deepseek-v4-flash";
