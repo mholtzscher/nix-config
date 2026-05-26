@@ -13,7 +13,6 @@
       ollama
       terraform
       _1password-cli
-      _1password-gui
     ];
 
     sessionVariables = {
