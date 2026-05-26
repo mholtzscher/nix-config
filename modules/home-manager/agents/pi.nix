@@ -60,7 +60,8 @@ in
         "npm:pi-boomerang"
         # "npm:pi-btw"
         "npm:pi-fff"
-        "npm:pi-powerline-footer"
+        # Currently incompatible with pi >= 0.75 peer deps; see upstream issue #67.
+        # "npm:pi-powerline-footer"
         "npm:pi-subagents"
         "npm:pi-web-access"
       ];
