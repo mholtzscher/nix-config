@@ -58,3 +58,6 @@ with pkgs;
   wget
   yq
 ]
+++ pkgs.lib.optionals (!isWork) [
+  tailscale
+]
