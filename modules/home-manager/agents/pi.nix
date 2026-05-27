@@ -60,8 +60,8 @@ in
         "npm:pi-boomerang"
         # "npm:pi-btw"
         "npm:pi-fff"
-        # Currently incompatible with pi >= 0.75 peer deps; see upstream issue #67.
-        # "npm:pi-powerline-footer"
+        "npm:pi-mcp-adapter"
+        "npm:pi-powerline-footer"
         "npm:pi-subagents"
         "npm:pi-web-access"
       ];
@@ -77,6 +77,14 @@ in
     ".pi/agent/prompts" = {
       source = ./files/pi/prompts;
       recursive = true;
+    };
+
+    ".pi/agent/mcp.json".text = builtins.toJSON {
+      mcpServers = {
+        executor = {
+          url = "https://executor.sh/mcp";
+        };
+      };
     };
 
     ".pi/web-search.json".text = builtins.toJSON {
