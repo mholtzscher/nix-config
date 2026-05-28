@@ -1,4 +1,9 @@
-{ pkgs, self, ... }:
+{
+  pkgs,
+  self,
+  currentSystemUser,
+  ...
+}:
 {
   # Cross-platform nix configuration settings
   # Extracted from flake.nix to reduce duplication
@@ -16,16 +21,23 @@
     settings = {
       experimental-features = "nix-command flakes";
 
+      trusted-users = [
+        "root"
+        currentSystemUser
+      ];
+
       # Cachix caches
       extra-substituters = [
         "https://mholtzscher.cachix.org"
         "https://nix-community.cachix.org"
         "https://cache.numtide.com"
+        "https://devenv.cachix.org"
       ];
       extra-trusted-public-keys = [
         "mholtzscher.cachix.org-1:liIrpcru/aB3IiCNR62EYTSRPHo/UYYMzYVpYZuiz6w="
         "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
         "niks3.numtide.com-1:DTx8wZduET09hRmMtKdQDxNNthLQETkc/yaX7M4qK0g="
+        "devenv.cachix.org-1:w1cLUi8dv3hnoSPGAuibQv+f9TZLr6cv/Hm9XgU50cw="
       ];
     };
 

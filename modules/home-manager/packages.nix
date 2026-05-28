@@ -32,6 +32,7 @@ with pkgs;
   cookiecutter
   cruft
   codesnap
+  devenv
   dive
   dust
   glow
