@@ -464,7 +464,6 @@ This is a personal configuration, but feel free to use it as inspiration for you
 - **catppuccin**: Catppuccin color scheme integration
 
 ### Resources (non-flake)
-- **naws**: AWS CLI wrapper utilities
 - **topiary-nushell**: Nushell formatter for Topiary
 - **ghostty-shader-playground**: Ghostty terminal shaders
 

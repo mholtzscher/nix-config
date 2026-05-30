@@ -19,10 +19,6 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    naws = {
-      url = "github:mholtzscher/naws";
-      flake = false;
-    };
     topiaryNushell = {
       url = "github:blindFS/topiary-nushell";
       flake = false;
@@ -130,7 +126,6 @@
       nix-homebrew,
       homebrew-brew,
       home-manager,
-      naws,
       topiaryNushell,
       ghostty-shader-playground,
       catppuccin,
