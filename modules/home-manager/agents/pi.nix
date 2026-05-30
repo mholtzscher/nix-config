@@ -50,6 +50,7 @@ in
       };
 
       theme = "tokyo-night";
+      showHardwareCursor = true;
       workingVibe = "Bruce Schneier";
       workingVibeMode = "file";
       packages = [
