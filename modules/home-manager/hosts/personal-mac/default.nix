@@ -11,7 +11,6 @@
       inputs.aerospace-utils.packages.${pkgs.stdenv.hostPlatform.system}.default
       mkalias
       ollama
-      terraform
       _1password-cli
     ];
 
