@@ -65,13 +65,6 @@ in
         "npm:pi-subagents"
         "npm:pi-web-access"
       ];
-      npmCommand = [
-        "mise"
-        "exec"
-        "node@24"
-        "--"
-        "npm"
-      ];
     };
 
     ".pi/agent/prompts" = {
