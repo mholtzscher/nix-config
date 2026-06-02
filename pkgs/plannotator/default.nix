@@ -5,16 +5,16 @@
 }:
 
 let
-  version = "0.19.24";
+  version = "0.19.26";
 
   assets = {
     aarch64-darwin = {
       name = "plannotator-darwin-arm64";
-      hash = "sha256-1qjmlGdredKGdQm94OjuWf5Wc0KaasRuzfp0aur22Ws=";
+      hash = "sha256-chaAx7tivHRm9pHCZm1Blth84S+7sYdb+tp/aqdK5HM=";
     };
     x86_64-linux = {
       name = "plannotator-linux-x64";
-      hash = "sha256-sJawfWX+H1IBt63u0bkAx5rBXcMDj4f0MzY6hl/JJMs=";
+      hash = "sha256-5AQb3IdJX8g2pISjH9js8107Ys0tHSkrvm5DbKbEVCc=";
     };
   };
 
