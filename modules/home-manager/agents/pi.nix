@@ -17,7 +17,7 @@ in
     inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system}.pi
   ];
 
-  home.file = lib.optionalAttrs (!isWork) {
+  home.file = {
     ".pi/agent/AGENTS.md".source = ./files/karpathy-agents.md;
 
     ".pi/agent/settings.json".text = builtins.toJSON {
@@ -74,39 +74,6 @@ in
 
     ".pi/web-search.json".text = builtins.toJSON {
       workflow = "none";
-    };
-
-    ".pi/agent/models.json".text = builtins.toJSON {
-      providers = {
-        llama-cpp = {
-          baseUrl = "http://127.0.0.1:8081/v1";
-          api = "openai-completions";
-          apiKey = "llama-cpp";
-          compat = {
-            supportsDeveloperRole = true;
-            supportsReasoningEffort = false;
-          };
-          models = [
-            {
-              id = "local";
-              name = "Local Model";
-              reasoning = true;
-              input = [
-                "text"
-                "image"
-              ];
-              contextWindow = 131072;
-              maxTokens = 81920;
-              cost = {
-                input = 0;
-                output = 0;
-                cacheRead = 0;
-                cacheWrite = 0;
-              };
-            }
-          ];
-        };
-      };
     };
 
     ".pi/agent/extensions" = {
