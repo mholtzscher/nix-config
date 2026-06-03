@@ -36,7 +36,6 @@ with pkgs;
   dive
   dust
   glow
-  gnused
   grpcurl
   gum
   hey

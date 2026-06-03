@@ -60,6 +60,7 @@ in
   # Desktop-specific programs and packages
   home.packages = with pkgs; [
     awscli2 # AWS command-line interface
+    gnused
     vesktop # Discord client with better Wayland support
 
     ollama-cuda # Local LLM server (run on-demand: ollama serve)
