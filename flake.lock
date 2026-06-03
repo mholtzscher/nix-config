@@ -43,6 +43,22 @@
         "type": "github"
       }
     },
+    "agent-artifacts": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1780495390,
+        "narHash": "sha256-wTGS5h3HWn3ULWoyKaJwl7kgmELPnEyxmCur112A4bM=",
+        "owner": "mholtzscher",
+        "repo": "agent-artifacts",
+        "rev": "353f789d24ff04b4410fa84bf668c32585c94a3d",
+        "type": "github"
+      },
+      "original": {
+        "owner": "mholtzscher",
+        "repo": "agent-artifacts",
+        "type": "github"
+      }
+    },
     "anthropic-skills": {
       "flake": false,
       "locked": {
@@ -368,11 +384,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1780429727,
-        "narHash": "sha256-ru7OFrvfKbTGkYWDdufRgvkgppIfbXjH1yym/OFNyWY=",
+        "lastModified": 1780491591,
+        "narHash": "sha256-gZPb4KN8rFfQZpM+fy80qwnCH3WjnYy1uh0Fvjs2Wfg=",
         "owner": "AvengeMedia",
         "repo": "DankMaterialShell",
-        "rev": "1ee42506b690300577e515cb4b7a65b88b15b3fa",
+        "rev": "d20aa3b80aa9898391e2eabc742ca87e688e422e",
         "type": "github"
       },
       "original": {
@@ -996,11 +1012,11 @@
         "treefmt-nix": "treefmt-nix_3"
       },
       "locked": {
-        "lastModified": 1780449489,
-        "narHash": "sha256-UxyWzZhTiciPcpq5iYJg51439egKbytTdt9TZ7/NgwQ=",
+        "lastModified": 1780466037,
+        "narHash": "sha256-0GsJQ21NfXn9A3RUfXt0XurhDhMu8hfGCFyv+dNlbqo=",
         "owner": "numtide",
         "repo": "llm-agents.nix",
-        "rev": "1410995627b17a8f6f3ad6c4c202c6419e690e2a",
+        "rev": "a418d272c8ed1f30bce9919cd738d347bf2d9d1c",
         "type": "github"
       },
       "original": {
@@ -1248,11 +1264,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1778851564,
-        "narHash": "sha256-p8wzcnpB2Iys+QzAKM9/Eyw/pUyqCO3sw/NCnDH4dTE=",
+        "lastModified": 1780492467,
+        "narHash": "sha256-zMEJwtQPmsPPgPczFkyjWHgd1z0HagOPS2Wt2WDYLJY=",
         "owner": "zhaofengli-wip",
         "repo": "nix-homebrew",
-        "rev": "b3a87b4793205cc111f3c61e25e018ffac3b8039",
+        "rev": "562332f97de9f5ba51aa647d70462e88222b2988",
         "type": "github"
       },
       "original": {
@@ -1441,6 +1457,7 @@
       "inputs": {
         "aerospace-utils": "aerospace-utils",
         "agent-skills": "agent-skills",
+        "agent-artifacts": "agent-artifacts",
         "anthropic-skills": "anthropic-skills",
         "atlas": "atlas",
         "catppuccin": "catppuccin",

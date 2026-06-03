@@ -17,6 +17,12 @@
         idPrefix = "mholtzscher";
       };
 
+      agent-artifacts = {
+        input = "agent-artifacts";
+        subdir = "skills";
+        idPrefix = "mholtzscher";
+      };
+
       anthropic = {
         input = "anthropic-skills";
         subdir = "skills";
@@ -74,6 +80,7 @@
       # "cloudflare/web-perf"
       # "cloudflare/workers-best-practices"
       # "cloudflare/wrangler"
+      "mholtzscher/upload-artifact"
       "mholtzscher/zellij-tasks"
     ];
 

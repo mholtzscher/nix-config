@@ -72,6 +72,10 @@
       url = "github:Kyure-A/agent-skills-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    agent-artifacts = {
+      url = "github:mholtzscher/agent-artifacts";
+      flake = false;
+    };
     anthropic-skills = {
       url = "github:anthropics/skills";
       flake = false;
@@ -140,6 +144,7 @@
       dms,
       llm-agents,
       agent-skills,
+      agent-artifacts,
       anthropic-skills,
       cloudflare-skills,
       mattpocock-skills,
