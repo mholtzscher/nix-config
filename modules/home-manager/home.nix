@@ -37,6 +37,7 @@ in
   # Enable Catppuccin Mocha theme globally
   catppuccin = {
     enable = true;
+    autoEnable = true;
     flavor = "mocha";
     # Disable for programs with custom configs
     zellij.enable = false; # Has extensive custom keybindings in zellij.kdl
