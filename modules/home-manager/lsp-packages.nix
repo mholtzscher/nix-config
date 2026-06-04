@@ -47,6 +47,7 @@ with pkgs;
   typescript-language-server
   oxlint
   oxfmt
+  eslint_d
   prettier
   # biome
 
