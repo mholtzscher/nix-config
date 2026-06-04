@@ -54,12 +54,11 @@ in
       workingVibe = "Bruce Schneier";
       workingVibeMode = "file";
       packages = [
-        # "./packages/render-mermaid"
         "git:github.com/nicobailon/visual-explainer"
         "npm:@ifi/oh-pi-themes"
         "npm:@plannotator/pi-extension"
+        "npm:glimpseui"
         "npm:pi-boomerang"
-        # "npm:pi-btw"
         "npm:pi-fff"
         "npm:pi-powerline-footer"
         "npm:pi-subagents"
@@ -78,11 +77,6 @@ in
 
     ".pi/agent/extensions" = {
       source = filteredExtensionsSource;
-      recursive = true;
-    };
-
-    ".pi/agent/packages" = {
-      source = ./files/pi/packages;
       recursive = true;
     };
 
