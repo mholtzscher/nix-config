@@ -22,6 +22,22 @@
         "type": "github"
       }
     },
+    "agent-artifacts": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1780504263,
+        "narHash": "sha256-gp/p7xXbM54szAFXO60Pz2zKeYLkiOdYQB95UFpeRA8=",
+        "owner": "mholtzscher",
+        "repo": "agent-artifacts",
+        "rev": "cf00eba906a848ce4574e16def4c578053c4dc42",
+        "type": "github"
+      },
+      "original": {
+        "owner": "mholtzscher",
+        "repo": "agent-artifacts",
+        "type": "github"
+      }
+    },
     "agent-skills": {
       "inputs": {
         "home-manager": "home-manager",
@@ -40,22 +56,6 @@
       "original": {
         "owner": "Kyure-A",
         "repo": "agent-skills-nix",
-        "type": "github"
-      }
-    },
-    "agent-artifacts": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1780495390,
-        "narHash": "sha256-wTGS5h3HWn3ULWoyKaJwl7kgmELPnEyxmCur112A4bM=",
-        "owner": "mholtzscher",
-        "repo": "agent-artifacts",
-        "rev": "353f789d24ff04b4410fa84bf668c32585c94a3d",
-        "type": "github"
-      },
-      "original": {
-        "owner": "mholtzscher",
-        "repo": "agent-artifacts",
         "type": "github"
       }
     },
@@ -384,11 +384,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1780491591,
-        "narHash": "sha256-gZPb4KN8rFfQZpM+fy80qwnCH3WjnYy1uh0Fvjs2Wfg=",
+        "lastModified": 1780531574,
+        "narHash": "sha256-DngmgE5GUbqFzZnnCrM2Z6lGNDGkSfXvNVUhPZSLjgY=",
         "owner": "AvengeMedia",
         "repo": "DankMaterialShell",
-        "rev": "d20aa3b80aa9898391e2eabc742ca87e688e422e",
+        "rev": "59431869dc14ab1cb2d05bbbf81839d95e4724cd",
         "type": "github"
       },
       "original": {
@@ -904,11 +904,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1780408569,
-        "narHash": "sha256-s7Tv6FUQThRAvW8En8XVC6HMb0uiikzVccCcCo9u/Bg=",
+        "lastModified": 1780515920,
+        "narHash": "sha256-8KX2hEeOX6KP3hBBJJI8dGWVrzbOOf1rBPmg/GUG24U=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "f384af1bec6423a0d4ba1855917ab948f64e5808",
+        "rev": "4c5c1e8ba14f1c7475fa31ff11bc1c19cd220974",
         "type": "github"
       },
       "original": {
@@ -1012,11 +1012,11 @@
         "treefmt-nix": "treefmt-nix_3"
       },
       "locked": {
-        "lastModified": 1780466037,
-        "narHash": "sha256-0GsJQ21NfXn9A3RUfXt0XurhDhMu8hfGCFyv+dNlbqo=",
+        "lastModified": 1780535869,
+        "narHash": "sha256-2Uf4igNstI/FHFkUtn//4FAaqAL/ofHImmX4CGh1tCs=",
         "owner": "numtide",
         "repo": "llm-agents.nix",
-        "rev": "a418d272c8ed1f30bce9919cd738d347bf2d9d1c",
+        "rev": "3ae355a78b82a254cc6525b5b32a4d742c3d57d7",
         "type": "github"
       },
       "original": {
@@ -1088,11 +1088,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1780445083,
-        "narHash": "sha256-n1/8BTS1rJZXzyJCCmydxn11sPoxfJEcUMv1EwZOF38=",
+        "lastModified": 1780531502,
+        "narHash": "sha256-mc8B0ZcIYwz//yq4mUZy4++tuWf10lz5xNmDTs8Jk14=",
         "owner": "nix-community",
         "repo": "neovim-nightly-overlay",
-        "rev": "7a243cca59f5d68838ac6510148a2f470053cb84",
+        "rev": "eae569e41e8dc7c033ab3996b1d247763694b065",
         "type": "github"
       },
       "original": {
@@ -1104,11 +1104,11 @@
     "neovim-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1780441153,
-        "narHash": "sha256-EqSmE5JSvCcjmHOP+vL5DVW6vLZb3ZgVg0PqbzTHSfo=",
+        "lastModified": 1780520233,
+        "narHash": "sha256-+suDxFU0pBuUn/gcf5l/4JIUMUWB73dwCwSWMFtCChs=",
         "owner": "neovim",
         "repo": "neovim",
-        "rev": "13b2b1427578bec7714e1a14be44ca72ef18f379",
+        "rev": "85b607d79783f55fb4eb281517bf43b2f4d0db26",
         "type": "github"
       },
       "original": {
@@ -1456,8 +1456,8 @@
     "root": {
       "inputs": {
         "aerospace-utils": "aerospace-utils",
-        "agent-skills": "agent-skills",
         "agent-artifacts": "agent-artifacts",
+        "agent-skills": "agent-skills",
         "anthropic-skills": "anthropic-skills",
         "atlas": "atlas",
         "catppuccin": "catppuccin",
