@@ -44,7 +44,7 @@ with pkgs;
   svelte-language-server
   tailwindcss-language-server
   emmet-language-server
-  typescript-language-server
+  typescript-go
   oxlint
   oxfmt
   eslint_d
