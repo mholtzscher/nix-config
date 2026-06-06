@@ -41,6 +41,12 @@
         subdir = "skills/engineering";
       };
 
+      mattpocock-in-progress = {
+        input = "mattpocock-skills";
+        idPrefix = "mattpocock";
+        subdir = "skills/in-progress";
+      };
+
       roerohan = {
         input = "roerohan-skills";
         idPrefix = "roerohan";
@@ -65,6 +71,7 @@
       "mattpocock/grill-with-docs"
       "mattpocock/improve-codebase-architecture"
       "mattpocock/tdd"
+      "mattpocock/teach"
       "roerohan/diff-walkthrough"
       # "mholtzscher/atlassian-api"
       "mholtzscher/conventional-commits"
