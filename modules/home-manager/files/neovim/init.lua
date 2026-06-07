@@ -302,12 +302,6 @@ require("todo-comments").setup()
 vim.pack.add({ "https://github.com/lewis6991/gitsigns.nvim" })
 require("gitsigns").setup()
 
--- diffview
-vim.pack.add({ "https://github.com/dlyongemallo/diffview.nvim" })
-require("diffview").setup({
-	enhanced_diff_hl = true,
-})
-
 -- grug-far
 vim.pack.add({ "https://github.com/MagicDuck/grug-far.nvim" })
 require("grug-far").setup()
