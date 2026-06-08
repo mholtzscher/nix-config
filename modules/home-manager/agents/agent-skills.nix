@@ -41,10 +41,10 @@
         subdir = "skills/engineering";
       };
 
-      mattpocock-in-progress = {
+      mattpocock-productivity = {
         input = "mattpocock-skills";
         idPrefix = "mattpocock";
-        subdir = "skills/in-progress";
+        subdir = "skills/productivity";
       };
 
       roerohan = {
