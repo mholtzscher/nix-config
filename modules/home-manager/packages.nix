@@ -20,6 +20,8 @@ with pkgs;
   (pkgs.callPackage ../../pkgs/plannotator { })
   # ghui - GitHub TUI
   (pkgs.callPackage ../../pkgs/ghui { })
+  # vimhjkl - Vim technique trainer
+  (pkgs.callPackage ../../pkgs/vimhjkl { })
   google-cloud-sdk
   nodejs_24
   pnpm
