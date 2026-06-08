@@ -2,7 +2,7 @@
 # Reusable update script for GitHub release-based packages.
 #
 # This script is designed to be sourced from thin per-package wrappers
-# (see scripts/update-hunk.sh for an example).
+# in the same directory (e.g. update-ghui.sh).
 #
 # The sourcing script must set these variables:
 #   PKG_NAME        - Package name (e.g., "hunk")

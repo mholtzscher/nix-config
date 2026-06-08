@@ -21,4 +21,4 @@ extra_version_updates() {
 }
 
 repo_root=$(git rev-parse --show-toplevel)
-source "$repo_root/scripts/update-from-github.sh"
+source "$repo_root/scripts/updates/common.sh"

@@ -3,7 +3,7 @@ set -euo pipefail
 
 usage() {
   cat <<'USAGE'
-Usage: scripts/update-vimhjkl.sh <version|latest> [--validate]
+Usage: scripts/updates/update-vimhjkl.sh <version|latest> [--validate]
 
 Updates pkgs/vimhjkl/default.nix with the given version tag and recomputes
 the source hash.

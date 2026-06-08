@@ -32,14 +32,13 @@ fi
 repo_root=$(git rev-parse --show-toplevel)
 errors=0
 
-# Discover all package update scripts (scripts/update-<name>.sh)
-# that use the shared update-from-github.sh framework.
-# This avoids an explicit registry — just drop a new script in scripts/
-# and it'll be picked up.
+# Discover all per-package update scripts in scripts/updates/ that follow
+# the scripts/updates/update-<name>.sh convention. This avoids an explicit
+# registry — just drop a new script in scripts/updates/ and it'll be picked up.
 update_scripts=()
 while IFS= read -r -d '' script; do
   update_scripts+=("$script")
-done < <(find "$repo_root/scripts" -maxdepth 1 -name 'update-*.sh' ! -name 'update-from-github.sh' ! -name 'update-all.sh' -print0 | sort -z)
+done < <(find "$repo_root/scripts/updates" -maxdepth 1 -name 'update-*.sh' -print0 | sort -z)
 
 if [[ ${#update_scripts[@]} -eq 0 ]]; then
   echo "No package update scripts found." >&2

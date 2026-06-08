@@ -3,7 +3,7 @@ set -euo pipefail
 
 usage() {
   cat <<'USAGE'
-Usage: scripts/update-zellmin.sh <commit|latest> [--validate]
+Usage: scripts/updates/update-zellmin.sh <commit|latest> [--validate]
 
 Clones Brobicheau/zellmin, builds the release WASI plugins, vendors the built
 WASM files at pkgs/treemin/treemin.wasm and pkgs/seshmin/seshmin.wasm, and
