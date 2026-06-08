@@ -1,17 +1,15 @@
 {
   lib,
   python3,
-  fetchFromGitHub,
+  fetchzip,
 }:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "vimhjkl";
   version = "0.4.1";
 
-  src = fetchFromGitHub {
-    owner = "S-Sigdel";
-    repo = pname;
-    rev = "v${version}";
+  src = fetchzip {
+    url = "https://github.com/S-Sigdel/vimhjkl/archive/refs/tags/v${version}.tar.gz";
     hash = "sha256-65GvB6MVAMyypiHz/SezgEP2oT2aHNLlCQ9uFFqBCwM=";
   };
 
