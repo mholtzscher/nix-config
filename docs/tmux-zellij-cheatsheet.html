@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>tmux Cheatsheet for Zellij Muscle Memory</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #11111b;
+      --panel: #181825;
+      --panel-2: #1e1e2e;
+      --text: #cdd6f4;
+      --muted: #a6adc8;
+      --accent: #89b4fa;
+      --accent-2: #cba6f7;
+      --green: #a6e3a1;
+      --border: #313244;
+      --code: #f5c2e7;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top left, rgba(137, 180, 250, 0.18), transparent 34rem), var(--bg);
+      color: var(--text);
+      line-height: 1.55;
+    }
+    main { max-width: 1120px; margin: 0 auto; padding: 56px 24px 80px; }
+    header {
+      padding: 32px;
+      border: 1px solid var(--border);
+      background: linear-gradient(135deg, rgba(30,30,46,0.95), rgba(24,24,37,0.92));
+      border-radius: 28px;
+      box-shadow: 0 24px 80px rgba(0,0,0,0.35);
+    }
+    h1 { margin: 0 0 12px; font-size: clamp(2rem, 5vw, 4rem); line-height: 1; letter-spacing: -0.05em; }
+    h2 { margin-top: 44px; padding-top: 8px; font-size: 1.5rem; color: var(--accent); }
+    p, li { color: var(--muted); }
+    strong { color: var(--text); }
+    code {
+      color: var(--code);
+      background: rgba(245, 194, 231, 0.09);
+      border: 1px solid rgba(245, 194, 231, 0.18);
+      border-radius: 7px;
+      padding: 0.12rem 0.35rem;
+      font-size: 0.92em;
+    }
+    .callout {
+      margin-top: 24px;
+      padding: 18px 20px;
+      border-left: 4px solid var(--green);
+      background: rgba(166, 227, 161, 0.08);
+      border-radius: 16px;
+    }
+    .table-wrap {
+      margin: 18px 0 30px;
+      overflow-x: auto;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      background: rgba(24,24,37,0.86);
+    }
+    table { width: 100%; border-collapse: collapse; min-width: 720px; }
+    th, td { padding: 13px 16px; text-align: left; vertical-align: top; border-bottom: 1px solid var(--border); }
+    th { color: var(--text); background: rgba(49, 50, 68, 0.72); font-size: 0.82rem; text-transform: uppercase; letter-spacing: 0.08em; }
+    tr:last-child td { border-bottom: 0; }
+    td:first-child { color: var(--text); font-weight: 650; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; margin-top: 18px; }
+    .card { border: 1px solid var(--border); background: rgba(30,30,46,0.78); border-radius: 18px; padding: 18px; }
+    .card h3 { margin: 0 0 8px; color: var(--accent-2); }
+    footer { margin-top: 48px; color: var(--muted); font-size: 0.9rem; }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>tmux Cheatsheet for Zellij Muscle Memory</h1>
+    <p>This setup intentionally keeps tmux close to its defaults. The main mental shift is moving from Zellij modes to tmux's prefix model.</p>
+    <div class="callout"><strong>Remember:</strong> <code>prefix</code> means press <code>Ctrl-b</code>, release, then press the next key.</div>
+  </header>
+
+  <h2>Core actions</h2>
+  <div class="table-wrap"><table><thead><tr><th>What you did in Zellij</th><th>Zellij binding</th><th>tmux default / current equivalent</th></tr></thead><tbody>
+    <tr><td>Enter command mode</td><td><code>Ctrl-g</code></td><td><code>prefix</code> / <code>Ctrl-b</code></td></tr>
+    <tr><td>Detach session</td><td><code>Ctrl-g</code> → <code>o</code> → <code>d</code></td><td><code>prefix d</code></td></tr>
+    <tr><td>Quit / close client</td><td><code>Ctrl-q</code></td><td><code>prefix d</code>, or shell <code>exit</code></td></tr>
+    <tr><td>Show key help</td><td>Zellij mode hints</td><td><code>prefix ?</code></td></tr>
+    <tr><td>Reload config</td><td>n/a</td><td><code>prefix : source-file ~/.config/tmux/tmux.conf</code></td></tr>
+  </tbody></table></div>
+
+  <h2>Panes</h2>
+  <div class="table-wrap"><table><thead><tr><th>What you did in Zellij</th><th>Zellij binding</th><th>tmux default / current equivalent</th></tr></thead><tbody>
+    <tr><td>New pane</td><td><code>Alt-n</code> or <code>Ctrl-g</code> → <code>p</code> → <code>n</code></td><td><code>prefix %</code> side-by-side, <code>prefix "</code> top/bottom</td></tr>
+    <tr><td>Move focus</td><td><code>Alt-h/j/k/l</code> or pane mode <code>h/j/k/l</code></td><td><code>prefix ←/↓/↑/→</code>; mouse click also works</td></tr>
+    <tr><td>Cycle panes</td><td><code>Ctrl-g</code> → <code>p</code> → <code>Tab</code></td><td><code>prefix o</code></td></tr>
+    <tr><td>Previous pane</td><td>n/a</td><td><code>prefix ;</code></td></tr>
+    <tr><td>Close focused pane</td><td><code>Ctrl-g</code> → <code>p</code> → <code>x</code></td><td><code>prefix x</code></td></tr>
+    <tr><td>Fullscreen / zoom pane</td><td><code>Ctrl-g</code> → <code>p</code> → <code>f</code></td><td><code>prefix z</code></td></tr>
+    <tr><td>Move/swap pane</td><td><code>Ctrl-g</code> → <code>m</code> → direction</td><td><code>prefix {</code> / <code>prefix }</code></td></tr>
+    <tr><td>Resize pane</td><td><code>Ctrl-g</code> → <code>r</code> → arrows/hjkl</td><td><code>prefix Ctrl-←/↓/↑/→</code>, or drag pane borders with mouse</td></tr>
+  </tbody></table></div>
+
+  <h2>Tabs vs windows</h2>
+  <p>Zellij tabs map most closely to tmux windows.</p>
+  <div class="table-wrap"><table><thead><tr><th>What you did in Zellij</th><th>Zellij binding</th><th>tmux default / current equivalent</th></tr></thead><tbody>
+    <tr><td>New tab</td><td><code>Alt-t</code> or <code>Ctrl-g</code> → <code>t</code> → <code>n</code></td><td><code>prefix c</code></td></tr>
+    <tr><td>Next tab/window</td><td><code>Alt-l</code> at edge, or tab mode <code>l/j</code></td><td><code>prefix n</code></td></tr>
+    <tr><td>Previous tab/window</td><td><code>Alt-h</code> at edge, or tab mode <code>h/k</code></td><td><code>prefix p</code></td></tr>
+    <tr><td>Jump to number</td><td><code>Ctrl-g</code> → <code>t</code> → <code>1..9</code></td><td><code>prefix 0..9</code></td></tr>
+    <tr><td>Rename tab/window</td><td><code>Ctrl-g</code> → <code>t</code> → <code>r</code></td><td><code>prefix ,</code></td></tr>
+    <tr><td>Close tab/window</td><td><code>Ctrl-g</code> → <code>t</code> → <code>x</code></td><td><code>prefix &amp;</code></td></tr>
+    <tr><td>List tabs/windows</td><td>Session/tab manager</td><td><code>prefix w</code></td></tr>
+  </tbody></table></div>
+
+  <h2>Sessions</h2>
+  <div class="table-wrap"><table><thead><tr><th>What you did in Zellij</th><th>Zellij binding</th><th>tmux default / current equivalent</th></tr></thead><tbody>
+    <tr><td>Session manager</td><td><code>Ctrl-g</code> → <code>o</code> → <code>w</code> / <code>Alt-z</code></td><td><code>prefix s</code></td></tr>
+    <tr><td>Detach</td><td><code>Ctrl-g</code> → <code>o</code> → <code>d</code></td><td><code>prefix d</code></td></tr>
+    <tr><td>Rename session</td><td>n/a</td><td><code>prefix $</code></td></tr>
+    <tr><td>Attach from shell</td><td><code>zellij attach</code> / sessionizer</td><td><code>tmux attach</code>, <code>tmux ls</code>, <code>tmux new -s name</code>, <code>tmux attach -t name</code></td></tr>
+  </tbody></table></div>
+
+  <h2>Scrollback, copy, and search</h2>
+  <div class="table-wrap"><table><thead><tr><th>What you did in Zellij</th><th>Zellij binding</th><th>tmux default / current equivalent</th></tr></thead><tbody>
+    <tr><td>Enter scroll mode</td><td><code>Ctrl-g</code> → <code>s</code></td><td><code>prefix [</code></td></tr>
+    <tr><td>Scroll up/down</td><td><code>j/k</code>, arrows, page keys</td><td>vi copy-mode keys, arrows, PageUp/PageDown</td></tr>
+    <tr><td>Search scrollback</td><td><code>Ctrl-g</code> → <code>s</code> → <code>f</code></td><td><code>prefix [</code> then <code>/</code> or <code>?</code></td></tr>
+    <tr><td>Copy selection</td><td>Zellij selection/copy</td><td><code>prefix [</code> then vi selection; <code>tmux-yank</code> improves clipboard yanking</td></tr>
+  </tbody></table></div>
+
+  <h2>Floating panes / popups</h2>
+  <p>Zellij floating panes do not have a perfect tmux equivalent.</p>
+  <div class="table-wrap"><table><thead><tr><th>Zellij feature</th><th>tmux equivalent</th></tr></thead><tbody>
+    <tr><td>Floating panes</td><td>tmux popups, but only when explicitly bound or run from command mode</td></tr>
+    <tr><td>Plugin panes like sessionizer</td><td>Usually custom <code>display-popup</code> bindings or external shell scripts</td></tr>
+    <tr><td>Current config</td><td>Intentionally no popup bindings yet, to keep tmux default/minimal</td></tr>
+  </tbody></table></div>
+
+  <h2>Plugin mapping</h2>
+  <div class="grid">
+    <div class="card"><h3>Catppuccin</h3><p><code>catppuccin.tmux.enable = true</code> keeps theme management in the existing Catppuccin flake/module.</p></div>
+    <div class="card"><h3>tmux-resurrect</h3><p>Manual save/restore for sessions, windows, panes, layouts, and commands.</p></div>
+    <div class="card"><h3>tmux-continuum</h3><p>Periodic session saves and optional restore behavior via plugin defaults/config.</p></div>
+    <div class="card"><h3>vim-tmux-navigator</h3><p><code>Ctrl-h/j/k/l</code> navigation between Vim splits and tmux panes, assuming editor-side config is present.</p></div>
+    <div class="card"><h3>tmux-yank</h3><p>Easier copy-mode yanking to the system clipboard.</p></div>
+    <div class="card"><h3>tmux-sensible</h3><p>Loaded through <code>sensibleOnTop = true</code> for community-standard tmux defaults.</p></div>
+  </div>
+
+  <h2>Current minimal config summary</h2>
+  <ul>
+    <li>tmux</li>
+    <li>mouse support</li>
+    <li>tmux sensible defaults</li>
+    <li>Catppuccin tmux theme via the Catppuccin module</li>
+    <li><code>resurrect</code>, <code>continuum</code>, <code>vim-tmux-navigator</code>, and <code>yank</code></li>
+  </ul>
+  <p>Everything else is intentionally left as tmux default behavior.</p>
+  <footer>Generated from <code>docs/tmux-zellij-cheatsheet.md</code>.</footer>
+</main>
+</body>
+</html>
