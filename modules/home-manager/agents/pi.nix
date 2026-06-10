@@ -53,6 +53,9 @@ in
       showHardwareCursor = true;
       workingVibe = "Bruce Schneier";
       workingVibeMode = "file";
+      "pi-agent-sources" = {
+        sources = { };
+      };
       packages = [
         "git:github.com/nicobailon/visual-explainer"
         "npm:@ifi/oh-pi-themes"
