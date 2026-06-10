@@ -398,7 +398,7 @@ Staged changes:
 
 Return ONLY the commit message, nothing else. No explanations, no markdown code blocks, just the commit message text."
 
-  let pi_result = (pi -p --no-session --no-tools --model $model $commit_prompt | complete)
+  let pi_result = (pi -p --no-session --no-tools --no-extensions --model $model $commit_prompt | complete)
 
   if $pi_result.exit_code != 0 {
     log error "Failed to generate commit message with pi"
