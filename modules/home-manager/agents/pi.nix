@@ -38,6 +38,7 @@ in
         "npm:glimpseui"
         "npm:pi-boomerang"
         "npm:pi-fff"
+        "npm:pi-mcp-adapter"
         "npm:pi-powerline-footer"
         "npm:pi-web-access"
       ];
