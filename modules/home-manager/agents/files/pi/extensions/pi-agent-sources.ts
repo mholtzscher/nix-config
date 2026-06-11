@@ -56,6 +56,20 @@ type LoadResult = {
 	errors: string[];
 };
 
+type SerializableSource = Omit<ResolvedSource, "entriesPromise">;
+
+function serializeSource(source: ResolvedSource): SerializableSource {
+	const { entriesPromise: _entriesPromise, ...serializableSource } = source;
+	return serializableSource;
+}
+
+function serializeLoadResult(result: LoadResult): { sources: SerializableSource[]; errors: string[] } {
+	return {
+		sources: result.sources.map((source) => serializeSource(source)),
+		errors: result.errors,
+	};
+}
+
 type LoadedConfig = {
 	sources: SourceSpec[];
 	cacheDir?: string;
@@ -541,7 +555,7 @@ export default function piAgentSources(pi: ExtensionAPI): void {
 				customType: CONFIG_KEY,
 				content: formatSourceReport(result),
 				display: true,
-				details: { sources: result.sources, errors: result.errors },
+				details: serializeLoadResult(result),
 			});
 		},
 	});
