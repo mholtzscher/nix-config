@@ -24,31 +24,6 @@ in
       defaultProvider = "openai-codex";
       defaultModel = "gpt-5.5";
       defaultThinkingLevel = "medium";
-      subagents = {
-        agentOverrides = {
-          oracle = {
-            model = "openai-codex/gpt-5.5";
-            thinking = "high";
-          };
-          reviewer = {
-            model = "opencode-go/deepseek-v4-pro";
-            thinking = "high";
-          };
-          planner = {
-            model = "openai-codex/gpt-5.4";
-            thinking = "high";
-          };
-          researcher = {
-            model = "opencode-go/deepseek-v4-flash";
-            thinking = "medium";
-          };
-          scout = {
-            model = "opencode-go/kimi-k2.6";
-            thinking = "medium";
-          };
-        };
-      };
-
       theme = "tokyo-night";
       showHardwareCursor = true;
       workingVibe = "Bruce Schneier";
@@ -64,7 +39,6 @@ in
         "npm:pi-boomerang"
         "npm:pi-fff"
         "npm:pi-powerline-footer"
-        "npm:pi-subagents"
         "npm:pi-web-access"
       ];
     };
