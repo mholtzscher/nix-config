@@ -66,15 +66,15 @@
     };
 
     skills.enable = [
-      "anthropic/frontend-design"
+      # "anthropic/frontend-design"
       "anthropic/skill-creator"
       "mattpocock/grill-with-docs"
       "mattpocock/improve-codebase-architecture"
       "mattpocock/tdd"
       "mattpocock/teach"
-      "roerohan/diff-walkthrough"
+      # "roerohan/diff-walkthrough"
       # "mholtzscher/atlassian-api"
-      "mholtzscher/conventional-commits"
+      # "mholtzscher/conventional-commits"
       "mholtzscher/spec-planner"
       "vercel/agent-browser"
       "hunk/hunk-review"
