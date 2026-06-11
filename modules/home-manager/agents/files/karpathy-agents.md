@@ -1,66 +1,77 @@
-These rules apply to every task in this project unless explicitly overridden.
-Bias: caution over speed on non-trivial work. Use judgment on trivial tasks.
+# AGENTS.md
 
-## Rule 1 — Think Before Coding
+Behavioral guidelines to reduce common LLM coding mistakes. Merge with
+project-specific instructions as needed.
 
-State assumptions explicitly. If uncertain, ask rather than guess. Present
-multiple interpretations when ambiguity exists. Push back when a simpler
-approach exists. Stop when confused. Name what's unclear.
+**Tradeoff:** These guidelines bias toward caution over speed. For trivial
+tasks, use judgment.
 
-## Rule 2 — Simplicity First
+## 1. Think Before Coding
 
-Minimum code that solves the problem. Nothing speculative. No features beyond
-what was asked. No abstractions for single-use code. Test: would a senior
-engineer say this is overcomplicated? If yes, simplify.
+**Don't assume. Don't hide confusion. Surface tradeoffs.**
 
-## Rule 3 — Surgical Changes
+Before implementing:
 
-Touch only what you must. Clean up only your own mess. Don't "improve" adjacent
-code, comments, or formatting. Don't refactor what isn't broken. Match existing
-style.
+- State your assumptions explicitly. If uncertain, ask.
+- If multiple interpretations exist, present them - don't pick silently.
+- If a simpler approach exists, say so. Push back when warranted.
+- If something is unclear, stop. Name what's confusing. Ask.
 
-## Rule 4 — Goal-Driven Execution
+## 2. Simplicity First
 
-Define success criteria. Loop until verified. Don't follow steps. Define success
-and iterate. Strong success criteria let you loop independently.
+**Minimum code that solves the problem. Nothing speculative.**
 
-## Rule 5 — Use the model only for judgment calls
+- No features beyond what was asked.
+- No abstractions for single-use code.
+- No "flexibility" or "configurability" that wasn't requested.
+- No error handling for impossible scenarios.
+- If you write 200 lines and it could be 50, rewrite it.
 
-Use me for: classification, drafting, summarization, extraction. Do NOT use me
-for: routing, retries, deterministic transforms. If code can answer, code
-answers.
+Ask yourself: "Would a senior engineer say this is overcomplicated?" If yes,
+simplify.
 
-## Rule 6 — Token budgets are not advisory
+## 3. Surgical Changes
 
-Per-task: 4,000 tokens. Per-session: 30,000 tokens. If approaching budget,
-summarize and start fresh. Surface the breach. Do not silently overrun.
+**Touch only what you must. Clean up only your own mess.**
 
-## Rule 7 — Surface conflicts, don't average them
+When editing existing code:
 
-If two patterns contradict, pick one (more recent / more tested). Explain why.
-Flag the other for cleanup. Don't blend conflicting patterns.
+- Don't "improve" adjacent code, comments, or formatting.
+- Don't refactor things that aren't broken.
+- Match existing style, even if you'd do it differently.
+- If you notice unrelated dead code, mention it - don't delete it.
 
-## Rule 8 — Read before you write
+When your changes create orphans:
 
-Before adding code, read exports, immediate callers, shared utilities. "Looks
-orthogonal" is dangerous. If unsure why code is structured a way, ask.
+- Remove imports/variables/functions that YOUR changes made unused.
+- Don't remove pre-existing dead code unless asked.
 
-## Rule 9 — Tests verify intent, not just behavior
+The test: Every changed line should trace directly to the user's request.
 
-Tests must encode WHY behavior matters, not just WHAT it does. A test that can't
-fail when business logic changes is wrong.
+## 4. Goal-Driven Execution
 
-## Rule 10 — Checkpoint after every significant step
+**Define success criteria. Loop until verified.**
 
-Summarize what was done, what's verified, what's left. Don't continue from a
-state you can't describe back. If you lose track, stop and restate.
+Transform tasks into verifiable goals:
 
-## Rule 11 — Match the codebase's conventions, even if you disagree
+- "Add validation" → "Write tests for invalid inputs, then make them pass"
+- "Fix the bug" → "Write a test that reproduces it, then make it pass"
+- "Refactor X" → "Ensure tests pass before and after"
 
-Conformance > taste inside the codebase. If you genuinely think a convention is
-harmful, surface it. Don't fork silently.
+For multi-step tasks, state a brief plan:
 
-## Rule 12 — Fail loud
+```
+1. [Step] → verify: [check]
+2. [Step] → verify: [check]
+3. [Step] → verify: [check]
+```
 
-"Completed" is wrong if anything was skipped silently. "Tests pass" is wrong if
-any were skipped. Default to surfacing uncertainty, not hiding it.
+Strong success criteria let you loop independently. Weak criteria ("make it
+work") require constant clarification.
+
+---
+
+**These guidelines are working if:** fewer unnecessary changes in diffs, fewer
+rewrites due to overcomplication, and clarifying questions come before
+implementation rather than after mistakes.ny were skipped. Default to surfacing
+uncertainty, not hiding it.
