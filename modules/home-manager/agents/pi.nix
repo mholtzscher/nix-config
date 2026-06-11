@@ -61,5 +61,19 @@ in
       source = ./files/pi/vibes;
       recursive = true;
     };
+
+    ".pi/agent/mcp.json" = lib.mkIf (!isWork) {
+      text = builtins.toJSON {
+        sideshow = {
+          command = "npx";
+          args = [
+            "-y"
+            "sideshow"
+            "mcp"
+          ];
+          lifecycle = "lazy";
+        };
+      };
+    };
   };
 }
