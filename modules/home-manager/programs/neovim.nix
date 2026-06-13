@@ -20,6 +20,14 @@ in
     vimAlias = true;
     vimdiffAlias = true;
     initLua = builtins.readFile ../files/neovim/init.lua;
+    # CodeSnap.nvim's prebuilt macOS generator links to Homebrew's pcre2 path.
+    # Provide Nix pcre2 at runtime instead of installing pcre2 via Homebrew.
+    extraWrapperArgs = pkgs.lib.optionals pkgs.stdenv.isDarwin [
+      "--prefix"
+      "DYLD_LIBRARY_PATH"
+      ":"
+      "${pkgs.lib.getLib pkgs.pcre2}/lib"
+    ];
     plugins = [
       pkgs.vimPlugins.nvim-treesitter.withAllGrammars
     ];

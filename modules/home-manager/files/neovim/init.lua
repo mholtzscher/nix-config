@@ -175,6 +175,34 @@ require("dadbod-grip").setup({
 	completion = false,
 })
 
+-- codesnap.nvim
+vim.pack.add({ "https://github.com/mistricky/codesnap.nvim" })
+do
+	local cpath = package.cpath
+	require("codesnap").setup({
+		show_line_number = true,
+		snapshot_config = {
+			code_config = {
+				font_family = "Iosevka",
+				breadcrumbs = {
+					font_family = "Iosevka",
+				},
+			},
+			background = {
+				start = { x = 0, y = 0 },
+				["end"] = { x = "max", y = "max" },
+				stops = {
+					{ position = 0, color = "#241b2f" },
+					{ position = 0.45, color = "#5d3ea8" },
+					{ position = 0.75, color = "#ff926f" },
+					{ position = 1, color = "#ffe49b" },
+				},
+			},
+		},
+	})
+	package.cpath = cpath
+end
+
 -- mini
 vim.pack.add({
 	"https://github.com/nvim-mini/mini.icons", -- file icons
@@ -364,6 +392,8 @@ require("which-key").setup({
 		-- Markdown Preview
 		{ "<leader>mp", "<CMD>MarkdownPreview<CR>", desc = "Markdown Preview" },
 		{ "<leader>ms", "<CMD>MarkdownPreviewStop<CR>", desc = "Stop Preview" },
+		-- CodeSnap
+		{ "<leader>cx", ":CodeSnap<CR>", desc = "Copy CodeSnap to clipboard", mode = "x" },
 		-- dadbod-grip.nvim
 		{ "<leader>Dc", "<CMD>GripConnect<CR>", desc = "DB connect" },
 		{ "<leader>DT", "<CMD>GripToggle<CR>", desc = "DB toggle workspace" },
