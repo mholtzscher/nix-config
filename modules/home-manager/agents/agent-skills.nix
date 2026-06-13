@@ -63,6 +63,12 @@
         subdir = "skills";
         idPrefix = "hunk";
       };
+
+      plannotator = {
+        input = "plannotator-skills";
+        subdir = "skills";
+        idPrefix = "plannotator";
+      };
     };
 
     skills.enable = [
@@ -77,7 +83,10 @@
       # "mholtzscher/conventional-commits"
       "mholtzscher/spec-planner"
       "vercel/agent-browser"
-      "hunk/hunk-review"
+      # "hunk/hunk-review"
+      "plannotator/html"
+      "plannotator/html-diagram"
+      "plannotator/html-plan"
     ]
     ++ lib.optionals (!isWork) [
       # "cloudflare/agents-sdk"

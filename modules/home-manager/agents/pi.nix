@@ -32,7 +32,7 @@ in
         sources = { };
       };
       packages = [
-        "git:github.com/nicobailon/visual-explainer"
+        # "git:github.com/nicobailon/visual-explainer"
         "npm:@ifi/oh-pi-themes"
         "npm:@plannotator/pi-extension"
         "npm:glimpseui"

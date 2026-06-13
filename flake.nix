@@ -92,6 +92,10 @@
       url = "github:mholtzscher/skills";
       flake = false;
     };
+    plannotator-skills = {
+      url = "github:plannotator/effective-html";
+      flake = false;
+    };
     roerohan-skills = {
       url = "github:roerohan/skills";
       flake = false;
@@ -149,6 +153,7 @@
       cloudflare-skills,
       mattpocock-skills,
       mholtzscher-skills,
+      plannotator-skills,
       roerohan-skills,
       vercel-agent-browser,
       nicobailon-visual-explainer,
