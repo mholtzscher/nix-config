@@ -217,6 +217,26 @@ require("flash").setup()
 
 -- conform
 vim.pack.add({ "https://github.com/stevearc/conform.nvim" })
+local function javascript_formatters(bufnr)
+	local eslint_root = vim.fs.root(bufnr, {
+		"eslint.config.js",
+		"eslint.config.mjs",
+		"eslint.config.cjs",
+		"eslint.config.ts",
+		".eslintrc",
+		".eslintrc.js",
+		".eslintrc.cjs",
+		".eslintrc.json",
+		".eslintrc.yaml",
+		".eslintrc.yml",
+	})
+
+	if eslint_root then
+		return { "oxfmt", "eslint_d" }
+	end
+
+	return { "oxfmt" }
+end
 require("conform").setup({
 	notify_on_error = true,
 	format_on_save = {
@@ -228,8 +248,8 @@ require("conform").setup({
 		go = { "gofmt" },
 		hcl = { "terraform_fmt" },
 		html = { "prettier" },
-		javascript = { "eslint_d" },
-		javascriptreact = { "eslint_d" },
+		javascript = javascript_formatters,
+		javascriptreact = javascript_formatters,
 		json = { "oxfmt" },
 		jsonc = { "oxfmt" },
 		lua = { "stylua" },
@@ -240,8 +260,9 @@ require("conform").setup({
 		sh = { "shfmt" },
 		svelte = { "prettier" },
 		terraform = { "terraform_fmt" },
-		typescript = { "eslint_d" },
-		typescriptreact = { "eslint_d" },
+		typescript = javascript_formatters,
+		typescriptreact = javascript_formatters,
+		vue = javascript_formatters,
 		yaml = { "prettier" },
 		zsh = { "shfmt" },
 	},
