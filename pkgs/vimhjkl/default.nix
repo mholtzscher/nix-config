@@ -6,11 +6,11 @@
 
 python3.pkgs.buildPythonApplication rec {
   pname = "vimhjkl";
-  version = "0.4.1";
+  version = "0.5.1";
 
   src = fetchzip {
     url = "https://github.com/S-Sigdel/vimhjkl/archive/refs/tags/v${version}.tar.gz";
-    hash = "sha256-65GvB6MVAMyypiHz/SezgEP2oT2aHNLlCQ9uFFqBCwM=";
+    hash = "sha256-1Hh6bXuuK3udixgU32yFWkBa9NA3Z7kqI50ynSGCZ+o=";
   };
 
   pyproject = true;
