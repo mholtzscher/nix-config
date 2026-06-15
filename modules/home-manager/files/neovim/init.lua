@@ -232,10 +232,10 @@ local function javascript_formatters(bufnr)
 	})
 
 	if eslint_root then
-		return { "oxfmt", "eslint_d" }
+		return { "oxfmt", "oxlint", "eslint_d" }
 	end
 
-	return { "oxfmt" }
+	return { "oxfmt", "oxlint" }
 end
 require("conform").setup({
 	notify_on_error = true,
