@@ -21,9 +21,10 @@ in
     ".pi/agent/AGENTS.md".source = ./files/karpathy-agents.md;
 
     ".pi/agent/settings.json".text = builtins.toJSON {
-      defaultProvider = "openai-codex";
-      defaultModel = "gpt-5.5";
+      defaultProvider = if isWork then "litellm" else "openai-codex";
+      defaultModel = if isWork then "cheap-but-effective--kimi-k2-5" else "gpt-5.5";
       defaultThinkingLevel = "medium";
+      enabledModels = if isWork then [ "cheap-but-effective--kimi-k2-5" ] else [ ];
       theme = "tokyo-night";
       showHardwareCursor = true;
       workingVibe = "Bruce Schneier";
