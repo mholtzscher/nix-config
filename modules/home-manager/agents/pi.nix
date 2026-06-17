@@ -32,6 +32,7 @@ in
             "openai-codex/gpt-5.5"
             "opencode-go/deepseek*"
             "opencode-go/kimi-k2.7-code"
+            "opencode-go/glm-5.2"
           ];
       theme = "tokyo-night";
       showHardwareCursor = true;
@@ -56,6 +57,33 @@ in
     ".pi/agent/prompts" = {
       source = ./files/pi/prompts;
       recursive = true;
+    };
+
+    ".pi/agent/models.json" = lib.mkIf (!isWork) {
+      text = builtins.toJSON {
+        providers = {
+          "opencode-go" = {
+            models = [
+              {
+                id = "glm-5.2";
+                name = "GLM-5.2";
+                reasoning = true;
+                input = [ "text" ];
+                contextWindow = 1000000;
+                maxTokens = 131072;
+                thinkingLevelMap = {
+                  off = null;
+                  minimal = null;
+                  low = null;
+                  medium = null;
+                  high = "high";
+                  xhigh = "max";
+                };
+              }
+            ];
+          };
+        };
+      };
     };
 
     ".pi/web-search.json".text = builtins.toJSON {
