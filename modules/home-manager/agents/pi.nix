@@ -24,7 +24,15 @@ in
       defaultProvider = if isWork then "litellm" else "openai-codex";
       defaultModel = if isWork then "cheap-but-effective--kimi-k2-5" else "gpt-5.5";
       defaultThinkingLevel = "medium";
-      enabledModels = if isWork then [ "cheap-but-effective--kimi-k2-5" ] else [ ];
+      enabledModels =
+        if isWork then
+          [ "cheap-but-effective--kimi-k2-5" ]
+        else
+          [
+            "openai-codex/gpt-5.5"
+            "opencode-go/deepseek*"
+            "opencode-go/kimi-k2.7-code"
+          ];
       theme = "tokyo-night";
       showHardwareCursor = true;
       workingVibe = "Bruce Schneier";
