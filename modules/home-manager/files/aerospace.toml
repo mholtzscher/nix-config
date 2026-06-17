@@ -83,7 +83,7 @@ run = ['move-node-to-workspace Slack']
 
 [[on-window-detected]]
 if.app-name-regex-substring = 'Claude'
-run = ['move-node-to-workspace Slack']
+run = ['move-node-to-workspace VSCode']
 
 [[on-window-detected]]
 if.app-name-regex-substring = "Ghostty"
