@@ -124,6 +124,10 @@
       url = "github:modem-dev/hunk";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    sem = {
+      url = "github:Ataraxy-Labs/sem";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -161,6 +165,7 @@
       today,
       helium,
       hunk,
+      sem,
     }:
     let
       # Import lib helpers for creating system configurations
