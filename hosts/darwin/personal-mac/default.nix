@@ -54,12 +54,9 @@ in
           "${pkgs.discord}/Applications/Discord.app"
           "/Applications/1Password.app"
           "${ghosttyPackage}/Applications/Ghostty.app"
-          "/Applications/IntelliJ IDEA CE.app"
           "/System/Applications/Mail.app"
           "/System/Applications/Calendar.app"
-          # "/Applications/Todoist.app"
           "/System/Applications/Music.app"
-          "/System/Applications/News.app"
         ];
       };
 

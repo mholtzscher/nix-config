@@ -5,6 +5,7 @@
     brews = [
     ];
     casks = [
+      "jetbrains-toolbox"
       "intellij-idea" # Paid version
     ];
     masApps = {

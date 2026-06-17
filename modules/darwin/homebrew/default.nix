@@ -25,12 +25,9 @@
     ];
     casks = [
       "arc"
-      "bartender"
       "cleanshot"
       "deskpad"
       "docker-desktop"
-      "jetbrains-toolbox"
-      "nightfall"
       "raycast"
       "slack"
       "visual-studio-code"

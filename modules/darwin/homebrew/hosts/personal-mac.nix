@@ -13,7 +13,6 @@
       "1password"
       "1password-cli"
       # "capacities"
-      "intellij-idea-ce"
       "hrm"
     ];
     masApps = {
