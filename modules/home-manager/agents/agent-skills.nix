@@ -78,6 +78,7 @@
       "mattpocock/improve-codebase-architecture"
       "mattpocock/tdd"
       "mattpocock/teach"
+      "mattpocock/handoff"
       # mattpocock foundations reached for by the skills above
       "mattpocock/codebase-design"
       "mattpocock/domain-modeling"
