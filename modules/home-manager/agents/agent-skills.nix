@@ -78,6 +78,10 @@
       "mattpocock/improve-codebase-architecture"
       "mattpocock/tdd"
       "mattpocock/teach"
+      # mattpocock foundations reached for by the skills above
+      "mattpocock/codebase-design"
+      "mattpocock/domain-modeling"
+      "mattpocock/grilling"
       # "roerohan/diff-walkthrough"
       # "mholtzscher/atlassian-api"
       # "mholtzscher/conventional-commits"
