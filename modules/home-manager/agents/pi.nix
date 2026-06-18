@@ -26,7 +26,10 @@ in
       defaultThinkingLevel = "medium";
       enabledModels =
         if isWork then
-          [ "cheap-but-effective--kimi-k2-5" ]
+          [
+            "cheap-but-effective--kimi-k2-5"
+            "acceptable--sonnet-4-6"
+          ]
         else
           [
             "openai-codex/gpt-5.5"
