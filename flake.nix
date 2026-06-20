@@ -128,6 +128,10 @@
       url = "github:Ataraxy-Labs/sem";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    herdr = {
+      url = "github:ogulcancelik/herdr";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -166,6 +170,7 @@
       helium,
       hunk,
       sem,
+      herdr,
     }:
     let
       # Import lib helpers for creating system configurations

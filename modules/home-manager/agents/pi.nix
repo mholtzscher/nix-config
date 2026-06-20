@@ -62,32 +62,32 @@ in
       recursive = true;
     };
 
-    ".pi/agent/models.json" = lib.mkIf (!isWork) {
-      text = builtins.toJSON {
-        providers = {
-          "opencode-go" = {
-            models = [
-              {
-                id = "glm-5.2";
-                name = "GLM-5.2";
-                reasoning = true;
-                input = [ "text" ];
-                contextWindow = 1000000;
-                maxTokens = 131072;
-                thinkingLevelMap = {
-                  off = null;
-                  minimal = null;
-                  low = null;
-                  medium = null;
-                  high = "high";
-                  xhigh = "max";
-                };
-              }
-            ];
-          };
-        };
-      };
-    };
+    # ".pi/agent/models.json" = lib.mkIf (!isWork) {
+    #   text = builtins.toJSON {
+    #     providers = {
+    #       "opencode-go" = {
+    #         models = [
+    #           {
+    #             id = "glm-5.2";
+    #             name = "GLM-5.2";
+    #             reasoning = true;
+    #             input = [ "text" ];
+    #             contextWindow = 1000000;
+    #             maxTokens = 131072;
+    #             thinkingLevelMap = {
+    #               off = null;
+    #               minimal = null;
+    #               low = null;
+    #               medium = null;
+    #               high = "high";
+    #               xhigh = "max";
+    #             };
+    #           }
+    #         ];
+    #       };
+    #     };
+    #   };
+    # };
 
     ".pi/web-search.json".text = builtins.toJSON {
       workflow = "none";
