@@ -29,7 +29,7 @@
 
     tf = "terraform";
 
-    foundry-mods-dry-run = "rsync -av --delete --dry-run /home/michael/games/SteamLibrary/steamapps/common/FOUNDRY/Mods/ wanda:/home/michael/stacks/new-foundry/data/server/Mods/";
-    foundry-mods-sync = "rsync -av --delete /home/michael/games/SteamLibrary/steamapps/common/FOUNDRY/Mods/ wanda:/home/michael/stacks/new-foundry/data/server/Mods/";
+    foundry-mods-dry-run = "rsync -av --dry-run /home/michael/games/SteamLibrary/steamapps/common/FOUNDRY/Mods/modList.json wanda:/home/michael/stacks/new-foundry/data/server/Mods/modList.json";
+    foundry-mods-sync = "rsync -av /home/michael/games/SteamLibrary/steamapps/common/FOUNDRY/Mods/modList.json wanda:/home/michael/stacks/new-foundry/data/server/Mods/modList.json";
   };
 }
