@@ -11,6 +11,13 @@ const GRADLE_PARAMS = Type.Object({
 	}),
 });
 
+interface GradleToolDetails {
+	command?: string;
+	exitCode?: number | null;
+	estimatedTokenSavings?: number;
+	suppressedOutputChars?: number;
+}
+
 function quoteArg(arg: string): string {
 	if (/^[A-Za-z0-9_./:=@%+-]+$/.test(arg)) return arg;
 	return `'${arg.replaceAll("'", `'\\''`)}'`;
@@ -25,9 +32,8 @@ function estimateTokens(text: string): number {
 	return Math.ceil(text.length / 4);
 }
 
-function formatTokenSavings(fullOutput: string, returnedText: string): string {
-	const savedTokens = Math.max(0, estimateTokens(fullOutput) - estimateTokens(returnedText));
-	return `Estimated token savings: ~${savedTokens.toLocaleString()} tokens (${fullOutput.length.toLocaleString()} chars suppressed).`;
+function estimateTokenSavings(fullOutput: string, returnedText: string): number {
+	return Math.max(0, estimateTokens(fullOutput) - estimateTokens(returnedText));
 }
 
 function runGradle(cwd: string, args: string[], signal?: AbortSignal): Promise<{ exitCode: number | null; output: string }> {
@@ -78,6 +84,19 @@ export default function gradleToolExtension(pi: ExtensionAPI) {
 			text.setText(`${theme.fg("toolTitle", theme.bold("Gradle"))} ${theme.fg("dim", formatGradleCommand(params.args))}`);
 			return text;
 		},
+		renderResult(result, _options, theme, _context) {
+			const details = result.details as GradleToolDetails | undefined;
+			if (details?.estimatedTokenSavings !== undefined) {
+				return new Text(
+					`${theme.fg("success", "Gradle succeeded.")} ${theme.fg("dim", `Estimated savings: ~${details.estimatedTokenSavings.toLocaleString()} tokens (${(details.suppressedOutputChars ?? 0).toLocaleString()} chars suppressed).`)}`,
+					0,
+					0,
+				);
+			}
+
+			const text = result.content[0];
+			return new Text(text?.type === "text" ? text.text : "", 0, 0);
+		},
 		async execute(_toolCallId, params, signal, _onUpdate, ctx) {
 			const command = formatGradleCommand(params.args);
 			if (!existsSync(join(ctx.cwd, "gradlew")) && !existsSync(join(ctx.cwd, "gradlew.bat"))) {
@@ -92,8 +111,13 @@ export default function gradleToolExtension(pi: ExtensionAPI) {
 			if (result.exitCode === 0) {
 				const successText = "Gradle succeeded.";
 				return {
-					content: [{ type: "text", text: `${successText}\n${formatTokenSavings(result.output, successText)}` }],
-					details: { command, exitCode: 0 },
+					content: [{ type: "text", text: successText }],
+					details: {
+						command,
+						exitCode: 0,
+						estimatedTokenSavings: estimateTokenSavings(result.output, successText),
+						suppressedOutputChars: result.output.length,
+					},
 				};
 			}
 
