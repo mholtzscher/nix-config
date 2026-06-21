@@ -21,6 +21,15 @@ function formatGradleCommand(args: string[]): string {
 	return [gradlew, ...args.map(quoteArg)].join(" ");
 }
 
+function estimateTokens(text: string): number {
+	return Math.ceil(text.length / 4);
+}
+
+function formatTokenSavings(fullOutput: string, returnedText: string): string {
+	const savedTokens = Math.max(0, estimateTokens(fullOutput) - estimateTokens(returnedText));
+	return `Estimated token savings: ~${savedTokens.toLocaleString()} tokens (${fullOutput.length.toLocaleString()} chars suppressed).`;
+}
+
 function runGradle(cwd: string, args: string[], signal?: AbortSignal): Promise<{ exitCode: number | null; output: string }> {
 	return new Promise((resolve) => {
 		const gradlew = process.platform === "win32" ? "gradlew.bat" : "./gradlew";
@@ -81,8 +90,9 @@ export default function gradleToolExtension(pi: ExtensionAPI) {
 
 			const result = await runGradle(ctx.cwd, params.args, signal);
 			if (result.exitCode === 0) {
+				const successText = "Gradle succeeded.";
 				return {
-					content: [{ type: "text", text: "Gradle succeeded." }],
+					content: [{ type: "text", text: `${successText}\n${formatTokenSavings(result.output, successText)}` }],
 					details: { command, exitCode: 0 },
 				};
 			}
