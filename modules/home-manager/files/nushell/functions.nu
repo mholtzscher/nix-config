@@ -143,6 +143,21 @@ def gradle [...args: string] {
   }
 }
 
+# Generate Steam Workshop URLs for Foundry mods
+export def foundry-mod-urls [
+  mod_list: string = "/home/michael/games/SteamLibrary/steamapps/common/FOUNDRY/Mods/modList.json"
+] {
+  open $mod_list
+  | get mods
+  | each {|mod|
+      {
+        identifier: $mod.identifier
+        workshopFileId: $mod.workshopFileId
+        enabled: $mod.enabled
+        url: $"https://steamcommunity.com/sharedfiles/filedetails/?id=($mod.workshopFileId)"
+      }
+    }
+}
 
 # SSH tunnel function
 def __ssh_tunnel [key_file: string local_port: string endpoint: string user_hostname: string] {
