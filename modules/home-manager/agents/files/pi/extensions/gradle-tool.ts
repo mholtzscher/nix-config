@@ -106,16 +106,7 @@ export default function gradleToolExtension(pi: ExtensionAPI) {
 			text.setText(`${theme.fg("toolTitle", theme.bold("Gradle"))} ${theme.fg("dim", `(timeout=${timeoutSeconds}s) ${formatGradleCommand(params.args, params.verbose)}`)}`);
 			return text;
 		},
-		renderResult(result, _options, theme, _context) {
-			const details = result.details as { estimatedTokenSavings?: number; suppressedOutputChars?: number } | undefined;
-			if (details?.estimatedTokenSavings !== undefined) {
-				return new Text(
-					`${theme.fg("success", "Gradle succeeded.")} ${theme.fg("dim", `Estimated savings: ~${details.estimatedTokenSavings.toLocaleString()} tokens (${(details.suppressedOutputChars ?? 0).toLocaleString()} chars suppressed).`)}`,
-					0,
-					0,
-				);
-			}
-
+		renderResult(result, _options, _theme, _context) {
 			const text = result.content[0];
 			return new Text(text?.type === "text" ? text.text : "", 0, 0);
 		},
@@ -133,15 +124,9 @@ export default function gradleToolExtension(pi: ExtensionAPI) {
 
 			const result = await runGradle(ctx.cwd, args, timeoutSeconds, signal);
 			if (result.exitCode === 0) {
-				const successText = "Gradle succeeded.";
 				return {
-					content: [{ type: "text", text: successText }],
-					details: {
-						command,
-						exitCode: 0,
-						estimatedTokenSavings: Math.max(0, Math.ceil(result.output.length / 4) - Math.ceil(successText.length / 4)),
-						suppressedOutputChars: result.output.length,
-					},
+					content: [{ type: "text", text: "Gradle succeeded." }],
+					details: { command, exitCode: 0, timeoutSeconds },
 				};
 			}
 
