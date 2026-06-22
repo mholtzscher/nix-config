@@ -11,36 +11,21 @@ const GRADLE_PARAMS = Type.Object({
 	}),
 });
 
-interface GradleToolDetails {
-	command?: string;
-	exitCode?: number | null;
-	estimatedTokenSavings?: number;
-	suppressedOutputChars?: number;
+function gradleWrapper(): string {
+	return process.platform === "win32" ? "gradlew.bat" : "./gradlew";
 }
 
-function quoteArg(arg: string): string {
-	if (/^[A-Za-z0-9_./:=@%+-]+$/.test(arg)) return arg;
-	return `'${arg.replaceAll("'", `'\\''`)}'`;
+function hasGradleWrapper(cwd: string): boolean {
+	return existsSync(join(cwd, "gradlew")) || existsSync(join(cwd, "gradlew.bat"));
 }
 
 function formatGradleCommand(args: string[]): string {
-	const gradlew = process.platform === "win32" ? "gradlew.bat" : "./gradlew";
-	return [gradlew, ...args.map(quoteArg)].join(" ");
-}
-
-function estimateTokens(text: string): number {
-	return Math.ceil(text.length / 4);
-}
-
-function estimateTokenSavings(fullOutput: string, returnedText: string): number {
-	return Math.max(0, estimateTokens(fullOutput) - estimateTokens(returnedText));
+	return [gradleWrapper(), ...args].join(" ");
 }
 
 function runGradle(cwd: string, args: string[], signal?: AbortSignal): Promise<{ exitCode: number | null; output: string }> {
 	return new Promise((resolve) => {
-		const gradlew = process.platform === "win32" ? "gradlew.bat" : "./gradlew";
-		const command = process.platform === "win32" ? join(cwd, "gradlew.bat") : gradlew;
-		const child = spawn(command, args, { cwd, shell: false });
+		const child = spawn(gradleWrapper(), args, { cwd, shell: false });
 		let output = "";
 
 		const append = (chunk: Buffer) => {
@@ -85,7 +70,7 @@ export default function gradleToolExtension(pi: ExtensionAPI) {
 			return text;
 		},
 		renderResult(result, _options, theme, _context) {
-			const details = result.details as GradleToolDetails | undefined;
+			const details = result.details as { estimatedTokenSavings?: number; suppressedOutputChars?: number } | undefined;
 			if (details?.estimatedTokenSavings !== undefined) {
 				return new Text(
 					`${theme.fg("success", "Gradle succeeded.")} ${theme.fg("dim", `Estimated savings: ~${details.estimatedTokenSavings.toLocaleString()} tokens (${(details.suppressedOutputChars ?? 0).toLocaleString()} chars suppressed).`)}`,
@@ -99,7 +84,7 @@ export default function gradleToolExtension(pi: ExtensionAPI) {
 		},
 		async execute(_toolCallId, params, signal, _onUpdate, ctx) {
 			const command = formatGradleCommand(params.args);
-			if (!existsSync(join(ctx.cwd, "gradlew")) && !existsSync(join(ctx.cwd, "gradlew.bat"))) {
+			if (!hasGradleWrapper(ctx.cwd)) {
 				return {
 					content: [{ type: "text", text: "gradlew not found in current working directory\n" }],
 					details: { command },
@@ -115,7 +100,7 @@ export default function gradleToolExtension(pi: ExtensionAPI) {
 					details: {
 						command,
 						exitCode: 0,
-						estimatedTokenSavings: estimateTokenSavings(result.output, successText),
+						estimatedTokenSavings: Math.max(0, Math.ceil(result.output.length / 4) - Math.ceil(successText.length / 4)),
 						suppressedOutputChars: result.output.length,
 					},
 				};
