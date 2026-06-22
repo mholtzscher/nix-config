@@ -18,7 +18,16 @@ const GRADLE_PARAMS = Type.Object({
 			description: "Maximum seconds to wait before terminating Gradle. Defaults to 300.",
 		}),
 	),
+	verbose: Type.Optional(
+		Type.Boolean({
+			default: false,
+			description: "When false, run Gradle with -q. Defaults to false.",
+		}),
+	),
 });
+
+const DEFAULT_ARGS = ["--console=plain"];
+const QUIET_ARGS = ["-q"];
 
 function gradleWrapper(): string {
 	return process.platform === "win32" ? "gradlew.bat" : "./gradlew";
@@ -28,8 +37,12 @@ function hasGradleWrapper(cwd: string): boolean {
 	return existsSync(join(cwd, "gradlew")) || existsSync(join(cwd, "gradlew.bat"));
 }
 
-function formatGradleCommand(args: string[]): string {
-	return [gradleWrapper(), ...args].join(" ");
+function effectiveGradleArgs(args: string[], verbose = false): string[] {
+	return [...DEFAULT_ARGS, ...(verbose ? [] : QUIET_ARGS), ...args];
+}
+
+function formatGradleCommand(args: string[], verbose?: boolean): string {
+	return [gradleWrapper(), ...effectiveGradleArgs(args, verbose)].join(" ");
 }
 
 function runGradle(cwd: string, args: string[], timeoutSeconds: number, signal?: AbortSignal): Promise<{ exitCode: number | null; output: string; timedOut: boolean }> {
@@ -90,7 +103,7 @@ export default function gradleToolExtension(pi: ExtensionAPI) {
 		renderCall(params, theme, context) {
 			const text = (context.lastComponent as Text | undefined) ?? new Text("", 0, 0);
 			const timeoutSeconds = params.timeoutSeconds ?? DEFAULT_TIMEOUT_SECONDS;
-			text.setText(`${theme.fg("toolTitle", theme.bold("Gradle"))} ${theme.fg("dim", `(timeout=${timeoutSeconds}s) ${formatGradleCommand(params.args)}`)}`);
+			text.setText(`${theme.fg("toolTitle", theme.bold("Gradle"))} ${theme.fg("dim", `(timeout=${timeoutSeconds}s) ${formatGradleCommand(params.args, params.verbose)}`)}`);
 			return text;
 		},
 		renderResult(result, _options, theme, _context) {
@@ -107,7 +120,8 @@ export default function gradleToolExtension(pi: ExtensionAPI) {
 			return new Text(text?.type === "text" ? text.text : "", 0, 0);
 		},
 		async execute(_toolCallId, params, signal, _onUpdate, ctx) {
-			const command = formatGradleCommand(params.args);
+			const args = effectiveGradleArgs(params.args, params.verbose);
+			const command = formatGradleCommand(params.args, params.verbose);
 			const timeoutSeconds = params.timeoutSeconds ?? DEFAULT_TIMEOUT_SECONDS;
 			if (!hasGradleWrapper(ctx.cwd)) {
 				return {
@@ -117,7 +131,7 @@ export default function gradleToolExtension(pi: ExtensionAPI) {
 				};
 			}
 
-			const result = await runGradle(ctx.cwd, params.args, timeoutSeconds, signal);
+			const result = await runGradle(ctx.cwd, args, timeoutSeconds, signal);
 			if (result.exitCode === 0) {
 				const successText = "Gradle succeeded.";
 				return {
