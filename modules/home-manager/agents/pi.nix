@@ -50,7 +50,7 @@ in
         "npm:@plannotator/pi-extension"
         "npm:glimpseui"
         "npm:pi-boomerang"
-        "npm:pi-fff"
+        "npm:@ff-labs/pi-fff"
         "npm:pi-mcp-adapter"
         "npm:pi-powerline-footer"
         "npm:pi-web-access"
