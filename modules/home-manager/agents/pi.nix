@@ -13,7 +13,7 @@ let
   };
 in
 {
-  home.packages = lib.optionals (!isWork) [
+  home.packages = [
     inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system}.pi
   ];
 
