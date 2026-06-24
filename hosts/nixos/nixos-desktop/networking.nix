@@ -8,10 +8,10 @@
     # Firewall configuration
     firewall = {
       enable = true;
-      # Only allow SSH from local network (10.69.69.0/24)
-      # This prevents external SSH access while allowing local network connections
+      # Only allow SSH from local network (10.69.69.0/24) and Tailscale (100.64.0.0/10)
       extraCommands = ''
         iptables -A nixos-fw -p tcp --dport 22 -s 10.69.69.0/24 -j nixos-fw-accept
+        iptables -A nixos-fw -p tcp --dport 22 -s 100.64.0.0/10 -j nixos-fw-accept
       '';
     };
   };
@@ -19,6 +19,9 @@
   # SSH server configuration
   services.openssh = {
     enable = true;
+
+    # Don't auto-open port 22 globally — we manage SSH access via firewall extraCommands
+    openFirewall = false;
 
     # Security settings - key-based authentication only
     settings = {
