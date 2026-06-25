@@ -22,6 +22,7 @@
       "JetBrains/utils/kotlin-lsp"
       "mas"
       "1jehuang/mmdr/mmdr"
+      "vite-plus"
     ];
     casks = [
       "arc"
