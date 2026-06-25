@@ -2,6 +2,7 @@
   pkgs,
   lib,
   isDarwin,
+  inputs,
   ...
 }:
 let
@@ -49,7 +50,7 @@ in
 
         custom-shader = [
           # "${../files/ghostty/shaders/dvd_bounce_paytient.glsl}"
-          # "${inputs.ghostty-shader-playground}/public/shaders/cursor_smear_rainbow.glsl"
+          "${inputs.ghostty-shader-playground}/public/shaders/cursor_smear_rainbow.glsl"
           # "${../files/ghostty/shaders/cursor_smear_catppuccin.glsl}"
           # "${inputs.ghostty-shader-playground}/public/shaders/party_sparks.glsl"
         ];
