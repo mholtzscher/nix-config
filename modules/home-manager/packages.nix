@@ -33,6 +33,7 @@ with pkgs;
   zig
 ]
 ++ [
+  ast-grep
   buf
   cachix
   cookiecutter
