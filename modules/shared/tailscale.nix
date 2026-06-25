@@ -9,6 +9,6 @@
   # auth keys or secrets are stored in the Nix store.
   services.tailscale = {
     enable = lib.mkIf (!isWork) true;
-    extraSetFlags = [ "--operator=michael" ];
+    # extraSetFlags = [ "--operator=michael" ];
   };
 }
