@@ -106,7 +106,7 @@
     ];
 
     targets.pi = {
-      enable = !isWork;
+      enable = true;
       dest = "$HOME/.pi/agent/skills";
       structure = "symlink-tree";
     };
