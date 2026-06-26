@@ -7,7 +7,7 @@
     "@earendil-works/pi-tui": "*",
     "typebox": "*"
   },
-  "optionalDependencies": {
+  "dependencies": {
     "sharp": "*"
   }
 }
