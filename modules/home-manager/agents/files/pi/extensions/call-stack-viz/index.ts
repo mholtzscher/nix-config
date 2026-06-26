@@ -1,12 +1,12 @@
 import type { ExtensionAPI } from "@earendil-works/pi-coding-agent";
-import { keyHint } from "@earendil-works/pi-coding-agent";
-import { Container, Image, Spacer, Text } from "@earendil-works/pi-tui";
+import { Text } from "@earendil-works/pi-tui";
 import { Type } from "typebox";
-import { readFileSync } from "node:fs";
-import { mkdir, writeFile } from "node:fs/promises";
+import { existsSync, readFileSync } from "node:fs";
+import { mkdtemp, rm, writeFile } from "node:fs/promises";
 import { spawn } from "node:child_process";
+import { pathToFileURL } from "node:url";
 import { tmpdir } from "node:os";
-import { join, resolve } from "node:path";
+import { join } from "node:path";
 
 type Frame = Readonly<{ label: string; children?: readonly Frame[] }>;
 type Trace = Readonly<{ command?: string; root: Frame }>;
@@ -30,12 +30,12 @@ export default function callStackViz(pi: ExtensionAPI) {
   pi.registerTool({
     name: "render_call_stack",
     label: "Render Call Stack",
-    description: "Render a nested call stack tree as Catppuccin SVG/HTML artifacts with optional PNG output and inline PNG preview.",
+    description: "Render a nested call stack tree as a temporary Catppuccin SVG/HTML preview with GlimpseUI.",
     promptSnippet: "Use render_call_stack to visualize call stacks, execution traces, request pipelines, or nested function flows.",
     promptGuidelines: [
       "Input is JSON shaped as { command?: string, root: { label: string, children?: [...] } }.",
       "Prefer concise labels that fit on one line.",
-      "Use pngOutputMode and inlinePngPreview when the user wants raster or inline terminal previews."
+      "The visualization opens outside Pi in a GlimpseUI window; Pi output stays hidden."
     ],
     parameters: Type.Object({
       traceJson: Type.String({ description: "JSON string for the call stack trace." }),
@@ -47,110 +47,65 @@ export default function callStackViz(pi: ExtensionAPI) {
       imageMaxHeightCells: Type.Optional(Type.Number({ minimum: 4, maximum: 80 }))
     }),
 
-    async execute(_toolCallId, params, _signal, _onUpdate, ctx) {
+    async execute(_toolCallId, params, _signal, _onUpdate, _ctx) {
       const trace = parseTrace(params.traceJson);
       const inlineMode = normalizeInline(params.inlinePngPreview);
       const pngMode = normalizePngMode(params.pngOutputMode, inlineMode);
       const imageMaxWidthCells = normalizeNumber(params.imageMaxWidthCells, 80);
       const imageMaxHeightCells = normalizeNumber(params.imageMaxHeightCells, 24);
       const fileName = safeFileName(params.fileName ?? "call-stack");
-      const artifactDir = resolve(ctx.cwd, ".pi", "artifacts", "call-stack-viz");
-      await mkdir(artifactDir, { recursive: true });
+      const tempDir = await mkdtemp(join(tmpdir(), "pi-call-stack-viz-"));
 
-      const animatedSvg = renderSvg(trace, { animated: true });
-      const staticSvg = renderSvg(trace, { animated: false });
-      const svgPath = join(artifactDir, `${fileName}.svg`);
-      const htmlPath = join(artifactDir, `${fileName}.html`);
-      const pngPath = join(artifactDir, `${fileName}.png`);
+      try {
+        const animatedSvg = renderSvg(trace, { animated: true });
+        const staticSvg = renderSvg(trace, { animated: false });
+        const svgPath = join(tempDir, `${fileName}.svg`);
+        const htmlPath = join(tempDir, `${fileName}.html`);
+        const pngPath = join(tempDir, `${fileName}.png`);
 
-      await writeFile(svgPath, animatedSvg, "utf8");
-      await writeFile(htmlPath, renderHtml(animatedSvg), "utf8");
+        await writeFile(svgPath, animatedSvg, "utf8");
+        await writeFile(htmlPath, renderHtml(animatedSvg), "utf8");
+        const glimpseResult = await openGlimpseui(htmlPath);
 
-      const pngResult = await maybeRenderPng({
-        svg: staticSvg,
-        pngPath,
-        pngMode,
-        pngWidth: typeof params.pngWidth === "number" ? params.pngWidth : undefined
-      });
+        const pngResult = await maybeRenderPng({
+          svg: staticSvg,
+          pngPath,
+          pngMode,
+          pngWidth: typeof params.pngWidth === "number" ? params.pngWidth : undefined
+        });
 
-      if (pngMode === "always" && pngResult.status !== "rendered") {
-        throw new Error(pngResult.message ?? "PNG output was required but no renderer was available.");
-      }
-
-      const details: Details = {
-        trace,
-        svgPath,
-        htmlPath,
-        pngPath: pngResult.status === "rendered" ? pngPath : undefined,
-        pngMode,
-        pngStatus: pngResult.status,
-        pngMessage: pngResult.message,
-        inlinePngPreview: inlineMode,
-        imageMaxWidthCells,
-        imageMaxHeightCells
-      };
-
-      return {
-        content: [{
-          type: "text",
-          text: [
-            "Rendered call stack visualization.",
-            "",
-            `SVG:  ${svgPath}`,
-            `HTML: ${htmlPath}`,
-            pngResult.status === "rendered" ? `PNG:  ${pngPath}` : `PNG:  ${pngResult.message ?? "not generated"}`
-          ].join("\n")
-        }],
-        details
-      };
-    },
-
-    renderCall(args, theme, _context) {
-      const name = typeof args.fileName === "string" ? args.fileName : "call-stack";
-      const inlineMode = normalizeInline(args.inlinePngPreview);
-      const pngMode = normalizePngMode(args.pngOutputMode, inlineMode);
-      return new Text(
-        theme.fg("toolTitle", theme.bold("render_call_stack ")) + theme.fg("muted", `${name} [png:${pngMode} inline:${inlineMode}]`),
-        0,
-        0
-      );
-    },
-
-    renderResult(result, options, theme, _context) {
-      const details = readDetails(result.details);
-      if (details === undefined) return new Text(theme.fg("error", "Failed to render call stack."), 0, 0);
-
-      const container = new Container();
-      container.addChild(new Text(theme.fg("success", "✓ Rendered call stack visualization"), 0, 0));
-      container.addChild(new Spacer(1));
-
-      if (shouldShowImage(details, options.expanded)) {
-        const base64 = readPng(details.pngPath);
-        if (base64 === undefined) {
-          container.addChild(new Text(theme.fg("warning", "PNG exists but could not be read for inline preview."), 0, 0));
-        } else {
-          container.addChild(new Image(base64, "image/png", theme, {
-            maxWidthCells: details.imageMaxWidthCells,
-            maxHeightCells: details.imageMaxHeightCells
-          }));
+        if (pngMode === "always" && pngResult.status !== "rendered") {
+          throw new Error(pngResult.message ?? "PNG output was required but no renderer was available.");
         }
-      } else {
-        container.addChild(new Text(renderTree(details.trace, (name, value) => theme.fg(name, value), options.expanded), 0, 0));
-      }
 
-      container.addChild(new Spacer(1));
-      if (options.expanded) {
-        container.addChild(new Text([
-          theme.fg("muted", "Artifacts"),
-          `  SVG:  ${details.svgPath}`,
-          `  HTML: ${details.htmlPath}`,
-          `  PNG:  ${pngStatus(details)}`,
-          `  Inline: ${details.inlinePngPreview}`
-        ].join("\n"), 0, 0));
-      } else {
-        container.addChild(new Text(theme.fg("dim", `${keyHint("app.tools.expand", "expand")} to show artifact paths and expanded preview`), 0, 0));
+        const details: Details = {
+          trace,
+          svgPath,
+          htmlPath,
+          pngPath: pngResult.status === "rendered" ? pngPath : undefined,
+          pngMode,
+          pngStatus: pngResult.status,
+          pngMessage: pngResult.message,
+          inlinePngPreview: inlineMode,
+          imageMaxWidthCells,
+          imageMaxHeightCells
+        };
+
+        return {
+          content: [],
+          details: { ...details, temporary: true, glimpseStatus: glimpseResult.status, glimpseMessage: glimpseResult.message }
+        };
+      } finally {
+        void rm(tempDir, { recursive: true, force: true });
       }
-      return container;
+    },
+
+    renderCall(_args, _theme, _context) {
+      return new Text("", 0, 0);
+    },
+
+    renderResult(_result, _options, _theme, _context) {
+      return new Text("", 0, 0);
     }
   });
 
@@ -342,6 +297,38 @@ function run(command: string, args: readonly string[]): Promise<boolean> {
     child.on("error", () => resolveRun(false));
     child.on("exit", (code) => resolveRun(code === 0));
   });
+}
+
+type GlimpseResult = Readonly<{ status: "launched" | "unavailable"; message: string }>;
+
+type GlimpseModule = Readonly<{ open?: (html: string, options?: Record<string, unknown>) => unknown }>;
+
+async function openGlimpseui(htmlPath: string): Promise<GlimpseResult> {
+  const html = readFileSync(htmlPath, "utf8");
+  const home = process.env.HOME;
+  const localModule = home === undefined ? undefined : join(home, ".pi", "agent", "npm", "node_modules", "glimpseui", "src", "glimpse.mjs");
+  const specifiers = [
+    "glimpseui",
+    ...(localModule !== undefined && existsSync(localModule) ? [pathToFileURL(localModule).href] : [])
+  ];
+
+  for (const specifier of specifiers) {
+    try {
+      const mod = (await import(specifier)) as GlimpseModule;
+      if (typeof mod.open !== "function") continue;
+      mod.open(html, {
+        width: 1200,
+        height: 820,
+        title: "Call Stack Trace",
+        openLinks: true
+      });
+      return { status: "launched", message: `opened with ${specifier === "glimpseui" ? "glimpseui" : localModule}` };
+    } catch {
+      // try next candidate
+    }
+  }
+
+  return { status: "unavailable", message: "glimpseui could not be imported" };
 }
 
 type Line = Readonly<{ label: string; depth: number; index: number }>;

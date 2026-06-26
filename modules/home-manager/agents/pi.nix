@@ -9,7 +9,15 @@ let
   filteredExtensionsSource = builtins.path {
     path = ./files/pi/extensions;
     name = "pi-extensions";
-    filter = path: type: type == "directory" || lib.hasSuffix ".ts" (builtins.baseNameOf path);
+    filter =
+      path: type:
+      let
+        baseName = builtins.baseNameOf path;
+        pathString = toString path;
+      in
+      type == "directory"
+      || lib.hasSuffix ".ts" baseName
+      || (baseName == "package.json" && !(lib.hasInfix "/node_modules/" pathString));
   };
 in
 {
