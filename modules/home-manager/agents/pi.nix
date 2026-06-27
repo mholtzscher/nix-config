@@ -39,22 +39,22 @@ in
             "opencode-go/glm-5.2"
           ];
       theme = "tokyo-night";
-      showHardwareCursor = true;
+      # showHardwareCursor = true;
       workingVibe = "Bruce Schneier";
       workingVibeMode = "file";
       "pi-agent-sources" = {
         sources = { };
       };
       packages = [
-        # "git:github.com/nicobailon/visual-explainer"
+        "npm:@ff-labs/pi-fff"
         "npm:@ifi/oh-pi-themes"
         "npm:@plannotator/pi-extension"
-        "npm:glimpseui"
         "npm:pi-boomerang"
-        "npm:@ff-labs/pi-fff"
         "npm:pi-mcp-adapter"
         "npm:pi-powerline-footer"
         "npm:pi-web-access"
+        # "git:github.com/nicobailon/visual-explainer"
+        # "npm:glimpseui"
       ];
     };
 

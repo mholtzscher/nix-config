@@ -5,24 +5,24 @@
 }:
 
 let
-  version = "0.7.1";
+  version = "0.8.0";
 
   assets = {
     aarch64-darwin = {
       name = "ghui-darwin-arm64.tar.gz";
-      hash = "sha256-KP/GaHFlMB2a4xV0JVf103ZMfnKsK7v8iS+Hqx45pbc=";
+      hash = "sha256-2fcDEYYM2K918PJXIzoKNmsYvg5n25YlwhhoX5i4TeA=";
     };
     x86_64-darwin = {
       name = "ghui-darwin-x64.tar.gz";
-      hash = "sha256-WauY75/Ed90X/nE6MpcpLCNMDB6VIjDxYHTbzxdoehs=";
+      hash = "sha256-ZW5n0tfYPSFU/nsMwB+iaPDS6zZ9emp6cW3n4zLBysM=";
     };
     aarch64-linux = {
       name = "ghui-linux-arm64.tar.gz";
-      hash = "sha256-W4JLchwjOvyFuWBl941Y2tCrKiU+DPt9DM66avGCoXw=";
+      hash = "sha256-KdReX0d41/4mkRCMyGAqES0C5UgMBuyb+zhweJhM16M=";
     };
     x86_64-linux = {
       name = "ghui-linux-x64.tar.gz";
-      hash = "sha256-TEqHZGrgLzI6QWkEhBIjo7yoAg/o9+b6rvpXQhhvpYo=";
+      hash = "sha256-EH3keYdlBHVsBVrUpZMZS0mNW+nXKH2QLijoh1Tgp/0=";
     };
   };
 
