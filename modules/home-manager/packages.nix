@@ -64,6 +64,7 @@ with pkgs;
   websocat
   wget
   yq
+  yt-dlp
 ]
 ++ pkgs.lib.optionals (!isWork) [
   tailscale
