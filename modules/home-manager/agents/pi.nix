@@ -18,8 +18,8 @@ in
   ];
 
   home.file = {
-    # ".pi/agent/AGENTS.md".source = ./files/karpathy-agents.md;
-    ".pi/agent/AGENTS.md".source = ./files/bot-prompt.md;
+    ".pi/agent/AGENTS.md".source = ./files/karpathy-agents.md;
+    # ".pi/agent/AGENTS.md".source = ./files/bot-prompt.md;
 
     ".pi/agent/settings.json".text = builtins.toJSON {
       defaultProvider = if isWork then "litellm" else "openai-codex";
@@ -48,6 +48,7 @@ in
       packages = [
         "npm:@ff-labs/pi-fff"
         "npm:@ifi/oh-pi-themes"
+        "npm:@juicesharp/rpiv-ask-user-question"
         "npm:@plannotator/pi-extension"
         "npm:pi-boomerang"
         "npm:pi-mcp-adapter"
