@@ -40,16 +40,8 @@
       url = "github:mholtzscher/open-file";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    atlas = {
-      url = "github:mholtzscher/atlas";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     melt = {
       url = "github:mholtzscher/melt";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    difftui = {
-      url = "github:mholtzscher/difftui";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     neovim-nightly = {
@@ -94,10 +86,6 @@
     };
     plannotator-skills = {
       url = "github:plannotator/effective-html";
-      flake = false;
-    };
-    roerohan-skills = {
-      url = "github:roerohan/skills";
       flake = false;
     };
     vercel-agent-browser = {
@@ -148,9 +136,7 @@
       niri,
       aerospace-utils,
       open-file,
-      atlas,
       melt,
-      difftui,
       neovim-nightly,
       quickshell,
       dms,
@@ -162,7 +148,6 @@
       mattpocock-skills,
       mholtzscher-skills,
       plannotator-skills,
-      roerohan-skills,
       vercel-agent-browser,
       nicobailon-visual-explainer,
       ugh,

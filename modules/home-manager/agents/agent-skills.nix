@@ -47,11 +47,6 @@
         subdir = "skills/productivity";
       };
 
-      roerohan = {
-        input = "roerohan-skills";
-        idPrefix = "roerohan";
-      };
-
       vercel = {
         input = "vercel-agent-browser";
         subdir = "skills";
@@ -83,7 +78,6 @@
       "mattpocock/codebase-design"
       "mattpocock/domain-modeling"
       "mattpocock/grilling"
-      # "roerohan/diff-walkthrough"
       # "mholtzscher/atlassian-api"
       # "mholtzscher/conventional-commits"
       "mholtzscher/spec-planner"
