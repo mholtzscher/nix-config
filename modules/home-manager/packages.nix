@@ -8,8 +8,6 @@ with pkgs;
 [
   # melt - TUI for managing Nix flake inputs
   inputs.melt.packages.${pkgs.stdenv.hostPlatform.system}.default
-  # ugh - CLI tool for managing Nix configurations
-  inputs.ugh.packages.${pkgs.stdenv.hostPlatform.system}.default
   # today - CLI tool
   inputs.today.packages.${pkgs.stdenv.hostPlatform.system}.default
   # sem - Semantic version control CLI

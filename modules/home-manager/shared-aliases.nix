@@ -8,8 +8,6 @@
     ngc = "nix-collect-garbage -d";
     nfc = "nix flake check";
 
-    of = "open-file";
-
     c = "clear";
     ll = "ls -al";
     ltd = "eza --tree --only-dirs --level 3";

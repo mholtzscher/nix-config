@@ -36,10 +36,6 @@
       url = "github:mholtzscher/aerospace-utils";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    open-file = {
-      url = "github:mholtzscher/open-file";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     melt = {
       url = "github:mholtzscher/melt";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -96,10 +92,6 @@
       url = "github:nicobailon/visual-explainer";
       flake = false;
     };
-    ugh = {
-      url = "github:mholtzscher/ugh";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     today = {
       url = "github:mholtzscher/today";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -135,7 +127,6 @@
       catppuccin,
       niri,
       aerospace-utils,
-      open-file,
       melt,
       neovim-nightly,
       quickshell,
@@ -150,7 +141,6 @@
       plannotator-skills,
       vercel-agent-browser,
       nicobailon-visual-explainer,
-      ugh,
       today,
       helium,
       hunk,
