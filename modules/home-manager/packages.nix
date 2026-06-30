@@ -6,46 +6,37 @@
 
 with pkgs;
 [
-  # melt - TUI for managing Nix flake inputs
-  inputs.melt.packages.${pkgs.stdenv.hostPlatform.system}.default
-  # today - CLI tool
-  inputs.today.packages.${pkgs.stdenv.hostPlatform.system}.default
-  # sem - Semantic version control CLI
-  inputs.sem.packages.${pkgs.stdenv.hostPlatform.system}.default
-  # herdr - Terminal workspace manager for AI coding agents
-  inputs.herdr.packages.${pkgs.stdenv.hostPlatform.system}.default
-  # plannotator - interactive plan review CLI
-  (pkgs.callPackage ../../pkgs/plannotator { })
-  # ghui - GitHub TUI
   (pkgs.callPackage ../../pkgs/ghui { })
-  # vimhjkl - Vim technique trainer
+  (pkgs.callPackage ../../pkgs/plannotator { })
   (pkgs.callPackage ../../pkgs/vimhjkl { })
-  google-cloud-sdk
-  nodejs_24
-  pnpm
-  lua
-  zig
-]
-++ [
   ast-grep
+  bottom
   buf
   cachix
+  codesnap
   cookiecutter
   cruft
-  codesnap
   devenv
   dive
   dust
   glow
+  google-cloud-sdk
   grpcurl
   gum
   hey
   httpie
+  inputs.herdr.packages.${pkgs.stdenv.hostPlatform.system}.default
+  inputs.melt.packages.${pkgs.stdenv.hostPlatform.system}.default
+  inputs.sem.packages.${pkgs.stdenv.hostPlatform.system}.default
+  inputs.today.packages.${pkgs.stdenv.hostPlatform.system}.default
   jc
   just
   kdlfmt
+  lua
   nil
   nixfmt
+  nodejs_24
+  pnpm
   procs
   rm-improved
   slides
@@ -59,6 +50,7 @@ with pkgs;
   wget
   yq
   yt-dlp
+  zig
 ]
 ++ pkgs.lib.optionals (!isWork) [
   tailscale
