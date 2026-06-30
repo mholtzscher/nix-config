@@ -53,6 +53,7 @@ in
         "npm:pi-boomerang"
         "npm:pi-mcp-adapter"
         "npm:pi-powerline-footer"
+        "npm:pi-sidequest"
         "npm:pi-web-access"
         # "git:github.com/nicobailon/visual-explainer"
         # "npm:glimpseui"

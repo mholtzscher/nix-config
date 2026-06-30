@@ -7,6 +7,7 @@
     ];
     brews = [
       "mockery"
+      "mole"
       "pyenv-virtualenv"
     ];
     casks = [
