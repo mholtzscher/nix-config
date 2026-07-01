@@ -1,10 +1,17 @@
 {
+  lib,
   pkgs,
+  isDarwin,
   isWork,
   ...
 }:
 let
   sharedAliases = import ../shared-aliases.nix { inherit isWork; };
+  dummySecretPath =
+    if isDarwin then
+      ''([(^${pkgs.getconf}/bin/getconf DARWIN_USER_TEMP_DIR | str trim) "agenix" "dummy-env"] | path join)''
+    else
+      ''([$env.XDG_RUNTIME_DIR "agenix" "dummy-env"] | path join)'';
 in
 {
   programs = {
@@ -19,6 +26,11 @@ in
         ${builtins.readFile ../files/nushell/functions.nu}
       '';
       shellAliases = sharedAliases.shellAliases;
+      environmentVariables = lib.mkIf (!isWork) {
+        DUMMY_SECRET = lib.hm.nushell.mkNushellInline ''
+          (open --raw ${dummySecretPath} | str trim)
+        '';
+      };
       settings = {
         edit_mode = "vi";
         show_banner = false;

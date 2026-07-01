@@ -19,6 +19,12 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    agenix = {
+      url = "github:ryantm/agenix";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.darwin.follows = "nix-darwin";
+      inputs.home-manager.follows = "home-manager";
+    };
     topiaryNushell = {
       url = "github:blindFS/topiary-nushell";
       flake = false;
@@ -122,6 +128,7 @@
       nix-homebrew,
       homebrew-brew,
       home-manager,
+      agenix,
       topiaryNushell,
       ghostty-shader-playground,
       catppuccin,

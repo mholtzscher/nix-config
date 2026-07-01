@@ -1,4 +1,6 @@
 {
+  config,
+  lib,
   isWork,
   ...
 }:
@@ -23,6 +25,9 @@ in
       '';
       sessionVariables = {
         PATH = "$PATH:/Users/michael/.local/bin";
+      }
+      // lib.optionalAttrs (!isWork) {
+        DUMMY_SECRET = "$(cat ${config.age.secrets.dummy-env.path})";
       };
     };
   };

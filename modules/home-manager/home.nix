@@ -31,6 +31,7 @@ in
   imports = [
     ./agents
     ./programs
+    ./secrets.nix
     inputs.catppuccin.homeModules.catppuccin
   ];
 
