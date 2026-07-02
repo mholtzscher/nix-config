@@ -6,7 +6,14 @@
   homebrew = {
     enable = true;
     onActivation = {
-      cleanup = "zap";
+      # Work around nix-darwin a1fa429 emitting the Homebrew 6-incompatible
+      # --force-cleanup flag for cleanup = "zap". These flags preserve the
+      # intended zap-cleanup behavior.
+      cleanup = "none";
+      extraFlags = [
+        "--cleanup"
+        "--zap"
+      ];
       upgrade = true;
       autoUpdate = true;
     };
