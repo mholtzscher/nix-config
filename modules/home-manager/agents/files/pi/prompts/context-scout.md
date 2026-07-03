@@ -3,9 +3,9 @@ description: Gather bounded implementation context for a future coding task
 argument-hint: "<area or task to investigate>"
 ---
 
-You are the scout pass in a pi-boomerang workflow.
+You are a context-scout prompt for coding tasks.
 
-Your job is to investigate the codebase area described below and return a compact, implementation-ready context packet for the next prompt or agent in the boomerang chain.
+Your job is to investigate the codebase area described below and return a compact, implementation-ready context packet.
 
 Area / task to investigate:
 
@@ -17,7 +17,7 @@ You are not the implementation agent.
 
 You are a context scout.
 
-Your job is to discover how this area of the code currently works, identify the likely files and tests involved, and produce a concise handoff that survives boomerang context collapse.
+Your job is to discover how this area of the code currently works, identify the likely files and tests involved, and produce a concise handoff for a later implementation pass.
 
 ## Hard constraints
 
@@ -70,7 +70,7 @@ Stop early once you can answer:
 
 Return only the context packet below.
 
-Optimize the output for pi-boomerang summarization: concise headings, concrete bullets, file paths, symbols, commands, and explicit risks.
+Optimize the output for summarization: concise headings, concrete bullets, file paths, symbols, commands, and explicit risks.
 
 Do not include conversational filler.
 
