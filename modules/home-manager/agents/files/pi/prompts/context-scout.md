@@ -117,18 +117,19 @@ Keep it implementation-focused:
 - Persistence or external integration boundaries
 - Runtime-specific constraints
 
-## Existing Patterns To Follow
+## Observed Local Conventions
 
-List concrete patterns already used in the repo.
+List concrete conventions observed in the investigated files or nearby examples.
+
+Only include patterns backed by specific files or symbols.
 
 Examples:
-- How handlers delegate to services
-- How dependencies are injected
-- How errors are modeled
-- How config is read
-- How tests are structured
-- How fixtures/mocks are named
-- How generated files are handled
+- `src/http/users.ts` delegates validation to `UserSchema`.
+- `src/services/*` expose Effect service tags rather than classes.
+- Tests in `*.test.ts` use table-driven cases.
+- Config is read through `ConfigService`, not `process.env` directly.
+
+Do not include generic advice like "write clean code" or "keep things maintainable."
 
 ## Similar Examples
 
