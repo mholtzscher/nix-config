@@ -24,6 +24,13 @@
           HostName = "10.69.69.60";
           User = "michael";
         };
+
+        nixos-desktop = {
+          HostName = "nixos-desktop";
+          User = "michael";
+          ForwardAgent = true;
+        };
+
         "*" = {
           IdentityAgent =
             if isDarwin then
