@@ -9,9 +9,6 @@
     ssh = {
       enable = true;
       enableDefaultConfig = false;
-      includes = lib.optionals (!isWork) [
-        "~/.ssh/1Password/config"
-      ];
       settings = lib.optionalAttrs (!isWork) {
         mina-nas = {
           HostName = "10.69.69.156";
