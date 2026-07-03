@@ -18,6 +18,7 @@
     ./git.nix
     ./go.nix
     ./helix.nix
+    ./herdr.nix
     ./hunk.nix
     ./jq.nix
     ./k9s.nix
