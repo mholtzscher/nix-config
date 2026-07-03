@@ -21,7 +21,7 @@ in
       "networkmanager" # Network management
       "docker" # Docker access (if enabled)
     ];
-    shell = pkgs.zsh;
+    shell = pkgs.nushell;
     # SSH authorized keys for remote access
     openssh.authorizedKeys.keys = sshPublicKeys;
   };
