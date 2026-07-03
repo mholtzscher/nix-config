@@ -26,7 +26,7 @@
         };
 
         nixos-desktop = {
-          HostName = "nixos-desktop";
+          HostName = "10.69.69.183";
           User = "michael";
           ForwardAgent = true;
         };
