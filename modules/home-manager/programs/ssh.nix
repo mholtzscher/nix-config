@@ -31,6 +31,11 @@
             else
               "~/.1password/agent.sock";
         };
+
+        forwarded-agent = lib.hm.dag.entryBefore [ "*" ] {
+          header = ''Match exec "test -n \"$SSH_CONNECTION\" -a -n \"$SSH_AUTH_SOCK\""'';
+          IdentityAgent = "SSH_AUTH_SOCK";
+        };
       };
     };
   };
