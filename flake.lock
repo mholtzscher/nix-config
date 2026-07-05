@@ -311,11 +311,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1783229701,
-        "narHash": "sha256-Wga7XrAvlrZ8Z+87PgeunRQuKirBMFUasyQUgHHiLgY=",
+        "lastModified": 1783265198,
+        "narHash": "sha256-4rG07K+d+fQAGWn8WsEobr0nBScxjPMn+XuxMFZ+D54=",
         "owner": "AvengeMedia",
         "repo": "DankMaterialShell",
-        "rev": "eedba0e8c9a71c7a22334d67f20e69137a2e3945",
+        "rev": "78e823e23adade3726d77e45c80904a8d2cd086c",
         "type": "github"
       },
       "original": {
@@ -724,11 +724,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1783211147,
-        "narHash": "sha256-7A8HDsDayPcW4qGV+Hjv6dqdjmEtXfTY4Lon8CFC4+E=",
+        "lastModified": 1783280988,
+        "narHash": "sha256-xsev2EJIj5di1J7H825hS3NQopVXx1ADHeES8oDND9M=",
         "owner": "ogulcancelik",
         "repo": "herdr",
-        "rev": "2bc1724c2dae72184a5d2ec070e30c70dc519f9b",
+        "rev": "cbd9b07fac8a84ef2b55e85929983ff594edb0a4",
         "type": "github"
       },
       "original": {
@@ -859,11 +859,11 @@
     "mattpocock-skills": {
       "flake": false,
       "locked": {
-        "lastModified": 1783260198,
-        "narHash": "sha256-WH7rt9rDjlzW19Ejndci1aqvVzHyXSBFLh9h+UqtT4E=",
+        "lastModified": 1783273029,
+        "narHash": "sha256-tJLI3UrxFOhZpkzkv+WTkwM9vHFGmBZRtFgXws3fPpA=",
         "owner": "mattpocock",
         "repo": "skills",
-        "rev": "4691566bbb2744bf56505531f8050102f02a7a12",
+        "rev": "66f92b61f5b1434a1c7422f6fbd8efc5ee0c0214",
         "type": "github"
       },
       "original": {
@@ -976,11 +976,11 @@
         "xwayland-satellite-unstable": "xwayland-satellite-unstable"
       },
       "locked": {
-        "lastModified": 1783255766,
-        "narHash": "sha256-6XvE0htkdQFLgpvG8nR9qzUWGhzA3k1+3jE0R86H+RM=",
+        "lastModified": 1783267733,
+        "narHash": "sha256-DTvaM+0vanneOcKg3NKXV7ilf0ShY4BOBz/nde5GHos=",
         "owner": "sodiboo",
         "repo": "niri-flake",
-        "rev": "c9cbc99df6deec0e7bc12cccf22ab23ad1c07f98",
+        "rev": "74053f79cad0f6c3a4a0be6b7928795d2e6a9f4b",
         "type": "github"
       },
       "original": {
@@ -1347,11 +1347,11 @@
         "rust-overlay": "rust-overlay_2"
       },
       "locked": {
-        "lastModified": 1783218582,
-        "narHash": "sha256-ttm9FuohDvfZhvPRPVbUvtgXMjJ4+f/1nqvSCyOeaMQ=",
+        "lastModified": 1783266667,
+        "narHash": "sha256-x3e67sC56BfYdrIZgzrKd0uwynidQRvdS8MjceW4u7k=",
         "owner": "Ataraxy-Labs",
         "repo": "sem",
-        "rev": "d143bf3f4ef05b74ce4bebe9d402e269537c416a",
+        "rev": "4210e1df5c7b23cb97dadd7790ebef733ccc46d5",
         "type": "github"
       },
       "original": {
