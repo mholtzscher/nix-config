@@ -28,6 +28,8 @@ in
       }
       // lib.optionalAttrs (!isWork) {
         DUMMY_SECRET = "$(cat ${config.age.secrets.dummy-env.path})";
+        SIDESHOW_URL = "https://sideshow.sh";
+        SIDESHOW_TOKEN = "$(cat ${config.age.secrets.sideshow-token.path})";
       };
     };
   };

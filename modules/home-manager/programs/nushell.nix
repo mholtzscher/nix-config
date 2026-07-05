@@ -12,6 +12,11 @@ let
       ''([(^${pkgs.getconf}/bin/getconf DARWIN_USER_TEMP_DIR | str trim) "agenix" "dummy-env"] | path join)''
     else
       ''([$env.XDG_RUNTIME_DIR "agenix" "dummy-env"] | path join)'';
+  sideshowTokenPath =
+    if isDarwin then
+      ''([(^${pkgs.getconf}/bin/getconf DARWIN_USER_TEMP_DIR | str trim) "agenix" "sideshow-token"] | path join)''
+    else
+      ''([$env.XDG_RUNTIME_DIR "agenix" "sideshow-token"] | path join)'';
 in
 {
   programs = {
@@ -29,6 +34,10 @@ in
       environmentVariables = lib.mkIf (!isWork) {
         DUMMY_SECRET = lib.hm.nushell.mkNushellInline ''
           (open --raw ${dummySecretPath} | str trim)
+        '';
+        SIDESHOW_URL = "https://sideshow.sh";
+        SIDESHOW_TOKEN = lib.hm.nushell.mkNushellInline ''
+          (open --raw ${sideshowTokenPath} | str trim)
         '';
       };
       settings = {

@@ -6,4 +6,8 @@ in
     recipients."nixos-desktop"
     recipients."personal-mac"
   ];
+  "sideshow-token.age".publicKeys = [
+    recipients."nixos-desktop"
+    recipients."personal-mac"
+  ];
 }
