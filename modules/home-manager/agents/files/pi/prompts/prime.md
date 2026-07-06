@@ -2,6 +2,7 @@
 description: Gather bounded implementation context for a future coding task
 argument-hint: "<area or task to investigate>"
 model: opencode-go/deepseek-v4-flash
+boomerang: true
 ---
 
 You are a context-scout prompt for coding tasks.
