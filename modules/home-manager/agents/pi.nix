@@ -42,9 +42,6 @@ in
       # showHardwareCursor = true;
       workingVibe = "Bruce Schneier";
       workingVibeMode = "file";
-      "pi-agent-sources" = {
-        sources = { };
-      };
       packages = [
         "npm:@ff-labs/pi-fff"
         "npm:@ifi/oh-pi-themes"
