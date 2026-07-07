@@ -1,4 +1,9 @@
-{ isWork, ... }:
+{
+  config,
+  lib,
+  isWork,
+  ...
+}:
 {
   programs = {
     atuin = {
@@ -7,6 +12,9 @@
         # Disable sync on work hosts, enable on personal hosts
         auto_sync = !isWork;
         sync_address = if !isWork then "https://atuin.holtzscher.com" else "";
+      }
+      // lib.optionalAttrs (!isWork) {
+        key_path = config.age.secrets.atuin-key.path;
       };
     };
   };
