@@ -1,10 +1,8 @@
-{ ... }:
+{ inputs, pkgs, ... }:
 let
-  enableTreemin = true;
-  enableSeshmin = true;
-  treeminWasm = if enableTreemin then "${../../../pkgs/treemin/treemin.wasm}" else "@treeminWasm@";
-  seshminWasm = if enableSeshmin then "${../../../pkgs/seshmin/seshmin.wasm}" else "@seshminWasm@";
-
+  zellminPlugins = inputs.zellmin.packages.${pkgs.stdenv.hostPlatform.system}.zellminPlugins;
+  treeminWasm = "${zellminPlugins}/treemin.wasm";
+  seshminWasm = "${zellminPlugins}/seshmin.wasm";
 in
 {
   programs.zellij = {

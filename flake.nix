@@ -118,6 +118,10 @@
       url = "github:ogulcancelik/herdr";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    zellmin = {
+      url = "github:Brobicheau/zellmin";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -153,6 +157,7 @@
       hunk,
       sem,
       herdr,
+      zellmin,
     }:
     let
       # Import lib helpers for creating system configurations
