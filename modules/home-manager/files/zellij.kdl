@@ -37,12 +37,6 @@ plugins {
     welcome-screen location="zellij:session-manager" {
         welcome_screen true
     }
-    sessionizer location="https://github.com/laperlej/zellij-sessionizer/releases/latest/download/zellij-sessionizer.wasm" {
-        cwd "/"
-        root_dirs "/home/michael/code;/home/michael;/Users/michael/.config;/Users/michael/code/vibes;/Users/michaelholtzcher/code/paytient;/Users/michaelholtzcher/.config"
-        session_layout ":compact"
-    }
-
 }
 load_plugins {
 
@@ -512,11 +506,11 @@ keybinds clear-defaults=true {
         }
         bind "Alt z" {
             LaunchOrFocusPlugin "file:@seshminWasm@" {
-                // floating true
+                floating true
                 move_to_focused_tab true
                 default_layout "compact"
                 session_separator "."
-                show_resurrectable_sessions "false"
+                show_resurrectable_sessions "true"
             }
         }
         bind "Alt p" {
