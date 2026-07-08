@@ -510,7 +510,6 @@ keybinds clear-defaults=true {
                 move_to_focused_tab true
                 default_layout "compact"
                 session_separator "."
-                show_resurrectable_sessions "true"
             }
         }
         bind "Alt p" {
