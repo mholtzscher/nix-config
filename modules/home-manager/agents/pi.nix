@@ -40,7 +40,7 @@ in
           ];
       theme = "tokyo-night";
       # showHardwareCursor = true;
-      workingVibe = "Bruce Schneier";
+      workingVibe = "parks_and_rec";
       workingVibeMode = "file";
       packages = [
         "npm:@ff-labs/pi-fff"
