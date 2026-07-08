@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ ... }:
 let
   enableTreemin = true;
   enableSeshmin = true;
