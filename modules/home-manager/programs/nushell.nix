@@ -7,21 +7,17 @@
 }:
 let
   sharedAliases = import ../shared-aliases.nix { inherit isWork; };
-  dummySecretPath =
+  ageSecretPath =
+    name:
     if isDarwin then
-      ''([(^${pkgs.getconf}/bin/getconf DARWIN_USER_TEMP_DIR | str trim) "agenix" "dummy-env"] | path join)''
+      ''([(^${pkgs.getconf}/bin/getconf DARWIN_USER_TEMP_DIR | str trim) "agenix" "${name}"] | path join)''
     else
-      ''([$env.XDG_RUNTIME_DIR "agenix" "dummy-env"] | path join)'';
-  sideshowTokenPath =
-    if isDarwin then
-      ''([(^${pkgs.getconf}/bin/getconf DARWIN_USER_TEMP_DIR | str trim) "agenix" "sideshow-token"] | path join)''
-    else
-      ''([$env.XDG_RUNTIME_DIR "agenix" "sideshow-token"] | path join)'';
-  agentArtifactsWriteKeyPath =
-    if isDarwin then
-      ''([(^${pkgs.getconf}/bin/getconf DARWIN_USER_TEMP_DIR | str trim) "agenix" "agent-artifacts-write-key"] | path join)''
-    else
-      ''([$env.XDG_RUNTIME_DIR "agenix" "agent-artifacts-write-key"] | path join)'';
+      ''([$env.XDG_RUNTIME_DIR "agenix" "${name}"] | path join)'';
+  readAgeSecret =
+    name:
+    lib.hm.nushell.mkNushellInline ''
+      (open --raw ${ageSecretPath name} | str trim)
+    '';
 in
 {
   programs = {
@@ -37,17 +33,11 @@ in
       '';
       shellAliases = sharedAliases.shellAliases;
       environmentVariables = lib.mkIf (!isWork) {
-        DUMMY_SECRET = lib.hm.nushell.mkNushellInline ''
-          (open --raw ${dummySecretPath} | str trim)
-        '';
+        DUMMY_SECRET = readAgeSecret "dummy-env";
         SIDESHOW_URL = "https://sideshow.sh";
-        SIDESHOW_TOKEN = lib.hm.nushell.mkNushellInline ''
-          (open --raw ${sideshowTokenPath} | str trim)
-        '';
+        SIDESHOW_TOKEN = readAgeSecret "sideshow-token";
         AGENT_ARTIFACTS_BASE_URL = "https://artifacts.holtzscher.com";
-        AGENT_ARTIFACTS_WRITE_KEY = lib.hm.nushell.mkNushellInline ''
-          (open --raw ${agentArtifactsWriteKeyPath} | str trim)
-        '';
+        AGENT_ARTIFACTS_WRITE_KEY = readAgeSecret "agent-artifacts-write-key";
       };
       settings = {
         edit_mode = "vi";
