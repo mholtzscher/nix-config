@@ -17,6 +17,11 @@ let
       ''([(^${pkgs.getconf}/bin/getconf DARWIN_USER_TEMP_DIR | str trim) "agenix" "sideshow-token"] | path join)''
     else
       ''([$env.XDG_RUNTIME_DIR "agenix" "sideshow-token"] | path join)'';
+  agentArtifactsWriteKeyPath =
+    if isDarwin then
+      ''([(^${pkgs.getconf}/bin/getconf DARWIN_USER_TEMP_DIR | str trim) "agenix" "agent-artifacts-write-key"] | path join)''
+    else
+      ''([$env.XDG_RUNTIME_DIR "agenix" "agent-artifacts-write-key"] | path join)'';
 in
 {
   programs = {
@@ -38,6 +43,10 @@ in
         SIDESHOW_URL = "https://sideshow.sh";
         SIDESHOW_TOKEN = lib.hm.nushell.mkNushellInline ''
           (open --raw ${sideshowTokenPath} | str trim)
+        '';
+        AGENT_ARTIFACTS_BASE_URL = "https://artifacts.holtzscher.com";
+        AGENT_ARTIFACTS_WRITE_KEY = lib.hm.nushell.mkNushellInline ''
+          (open --raw ${agentArtifactsWriteKeyPath} | str trim)
         '';
       };
       settings = {
