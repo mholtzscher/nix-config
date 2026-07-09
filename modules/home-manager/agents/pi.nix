@@ -50,12 +50,8 @@ in
         "npm:pi-boomerang"
         "npm:pi-mcp-adapter"
         "npm:pi-powerline-footer"
-        "npm:pi-prompt-template-model"
-        # "npm:pi-sidequest"
         "npm:pi-web-access"
         "npm:sideshow"
-        # "git:github.com/nicobailon/visual-explainer"
-        # "npm:glimpseui"
       ];
     };
 
