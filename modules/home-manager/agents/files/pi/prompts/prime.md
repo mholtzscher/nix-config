@@ -1,7 +1,7 @@
 ---
 description: Gather bounded implementation context for a future coding task
 argument-hint: "<area or task to investigate>"
-model: opencode-go/deepseek-v4-flash
+model: opencode-go/deepseek-v4-flash, cheap-but-effective--kimi-k2-5
 boomerang: true
 ---
 
