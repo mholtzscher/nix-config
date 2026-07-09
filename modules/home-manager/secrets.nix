@@ -20,5 +20,6 @@
     secrets.dummy-env.file = ../../secrets/dummy-env.age;
     secrets.sideshow-token.file = ../../secrets/sideshow-token.age;
     secrets.atuin-key.file = ../../secrets/atuin-key.age;
+    secrets.agent-artifacts-write-key.file = ../../secrets/agent-artifacts-write-key.age;
   };
 }
