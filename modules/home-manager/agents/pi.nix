@@ -23,7 +23,7 @@ in
 
     ".pi/agent/settings.json".text = builtins.toJSON {
       defaultProvider = if isWork then "litellm" else "openai-codex";
-      defaultModel = if isWork then "cheap-but-effective--kimi-k2-5" else "gpt-5.5";
+      defaultModel = if isWork then "cheap-but-effective--kimi-k2-5" else "gpt-5.6-sol";
       defaultThinkingLevel = "medium";
       enabledModels =
         if isWork then
@@ -34,10 +34,8 @@ in
         else
           [
             "openai-codex/gpt-5.6-*"
-            "openai-codex/gpt-5.5"
             "opencode-go/deepseek*"
             "opencode-go/kimi-k2.7-code"
-            "opencode-go/glm-5.2"
           ];
       theme = "tokyo-night";
       # showHardwareCursor = true;
