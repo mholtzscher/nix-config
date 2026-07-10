@@ -1,11 +1,3 @@
-{ config, isDarwin, ... }:
-let
-  nuConfig =
-    if isDarwin then
-      "${config.home.homeDirectory}/Library/Application Support/nushell/config.nu"
-    else
-      "${config.home.homeDirectory}/.config/nushell/config.nu";
-in
 {
   programs = {
     lazygit = {
@@ -31,7 +23,7 @@ in
             key = "C";
             description = "AI Commit - Generate conventional commit (with confirmation)";
             context = "files";
-            command = ''nu --config "${nuConfig}" -c 'ai_commit' '';
+            command = "nu --login -c 'ai_commit'";
             output = "terminal";
             loadingText = "Generating commit message with AI...";
           }
@@ -39,7 +31,7 @@ in
             key = "<c-c>";
             description = "AI Commit - Auto-commit without confirmation";
             context = "files";
-            command = ''nu --config "${nuConfig}" -c 'ai_commit --yes' '';
+            command = "nu --login -c 'ai_commit --yes'";
             output = "terminal";
             loadingText = "Generating and committing with AI...";
           }
