@@ -145,6 +145,9 @@
     gamemode.enable = true;
   };
 
+  # Enable Docker containers
+  virtualisation.docker.enable = true;
+
   # Performance tuning for gaming
   powerManagement.cpuFreqGovernor = "performance";
 
