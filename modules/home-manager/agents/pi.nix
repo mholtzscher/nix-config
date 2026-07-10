@@ -33,6 +33,7 @@ in
           ]
         else
           [
+            "openai-codex/gpt-5.6-*"
             "openai-codex/gpt-5.5"
             "opencode-go/deepseek*"
             "opencode-go/kimi-k2.7-code"
