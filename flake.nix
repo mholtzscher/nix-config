@@ -106,16 +106,8 @@
       url = "github:AlvaroParker/helium-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    hunk = {
-      url = "github:modem-dev/hunk";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     sem = {
       url = "github:Ataraxy-Labs/sem";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    herdr = {
-      url = "github:ogulcancelik/herdr";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     zellmin = {
@@ -154,9 +146,7 @@
       nicobailon-visual-explainer,
       today,
       helium,
-      hunk,
       sem,
-      herdr,
       zellmin,
     }:
     let

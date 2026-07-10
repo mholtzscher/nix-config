@@ -6,7 +6,6 @@
 
 with pkgs;
 [
-  (pkgs.callPackage ../../pkgs/ghui { })
   (pkgs.callPackage ../../pkgs/plannotator { })
   (pkgs.callPackage ../../pkgs/vimhjkl { })
   ast-grep
@@ -25,7 +24,6 @@ with pkgs;
   gum
   hey
   httpie
-  inputs.herdr.packages.${pkgs.stdenv.hostPlatform.system}.default
   inputs.melt.packages.${pkgs.stdenv.hostPlatform.system}.default
   inputs.sem.packages.${pkgs.stdenv.hostPlatform.system}.default
   inputs.today.packages.${pkgs.stdenv.hostPlatform.system}.default

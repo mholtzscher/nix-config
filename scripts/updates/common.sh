@@ -2,11 +2,11 @@
 # Reusable update script for GitHub release-based packages.
 #
 # This script is designed to be sourced from thin per-package wrappers
-# in the same directory (e.g. update-ghui.sh).
+# in the same directory (e.g. update-plannotator.sh).
 #
 # The sourcing script must set these variables:
-#   PKG_NAME        - Package name (e.g., "hunk")
-#   GITHUB_REPO     - GitHub owner/repo (e.g., "modem-dev/hunk")
+#   PKG_NAME        - Package name (e.g., "plannotator")
+#   GITHUB_REPO     - GitHub owner/repo (e.g., "backnotprop/plannotator")
 #   ASSET_KEY       - Key used in the asset attrset ("name" or "assetName")
 #   URL_SUFFIX      - Suffix appended to asset name in download URL
 #                     (e.g., ".tar.gz" if Nix stores it without extension)
