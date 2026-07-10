@@ -1,10 +1,10 @@
-{ isDarwin, ... }:
+{ config, isDarwin, ... }:
 let
   nuConfig =
     if isDarwin then
-      "$HOME/Library/Application Support/nushell/config.nu"
+      "${config.home.homeDirectory}/Library/Application Support/nushell/config.nu"
     else
-      "$HOME/.config/nushell/config.nu";
+      "${config.home.homeDirectory}/.config/nushell/config.nu";
 in
 {
   programs = {
