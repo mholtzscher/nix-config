@@ -19,7 +19,7 @@ def _require_tool [tool: string message?: string] {
 def _confirm [message: string default_yes?: bool] {
   let default = if ($default_yes | default false) { "Y/n" } else { "y/N" }
   let prompt = $"($message) \(($default)\) "
-  let response = (input $prompt | str trim | str downcase)
+  let response = (input $prompt | str trim | str lowercase)
 
   if ($default_yes | default false) {
     # Default yes: accept empty, "y", "yes" 
