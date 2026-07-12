@@ -19,7 +19,12 @@
 
     secrets.dummy-env.file = ../../secrets/dummy-env.age;
     secrets.sideshow-token.file = ../../secrets/sideshow-token.age;
-    secrets.atuin-key.file = ../../secrets/atuin-key.age;
+    secrets.atuin-key = {
+      file = ../../secrets/atuin-key.age;
+      # Atuin reads this path itself, so it cannot expand agenix's Darwin
+      # runtime-directory shell expression.
+      path = "${config.home.homeDirectory}/.local/share/agenix/atuin-key";
+    };
     secrets.agent-artifacts-write-key.file = ../../secrets/agent-artifacts-write-key.age;
   };
 }
