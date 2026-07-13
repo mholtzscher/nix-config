@@ -5,29 +5,6 @@
   ...
 }:
 
-let
-  # llama.cpp with CUDA acceleration (requires NVIDIA GPU + drivers)
-  llama-cpp-cuda = pkgs.llama-cpp.override { cudaSupport = true; };
-
-  llamaServerWrapper = pkgs.writeShellScriptBin "llama-server-wrapper" ''
-    exec ${llama-cpp-cuda}/bin/llama-server \
-      -m /home/michael/models/unsloth/Qwen3.6-27B-GGUF/Qwen3.6-27B-UD-Q4_K_XL.gguf \
-      --mmproj /home/michael/models/unsloth/Qwen3.6-27B-GGUF/mmproj-F16.gguf \
-      --alias local \
-      --host 0.0.0.0 \
-      --port 8081 \
-      --temp 0.6 \
-      --top-p 0.95 \
-      --top-k 20 \
-      --min-p 0.00 \
-      --kv-unified \
-      --cache-type-k q8_0 \
-      --cache-type-v q8_0 \
-      --flash-attn on \
-      --fit on \
-      --ctx-size 131072
-  '';
-in
 {
   # NixOS Desktop-specific home-manager configuration
   # Desktop environment setup is now in modules/nixos/desktop/
@@ -62,10 +39,6 @@ in
     awscli2 # AWS command-line interface
     gnused
     vesktop # Discord client with better Wayland support
-
-    ollama-cuda # Local LLM server (run on-demand: ollama serve)
-
-    llamaServerWrapper # Convenience wrapper for serving Qwen3.6-27B (via llama.cpp CUDA)
 
     python313Packages.huggingface-hub # Hugging Face CLI (provides huggingface-cli) for downloading models
 
