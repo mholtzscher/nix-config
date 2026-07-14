@@ -50,6 +50,8 @@ in
   # Kernel parameters for NVIDIA + Wayland
   boot.kernelParams = [
     "nvidia-drm.modeset=1"
+    # Keep the DisplayPort connector logically enabled while the KVM is switched away.
+    "video=DP-1:e"
   ]
   ++ pkgs.lib.optional enableEdidOverride "drm.edid_firmware=DP-1:edid/dp1.bin";
 }
