@@ -68,12 +68,9 @@
       "mattpocock/tdd"
       "mattpocock/teach"
       "mattpocock/handoff"
-      # mattpocock foundations reached for by the skills above
       "mattpocock/codebase-design"
       "mattpocock/domain-modeling"
       "mattpocock/grilling"
-      # "mholtzscher/atlassian-api"
-      # "mholtzscher/conventional-commits"
       "mholtzscher/spec-planner"
       "vercel/agent-browser"
       "plannotator/html"
@@ -89,6 +86,7 @@
       # "cloudflare/workers-best-practices"
       # "cloudflare/wrangler"
       "mholtzscher/upload-artifact"
+      "mholtzscher/service-design"
       "mholtzscher/zellij-tasks"
     ];
 
