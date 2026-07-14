@@ -4,6 +4,91 @@
   ...
 }:
 let
+  captureDisplayDebug = pkgs.writeShellApplication {
+    name = "capture-display-debug";
+    runtimeInputs = with pkgs; [
+      coreutils
+      gnugrep
+      pciutils
+      systemd
+    ];
+    text = ''
+      set -u
+
+      timestamp=$(date '+%Y%m%d-%H%M%S')
+      output_root="$HOME/.local/state/display-debug"
+      output_dir="$output_root/$timestamp"
+      mkdir -p "$output_dir"
+
+      section() {
+        printf '\n=== %s ===\n' "$1"
+      }
+
+      {
+        section "capture"
+        date --iso-8601=seconds
+        printf 'uptime: '
+        uptime
+        printf 'user: %s\n' "$USER"
+        printf 'session: %s (%s)\n' "''${XDG_CURRENT_DESKTOP:-unknown}" "''${XDG_SESSION_TYPE:-unknown}"
+
+        section "kernel"
+        uname -a
+        printf 'command line: '
+        cat /proc/cmdline
+
+        section "GPU"
+        lspci -nnk | grep -A4 -Ei 'VGA|3D|Display' || true
+        if command -v nvidia-smi >/dev/null 2>&1; then
+          nvidia-smi || true
+        fi
+
+        section "versions"
+        niri --version 2>&1 || true
+        dms version 2>&1 || true
+
+        section "services"
+        systemctl --user --no-pager --full status niri.service dms.service 2>&1 || true
+      } > "$output_dir/summary.txt" 2>&1
+
+      {
+        for connector in /sys/class/drm/card*-DP-* /sys/class/drm/card*-HDMI-*; do
+          [ -e "$connector" ] || continue
+          printf '\n=== %s ===\n' "$connector"
+          for property in status enabled dpms modes; do
+            if [ -r "$connector/$property" ]; then
+              printf '%s: ' "$property"
+              tr '\n' ' ' < "$connector/$property"
+              printf '\n'
+            fi
+          done
+        done
+      } > "$output_dir/connectors.txt" 2>&1
+
+      {
+        section "niri outputs"
+        niri msg outputs 2>&1 || true
+        section "DMS outputs"
+        dms randr 2>&1 || true
+        section "DMS DPMS"
+        dms dpms list 2>&1 || true
+      } > "$output_dir/output-state.txt" 2>&1
+
+      journalctl --user -b -u niri.service -u dms.service --since '-30 min' \
+        --no-pager -o short-precise > "$output_dir/user-journal.txt" 2>&1 || true
+      journalctl -k -b --since '-30 min' --no-pager -o short-precise \
+        > "$output_dir/kernel-journal.txt" 2>&1 || true
+
+      if [ -r /tmp/kvm-triage.log ]; then
+        cp /tmp/kvm-triage.log "$output_dir/live-capture.txt"
+      fi
+
+      ln -sfn "$timestamp" "$output_root/latest"
+      sync
+      systemd-cat -t capture-display-debug echo "Display debug saved to $output_dir"
+    '';
+  };
+
   refreshDisplays = pkgs.writeShellScriptBin "refresh-displays" ''
     set -eu
 
@@ -42,6 +127,7 @@ in
   # Note: Niri module is loaded from inputs in lib/default.nix when graphical=true
 
   environment.systemPackages = [
+    captureDisplayDebug
     refreshDisplays
   ];
 
@@ -188,6 +274,12 @@ in
             "--user"
             "restart"
             "dms.service"
+          ];
+
+          # Save display state and recent logs before rebooting after a failed KVM return.
+          # Press blind, then wait a few seconds for the files to be flushed to disk.
+          "Mod+Shift+I".action.spawn = [
+            "${captureDisplayDebug}/bin/capture-display-debug"
           ];
 
           # Force DisplayPort link re-negotiation after a missed KVM hotplug event.
