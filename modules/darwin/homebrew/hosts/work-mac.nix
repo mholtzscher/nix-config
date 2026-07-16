@@ -3,6 +3,7 @@
 {
   homebrew = {
     brews = [
+      "opencode"
     ];
     casks = [
       "jetbrains-toolbox"
