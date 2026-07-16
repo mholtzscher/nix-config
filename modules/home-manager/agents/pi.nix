@@ -39,6 +39,7 @@ let
       "npm:pi-boomerang"
       "npm:pi-mcp-adapter"
       "npm:pi-powerline-footer"
+      "npm:pi-prompt-template-model"
       "npm:pi-web-access"
       "npm:sideshow"
     ];
