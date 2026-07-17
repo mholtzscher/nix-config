@@ -32,7 +32,7 @@ let
     workingVibe = "parks_and_rec";
     workingVibeMode = "file";
     packages = [
-      "npm:@ff-labs/pi-fff"
+      # "npm:@ff-labs/pi-fff"
       "npm:@ifi/oh-pi-themes"
       "npm:@juicesharp/rpiv-ask-user-question"
       "npm:@plannotator/pi-extension"
