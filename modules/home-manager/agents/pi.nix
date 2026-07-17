@@ -24,8 +24,7 @@ let
       else
         [
           "openai-codex/gpt-5.6-*"
-          "opencode-go/deepseek*"
-          "opencode-go/kimi-k2.7-code"
+          "opencode-go/deepseek-v4-flash"
         ];
     theme = "tokyo-night";
     # showHardwareCursor = true;
