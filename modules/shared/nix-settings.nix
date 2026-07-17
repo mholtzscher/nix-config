@@ -9,7 +9,13 @@
   # Extracted from flake.nix to reduce duplication
 
   # Allow unfree packages (like Discord, Obsidian, etc.)
-  nixpkgs.config.allowUnfree = true;
+  nixpkgs.config = {
+    allowUnfree = true;
+    permittedInsecurePackages = [
+      # Required by vesktop-1.6.5 until it updates its Electron dependency.
+      "electron-40.10.5"
+    ];
+  };
 
   # Set Git commit hash for version tracking
   # Works on both darwin (darwin-version) and NixOS (nixos-version)
