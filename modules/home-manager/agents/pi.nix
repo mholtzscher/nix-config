@@ -27,7 +27,6 @@ let
           "opencode-go/deepseek-v4-flash"
         ];
     theme = "tokyo-night";
-    # showHardwareCursor = true;
     workingVibe = "parks_and_rec";
     workingVibeMode = "file";
     packages = [
@@ -93,6 +92,11 @@ in
       workflow = "none";
     };
 
+    ".pi/agent/boomerang.json".text = builtins.toJSON {
+      toolEnabled = true;
+      toolGuidance = "";
+    };
+
     ".pi/agent/extensions" = {
       source = filteredExtensionsSource;
       recursive = true;
@@ -105,15 +109,6 @@ in
 
     ".pi/agent/mcp.json" = lib.mkIf (!isWork) {
       text = builtins.toJSON {
-        sideshow = {
-          command = "npx";
-          args = [
-            "-y"
-            "sideshow"
-            "mcp"
-          ];
-          lifecycle = "lazy";
-        };
       };
     };
   };
