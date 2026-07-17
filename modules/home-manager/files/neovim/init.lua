@@ -231,9 +231,7 @@ local function javascript_formatters(bufnr)
 		".eslintrc.yml",
 	})
 
-	if eslint_root then
-		return { "oxfmt", "oxlint", "eslint_d" }
-	end
+	if eslint_root then return { "oxfmt", "oxlint", "eslint_d" } end
 
 	return { "oxfmt", "oxlint" }
 end
@@ -269,7 +267,7 @@ require("conform").setup({
 	formatters = {
 		prettier_markdown = {
 			inherit = "prettier",
-			append_args = { "--prose-wrap", "always" },
+			-- append_args = { "--prose-wrap", "always" },
 		},
 	},
 })
