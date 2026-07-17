@@ -125,6 +125,7 @@ in
       $DRY_RUN_CMD mkdir -p "$HOME/.pi/agent"
       $DRY_RUN_CMD rm -f "$HOME/.pi/agent/settings.json"
       $DRY_RUN_CMD cp ${settingsFile} "$HOME/.pi/agent/settings.json"
+      $DRY_RUN_CMD chmod 644 "$HOME/.pi/agent/settings.json"
     ''
   );
 }
