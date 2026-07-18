@@ -4,6 +4,7 @@
   lib,
   pkgs,
   isWork,
+  isDarwin,
   currentSystemName,
   ...
 }:
@@ -27,4 +28,12 @@
     };
     secrets.agent-artifacts-write-key.file = ../../secrets/agent-artifacts-write-key.age;
   };
+
+  # Upstream also sets Crashed = false, which restarts the agent after every
+  # clean exit. Retry only failed decryptions.
+  launchd.agents.activate-agenix.config.KeepAlive = lib.mkIf (!isWork && isDarwin) (
+    lib.mkForce {
+      SuccessfulExit = false;
+    }
+  );
 }
