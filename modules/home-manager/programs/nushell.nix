@@ -1,4 +1,5 @@
 {
+  config,
   lib,
   pkgs,
   isDarwin,
@@ -16,21 +17,38 @@ let
   readAgeSecret =
     name:
     lib.hm.nushell.mkNushellInline ''
-      (open --raw ${ageSecretPath name} | str trim)
+      (let secret = ${ageSecretPath name}; if ($secret | path exists) { open --raw $secret | str trim } else { "" })
     '';
+  atuinNushellConfig =
+    pkgs.runCommand "atuin-nushell-config.nu"
+      {
+        nativeBuildInputs = [ pkgs.writableTmpDirAsHomeHook ];
+      }
+      ''
+        ${lib.getExe config.programs.atuin.package} init nu > "$out"
+      '';
 in
 {
   programs = {
     nushell = {
       enable = true;
-      extraConfig = ''
-        use std/log;
+      extraConfig = lib.mkMerge [
+        ''
+          use std/log;
 
-        # Add local bin and homebrew to PATH
-        $env.PATH = ($env.PATH | prepend $"($env.HOME)/.local/bin" | prepend "/opt/homebrew/sbin" | prepend "/opt/homebrew/bin")
+          # Add local bin and homebrew to PATH
+          $env.PATH = ($env.PATH | prepend $"($env.HOME)/.local/bin" | prepend "/opt/homebrew/sbin" | prepend "/opt/homebrew/bin")
 
-        ${builtins.readFile ../files/nushell/functions.nu}
-      '';
+          ${builtins.readFile ../files/nushell/functions.nu}
+        ''
+        (lib.mkIf (!isWork) (
+          lib.mkOrder 2000 ''
+            if ("${config.age.secrets.atuin-key.path}" | path exists) {
+              source ${atuinNushellConfig}
+            }
+          ''
+        ))
+      ];
       shellAliases = sharedAliases.shellAliases;
       environmentVariables = lib.mkIf (!isWork) {
         DUMMY_SECRET = readAgeSecret "dummy-env";
