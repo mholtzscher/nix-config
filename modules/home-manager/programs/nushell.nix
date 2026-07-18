@@ -16,7 +16,16 @@ let
   readAgeSecret =
     name:
     lib.hm.nushell.mkNushellInline ''
-      (open --raw ${ageSecretPath name} | str trim)
+      (do {
+        let secret = ${ageSecretPath name}
+        mut attempts = 0
+        while not ($secret | path exists) {
+          if $attempts >= 100 { return "" }
+          sleep 100ms
+          $attempts += 1
+        }
+        open --raw $secret | str trim
+      })
     '';
 in
 {

@@ -6,6 +6,9 @@
 }:
 let
   sharedAliases = import ../shared-aliases.nix { inherit isWork; };
+  readAgeSecret =
+    path:
+    "$(secret=${path}; for _ in {1..100}; do [[ -r $secret ]] && break; sleep 0.1; done; [[ -r $secret ]] && cat $secret)";
   workOnboardingScript = ''
     if [ -f /Users/michaelholtzcher/code/paytient/onboarding/engineering.sh ]; then
         source /Users/michaelholtzcher/code/paytient/onboarding/engineering.sh
@@ -27,11 +30,11 @@ in
         PATH = "$PATH:/Users/michael/.local/bin";
       }
       // lib.optionalAttrs (!isWork) {
-        DUMMY_SECRET = "$(cat ${config.age.secrets.dummy-env.path})";
+        DUMMY_SECRET = readAgeSecret config.age.secrets.dummy-env.path;
         SIDESHOW_URL = "https://sideshow.sh";
-        SIDESHOW_TOKEN = "$(cat ${config.age.secrets.sideshow-token.path})";
+        SIDESHOW_TOKEN = readAgeSecret config.age.secrets.sideshow-token.path;
         AGENT_ARTIFACTS_BASE_URL = "https://artifacts.holtzscher.com";
-        AGENT_ARTIFACTS_WRITE_KEY = "$(cat ${config.age.secrets.agent-artifacts-write-key.path})";
+        AGENT_ARTIFACTS_WRITE_KEY = readAgeSecret config.age.secrets.agent-artifacts-write-key.path;
       };
     };
   };
