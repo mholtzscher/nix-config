@@ -226,11 +226,11 @@
     "dank-qml-common": {
       "flake": false,
       "locked": {
-        "lastModified": 1784386873,
-        "narHash": "sha256-n0LKLirPnNSXYxElK1IpnybEwU0nnyso4kpsEFX88U0=",
+        "lastModified": 1784485083,
+        "narHash": "sha256-hRTmcd3Ms9DF3X35ZiapXM15rG5X1DtIdlrQZwRINFE=",
         "owner": "AvengeMedia",
         "repo": "dank-qml-common",
-        "rev": "4fa313766ab5cd2766be0f87a163305ca9af6faf",
+        "rev": "c0f2d837e1c9933e6789eeb38e7d456088bd5d1b",
         "type": "github"
       },
       "original": {
@@ -278,11 +278,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1784403741,
-        "narHash": "sha256-ppzoTAAIW7x0y3z3JHHq1LKwH6dvzMY7cVKifCaKdqU=",
+        "lastModified": 1784494374,
+        "narHash": "sha256-wSgLew0qWJgQb3WjrsGyV8My+YtPHWtRGTr8tc2cyeU=",
         "owner": "AvengeMedia",
         "repo": "DankMaterialShell",
-        "rev": "069df80b22996adaff5d2f1afa96fa8d50d7a1f6",
+        "rev": "fb65a23fac2788d7b4185055f785d9f63900aad5",
         "type": "github"
       },
       "original": {
@@ -691,11 +691,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1784407317,
-        "narHash": "sha256-iZrxHToDJWnvt+5LGAtvuQMTy1NZYlNEKbKaVtBJNcc=",
+        "lastModified": 1784489491,
+        "narHash": "sha256-j9maqjx1T8+ljAVntAdSI5hSGCm77QNZz64JF1rJNu0=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "39411a8e12a5526d992e65bc7e3dc9a4414d6713",
+        "rev": "3139deb8cafbe73b39b24451255b2fdd3426077e",
         "type": "github"
       },
       "original": {
@@ -732,11 +732,11 @@
         "treefmt-nix": "treefmt-nix"
       },
       "locked": {
-        "lastModified": 1784405246,
-        "narHash": "sha256-ygru62KLDLZ4v33ae87XEW2VS8Rvh9+yXGDyJ5Y9bLI=",
+        "lastModified": 1784489668,
+        "narHash": "sha256-6YRwGAPuwtCxEGe6rqUdkWIBanVgkCLmvOc0HBNrPsc=",
         "owner": "numtide",
         "repo": "llm-agents.nix",
-        "rev": "f9e275095fa7c14a858d395556cdfb6b396c201b",
+        "rev": "0081aa9366465668e321372e4b2047bf01116a97",
         "type": "github"
       },
       "original": {
@@ -808,11 +808,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1783814585,
-        "narHash": "sha256-xJYKRfI7kK/h08q5iVi9baAWe9Tx/zHkF+sW97g5aHg=",
+        "lastModified": 1784487024,
+        "narHash": "sha256-Aejt7Ukni/eP6RPa7QXNmbr5adAhev7m1Eyd10d3eEQ=",
         "owner": "nix-community",
         "repo": "neovim-nightly-overlay",
-        "rev": "f27953eea28eb3a0bf58d84e8d51f65b1dfed481",
+        "rev": "5371e49816c6617aab6cf8c1e4a89e64bcf54641",
         "type": "github"
       },
       "original": {
@@ -865,11 +865,11 @@
         "xwayland-satellite-unstable": "xwayland-satellite-unstable"
       },
       "locked": {
-        "lastModified": 1784380193,
-        "narHash": "sha256-XnpNipcSNWg+l9aHV/Ha3W1ot/r5FC7OT3//zZ9Vjbs=",
+        "lastModified": 1784458980,
+        "narHash": "sha256-BWFTNPJWS9G1ME7bfjQIb7aWKWKpnjMMU1rlbw8PH/s=",
         "owner": "sodiboo",
         "repo": "niri-flake",
-        "rev": "26e0cddf2447ab5ec0824b1c9a076aa1480fc57a",
+        "rev": "e40af292a5890c48d51bfa33d3db3d967d41784e",
         "type": "github"
       },
       "original": {
@@ -898,11 +898,11 @@
     "niri-unstable": {
       "flake": false,
       "locked": {
-        "lastModified": 1783522755,
-        "narHash": "sha256-dI0HkX1djETia7cD/Y64h8BNIsSOfTRMzfNum2J6UhE=",
+        "lastModified": 1784456420,
+        "narHash": "sha256-38yvDuO09V/GG19oJO+B5nn38NhvvZEWKRGFE4WPUi4=",
         "owner": "YaLTeR",
         "repo": "niri",
-        "rev": "0777769e719b7c9b7c980d4ea66288bfbb4da5b3",
+        "rev": "f036de655d309edc13fef545a3809330796cbe83",
         "type": "github"
       },
       "original": {
@@ -1440,11 +1440,11 @@
     "vercel-agent-browser": {
       "flake": false,
       "locked": {
-        "lastModified": 1784325030,
-        "narHash": "sha256-d4eocgiBoNe7iCBl5cBHwglbyPAqLo11V3T5yZd9EUI=",
+        "lastModified": 1784479863,
+        "narHash": "sha256-AhihapiVW2ZbJFw6qis9S+WonjI3fK/DVClbYbeagco=",
         "owner": "vercel-labs",
         "repo": "agent-browser",
-        "rev": "6ede7a9470ac4b681cabf838af8668b9aa99e957",
+        "rev": "81c336c1c20b80ac648e0416a7b6e0c0ae7878bb",
         "type": "github"
       },
       "original": {
