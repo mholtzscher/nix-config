@@ -26,12 +26,12 @@ let
           "openai-codex/gpt-5.6-*"
           "opencode-go/deepseek-v4-flash"
         ];
-    theme = "tokyo-night";
+    theme = "dark";
     workingVibe = "parks_and_rec";
     workingVibeMode = "file";
     packages = [
       # "npm:@ff-labs/pi-fff"
-      "npm:@ifi/oh-pi-themes"
+      # "npm:@ifi/oh-pi-themes"
       "npm:@juicesharp/rpiv-ask-user-question"
       "npm:@plannotator/pi-extension"
       "npm:pi-boomerang"
