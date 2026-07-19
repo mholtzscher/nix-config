@@ -40,6 +40,11 @@ let
       "npm:pi-web-access"
       "npm:sideshow"
     ];
+    powerline = {
+      welcome = false;
+      disabledSegments = [ "git" ];
+      placement = "below";
+    };
   };
   settingsFile = pkgs.writeText "pi-settings.json" (builtins.toJSON settings);
 in
