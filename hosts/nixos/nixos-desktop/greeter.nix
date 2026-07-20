@@ -2,7 +2,7 @@
 {
   # DMS (Dank Material Shell) greeter via greetd
   # Runs the login screen under Niri with an explicit greeter-time config.
-  programs.dank-material-shell.greeter = {
+  programs.dms-greeter = {
     enable = true;
 
     compositor = {

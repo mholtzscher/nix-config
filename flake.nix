@@ -58,6 +58,10 @@
       url = "github:AvengeMedia/DankMaterialShell";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    dank-greeter = {
+      url = "github:AvengeMedia/dank-greeter";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     llm-agents = {
       url = "github:numtide/llm-agents.nix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -134,6 +138,7 @@
       neovim-nightly,
       quickshell,
       dms,
+      dank-greeter,
       llm-agents,
       agent-skills,
       agent-artifacts,
