@@ -51,5 +51,6 @@ with pkgs;
   zig
 ]
 ++ pkgs.lib.optionals (!isWork) [
+  (pkgs.callPackage ../../pkgs/railway-cli { })
   tailscale
 ]
