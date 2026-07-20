@@ -39,6 +39,9 @@ let
       "npm:pi-powerline-footer"
       "npm:pi-web-access"
       "npm:sideshow"
+    ]
+    ++ lib.optionals (!isWork) [
+      "npm:@narumitw/pi-codex-usage"
     ];
     powerline = {
       welcome = false;
