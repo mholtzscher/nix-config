@@ -52,5 +52,6 @@ with pkgs;
 ]
 ++ pkgs.lib.optionals (!isWork) [
   (pkgs.callPackage ../../pkgs/railway-cli { })
+  bruno
   tailscale
 ]
