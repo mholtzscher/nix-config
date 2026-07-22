@@ -41,7 +41,7 @@ let
       "npm:sideshow"
     ]
     ++ lib.optionals (!isWork) [
-      "npm:@narumitw/pi-codex-usage"
+      # "npm:@narumitw/pi-codex-usage"
     ];
     powerline = {
       welcome = false;
