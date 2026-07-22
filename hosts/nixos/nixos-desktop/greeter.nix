@@ -1,5 +1,31 @@
 { ... }:
 {
+  # The standalone greeter starts user services such as WirePlumber, which need
+  # a writable home instead of greetd's default /var/empty.
+  users.users.greeter.home = "/var/lib/dms-greeter";
+
+  # DankLinux's docs only describe ownership of the top-level greeter cache.
+  # The standalone greeter additionally requires these hidden XDG directories
+  # with mode 2770, but its NixOS module does not create them. Its pre-start
+  # chown also uses `*`, which skips hidden directories and cannot repair them.
+  systemd.tmpfiles.settings."10-dms-greeter" = {
+    "/var/lib/dms-greeter/.cache".d = {
+      user = "greeter";
+      group = "greeter";
+      mode = "2770";
+    };
+    "/var/lib/dms-greeter/.local/state".d = {
+      user = "greeter";
+      group = "greeter";
+      mode = "2770";
+    };
+    "/var/lib/dms-greeter/.local/share".d = {
+      user = "greeter";
+      group = "greeter";
+      mode = "2770";
+    };
+  };
+
   # DMS (Dank Material Shell) greeter via greetd
   # Runs the login screen under Niri with an explicit greeter-time config.
   programs.dms-greeter = {
