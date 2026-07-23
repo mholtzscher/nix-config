@@ -37,7 +37,7 @@ in
           use std/log;
 
           # Add local bin and homebrew to PATH
-          $env.PATH = ($env.PATH | prepend $"($env.HOME)/.local/bin" | prepend "/opt/homebrew/sbin" | prepend "/opt/homebrew/bin")
+          $env.PATH = ($env.PATH | prepend "/opt/homebrew/sbin" | prepend "/opt/homebrew/bin" | prepend $"($env.HOME)/.local/bin")
 
           ${builtins.readFile ../files/nushell/functions.nu}
         ''
