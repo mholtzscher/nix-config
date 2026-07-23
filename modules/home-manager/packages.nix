@@ -17,6 +17,7 @@ with pkgs;
   cruft
   devenv
   dive
+  doggo
   dust
   glow
   google-cloud-sdk
