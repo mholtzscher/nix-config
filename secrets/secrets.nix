@@ -14,6 +14,7 @@ in
     recipients."nixos-desktop"
     recipients."personal-mac"
   ];
+  "nixos-desktop-cloudflare-tunnel-token.age".publicKeys = [ recipients."nixos-desktop" ];
   "sideshow-token.age".publicKeys = [
     recipients."nixos-desktop"
     recipients."personal-mac"
