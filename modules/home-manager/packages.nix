@@ -15,7 +15,6 @@ with pkgs;
   codesnap
   cookiecutter
   cruft
-  devenv
   dive
   doggo
   dust
