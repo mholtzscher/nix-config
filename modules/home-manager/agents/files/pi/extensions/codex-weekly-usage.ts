@@ -3,7 +3,6 @@ import type { ExtensionAPI, ExtensionContext } from "@earendil-works/pi-coding-a
 const PROVIDER = "openai-codex";
 const STATUS_KEY = "codex-weekly-usage";
 const USAGE_URL = "https://chatgpt.com/backend-api/wham/usage";
-const REFRESH_INTERVAL_MS = 5 * 60 * 1000;
 const REQUEST_TIMEOUT_MS = 15 * 1000;
 
 type UsageWindow = {
@@ -20,21 +19,12 @@ type UsageResponse = {
 };
 
 export default function codexWeeklyUsage(pi: ExtensionAPI) {
-	let refreshTimer: ReturnType<typeof setTimeout> | undefined;
 	let requestId = 0;
 	let active = false;
 
 	const stop = () => {
 		active = false;
 		requestId += 1;
-		if (refreshTimer) clearTimeout(refreshTimer);
-		refreshTimer = undefined;
-	};
-
-	const scheduleRefresh = (ctx: ExtensionContext) => {
-		if (refreshTimer) clearTimeout(refreshTimer);
-		refreshTimer = setTimeout(() => void refresh(ctx), REFRESH_INTERVAL_MS);
-		refreshTimer.unref?.();
 	};
 
 	const refresh = async (ctx: ExtensionContext) => {
@@ -43,6 +33,11 @@ export default function codexWeeklyUsage(pi: ExtensionAPI) {
 
 		try {
 			const headers = await getAuthHeaders(ctx);
+			if (!headers) {
+				ctx.ui.setStatus(STATUS_KEY, undefined);
+				return;
+			}
+
 			const response = await fetchWithTimeout(USAGE_URL, { headers }, REQUEST_TIMEOUT_MS);
 			if (!response.ok) throw new Error(`HTTP ${response.status}`);
 
@@ -57,13 +52,15 @@ export default function codexWeeklyUsage(pi: ExtensionAPI) {
 			if (active && currentRequest === requestId) {
 				ctx.ui.setStatus(STATUS_KEY, "Codex wk: unavailable");
 			}
-		} finally {
-			if (active && currentRequest === requestId) scheduleRefresh(ctx);
 		}
 	};
 
 	pi.on("session_start", (_event, ctx) => {
 		active = true;
+		void refresh(ctx);
+	});
+
+	pi.on("agent_settled", (_event, ctx) => {
 		void refresh(ctx);
 	});
 
@@ -73,7 +70,7 @@ export default function codexWeeklyUsage(pi: ExtensionAPI) {
 	});
 }
 
-async function getAuthHeaders(ctx: ExtensionContext): Promise<Record<string, string>> {
+async function getAuthHeaders(ctx: ExtensionContext): Promise<Record<string, string> | undefined> {
 	const models = [ctx.model, ...ctx.modelRegistry.getAvailable(), ...ctx.modelRegistry.getAll()];
 	const seen = new Set<string>();
 
@@ -91,7 +88,7 @@ async function getAuthHeaders(ctx: ExtensionContext): Promise<Record<string, str
 		if (hasHeader(headers, "Authorization")) return headers;
 	}
 
-	throw new Error("OpenAI Codex login required");
+	return undefined;
 }
 
 function findWeeklyWindow(response: UsageResponse): UsageWindow | undefined {
