@@ -3,12 +3,12 @@
   programs = {
     devenv = {
       enable = true;
-      enableNushellIntegration = true;
+      enableNushellIntegration = false;
     };
 
     direnv = {
       enable = true;
-      enableNushellIntegration = false;
+      enableNushellIntegration = true;
       nix-direnv.enable = true;
       silent = true;
     };
