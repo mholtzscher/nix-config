@@ -67,7 +67,7 @@ in
       };
       plugins = [
         pkgs.nushellPlugins.formats
-        pkgs.nushellPlugins.polars
+        # pkgs.nushellPlugins.polars
       ];
     };
   };
