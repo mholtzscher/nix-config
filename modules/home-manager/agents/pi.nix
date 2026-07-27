@@ -54,7 +54,9 @@ let
 in
 {
   home.packages = [
-    inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system}.pi
+    (inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system}.pi.override {
+      useBun = false;
+    })
   ];
 
   home.file = {
