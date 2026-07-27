@@ -110,6 +110,10 @@
       url = "github:AlvaroParker/helium-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    herdr = {
+      url = "github:ogulcancelik/herdr/0de503ccd9a8fedeeb6cbcc1446ab2bc644fdbb6";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     sem = {
       url = "github:Ataraxy-Labs/sem";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -155,6 +159,7 @@
       nicobailon-visual-explainer,
       today,
       helium,
+      herdr,
       sem,
       herdr,
       zellmin,
