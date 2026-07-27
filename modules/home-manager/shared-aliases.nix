@@ -15,6 +15,7 @@
     n = "nvim";
     j = "just";
     ghd = "gh dash";
+    ghrv = "gh repo view --web";
 
     clean = "git clean -Xdf";
 
