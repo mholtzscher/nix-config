@@ -231,11 +231,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1784907716,
-        "narHash": "sha256-Ut8XgrSfgDi5QO71SZxVpjibIZa08dJnNdzm0PWtTxc=",
+        "lastModified": 1785111732,
+        "narHash": "sha256-X3oEvZ6O0L8kieiL8RPTuIT73Nv4VWe3O3OTHyAzOr4=",
         "owner": "AvengeMedia",
         "repo": "dank-greeter",
-        "rev": "d3c919158e135e2f64e5ad3b025887e3a8b3549f",
+        "rev": "c7a8c29ca0ba81dc1e6b77b63b691cea7116fb1e",
         "type": "github"
       },
       "original": {
@@ -315,11 +315,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1784936204,
-        "narHash": "sha256-XNbDvIaPzqqIpgJynqSADAj7Yf8KlGJTo5S/fQJUBxs=",
+        "lastModified": 1785109397,
+        "narHash": "sha256-pMd6UiJUcg9LCNQVTJwqB8g/nS53EL4ugBPtb8I0MDU=",
         "owner": "AvengeMedia",
         "repo": "DankMaterialShell",
-        "rev": "8bb7396362357650a80dcc8d81407095c91c7dcf",
+        "rev": "bab2078dfd39209c92fc1be2ba2fc624a0e456a3",
         "type": "github"
       },
       "original": {
@@ -769,11 +769,11 @@
         "treefmt-nix": "treefmt-nix"
       },
       "locked": {
-        "lastModified": 1784961014,
-        "narHash": "sha256-Ot9VI5fn7odhq1Him2pRjdFkLAm9CUTUqUz///pTFF8=",
+        "lastModified": 1785105523,
+        "narHash": "sha256-EZgQjom2I5G3DRYGGsNJrRO2cYnC3/PjsGTXh83QnOQ=",
         "owner": "numtide",
         "repo": "llm-agents.nix",
-        "rev": "d8b00961d99eb93ec852f29ed8be290573cc88e8",
+        "rev": "a7088e37efdd5c8e79216adc7144de8fd3f6d4de",
         "type": "github"
       },
       "original": {
