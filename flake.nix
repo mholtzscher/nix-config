@@ -34,10 +34,6 @@
       flake = false;
     };
     catppuccin.url = "github:catppuccin/nix";
-    niri = {
-      url = "github:sodiboo/niri-flake";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     aerospace-utils = {
       url = "github:mholtzscher/aerospace-utils";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -132,7 +128,6 @@
       topiaryNushell,
       ghostty-shader-playground,
       catppuccin,
-      niri,
       aerospace-utils,
       melt,
       neovim-nightly,

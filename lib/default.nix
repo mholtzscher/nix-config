@@ -91,7 +91,6 @@
         inputs.catppuccin.nixosModules.catppuccin
 
         # Conditional module loading based on feature flags
-        (if graphical then inputs.niri.nixosModules.niri else { })
         (if graphical then inputs.dms.nixosModules.default else { })
         (if graphical then inputs.dms.nixosModules.greeter else { })
       ]

@@ -14,6 +14,15 @@ in
   # Desktop environment setup is now in modules/nixos/desktop/
   # This file contains only user-specific packages and services
 
+  # Niri configuration is validated by Home Manager at build time.
+  wayland.windowManager.niri = {
+    enable = true;
+    # NixOS owns niri.service; Home Manager provides xwayland-satellite.
+    systemd.enable = false;
+    portalPackage = null;
+    extraConfig = builtins.readFile ./niri.kdl;
+  };
+
   # Solaar config for Logitech MX Master 3S
   # Key setting: scroll diversion OFF to fix scrolling after KVM switch
   xdg.configFile."solaar/config.yaml".text = lib.generators.toYAML { } [

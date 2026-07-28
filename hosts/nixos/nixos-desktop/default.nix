@@ -109,18 +109,13 @@
     chromium
     inputs.helium.packages.${pkgs.stdenv.hostPlatform.system}.default
 
-    # XWayland integration via xwayland-satellite (recommended by Niri)
-    # xwayland-satellite handles X11 app support automatically
-    # Niri spawns it on-demand when X11 apps connect (no config needed)
-    xwayland-satellite
-    xwayland # Still needed as dependency for satellite
     xhost
     xdpyinfo
   ];
 
   programs = {
     # Niri window manager (scrollable tiling Wayland compositor)
-    # Configuration via programs.niri.settings in modules/nixos/hosts/nixos-desktop/composition.nix
+    # Configuration via Home Manager in modules/home-manager/hosts/nixos-desktop/default.nix
     niri = {
       enable = true;
       package = pkgs.niri;
