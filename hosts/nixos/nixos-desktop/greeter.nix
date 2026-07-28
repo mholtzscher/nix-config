@@ -1,4 +1,4 @@
-{ ... }:
+{ config, ... }:
 {
   # The standalone greeter starts user services such as WirePlumber, which need
   # a writable home instead of greetd's default /var/empty.
@@ -26,9 +26,14 @@
     };
   };
 
+  # The greeter discovers sessions through XDG_DATA_DIRS. NixOS keeps display
+  # manager sessions in a separate link farm rather than the system profile.
+  systemd.services.greetd.environment.XDG_DATA_DIRS =
+    "${config.services.displayManager.sessionData.desktops}/share";
+
   # DMS (Dank Material Shell) greeter via greetd
   # Runs the login screen under Niri with an explicit greeter-time config.
-  programs.dms-greeter = {
+  programs.dank-material-shell.greeter = {
     enable = true;
 
     compositor = {

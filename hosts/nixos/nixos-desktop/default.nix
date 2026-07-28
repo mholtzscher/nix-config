@@ -121,7 +121,10 @@
   programs = {
     # Niri window manager (scrollable tiling Wayland compositor)
     # Configuration via programs.niri.settings in modules/nixos/hosts/nixos-desktop/composition.nix
-    niri.enable = true;
+    niri = {
+      enable = true;
+      package = pkgs.niri;
+    };
 
     dank-material-shell = {
       enable = true;

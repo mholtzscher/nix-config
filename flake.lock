@@ -223,59 +223,6 @@
         "type": "github"
       }
     },
-    "dank-greeter": {
-      "inputs": {
-        "dank-qml-common": "dank-qml-common",
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1785118941,
-        "narHash": "sha256-WWu65yB/fLoOCN+hDQ5RqnfrALmquKk3xCNkITGnNQY=",
-        "owner": "AvengeMedia",
-        "repo": "dank-greeter",
-        "rev": "2842fc5ef4bf8a9770f47ead3b04432079ff0e63",
-        "type": "github"
-      },
-      "original": {
-        "owner": "AvengeMedia",
-        "repo": "dank-greeter",
-        "type": "github"
-      }
-    },
-    "dank-qml-common": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1784433462,
-        "narHash": "sha256-8MdKtu/tSYrCenhtmgYW+lcv9JhGPTE3BnSE6WuqO1U=",
-        "owner": "AvengeMedia",
-        "repo": "dank-qml-common",
-        "rev": "8d36f668d73e7a4391ea9ead3939c5de137aa1f0",
-        "type": "github"
-      },
-      "original": {
-        "owner": "AvengeMedia",
-        "repo": "dank-qml-common",
-        "type": "github"
-      }
-    },
-    "dank-qml-common_2": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1785121997,
-        "narHash": "sha256-/MslqFCpjxws8DZqipEKCCTBa0m/SCV3+v1NRT6EuvQ=",
-        "owner": "AvengeMedia",
-        "repo": "dank-qml-common",
-        "rev": "7cc4564e5903a2955fe7da76969f20252cacf9bf",
-        "type": "github"
-      },
-      "original": {
-        "owner": "AvengeMedia",
-        "repo": "dank-qml-common",
-        "type": "github"
-      }
-    },
     "devenv": {
       "inputs": {
         "cachix": "cachix",
@@ -308,22 +255,22 @@
     },
     "dms": {
       "inputs": {
-        "dank-qml-common": "dank-qml-common_2",
         "flake-compat": "flake-compat",
         "nixpkgs": [
           "nixpkgs"
         ]
       },
       "locked": {
-        "lastModified": 1785174034,
-        "narHash": "sha256-OiA8Bg/6V3P0+fTfVObWlt3mLDzYfQBVg+jndsiHgJA=",
+        "lastModified": 1785111455,
+        "narHash": "sha256-aTNuC9NDBnYAeEtFsleeUwmGX3AZlKOutbl+LQRPkmQ=",
         "owner": "AvengeMedia",
         "repo": "DankMaterialShell",
-        "rev": "64461c534fb9faef30ac1c7aaabe64ce48ebc2fe",
+        "rev": "069ddab041c738236a8910e4c39b65d9628d3018",
         "type": "github"
       },
       "original": {
         "owner": "AvengeMedia",
+        "ref": "stable",
         "repo": "DankMaterialShell",
         "type": "github"
       }
@@ -1204,7 +1151,6 @@
         "anthropic-skills": "anthropic-skills",
         "catppuccin": "catppuccin",
         "cloudflare-skills": "cloudflare-skills",
-        "dank-greeter": "dank-greeter",
         "dms": "dms",
         "ghostty-shader-playground": "ghostty-shader-playground",
         "helium": "helium",
