@@ -114,6 +114,10 @@
       url = "github:Ataraxy-Labs/sem";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    herdr = {
+      url = "github:ogulcancelik/herdr";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     zellmin = {
       url = "github:Brobicheau/zellmin";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -152,6 +156,7 @@
       today,
       helium,
       sem,
+      herdr,
       zellmin,
     }:
     let
