@@ -56,6 +56,8 @@ in
         SIDESHOW_TOKEN = readAgeSecret "sideshow-token";
         AGENT_ARTIFACTS_BASE_URL = "https://artifacts.holtzscher.com";
         AGENT_ARTIFACTS_WRITE_KEY = readAgeSecret "agent-artifacts-write-key";
+        OPENCODE_GO_AUTH_COOKIE = readAgeSecret "opencode-go-cookie";
+        OPENCODE_GO_WORKSPACE_ID = readAgeSecret "opencode-go-workspace-id";
       };
       settings = {
         edit_mode = "vi";

@@ -27,6 +27,8 @@
       path = "${config.home.homeDirectory}/.local/share/agenix/atuin-key";
     };
     secrets.agent-artifacts-write-key.file = ../../secrets/agent-artifacts-write-key.age;
+    secrets.opencode-go-cookie.file = ../../secrets/opencode-go-cookie.age;
+    secrets.opencode-go-workspace-id.file = ../../secrets/opencode-go-workspace-id.age;
     secrets.nixos-desktop-cloudflare-tunnel-token = lib.mkIf (currentSystemName == "nixos-desktop") {
       file = ../../secrets/nixos-desktop-cloudflare-tunnel-token.age;
       path = "${config.home.homeDirectory}/.local/share/agenix/nixos-desktop-cloudflare-tunnel-token";

@@ -38,6 +38,8 @@ in
         SIDESHOW_TOKEN = readAgeSecret config.age.secrets.sideshow-token.path;
         AGENT_ARTIFACTS_BASE_URL = "https://artifacts.holtzscher.com";
         AGENT_ARTIFACTS_WRITE_KEY = readAgeSecret config.age.secrets.agent-artifacts-write-key.path;
+        OPENCODE_GO_AUTH_COOKIE = readAgeSecret config.age.secrets.opencode-go-cookie.path;
+        OPENCODE_GO_WORKSPACE_ID = readAgeSecret config.age.secrets.opencode-go-workspace-id.path;
       };
     };
   };
