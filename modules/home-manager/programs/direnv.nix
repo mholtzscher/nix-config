@@ -1,9 +1,10 @@
-{ ... }:
+{ inputs, pkgs, ... }:
 {
   programs = {
     devenv = {
       enable = true;
-      enableNushellIntegration = false;
+      package = inputs.nixpkgs-master.legacyPackages.${pkgs.stdenv.hostPlatform.system}.devenv;
+      enableNushellIntegration = true;
     };
 
     direnv = {
