@@ -20,6 +20,7 @@ let
       if isWork then
         [
           "cheap-but-effective--kimi-k2-5"
+          "sonnet-5"
           "acceptable--sonnet-4-6"
         ]
       else
