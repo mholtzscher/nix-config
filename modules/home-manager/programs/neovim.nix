@@ -1,6 +1,5 @@
 {
   pkgs,
-  inputs,
   ...
 }:
 let
@@ -11,7 +10,7 @@ in
 {
   programs.neovim = {
     enable = true;
-    package = inputs.neovim-nightly.packages.${pkgs.stdenv.hostPlatform.system}.default;
+    package = pkgs.neovim;
     defaultEditor = true;
     # Pin the new defaults here so Home Manager upgrades stay quiet and explicit.
     withRuby = false;
