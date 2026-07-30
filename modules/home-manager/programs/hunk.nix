@@ -2,9 +2,6 @@
 # Uses the hunk flake's home-manager module for proper config and git integration support.
 {
   inputs,
-  pkgs,
-  config,
-  lib,
   ...
 }:
 {
@@ -13,7 +10,7 @@
   programs.hunk = {
     enable = true;
     settings = {
-      theme = "graphite";
+      theme = "catppuccin-mocha";
       mode = "auto";
       line_numbers = true;
     };
