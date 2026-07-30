@@ -697,11 +697,11 @@
         "rust-overlay": "rust-overlay"
       },
       "locked": {
-        "lastModified": 1785370696,
-        "narHash": "sha256-F2tUBNjCwYBjTem23ldwCkPBmqBwOUBTAVTCz/6ZsUk=",
+        "lastModified": 1785415136,
+        "narHash": "sha256-ycDi9vdq+bA6jzDoii8m2YzuJlp0j+QNCAFYPRSZi8U=",
         "owner": "ogulcancelik",
         "repo": "herdr",
-        "rev": "cfa112e741eef8565261a0d404d92ad425829f3b",
+        "rev": "53199270f6658324248a56f027ab29a6c44bfd8d",
         "type": "github"
       },
       "original": {
@@ -816,11 +816,11 @@
         "treefmt-nix": "treefmt-nix_2"
       },
       "locked": {
-        "lastModified": 1785367106,
-        "narHash": "sha256-Q7ui8jYWIOAj3DFTZC7gzcZLyVN59u7e7P/VqQbZqyI=",
+        "lastModified": 1785393846,
+        "narHash": "sha256-ZrkupCDmDaM2lZZoOZ4bR5ioHBxyBdIUTSeXbx+383c=",
         "owner": "numtide",
         "repo": "llm-agents.nix",
-        "rev": "2345fca1225b29dbd740e2303aae8ea289b1c7b8",
+        "rev": "ce99071da939d9d7997e27d35cf4d6c5e44bc32a",
         "type": "github"
       },
       "original": {
@@ -990,11 +990,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1784500460,
-        "narHash": "sha256-UvORnAxTRHax7RG74W8Z2t4GvIkX6AjJ5kk0QlwZomo=",
+        "lastModified": 1785389976,
+        "narHash": "sha256-0tLW8Ff5yt8AH97jw4ZpFJ0OCJ122zIlgWGDmOfU/VU=",
         "owner": "LnL7",
         "repo": "nix-darwin",
-        "rev": "57a3171f94705599a2499248ca5758d5eb47c0e0",
+        "rev": "15abb8c98f336cd8bd840d71059adebabe60bf04",
         "type": "github"
       },
       "original": {
@@ -1096,11 +1096,11 @@
     },
     "nixpkgs-master": {
       "locked": {
-        "lastModified": 1785375119,
-        "narHash": "sha256-UW8M8jgUmxI+Q4+juVEpC02P5vY4C4qkn0uGsBIx4xE=",
+        "lastModified": 1785414853,
+        "narHash": "sha256-V5DxTvKr/Mr2cL8hnBtQ5s5cHtCqGMvF76rHo4DwiaU=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "38c070aba48fa2574e8c1a5d0b40f8b0a8bd7b67",
+        "rev": "a80efbd3a4cf668becf7035d769b43886700111f",
         "type": "github"
       },
       "original": {
@@ -1161,11 +1161,11 @@
     "plannotator-skills": {
       "flake": false,
       "locked": {
-        "lastModified": 1783484550,
-        "narHash": "sha256-qhxahXXDCDXrKpCfbLD+ghqCS11dWebRVjzC4Hz29Jk=",
+        "lastModified": 1785391755,
+        "narHash": "sha256-XxLCzLCNPxv3e0d6+MYcxgWGmyAzndydPq0RWt3yPNg=",
         "owner": "plannotator",
         "repo": "effective-html",
-        "rev": "63b1bf04d3e48b426a31fdb82b1319c33663fde4",
+        "rev": "dd55f3163ae2dd08cd6c5265f974f25f1f9e638c",
         "type": "github"
       },
       "original": {
