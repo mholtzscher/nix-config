@@ -4,6 +4,7 @@
     devenv = {
       enable = true;
       # package = inputs.nixpkgs-master.legacyPackages.${pkgs.stdenv.hostPlatform.system}.devenv;
+      enableNushellIntegration = false;
     };
 
     direnv = {
