@@ -1,5 +1,18 @@
-{ pkgs, ... }:
 {
+  inputs,
+  lib,
+  pkgs,
+  ...
+}:
+let
+  herdr = inputs.herdr.packages.${pkgs.stdenv.hostPlatform.system}.default;
+  herdr-navigator = pkgs.callPackage ../../../pkgs/herdr-navigator { };
+in
+{
+  home.activation.herdrNavigator = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+    run ${herdr}/bin/herdr plugin link ${herdr-navigator} --enabled
+  '';
+
   xdg.configFile."herdr/config.toml".text = ''
     onboarding = false
 
@@ -37,6 +50,12 @@
 
     settings = "prefix+comma"
     help = "prefix+?"
+
+    [[keys.command]]
+    key = "prefix+t"
+    type = "plugin_action"
+    command = "herdr-navigator.open"
+    description = "jump to anything"
 
     [theme]
     name = "catppuccin"
