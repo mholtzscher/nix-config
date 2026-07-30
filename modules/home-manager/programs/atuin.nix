@@ -15,9 +15,9 @@
       settings = {
         # Disable sync on work hosts, enable on personal hosts
         auto_sync = !isWork;
-        sync_address = if !isWork then "https://atuin.holtzscher.com" else "";
       }
       // lib.optionalAttrs (!isWork) {
+        sync_address = "https://atuin.holtzscher.com";
         key_path = config.age.secrets.atuin-key.path;
       };
     };
