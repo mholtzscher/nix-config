@@ -86,5 +86,7 @@ in
 
     [ui]
     prompt_new_tab_name = false
+    hide_tab_bar_when_single_tab = true
+    show_agent_labels_on_pane_borders = true
   '';
 }
