@@ -110,7 +110,7 @@ function formatWeeklyUsage(window: UsageWindow): string {
 
 	const remaining = Math.max(0, Math.min(100, 100 - used));
 	const resetAt = numberValue(window.reset_at);
-	const reset = resetAt === undefined ? "" : ` · ${formatReset(resetAt)}`;
+	const reset = resetAt === undefined ? "" : ` [${formatReset(resetAt)}]`;
 	return `CX ${remaining.toFixed(0)}%${reset}`;
 }
 
