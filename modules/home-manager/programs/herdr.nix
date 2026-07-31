@@ -83,5 +83,8 @@ in
 
     [terminal]
     default_shell = "${pkgs.nushell}/bin/nu"
+
+    [ui]
+    prompt_new_tab_name = false
   '';
 }
