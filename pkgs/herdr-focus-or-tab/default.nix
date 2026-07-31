@@ -6,13 +6,13 @@
 
 rustPlatform.buildRustPackage rec {
   pname = "herdr-focus-or-tab";
-  version = "0.1.0";
+  version = "0.2.0";
 
   src = fetchFromGitHub {
     owner = "mholtzscher";
     repo = "herdr-focus-or-tab";
     rev = "v${version}";
-    hash = "sha256-gUUI77RaRDN5vNyRT7LyVXlSkLbvQa/68kOh/B8MzOQ=";
+    hash = "sha256-eFNf+4J0pWwFQrp5Mk9AlBYULayYsGcMfCdqnDfNzx8=";
   };
 
   cargoLock.lockFile = "${src}/Cargo.lock";
