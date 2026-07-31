@@ -21,39 +21,20 @@ in
     [keys]
     prefix = "ctrl+g"
 
-    focus_pane_left = "prefix+h"
     focus_pane_down = ["prefix+j", "alt+j"]
     focus_pane_up = ["prefix+k", "alt+k"]
-    focus_pane_right = "prefix+l"
 
     swap_pane_left = ["prefix+shift+h", "alt+shift+h"]
     swap_pane_down = ["prefix+shift+j", "alt+shift+j"]
     swap_pane_up = ["prefix+shift+k", "alt+shift+k"]
     swap_pane_right = ["prefix+shift+l", "alt+shift+l"]
 
-    split_vertical = ["prefix+v", "alt+n", "alt+r"]
+    split_vertical = ["prefix+v", "alt+n"]
     split_horizontal = ["prefix+minus", "alt+d"]
-    resize_mode = "prefix+r"
-    close_pane = "prefix+x"
-    zoom = ["prefix+z", "prefix+f"]
-    cycle_pane_next = "prefix+tab"
-    cycle_pane_previous = "prefix+shift+tab"
-
     new_tab = ["prefix+c", "alt+t"]
-    previous_tab = ["prefix+p", "alt+["]
-    next_tab = ["prefix+n", "alt+]"]
-    switch_tab = "prefix+1..9"
-
     copy_mode = ["prefix+[", "prefix+s"]
-    edit_scrollback = "prefix+e"
-
-    goto = "prefix+g"
-    workspace_picker = "prefix+w"
-    detach = ["prefix+q", "ctrl+q"]
 
     settings = "prefix+comma"
-    help = "prefix+?"
-
     [[keys.command]]
     key = "alt+l"
     type = "plugin_action"
@@ -77,9 +58,6 @@ in
     type = "plugin_action"
     command = "herdr-navigator.open"
     description = "jump to anything"
-
-    [theme]
-    name = "catppuccin"
 
     [terminal]
     default_shell = "${pkgs.nushell}/bin/nu"
