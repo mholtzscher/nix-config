@@ -58,6 +58,12 @@
         subdir = "skills";
         idPrefix = "plannotator";
       };
+
+      herdr = {
+        input = "herdr";
+        subdir = "skills";
+        idPrefix = "herdr";
+      };
     };
 
     skills.enable = [
@@ -73,6 +79,7 @@
       "plannotator/html"
       "plannotator/html-diagram"
       "plannotator/html-plan"
+      "herdr/herdr"
     ]
     ++ lib.optionals (!isWork) [
       # "cloudflare/agents-sdk"
@@ -82,9 +89,9 @@
       # "cloudflare/web-perf"
       # "cloudflare/workers-best-practices"
       # "cloudflare/wrangler"
-      "mholtzscher/upload-artifact"
+      # "mholtzscher/upload-artifact"
       "mholtzscher/service-design"
-      "mholtzscher/zellij-tasks"
+      # "mholtzscher/zellij-tasks"
     ];
 
     targets.pi = {
