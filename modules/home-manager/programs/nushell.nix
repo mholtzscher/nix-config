@@ -40,6 +40,7 @@ in
           $env.PATH = ($env.PATH | prepend "/opt/homebrew/sbin" | prepend "/opt/homebrew/bin" | prepend $"($env.HOME)/.local/bin")
 
           ${builtins.readFile ../files/nushell/functions.nu}
+          ${builtins.readFile ../files/nushell/herdr-nix-status.nu}
         ''
         (lib.mkIf (!isWork) (
           lib.mkOrder 2000 ''

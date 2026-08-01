@@ -11,6 +11,7 @@ let
 in
 {
   home.activation.herdrPlugins = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+    run ${herdr}/bin/herdr integration install pi
     run ${herdr}/bin/herdr plugin link ${herdr-focus-or-tab} --enabled
     run ${herdr}/bin/herdr plugin link ${herdr-navigator} --enabled
   '';
@@ -66,5 +67,11 @@ in
     prompt_new_tab_name = false
     hide_tab_bar_when_single_tab = true
     show_agent_labels_on_pane_borders = true
+
+    [ui.sidebar.agents]
+    rows = [
+      ["state_icon", "workspace", "tab"],
+      ["agent", "state_text"],
+    ]
   '';
 }
