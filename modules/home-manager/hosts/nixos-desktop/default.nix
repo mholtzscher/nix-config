@@ -51,6 +51,7 @@ in
   home.packages = with pkgs; [
     awscli2 # AWS command-line interface
     gnused
+    localsend # Local network file sharing
     vesktop # Discord client with better Wayland support
     pi-web
 

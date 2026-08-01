@@ -12,6 +12,8 @@
       extraCommands = ''
         iptables -A nixos-fw -p tcp --dport 22 -s 10.69.69.0/24 -j nixos-fw-accept
         iptables -A nixos-fw -p tcp --dport 22 -s 100.64.0.0/10 -j nixos-fw-accept
+        iptables -A nixos-fw -p tcp --dport 53317 -s 10.69.69.0/24 -j nixos-fw-accept
+        iptables -A nixos-fw -p udp --dport 53317 -s 10.69.69.0/24 -j nixos-fw-accept
       '';
     };
   };
