@@ -25,6 +25,10 @@ vim.o.expandtab = true -- Use spaces instead of tabs (default: off)
 vim.o.tabstop = 2 -- Number of spaces tabs count for (default: 8)
 vim.o.shiftwidth = 2 -- Size of an indent (default: 8)
 
+-- Keep visual selections active after indenting.
+vim.keymap.set("x", ">", ">gv", { desc = "Indent right and reselect" })
+vim.keymap.set("x", "<", "<gv", { desc = "Indent left and reselect" })
+
 vim.diagnostic.config({
 	virtual_lines = { current_line = true },
 })
