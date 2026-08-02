@@ -24,8 +24,6 @@ with pkgs;
   gum
   hey
   httpie
-  herdr
-  # inputs.herdr.packages.${pkgs.stdenv.hostPlatform.system}.default
   inputs.melt.packages.${pkgs.stdenv.hostPlatform.system}.default
   inputs.sem.packages.${pkgs.stdenv.hostPlatform.system}.default
   inputs.today.packages.${pkgs.stdenv.hostPlatform.system}.default
