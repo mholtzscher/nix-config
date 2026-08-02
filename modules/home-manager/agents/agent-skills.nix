@@ -77,8 +77,10 @@
       "mholtzscher/spec-planner"
       "vercel/agent-browser"
       "plannotator/html"
-      "plannotator/html-diagram"
+      "plannotator/html-wireframe"
+      "plannotator/html-prototype"
       "plannotator/html-plan"
+      "plannotator/html-diagram"
       "herdr/herdr"
     ]
     ++ lib.optionals (!isWork) [
