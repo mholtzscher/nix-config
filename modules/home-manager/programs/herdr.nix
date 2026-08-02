@@ -22,6 +22,8 @@ in
     [keys]
     prefix = "ctrl+g"
 
+    remove_worktree = ["prefix+shift+u"]
+
     focus_pane_down = ["prefix+j", "alt+j"]
     focus_pane_up = ["prefix+k", "alt+k"]
 
