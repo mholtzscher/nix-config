@@ -19,6 +19,8 @@ in
 
   xdg.configFile."herdr/config.toml".text = ''
     onboarding = false
+    [experimental]
+    kitty_graphics = true
 
     [keys]
     prefix = "ctrl+g"
