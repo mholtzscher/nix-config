@@ -5,7 +5,8 @@
   ...
 }:
 let
-  herdr = inputs.herdr.packages.${pkgs.stdenv.hostPlatform.system}.default;
+  herdr = pkgs.herdr;
+  # herdr = inputs.herdr.packages.${pkgs.stdenv.hostPlatform.system}.default;
   herdr-focus-or-tab = pkgs.callPackage ../../../pkgs/herdr-focus-or-tab { };
   herdr-navigator = pkgs.callPackage ../../../pkgs/herdr-navigator { };
 in
