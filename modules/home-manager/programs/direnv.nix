@@ -3,7 +3,8 @@
   programs = {
     devenv = {
       enable = true;
-      # package = inputs.nixpkgs-master.legacyPackages.${pkgs.stdenv.hostPlatform.system}.devenv;
+      # devenv was previously pinned from nixpkgs-master for a newer version;
+      # nixos-unstable now ships a recent-enough devenv, so this is unused.
       enableNushellIntegration = false;
     };
 
