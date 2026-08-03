@@ -401,8 +401,8 @@ export def ai_commit [
     return 1
   }
 
-  let model = "opencode-go/deepseek-v4-flash"
-  log info $"Analyzing staged changes with AI using pi and ($model)..."
+  let models = "opencode-go/deepseek-v4-flash,sonnet-5"
+  log info $"Analyzing staged changes with AI using pi and ($models)..."
 
   # Use pi in print mode to analyze the diff and generate a commit message.
   let commit_prompt = $"Analyze the following staged git diff and create a conventional commit message that best describes the changes:
@@ -413,7 +413,7 @@ Staged changes:
 
 Return ONLY the commit message, nothing else. No explanations, no markdown code blocks, just the commit message text."
 
-  let pi_result = (pi -p --no-session --no-tools --no-extensions --model $model $commit_prompt | complete)
+  let pi_result = (pi -p --no-session --no-tools --no-extensions --models $models $commit_prompt | complete)
 
   if $pi_result.exit_code != 0 {
     log error "Failed to generate commit message with pi"
