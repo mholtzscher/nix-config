@@ -32,8 +32,12 @@
             ForwardAgent = true;
           };
         }
-        // lib.optionalAttrs (!isWork && isDarwin) {
-          "*".IdentityAgent = "\"~/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock\"";
+        // lib.optionalAttrs (!isWork) {
+          "*".IdentityAgent =
+            if isDarwin then
+              "\"~/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock\""
+            else
+              "~/.1password/agent.sock";
         };
     };
   };
