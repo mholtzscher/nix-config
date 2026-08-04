@@ -1,10 +1,11 @@
 {
+  inputs,
   lib,
   pkgs,
   ...
 }:
 let
-  herdr = pkgs.herdr;
+  herdr = inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system}.herdr;
   herdr-focus-or-tab = pkgs.callPackage ../../../pkgs/herdr-focus-or-tab { };
   herdr-navigator = pkgs.callPackage ../../../pkgs/herdr-navigator { };
 in
