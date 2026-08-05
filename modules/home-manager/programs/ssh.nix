@@ -37,7 +37,8 @@
         }
         // lib.optionalAttrs (!isWork && !isDarwin) {
           # Preserve a forwarded agent when connected from another machine.
-          "Match host * exec \"test -z $SSH_CONNECTION\"".IdentityAgent = "~/.1password/agent.sock";
+          "Match host * exec \"sh -c 'test -z \\\"$SSH_CONNECTION\\\"'\"".IdentityAgent =
+            "~/.1password/agent.sock";
         };
     };
   };
