@@ -29,6 +29,7 @@
     ./neovim.nix
     ./nushell.nix
     ./poetry.nix
+    ./podman.nix
     ./ripgrep.nix
     ./ssh.nix
     ./starship.nix
