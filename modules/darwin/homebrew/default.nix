@@ -35,7 +35,7 @@
       "arc"
       "cleanshot"
       "deskpad"
-      "docker-desktop"
+      # "docker-desktop"
       "raycast"
       "slack"
       "visual-studio-code"
