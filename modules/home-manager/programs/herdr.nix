@@ -24,6 +24,7 @@ in
     settings = {
       onboarding = false;
       experimental.kitty_graphics = true;
+      theme.custom.accent = "#f9e2af";
 
       keys = {
         prefix = "ctrl+g";
