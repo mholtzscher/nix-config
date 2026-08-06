@@ -8,12 +8,14 @@ let
   herdr = inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system}.herdr;
   herdr-focus-or-tab = pkgs.callPackage ../../../pkgs/herdr-focus-or-tab { };
   herdr-navigator = pkgs.callPackage ../../../pkgs/herdr-navigator { };
+  herdr-worktree-picker = pkgs.callPackage ../../../pkgs/herdr-worktree-picker { };
 in
 {
   home.activation.herdrPlugins = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
     run ${herdr}/bin/herdr integration install pi
     run ${herdr}/bin/herdr plugin link ${herdr-focus-or-tab} --enabled
     run ${herdr}/bin/herdr plugin link ${herdr-navigator} --enabled
+    run ${herdr}/bin/herdr plugin link ${herdr-worktree-picker} --enabled
   '';
 
   programs.herdr = {
@@ -25,6 +27,7 @@ in
 
       keys = {
         prefix = "ctrl+g";
+        new_worktree = [ ];
         remove_worktree = [ "prefix+shift+u" ];
 
         focus_pane_down = [
@@ -83,6 +86,12 @@ in
             type = "plugin_action";
             command = "herdr-focus-or-tab.previous";
             description = "focus previous pane or tab";
+          }
+          {
+            key = "prefix+shift+g";
+            type = "plugin_action";
+            command = "herdr-worktree-picker.open";
+            description = "create worktree from branch";
           }
           {
             key = "prefix+t";
