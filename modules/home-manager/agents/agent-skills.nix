@@ -91,7 +91,7 @@
       # "cloudflare/web-perf"
       # "cloudflare/workers-best-practices"
       # "cloudflare/wrangler"
-      # "mholtzscher/upload-artifact"
+      "mholtzscher/upload-artifact"
       "mholtzscher/service-design"
       # "mholtzscher/zellij-tasks"
     ];
