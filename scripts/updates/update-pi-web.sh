@@ -62,10 +62,28 @@ fi
 new_version="${tag_name#v}"
 old_version=$(perl -ne 'print "$1\n" and exit if /version = "([^"]+)";/' "$package_file")
 archive_url="https://github.com/jmfederico/pi-web/archive/refs/tags/v${new_version}.tar.gz"
+lock_url="https://raw.githubusercontent.com/jmfederico/pi-web/v${new_version}/package-lock.json"
 
 echo "-> Fetching source archive for v${new_version}..."
 unpacked_hash=$(nix-prefetch-url --unpack "$archive_url" 2>/dev/null)
 source_hash=$(nix hash convert --hash-algo sha256 --to sri "sha256:${unpacked_hash}")
+
+release_lock=$(curl --fail --silent --show-error --location "$lock_url")
+pi_tui_version=$(jq -r '
+  .packages["node_modules/@earendil-works/pi-coding-agent/node_modules/@earendil-works/pi-tui"].version // empty
+' <<<"$release_lock")
+if [[ -z "$pi_tui_version" ]]; then
+  echo "Could not determine nested pi-tui version from $lock_url" >&2
+  exit 1
+fi
+
+pi_tui_integrity=$(curl --fail --silent --show-error --location \
+  "https://registry.npmjs.org/@earendil-works%2Fpi-tui/${pi_tui_version}" |
+  jq -r '.dist.integrity // empty')
+if [[ -z "$pi_tui_integrity" ]]; then
+  echo "Could not determine pi-tui integrity for version $pi_tui_version" >&2
+  exit 1
+fi
 
 backup=$(mktemp)
 cp "$package_file" "$backup"
@@ -80,9 +98,10 @@ restore_on_error() {
 }
 trap restore_on_error EXIT
 
-NEW_VERSION="$new_version" SOURCE_HASH="$source_hash" perl -0pi -e '
+NEW_VERSION="$new_version" SOURCE_HASH="$source_hash" PI_TUI_INTEGRITY="$pi_tui_integrity" perl -0pi -e '
   s/version = "[^"]+";/version = "$ENV{NEW_VERSION}";/;
   s/(src = fetchFromGitHub \{.*?hash = ")sha256-[^"]+(";)/$1$ENV{SOURCE_HASH}$2/s;
+  s/(pi_tui\["integrity"\] = ")[^"]+(")/$1$ENV{PI_TUI_INTEGRITY}$2/;
   s/npmDepsHash = "sha256-[^"]+";/npmDepsHash = lib.fakeHash;/;
 ' "$package_file"
 
