@@ -6,13 +6,13 @@
 
 rustPlatform.buildRustPackage rec {
   pname = "herdr-worktree-picker";
-  version = "0.3.1";
+  version = "0.3.2";
 
   src = fetchFromGitHub {
     owner = "mholtzscher";
     repo = "herdr-worktree-picker";
     rev = "v${version}";
-    hash = "sha256-eMlXw9Vi5xzn4gglGNZora8kD8h0B42/By83cynWquI=";
+    hash = "sha256-N4Z6XAxDE8UtLIX467V1AN2gIf4Cq2Cg8FzLwW9+h0w=";
   };
 
   cargoLock.lockFile = "${src}/Cargo.lock";
