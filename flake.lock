@@ -300,6 +300,22 @@
         "type": "github"
       }
     },
+    "dmmulroy-dotfiles": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1785943636,
+        "narHash": "sha256-1p2rmJfNm3u8v2N4er4xhWJ+H960sJ1pHFfDMuXP/CE=",
+        "owner": "dmmulroy",
+        "repo": ".dotfiles",
+        "rev": "0ccfc7d648148f78dfbe78f63ec536441589c99e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "dmmulroy",
+        "repo": ".dotfiles",
+        "type": "github"
+      }
+    },
     "dms": {
       "inputs": {
         "flake-compat": "flake-compat",
@@ -1240,6 +1256,7 @@
         "anthropic-skills": "anthropic-skills",
         "catppuccin": "catppuccin",
         "cloudflare-skills": "cloudflare-skills",
+        "dmmulroy-dotfiles": "dmmulroy-dotfiles",
         "dms": "dms",
         "ghostty-shader-playground": "ghostty-shader-playground",
         "helium": "helium",

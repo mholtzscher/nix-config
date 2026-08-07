@@ -64,6 +64,12 @@
         subdir = "skills";
         idPrefix = "herdr";
       };
+
+      dmmulroy = {
+        input = "dmmulroy-dotfiles";
+        subdir = "home/.agents/skills";
+        idPrefix = "dmmulroy";
+      };
     };
 
     skills.enable = [
@@ -82,6 +88,7 @@
       "plannotator/html-plan"
       "plannotator/html-diagram"
       "herdr/herdr"
+      "dmmulroy/bro"
     ]
     ++ lib.optionals (!isWork) [
       # "cloudflare/agents-sdk"

@@ -64,6 +64,10 @@
       url = "github:mholtzscher/agent-artifacts";
       flake = false;
     };
+    dmmulroy-dotfiles = {
+      url = "github:dmmulroy/.dotfiles";
+      flake = false;
+    };
     anthropic-skills = {
       url = "github:anthropics/skills";
       flake = false;
@@ -138,6 +142,7 @@
       llm-agents,
       agent-skills,
       agent-artifacts,
+      dmmulroy-dotfiles,
       anthropic-skills,
       cloudflare-skills,
       mattpocock-skills,
