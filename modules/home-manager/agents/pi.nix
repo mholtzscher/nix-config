@@ -16,6 +16,7 @@ let
     defaultModel = if isWork then "sonnet-5" else "gpt-5.6-sol";
     defaultThinkingLevel = "medium";
     showCacheMissNotices = true;
+    tuiMode = "fullscreen";
     enabledModels =
       if isWork then
         [
