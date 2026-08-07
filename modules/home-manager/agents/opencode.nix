@@ -61,11 +61,11 @@ in
         ];
         username = "mholtzscher";
         agent.plan = {
-          model = "openai/gpt-5.4";
-          reasoningEffort = "high";
+          model = "openai/gpt-5.6-sol";
+          reasoningEffort = "medium";
         };
         # agent.explore.model = "openai/gpt-5.3-codex-spark";
-        agent.explore.model = "opencode/gpt-5.4-mini";
+        agent.explore.model = "opencode/gpt-5.6-luna";
         # permission = {
         # bash = { };
         # external_directory = {
