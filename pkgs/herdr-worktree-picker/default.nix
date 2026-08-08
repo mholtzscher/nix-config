@@ -6,16 +6,19 @@
 
 rustPlatform.buildRustPackage rec {
   pname = "herdr-worktree-picker";
-  version = "0.3.2";
+  version = "1.0.0";
 
   src = fetchFromGitHub {
     owner = "mholtzscher";
     repo = "herdr-worktree-picker";
     rev = "v${version}";
-    hash = "sha256-N4Z6XAxDE8UtLIX467V1AN2gIf4Cq2Cg8FzLwW9+h0w=";
+    hash = "sha256-OBXKyLudko1cExMXAsoqaUtMW25JRRBGmSwjERE/xLs=";
   };
 
   cargoLock.lockFile = "${src}/Cargo.lock";
+
+  # Upstream's tests are flaky in the Nix sandbox.
+  doCheck = false;
 
   postInstall = ''
     cp herdr-plugin.toml "$out/herdr-plugin.toml"

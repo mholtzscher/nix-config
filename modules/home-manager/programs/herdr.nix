@@ -91,14 +91,8 @@ in
           {
             key = "prefix+shift+g";
             type = "plugin_action";
-            command = "herdr-worktree-picker.open";
+            command = "herdr-worktree-picker.create";
             description = "create worktree from branch";
-          }
-          {
-            key = "prefix+t";
-            type = "plugin_action";
-            command = "herdr-navigator.open";
-            description = "jump to anything";
           }
           {
             key = "alt+z";
