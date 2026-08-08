@@ -14,6 +14,12 @@
     ./webapps.nix # Web applications as native apps
   ];
 
+  # MakeMKV uses the SCSI generic device to send MMC commands to the drive.
+  # systemd's default udev rules restrict cdrom access to optical SCSI devices.
+  boot.kernelModules = [ "sg" ];
+
+  users.users.michael.extraGroups = [ "cdrom" ];
+
   # Keep PI WEB bound to localhost and expose it through the remotely managed
   # Cloudflare Tunnel. Cloudflare Access protects the public hostname.
   systemd.services.pi-web-cloudflare-tunnel = {

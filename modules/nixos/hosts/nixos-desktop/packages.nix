@@ -16,6 +16,10 @@
     grim
     slurp
     wl-clipboard
+
+    # Disc ripping and playback
+    makemkv
+    vlc
   ];
 
   # 1Password
