@@ -49,10 +49,10 @@
     package = pkgs.nix;
 
     # Automatic garbage collection
-    # Removes generations older than 30 days
+    # Removes generations older than 14 days
     gc = {
       automatic = true;
-      options = "--delete-older-than 30d";
+      options = "--delete-older-than 14d";
     };
   };
 }
