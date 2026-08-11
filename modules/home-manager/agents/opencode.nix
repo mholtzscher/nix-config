@@ -123,20 +123,15 @@ in
           # "exa*" = false;
         };
         mcp = {
-          # gh_grep = {
-          #   enabled = !isWork;
-          #   type = "remote";
-          #   url = "https://mcp.grep.app/";
-          # };
-          # opensrc = {
-          #   type = "local";
-          #   command = [
-          #     "npx"
-          #     "-y"
-          #     "opensrc-mcp"
-          #   ];
-          #   enabled = !isWork;
-          # };
+          github = {
+            enabled = true;
+            type = "remote";
+            url = "https://api.githubcopilot.com/mcp/";
+            oauth = false;
+            headers = {
+              Authorization = "Bearer {env:GITHUB_PERSONAL_ACCESS_TOKEN}";
+            };
+          };
         };
       };
     };

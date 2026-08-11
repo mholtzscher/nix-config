@@ -35,6 +35,7 @@ in
       }
       // lib.optionalAttrs (!isWork) {
         DUMMY_SECRET = readAgeSecret config.age.secrets.dummy-env.path;
+        GITHUB_PERSONAL_ACCESS_TOKEN = readAgeSecret config.age.secrets.github-pat.path;
         SIDESHOW_URL = "https://sideshow.sh";
         SIDESHOW_TOKEN = readAgeSecret config.age.secrets.sideshow-token.path;
         AGENT_ARTIFACTS_BASE_URL = "https://artifacts.holtzscher.com";

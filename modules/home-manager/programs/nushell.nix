@@ -53,6 +53,7 @@ in
       shellAliases = sharedAliases.shellAliases;
       environmentVariables = lib.mkIf (!isWork) {
         DUMMY_SECRET = readAgeSecret "dummy-env";
+        GITHUB_PERSONAL_ACCESS_TOKEN = readAgeSecret "github-pat";
         SIDESHOW_URL = "https://sideshow.sh";
         SIDESHOW_TOKEN = readAgeSecret "sideshow-token";
         AGENT_ARTIFACTS_BASE_URL = "https://artifacts.holtzscher.com";

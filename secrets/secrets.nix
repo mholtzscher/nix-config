@@ -17,6 +17,11 @@ in
     recipients."personal-mac"
     recipients."wanda"
   ];
+  "github-pat.age".publicKeys = [
+    recipients."nixos-desktop"
+    recipients."personal-mac"
+    recipients."wanda"
+  ];
   "nixos-desktop-cloudflare-tunnel-token.age".publicKeys = [ recipients."nixos-desktop" ];
   "opencode-go-cookie.age".publicKeys = [
     recipients."nixos-desktop"

@@ -19,6 +19,7 @@
     ];
 
     secrets.dummy-env.file = ../../secrets/dummy-env.age;
+    secrets.github-pat.file = ../../secrets/github-pat.age;
     secrets.sideshow-token.file = ../../secrets/sideshow-token.age;
     secrets.atuin-key = {
       file = ../../secrets/atuin-key.age;
