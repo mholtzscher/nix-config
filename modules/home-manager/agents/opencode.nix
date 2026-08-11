@@ -62,7 +62,7 @@ in
         agent = {
           build = {
             model = "openai/gpt-5.6-terra";
-            reasoningEffort = "medium";
+            reasoningEffort = "high";
           };
           plan = {
             model = "openai/gpt-5.6-sol";
