@@ -61,12 +61,12 @@ in
         username = "mholtzscher";
         agent = {
           build = {
-            model = "openai/gpt-5.6-sol";
+            model = "openai/gpt-5.6-terra";
             reasoningEffort = "medium";
           };
           plan = {
             model = "openai/gpt-5.6-sol";
-            reasoningEffort = "high";
+            reasoningEffort = "xhigh";
           };
           explore = {
             model = "opencode-go/deepseek-v4-flash";
