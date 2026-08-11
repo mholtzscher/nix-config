@@ -57,7 +57,7 @@ in
       settings = {
         # share = "disabled";
         plugin = [
-          "@plannotator/opencode@0.26.7"
+          "@plannotator/opencode@0.26.8"
         ];
         username = "mholtzscher";
         agent.plan = {
