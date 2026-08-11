@@ -52,7 +52,6 @@ with pkgs;
   zig
 ]
 ++ pkgs.lib.optionals (!isWork) [
-  inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system}.amp
   (pkgs.callPackage ../../pkgs/railway-cli { })
   bruno
   (pkgs.callPackage ../../pkgs/otel-desktop-viewer { })
