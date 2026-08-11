@@ -55,83 +55,29 @@ in
       enable = !isWork;
       package = inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system}.opencode;
       settings = {
-        # share = "disabled";
         plugin = [
           "@plannotator/opencode@0.26.8"
         ];
         username = "mholtzscher";
-        agent.plan = {
-          model = "openai/gpt-5.6-sol";
-          reasoningEffort = "medium";
-        };
-        # agent.explore.model = "openai/gpt-5.3-codex-spark";
-        agent.explore.model = "opencode/gpt-5.6-luna";
-        # permission = {
-        # bash = { };
-        # external_directory = {
-        #   "~/go/pkg/mod/**" = "allow";
-        #   "~/.cache/go-build/**" = "allow";
-        #   "~/Library/Caches/go-build/**" = "allow";
-        # };
-        # edit = {
-        #   "~/go/pkg/mod/**" = "deny";
-        #   "~/.cache/go-build/**" = "deny";
-        #   "~/Library/Caches/go-build/**" = "deny";
-        # };
-        # read = {
-        #   "*" = "allow";
-        #   "*.env" = "deny";
-        #   "*.env.*" = "deny";
-        #   "*.envrc" = "deny";
-        #   "secrets/*" = "deny";
-        #   ".dev.vars" = "ask";
-        #   "~/.local/share/opencode/mcp-auth.json" = "deny";
-        # };
-        # webfetch = "ask";
-        # };
-        # keybinds = {
-        #   "session_child_cycle" = "shift+right";
-        #   "session_child_cycle_reverse" = "shift+left";
-        # };
-        # lsp = {
-        #   nushell = {
-        #     command = [
-        #       "nu"
-        #       "--lsp"
-        #     ];
-        #     extensions = [ ".nu" ];
-        #   };
-        #   nix = {
-        #     command = [
-        #       "nil"
-        #     ];
-        #     extensions = [ ".nix" ];
-        #   };
-        # };
-
-        # formatter = {
-        #   nix = {
-        #     command = [
-        #       "nixfmt"
-        #       "$FILE"
-        #     ];
-        #     extensions = [ ".nix" ];
-        #   };
-        # };
-        tools = {
-          # "gh_grep*" = false;
-          # "exa*" = false;
+        agent = {
+          build = {
+            model = "openai/gpt-5.6-sol";
+            reasoningEffort = "medium";
+          };
+          plan = {
+            model = "openai/gpt-5.6-sol";
+            reasoningEffort = "high";
+          };
+          explore = {
+            model = "opencode-go/deepseek-v4-flash";
+            reasoningEffort = "high";
+          };
+          general = {
+            model = "openai/gpt-5.6-terra";
+            reasoningEffort = "high";
+          };
         };
         mcp = {
-          github = {
-            enabled = true;
-            type = "remote";
-            url = "https://api.githubcopilot.com/mcp/";
-            oauth = false;
-            headers = {
-              Authorization = "Bearer {env:GITHUB_PERSONAL_ACCESS_TOKEN}";
-            };
-          };
         };
       };
     };
