@@ -2,7 +2,7 @@
 description: Review and refine a spec for cohesiveness and brevity.
 ---
 
-Review and refine $AGRUMENTS for cohesiveness and brevity.
+Review and refine $ARGUMENTS for cohesiveness and brevity.
 
 Goals:
 
