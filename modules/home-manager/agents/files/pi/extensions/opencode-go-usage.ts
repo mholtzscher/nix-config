@@ -2,15 +2,17 @@ import type { ExtensionAPI, ExtensionContext } from "@earendil-works/pi-coding-a
 
 const STATUS_KEY = "opencode-go-usage";
 const REQUEST_TIMEOUT_MS = 15 * 1000;
-const USER_AGENT =
-	"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) Gecko/20100101 Firefox/148.0";
 
 type UsageWindow = {
-	usagePercent: number;
-	resetInSec: number;
+	percent: number;
+	resetsAt: string;
 };
 
 type Usage = Partial<Record<"rolling" | "weekly" | "monthly", UsageWindow>>;
+
+type UsageResponse = {
+	usage?: Usage;
+};
 
 export default function opencodeGoUsage(pi: ExtensionAPI) {
 	let requestId = 0;
@@ -26,28 +28,25 @@ export default function opencodeGoUsage(pi: ExtensionAPI) {
 		const currentRequest = ++requestId;
 
 		try {
-			const workspaceId = process.env.OPENCODE_GO_WORKSPACE_ID;
-			const authCookie = process.env.OPENCODE_GO_AUTH_COOKIE;
-			if (!workspaceId || !authCookie) {
+			const apiKey = process.env.OPENCODE_API_KEY;
+			if (!apiKey) {
 				ctx.ui.setStatus(STATUS_KEY, undefined);
 				return;
 			}
 
-			const url = `https://opencode.ai/workspace/${encodeURIComponent(workspaceId)}/go`;
 			const response = await fetchWithTimeout(
-				url,
+				"https://opencode.ai/zen/go/v1/usage",
 				{
 					headers: {
-						Accept: "text/html",
-						Cookie: authCookieHeader(authCookie),
-						"User-Agent": USER_AGENT,
+						Accept: "application/json",
+						Authorization: `Bearer ${apiKey}`,
 					},
 				},
 				REQUEST_TIMEOUT_MS,
 			);
 			if (!response.ok) throw new Error(`HTTP ${response.status}`);
 
-			const usage = parseUsage(await response.text());
+			const usage = parseUsage(await response.json());
 			if (!usage.rolling && !usage.weekly && !usage.monthly) {
 				throw new Error("usage windows missing");
 			}
@@ -77,80 +76,27 @@ export default function opencodeGoUsage(pi: ExtensionAPI) {
 	});
 }
 
-function authCookieHeader(value: string): string {
-	const authCookie = value
-		.split(";")
-		.map((part) => part.trim())
-		.find((part) => part.startsWith("auth="));
-	return authCookie ?? `auth=${value}`;
+function parseUsage(response: unknown): Usage {
+	const usage = (response as UsageResponse).usage;
+	if (!usage) return {};
+
+	return Object.fromEntries(
+		Object.entries(usage).filter(
+			([name, window]) =>
+				["rolling", "weekly", "monthly"].includes(name) &&
+				isUsageWindow(window),
+		),
+	) as Usage;
 }
 
-function parseUsage(html: string): Usage {
-	const usage: Usage = {
-		rolling: parseSsrWindow(html, "rolling"),
-		weekly: parseSsrWindow(html, "weekly"),
-		monthly: parseSsrWindow(html, "monthly"),
-	};
-
-	if (usage.rolling || usage.weekly || usage.monthly) return usage;
-	return parseDataSlots(html);
-}
-
-function parseSsrWindow(html: string, name: keyof Usage): UsageWindow | undefined {
-	const object = html.match(new RegExp(`${name}Usage:\\$R\\[\\d+\\]=\\{([^}]*)\\}`))?.[1];
-	if (!object) return undefined;
-
-	const usagePercent = numberField(object, "usagePercent");
-	const resetInSec = numberField(object, "resetInSec");
-	if (usagePercent === undefined || resetInSec === undefined) return undefined;
-	return { usagePercent, resetInSec };
-}
-
-function numberField(object: string, field: string): number | undefined {
-	const match = object.match(new RegExp(`${field}:(-?\\d+(?:\\.\\d+)?)`));
-	if (!match) return undefined;
-	const value = Number(match[1]);
-	return Number.isFinite(value) ? value : undefined;
-}
-
-function parseDataSlots(html: string): Usage {
-	const usage: Usage = {};
-
-	for (const item of html.split(/data-slot="usage-item"/).slice(1)) {
-		const label = item.match(/data-slot="usage-label">([^<]+)</)?.[1]?.toLowerCase();
-		const percent = item.match(/data-slot="usage-value">[^0-9]*(\d+(?:\.\d+)?)/)?.[1];
-		const reset = item.match(/data-slot="(reset-time|reset-now)">([\s\S]*?)<\/span>/);
-		if (!label || !percent || !reset) continue;
-
-		const name = (["rolling", "weekly", "monthly"] as const).find((candidate) =>
-			label.includes(candidate),
-		);
-		const usagePercent = Number(percent);
-		const resetInSec = reset[1] === "reset-now" ? 0 : parseDuration(stripHtml(reset[2]));
-		if (!name || !Number.isFinite(usagePercent) || resetInSec === undefined) continue;
-		usage[name] = { usagePercent, resetInSec };
-	}
-
-	return usage;
-}
-
-function stripHtml(value: string): string {
-	return value.replace(/<[^>]*>/g, " ").replace(/Resets?\s+in/i, "").replace(/\s+/g, " ").trim();
-}
-
-function parseDuration(value: string): number | undefined {
-	let seconds = 0;
-	let matched = false;
-	const units = { day: 86_400, hour: 3_600, minute: 60, second: 1 };
-
-	for (const [unit, multiplier] of Object.entries(units)) {
-		const amount = value.match(new RegExp(`(\\d+(?:\\.\\d+)?)\\s*${unit}s?`, "i"))?.[1];
-		if (!amount) continue;
-		matched = true;
-		seconds += Number(amount) * multiplier;
-	}
-
-	return matched && Number.isFinite(seconds) ? seconds : undefined;
+function isUsageWindow(value: unknown): value is UsageWindow {
+	return (
+		typeof value === "object" &&
+		value !== null &&
+		typeof (value as UsageWindow).percent === "number" &&
+		Number.isFinite((value as UsageWindow).percent) &&
+		typeof (value as UsageWindow).resetsAt === "string"
+	);
 }
 
 function formatUsage(usage: Usage): string {
@@ -166,7 +112,7 @@ function formatUsage(usage: Usage): string {
 }
 
 function remainingPercent(window: UsageWindow): string {
-	return Math.max(0, Math.min(100, 100 - window.usagePercent)).toFixed(0);
+	return Math.max(0, Math.min(100, 100 - window.percent)).toFixed(0);
 }
 
 async function fetchWithTimeout(
