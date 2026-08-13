@@ -575,11 +575,11 @@
         "rust-overlay": "rust-overlay"
       },
       "locked": {
-        "lastModified": 1786579235,
-        "narHash": "sha256-d3229clBEK3xKNQG4YR6+a3Ow/js9XKpUUQS6Q3OOFM=",
+        "lastModified": 1786582012,
+        "narHash": "sha256-7X3wdYHtI++gmNHJFQa5pQaDdKE1+UlUq3DltjDTQgA=",
         "owner": "ogulcancelik",
         "repo": "herdr",
-        "rev": "a4d52ab60282b2ad021cb90978a7ed4d3898704b",
+        "rev": "952729ee03e0939d7a9d893f87f24179cf0eb7cb",
         "type": "github"
       },
       "original": {
@@ -655,11 +655,11 @@
         "systems": "systems_5"
       },
       "locked": {
-        "lastModified": 1786507884,
-        "narHash": "sha256-Q2eMZHgXZq9SF7cRke+tVGCYjIY364zoxqtpFSMslP8=",
+        "lastModified": 1786582114,
+        "narHash": "sha256-knuVHkrfm1+HTexNuHl9yy2ge76+wb9vWB/Ur4bKlQ0=",
         "owner": "modem-dev",
         "repo": "hunk",
-        "rev": "cbd77c4890ee4a07bed679162f6dbc1bf6e34885",
+        "rev": "19950197fbca2bbf53712c613399d1e45d262cc0",
         "type": "github"
       },
       "original": {
@@ -692,11 +692,11 @@
         "treefmt-nix": "treefmt-nix_2"
       },
       "locked": {
-        "lastModified": 1786580924,
-        "narHash": "sha256-ywMRlC5XSNxVTt+LNGNBxlGwQ5sWyjVNKthDivK9QqY=",
+        "lastModified": 1786581881,
+        "narHash": "sha256-02cu7iUeQNpQ6e5y/zBCQLJXpKNe7evv/9hYIwyEIro=",
         "owner": "numtide",
         "repo": "llm-agents.nix",
-        "rev": "e78c43cccf817c4aea469b2ee0a2e60ac54ce746",
+        "rev": "0948ef0098ceb7b909e01ad0151ce0077b25d435",
         "type": "github"
       },
       "original": {
