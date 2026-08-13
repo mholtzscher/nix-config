@@ -17,8 +17,7 @@
     slurp
     wl-clipboard
 
-    # Disc ripping and playback
-    makemkv
+    # Media playback
     vlc
   ];
 
