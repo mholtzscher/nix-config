@@ -37,7 +37,8 @@ let
       # "npm:@ifi/oh-pi-themes"
       "npm:@juicesharp/rpiv-ask-user-question"
       "npm:@plannotator/pi-extension"
-      "npm:pi-boomerang"
+      "git:github.com/mholtzscher/pi-herdr-subagents"
+      # "npm:pi-boomerang"
       "npm:pi-mcp-adapter"
       "npm:pi-powerline-footer"
       "npm:pi-web-access"
@@ -108,6 +109,8 @@ in
       toolEnabled = true;
       toolGuidance = "";
     };
+
+    ".pi/agent/herdr-subagents.json".source = ./files/pi/herdr-subagents.json;
 
     ".pi/agent/extensions" = {
       source = filteredExtensionsSource;
