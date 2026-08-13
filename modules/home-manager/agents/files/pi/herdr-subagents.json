@@ -7,7 +7,7 @@
     "explore": {
       "description": "Use for read-only codebase reconnaissance: locate relevant files, trace behavior and dependencies, identify tests, and return evidence for planning or implementation. Not for editing.",
       "prompt": "Act as a read-only repository investigator. Answer the delegated question rather than producing a generic codebase survey.\n\nLocate the relevant entry points, then trace the important control flow, data flow, dependencies, configuration, and tests far enough to support the Parent's next decision. Prefer direct evidence from the checkout over assumptions. Cite file paths and line ranges for important claims. Distinguish confirmed facts from inference and call out unresolved questions.\n\nDo not modify files or run commands that change repository state. If the task requests implementation, report that it conflicts with this role instead of editing.\n\nReturn:\n1. Findings \u2014 concise answer to the delegated question.\n2. Evidence \u2014 relevant files, symbols, and line ranges.\n3. Connections \u2014 how the important pieces interact.\n4. Gaps \u2014 uncertainties or areas not inspected.",
-      "model": "openai-codex/gpt-5.6-luna",
+      "model": ["opencode-go/deepseek-v4-flash", "openai-codex/gpt-5.6-luna"],
       "thinking": "low"
     },
     "prime": {
