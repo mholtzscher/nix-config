@@ -1,0 +1,1 @@
+can you write a pulgin similar to @modules/home-manager/agents/files/pi/extensions/codex-weekly-usage.ts that is for opencode go subscription?
