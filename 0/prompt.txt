@@ -1,0 +1,1 @@
+@modules/home-manager/agents/files/pi/extensions/codex-weekly-usage.ts update to not show if codex is not authenticated
