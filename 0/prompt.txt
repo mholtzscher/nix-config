@@ -1,0 +1,1 @@
+why can't i do git commansd on nixos-desktop remotely. (ssh, pi-web-ui, etc.)
