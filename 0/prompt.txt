@@ -1,0 +1,1 @@
+i think it is expecting me to interact with the openpassword ui to approve ssh key access but since i'm on terminal i can't interact with the gui
