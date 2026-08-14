@@ -1,0 +1,1 @@
+can we create a new plugin that lists all branches, local and remote, to use as base of a new worktree
