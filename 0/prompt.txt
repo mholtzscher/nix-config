@@ -1,0 +1,16 @@
+my agenix setup seems to be broken. it started after i restarted my mac. Last login: Sat Jul 18 09:48:44 on ttys002
+cat: /var/folders/_v/_cpzsblx6sl55whk6p04rb4w0000gn/T//agenix/agent-artifacts-write-key: No such file or directory
+cat: /var/folders/_v/_cpzsblx6sl55whk6p04rb4w0000gn/T//agenix/dummy-env: No such file or directory
+cat: /var/folders/_v/_cpzsblx6sl55whk6p04rb4w0000gn/T//agenix/sideshow-token: No such file or directory
+Atuin settings paths are broken. Disabling atuin shell hooks. Run `atuin doctor` to diagnose.
+Error: nu::shell::io::file_not_found
+
+  × File not found
+   ╭─[/Users/michael/Library/Application Support/nushell/config.nu:3:47]
+ 2 │     "AGENT_ARTIFACTS_BASE_URL": "https://artifacts.holtzscher.com"
+ 3 │     "AGENT_ARTIFACTS_WRITE_KEY": ((open --raw ([(^/nix/store/REDACTED.100.6.0.1/bin/getconf DARWIN_USER_TEMP_DIR | str trim) "agenix" "agent-artifacts-write-key"] | path join) | str trim)
+   ·                                               ─────────────────────────────────────────────────────────────────────────────────────────┬────────────────────────────────────────────────────────────────────────────────────────
+   ·                                                                                                                                        ╰── File not found
+ 4 │ )
+   ╰────
+  help: '/var/folders/_v/_cpzsblx6sl55whk6p04rb4w0000gn/T/agenix/agent-artifacts-write-key' does not exist
