@@ -1,0 +1,1 @@
+you need a gitignore in the plugin folder that is rust specific
