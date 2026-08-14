@@ -1,0 +1,1 @@
+the opencode-go usage data isn't showing in status bar anymore
