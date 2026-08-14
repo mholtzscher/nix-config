@@ -1,0 +1,1 @@
+can we switch to the new workspace after creating the worktree?
