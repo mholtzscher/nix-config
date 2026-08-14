@@ -1,0 +1,1 @@
+can we make the pi's settings.json writable temporarily
