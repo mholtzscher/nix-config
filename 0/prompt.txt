@@ -1,0 +1,1 @@
+install the entire cli from the llm-agents flake on all hosts
