@@ -1,0 +1,15 @@
+❯ : sh scripts/update-all.sh
+Updating all packages to latest release...
+
+→ plannotator ... ✓
+  Updated plannotator: 0.23.1 -> 0.23.1
+  Updated files:
+
+→ railway-cli ... ✗
+  scripts/update-all.sh: line 55: /Users/michael/.config/nix-config/scripts/updates/update-railway-cli.sh: Permission denied
+
+→ vimhjkl ... ✓
+  Updated vimhjkl: 0.6.0 -> 0.6.0
+  Updated files:
+
+Failed: 1 update(s) failed.
