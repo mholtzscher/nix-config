@@ -1,0 +1,1 @@
+add the home manager program config and control install via the enable field
