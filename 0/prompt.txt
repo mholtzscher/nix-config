@@ -1,0 +1,1 @@
+setup this model in agent skills https://github.com/dmmulroy/.dotfiles/blob/main/home/.agents/skills/bro/SKILL.md
