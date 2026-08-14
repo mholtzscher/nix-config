@@ -1,0 +1,1 @@
+i think the problem is the mac notifications don't show for me since i run terminal as full screen app usually in workspace
