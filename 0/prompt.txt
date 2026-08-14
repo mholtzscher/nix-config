@@ -1,0 +1,1 @@
+why isn't ssh to nixos-desktop from personal mac not forwarding ssh agent? i ccan't interact with git on nixos-desktop again
