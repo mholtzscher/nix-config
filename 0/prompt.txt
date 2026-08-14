@@ -1,0 +1,1 @@
+update the plannotator commands in @modules/home-manager/agents/files/commands/ to match latest in https://github.com/backnotprop/plannotator/tree/main/apps/opencode-plugin/commands
