@@ -1,0 +1,1 @@
+can you add the plugin too to be required? https://github.com/thanhdat77/herdr-navigator
