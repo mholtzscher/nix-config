@@ -1,0 +1,1 @@
+how do i parse json in nushell from stdin?
