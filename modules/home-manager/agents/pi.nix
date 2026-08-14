@@ -110,7 +110,18 @@ in
       toolGuidance = "";
     };
 
-    ".pi/agent/herdr-subagents.json".source = ./files/pi/herdr-subagents.json;
+    ".pi/agent/herdr-subagents.json".text = builtins.toJSON {
+      orchestrator.enabled = true;
+      defaults = {
+        model = "openai-codex/gpt-5.6-terra";
+        thinking = "high";
+      };
+    };
+
+    ".pi/agent/herdr-subagents/roles" = {
+      source = ./files/pi/herdr-subagents/roles;
+      recursive = true;
+    };
 
     ".pi/agent/extensions" = {
       source = filteredExtensionsSource;
