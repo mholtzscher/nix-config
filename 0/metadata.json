@@ -1,0 +1,48 @@
+{
+  "cli_version": "0.10.0",
+  "checkpoint_id": "01M00HFKT66SD9GKFBRNYGPDJN",
+  "session_id": "01a0010d-c2ec-7e74-9abc-cb4fb8c39b59",
+  "strategy": "manual-commit",
+  "created_at": "2026-08-14T16:25:51.862843Z",
+  "branch": "main",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "modules/home-manager/agents/files/pi/herdr-subagents.json",
+    "modules/home-manager/agents/files/pi/herdr-subagents/roles/explore.md",
+    "modules/home-manager/agents/files/pi/herdr-subagents/roles/implement.md",
+    "modules/home-manager/agents/files/pi/herdr-subagents/roles/prime.md",
+    "modules/home-manager/agents/pi.nix"
+  ],
+  "agent": "Pi",
+  "model": "gpt-5.6-sol",
+  "turn_id": "245de71e105c",
+  "compact_transcript_start": 0,
+  "token_usage": {
+    "input_tokens": 42721,
+    "cache_creation_tokens": 0,
+    "cache_read_tokens": 332800,
+    "output_tokens": 6872,
+    "api_call_count": 17
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-08-14T16:25:51.846335Z",
+    "agent_lines": 8,
+    "agent_removed": 30,
+    "human_added": 0,
+    "human_modified": 214,
+    "human_removed": 4,
+    "total_committed": 222,
+    "total_lines_changed": 256,
+    "agent_percentage": 14.84375,
+    "metric_version": 2
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 1,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0
+    }
+  ]
+}

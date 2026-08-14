@@ -1,0 +1,30 @@
+{
+  "cli_version": "0.10.0",
+  "checkpoint_id": "01M00HFKT66SD9GKFBRNYGPDJN",
+  "strategy": "manual-commit",
+  "branch": "main",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "modules/home-manager/agents/files/pi/herdr-subagents.json",
+    "modules/home-manager/agents/files/pi/herdr-subagents/roles/explore.md",
+    "modules/home-manager/agents/files/pi/herdr-subagents/roles/implement.md",
+    "modules/home-manager/agents/files/pi/herdr-subagents/roles/prime.md",
+    "modules/home-manager/agents/pi.nix"
+  ],
+  "sessions": [
+    {
+      "metadata": "/0/metadata.json",
+      "transcript": "/0/full.jsonl",
+      "compact_transcript": "/0/transcript.jsonl",
+      "content_hash": "/0/content_hash.txt",
+      "prompt": "/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 42721,
+    "cache_creation_tokens": 0,
+    "cache_read_tokens": 332800,
+    "output_tokens": 6872,
+    "api_call_count": 17
+  }
+}

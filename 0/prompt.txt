@@ -1,0 +1,60 @@
+Migrate my Nix-managed pi-herdr-subagents configuration from inline JSON roles to the new Markdown role catalogue.
+
+   Required target layout:
+
+   ~/.pi/agent/herdr-subagents.json
+   ~/.pi/agent/herdr-subagents/roles/<role-name>.md
+
+   Make these changes in the Nix source that manages those files:
+
+   1. Keep only `orchestrator` and `defaults` in `herdr-subagents.json`.
+   2. Remove the JSON `roles` property completely.
+   3. Create one managed Markdown file per existing role at:
+      `.pi/agent/herdr-subagents/roles/<role-name>.md`
+   4. For each role document:
+      - derive the role name from the filename;
+      - put optional `description`, `model`, and `thinking` fields in YAML frontmatter;
+      - put the former `prompt` value in the Markdown body;
+      - preserve prompt wording, paragraphs, lists, and internal whitespace;
+      - ensure the body is non-empty.
+   5. Prefer readable Nix multiline strings instead of escaped JSON prompt strings.
+   6. Preserve all existing role metadata and model candidate ordering exactly.
+   7. Do not introduce project-local catalogues, nesting, inheritance, or templating.
+   8. Update any comments or documentation in the Nix configuration that still describes inline JSON roles.
+
+   Example Nix shape:
+
+   home.file.".pi/agent/herdr-subagents.json".text = builtins.toJSON {
+     orchestrator.enabled = false;
+     defaults = {
+       model = [
+         "provider/model-a"
+         "provider/model-b"
+       ];
+       thinking = "medium";
+     };
+   };
+
+   home.file.".pi/agent/herdr-subagents/roles/explore.md".text = ''
+     ---
+     description: Read-only repository exploration
+     model:
+       - provider/model-a
+       - provider/model-b
+     thinking: low
+     ---
+
+     Act as a read-only repository investigator.
+
+     Preserve the complete existing prompt here.
+   '';
+
+   Inspect the repository first and match its existing Nix/Home Manager conventions. Make only migration-related changes.
+
+   Verify by:
+   - running the repository’s normal Nix formatting and checks;
+   - building or evaluating the affected Home Manager configuration;
+   - confirming the generated JSON has no `roles` property;
+   - confirming every generated role document has valid YAML frontmatter and a non-empty body.
+
+   Report the changed files, migrated role names, and verification results. Remind me to run `/reload` in Pi after applying the configuration.
