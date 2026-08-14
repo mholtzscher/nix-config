@@ -1,0 +1,1 @@
+what is installing docker to cli? i see it available in my path
