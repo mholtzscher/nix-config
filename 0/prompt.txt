@@ -1,0 +1,1 @@
+write a pi extension that shows my codex weekly usage in footer
