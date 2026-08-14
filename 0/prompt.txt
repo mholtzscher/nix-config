@@ -1,0 +1,1 @@
+is there a way to configure neovim so that if i hightlight a line then use > or < to change indent i can do that multiple times withough having to hit V to highlight a line again?
