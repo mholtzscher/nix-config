@@ -1,0 +1,1 @@
+where does the extension js get installed?
