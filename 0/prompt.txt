@@ -1,0 +1,1 @@
+what about create a new worktree that is not from existing branch, that doesn't work now
