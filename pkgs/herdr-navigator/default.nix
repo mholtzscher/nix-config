@@ -6,13 +6,13 @@
 
 rustPlatform.buildRustPackage rec {
   pname = "herdr-navigator";
-  version = "0.3.5";
+  version = "0.3.6";
 
   src = fetchFromGitHub {
     owner = "thanhdat77";
     repo = "herdr-navigator";
     rev = "v${version}";
-    hash = "sha256-TOAURrMM2UnFaVBFC+ElRaFqYZVx3GtpAx3PuRlc5Nc=";
+    hash = "sha256-+xtBu4m2YenFH+W3Sv7atDvcsgChS5mKXgVgKomM768=";
   };
 
   cargoLock.lockFile = "${src}/Cargo.lock";
