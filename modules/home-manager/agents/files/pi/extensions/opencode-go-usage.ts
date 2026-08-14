@@ -1,5 +1,6 @@
 import type { ExtensionAPI, ExtensionContext } from "@earendil-works/pi-coding-agent";
 
+const PROVIDER = "opencode-go";
 const STATUS_KEY = "opencode-go-usage";
 const REQUEST_TIMEOUT_MS = 15 * 1000;
 
@@ -28,7 +29,7 @@ export default function opencodeGoUsage(pi: ExtensionAPI) {
 		const currentRequest = ++requestId;
 
 		try {
-			const apiKey = process.env.OPENCODE_API_KEY;
+			const apiKey = await getApiKey(ctx);
 			if (!apiKey) {
 				ctx.ui.setStatus(STATUS_KEY, undefined);
 				return;
@@ -74,6 +75,18 @@ export default function opencodeGoUsage(pi: ExtensionAPI) {
 		stop();
 		ctx.ui.setStatus(STATUS_KEY, undefined);
 	});
+}
+
+async function getApiKey(ctx: ExtensionContext): Promise<string | undefined> {
+	const models = [ctx.model, ...ctx.modelRegistry.getAvailable(), ...ctx.modelRegistry.getAll()];
+
+	for (const model of models) {
+		if (!model || model.provider !== PROVIDER) continue;
+		const auth = await ctx.modelRegistry.getApiKeyAndHeaders(model);
+		if (auth.ok && auth.apiKey) return auth.apiKey;
+	}
+
+	return process.env.OPENCODE_API_KEY;
 }
 
 function parseUsage(response: unknown): Usage {
