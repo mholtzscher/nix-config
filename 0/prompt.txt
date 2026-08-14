@@ -1,0 +1,1 @@
+we need to update @modules/home-manager/agents/files/pi/prompts/pr.md so that if we're already on a branch or worktree to use that branch. also don't assume origin/main for prs. check the repo's default branch
