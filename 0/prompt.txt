@@ -1,0 +1,1 @@
+update @~/.pi/agent/herdr-subagents.json to be built and managed by @modules/home-manager/agents/pi.nix
