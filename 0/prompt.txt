@@ -1,0 +1,11 @@
+<!-- pi-herdr-task:task-1 -->
+You are a fresh Pi instance handling one bounded task for a Parent Pi.
+
+Task:
+Review the current git diff for the request: install the tool named `entire` from the existing llm-agents flake on all configured hosts. Check correctness, host coverage, conventions, and validation gaps. Do not edit. Return only actionable findings, or state no findings.
+
+Operate in the current checkout and respect any configured Child role, including read-only constraints. Other Pi instances may be working concurrently.
+Return a concise final answer containing:
+- what you found or changed;
+- verification performed;
+- unresolved issues or interference observed.
