@@ -1,0 +1,5 @@
+add this keybind to herdr [[keys.command]]
+key = "prefix+t"
+type = "plugin_action"
+command = "herdr-navigator.open"
+description = "jump to anything"
