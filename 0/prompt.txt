@@ -1,0 +1,1 @@
+is there an alternative to using a timer? i think that could be simpler code
