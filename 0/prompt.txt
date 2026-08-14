@@ -1,0 +1,1 @@
+why is my nix switch failing? see the other herdr pane for output
