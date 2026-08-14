@@ -1,0 +1,11 @@
+<!-- pi-herdr-task:task-1 -->
+You are a fresh Pi instance handling one bounded task for a Parent Pi.
+
+Task:
+Investigate why opencode-go usage data may no longer show in the status bar in this nix-config repo. Trace relevant config/scripts, identify likely bug and exact edit points. Do not modify files. Report findings and suggested verification.
+
+Operate in the current checkout and respect any configured Child role, including read-only constraints. Other Pi instances may be working concurrently.
+Return a concise final answer containing:
+- what you found or changed;
+- verification performed;
+- unresolved issues or interference observed.
