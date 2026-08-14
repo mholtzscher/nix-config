@@ -1,0 +1,6 @@
+why is pi-web update script failing? → pi-web ... ✗
+  -> Fetching source archive for v1.202607.3...
+  -> Computing npm dependency hash...
+  error:
+         … in the condition of the assert statement
+           at /nix/store/REDACTED/lib/customisation.nix:416:13:
