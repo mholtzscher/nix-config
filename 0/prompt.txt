@@ -1,0 +1,1 @@
+move our herdr config to use homemanager config insteda of raw toml https://github.com/nix-community/home-manager/blob/master/modules/programs/herdr.nix

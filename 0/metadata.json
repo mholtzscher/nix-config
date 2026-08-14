@@ -1,0 +1,22 @@
+{
+  "cli_version": "0.10.0",
+  "checkpoint_id": "511a0ba3df63",
+  "session_id": "019fc406-5f77-748c-b097-0a0421d4fd0f",
+  "strategy": "import",
+  "created_at": "2026-08-02T19:49:57.768Z",
+  "checkpoints_count": 1,
+  "files_touched": null,
+  "agent": "Pi",
+  "model": "gpt-5.6-sol",
+  "checkpoint_transcript_start": 4,
+  "transcript_lines_at_start": 4,
+  "compact_transcript_start": 0,
+  "token_usage": {
+    "input_tokens": 34218,
+    "cache_creation_tokens": 0,
+    "cache_read_tokens": 260608,
+    "output_tokens": 3766,
+    "api_call_count": 14
+  },
+  "kind": "imported"
+}
