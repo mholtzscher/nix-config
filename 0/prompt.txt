@@ -1,0 +1,1 @@
+it shouldn't be installed on work hosts
