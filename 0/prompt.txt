@@ -1,0 +1,1 @@
+for @modules/home-manager/agents/files/pi/extensions/codex-weekly-usage.ts what is output formatting template?
