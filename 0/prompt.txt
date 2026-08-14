@@ -1,0 +1,1 @@
+i think i need to setup agenix key for atuin on wanda host. read the other herdr pane to see my error i'm getting
