@@ -1,0 +1,1 @@
+do we have to convert the herdr plugins to nix packages? can we just use the install command?
