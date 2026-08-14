@@ -1,0 +1,1 @@
+i don't want agent-start or tool calls. i want to know when the agent is done or waiting on me
