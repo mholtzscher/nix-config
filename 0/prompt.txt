@@ -1,0 +1,2 @@
+installed pi integration to /Users/michael/.pi/agent/extensions/herdr-agent-state.ts
+      {"id":"cli:plugin","error":{"code":"protocol_mismatch","message":"client protocol 19 is newer than server protocol 17; restart the Herdr server before using this command. Stop the old server to use the new version.\nStopping exits pane processes.\nRun `herdr server stop`, then run `herdr` again."}}
