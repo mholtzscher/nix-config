@@ -1,0 +1,1 @@
+ssh agent forwarding doesn't seem to be working when i ssh to nixos-desktop. when doing a git pull on that host i get permission denied
