@@ -1,0 +1,1 @@
+add this plugin to be installed in @modules/home-manager/agents/pi.nix https://github.com/mholtzscher/pi-herdr-subagents. comment out pi-boomerang then
