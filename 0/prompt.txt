@@ -1,0 +1,1 @@
+is that the right syntax for the plugin install from git?
