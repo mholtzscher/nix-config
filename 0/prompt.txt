@@ -1,0 +1,1 @@
+i meant show me the setup we've done in our nix config to enable that
