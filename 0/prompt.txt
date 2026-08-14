@@ -1,0 +1,1 @@
+currently llm-agents input follows our nixpkgs, this causes cache misses. what is the risk of letting it follow it's own nikpkgs version insteda of using mine?
