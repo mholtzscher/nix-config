@@ -1,0 +1,1 @@
+i want to make herdr keybinds be more like my zellij keybinds. propose a mapping for important keybinds
