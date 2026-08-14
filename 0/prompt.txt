@@ -1,0 +1,157 @@
+nix-config main* ≡
+❯ : nh darwin switch
+> Building Darwin configuration
+warning: Git tree '/Users/michael/.config/nix-config' is dirty
+these 13 derivations will be built:
+  /nix/store/REDACTED.tar.gz.drv
+  /nix/store/REDACTED.27.0.drv
+  /nix/store/REDACTED.drv
+  /nix/store/REDACTED.drv
+  /nix/store/45a5fsjq8d2p8p5falpwzrpb1ckl67dv-etc.drv
+  /nix/store/REDACTED.drv
+  /nix/store/REDACTED.drv
+  /nix/store/REDACTED.homemanagerfontsversion.drv
+  /nix/store/a76hfdf2ffcwsb0a9nwcq18l09saib8c-home-manager-files.drv
+  /nix/store/REDACTED.drv
+  /nix/store/REDACTED.drv
+  /nix/store/REDACTED.drv
+  /nix/store/REDACTED.11.57a3171.drv
+PkhxMAx252NYBiHP9CM=.tar.gz> building '/nix/store/REDACTED.tar.gz.drv'
+PkhxMAx252NYBiHP9CM=.tar.gz> structuredAttrs is enabled
+PkhxMAx252NYBiHP9CM=.tar.gz>
+PkhxMAx252NYBiHP9CM=.tar.gz> trying https://github.com/railwayapp/cli/releases/download/v5.27.0/railway-v5.27.REDACTED/PkhxMAx252NYBiHP9CM=.tar.gz
+PkhxMAx252NYBiHP9CM=.tar.gz>   % Total    % Received % Xferd  Average Speed  Time    Time    Time   Current
+PkhxMAx252NYBiHP9CM=.tar.gz>                                  Dload  Upload  Total   Spent   Left   Speed
+PkhxMAx252NYBiHP9CM=.tar.gz>   0      0   0      0   0      0      0      0                              0
+PkhxMAx252NYBiHP9CM=.tar.gz> curl: (22) The requested URL returned error: 404
+PkhxMAx252NYBiHP9CM=.tar.gz> Warning: Problem (retrying all errors). Retrying in 1 second. 3 retries left.
+PkhxMAx252NYBiHP9CM=.tar.gz>   0      0   0      0   0      0      0      0                              0
+PkhxMAx252NYBiHP9CM=.tar.gz> curl: (22) The requested URL returned error: 404
+PkhxMAx252NYBiHP9CM=.tar.gz> Warning: Problem (retrying all errors). Retrying in 2 seconds. 2 retries left.
+PkhxMAx252NYBiHP9CM=.tar.gz>   0      0   0      0   0      0      0      0                              0
+PkhxMAx252NYBiHP9CM=.tar.gz> curl: (22) The requested URL returned error: 404
+PkhxMAx252NYBiHP9CM=.tar.gz> Warning: Problem (retrying all errors). Retrying in 4 seconds. 1 retry left.
+PkhxMAx252NYBiHP9CM=.tar.gz>   0      0   0      0   0      0      0      0                              0
+PkhxMAx252NYBiHP9CM=.tar.gz> curl: (22) The requested URL returned error: 404
+PkhxMAx252NYBiHP9CM=.tar.gz> error: cannot download PkhxMAx252NYBiHP9CM=.tar.gz from any mirror
+error: Cannot build '/nix/store/REDACTED.tar.gz.drv'.
+       Reason: builder failed with exit code 1.
+       Output paths:
+         /nix/store/REDACTED.tar.gz
+       Last 17 log lines:
+       > structuredAttrs is enabled
+       >
+       > trying https://github.com/railwayapp/cli/releases/download/v5.27.0/railway-v5.27.REDACTED/PkhxMAx252NYBiHP9CM=.tar.gz
+       >   % Total    % Received % Xferd  Average Speed  Time    Time    Time   Current
+       >                                  Dload  Upload  Total   Spent   Left   Speed
+       >   0      0   0      0   0      0      0      0                              0
+       > curl: (22) The requested URL returned error: 404
+       > Warning: Problem (retrying all errors). Retrying in 1 second. 3 retries left.
+       >   0      0   0      0   0      0      0      0                              0
+       > curl: (22) The requested URL returned error: 404
+       > Warning: Problem (retrying all errors). Retrying in 2 seconds. 2 retries left.
+       >   0      0   0      0   0      0      0      0                              0
+       > curl: (22) The requested URL returned error: 404
+       > Warning: Problem (retrying all errors). Retrying in 4 seconds. 1 retry left.
+       >   0      0   0      0   0      0      0      0                              0
+       > curl: (22) The requested URL returned error: 404
+       > error: cannot download PkhxMAx252NYBiHP9CM=.tar.gz from any mirror
+       For full logs, run:
+         nix log /nix/store/REDACTED.tar.gz.drv
+error: Cannot build '/nix/store/REDACTED.27.0.drv'.
+       Reason: 1 dependency failed.
+       Output paths:
+         /nix/store/2xpmrsy1lf0z3vazcsm3rfvxy60c4im6-railway-5.27.0
+error: Cannot build '/nix/store/REDACTED.drv'.
+       Reason: 1 dependency failed.
+       Output paths:
+         /nix/store/REDACTED
+error: Cannot build '/nix/store/REDACTED.drv'.
+       Reason: 1 dependency failed.
+       Output paths:
+         /nix/store/REDACTED
+error: Cannot build '/nix/store/REDACTED.drv'.
+       Reason: 1 dependency failed.
+       Output paths:
+         /nix/store/REDACTED
+error: Cannot build '/nix/store/REDACTED.drv'.
+       Reason: 1 dependency failed.
+       Output paths:
+         /nix/store/REDACTED
+error: Cannot build '/nix/store/REDACTED.drv'.
+       Reason: 1 dependency failed.
+       Output paths:
+         /nix/store/REDACTED
+error: Cannot build '/nix/store/REDACTED.drv'.
+       Reason: 1 dependency failed.
+       Output paths:
+         /nix/store/REDACTED
+error: Cannot build '/nix/store/REDACTED.11.57a3171.drv'.
+       Reason: 1 dependency failed.
+       Output paths:
+         /nix/store/REDACTED.11.57a3171
+┏━ 9 Errors:
+ ⋮
+┃          /nix/store/REDACTED
+┃ error: Cannot build '/nix/store/REDACTED.drv'.
+┃        Reason: 1 dependency failed.
+┃        Output paths:
+┃          /nix/store/REDACTED
+┃ error: Cannot build '/nix/store/REDACTED.drv'.
+┃        Reason: 1 dependency failed.
+┃        Output paths:
+┃          /nix/store/REDACTED
+┃ error: Cannot build '/nix/store/REDACTED.drv'.
+┃        Reason: 1 dependency failed.
+┃        Output paths:
+┃          /nix/store/REDACTED
+┃ error: Cannot build '/nix/store/REDACTED.27.0.drv'.
+┃        Reason: 1 dependency failed.
+┃        Output paths:
+┃          /nix/store/2xpmrsy1lf0z3vazcsm3rfvxy60c4im6-railway-5.27.0
+┃ error: Cannot build '/nix/store/REDACTED.tar.gz.drv'.
+┃        Reason: builder failed with exit code 1.
+┃        Output paths:
+┃          /nix/store/REDACTED.tar.gz
+┃        Last 17 log lines:
+┃        > structuredAttrs is enabled
+┃        >
+┃        > trying https://github.com/railwayapp/cli/releases/download/v5.27.0/railway-v5.27.REDACTED/PkhxMA…
+┃        >   % Total    % Received % Xferd  Average Speed  Time    Time    Time   Current
+┃        >                                  Dload  Upload  Total   Spent   Left   Speed
+┃        >   0      0   0      0   0      0      0      0                              0
+┃        > curl: (22) The requested URL returned error: 404
+┃        > Warning: Problem (retrying all errors). Retrying in 1 second. 3 retries left.
+┃        >   0      0   0      0   0      0      0      0                              0
+┃        > curl: (22) The requested URL returned error: 404
+┃        > Warning: Problem (retrying all errors). Retrying in 2 seconds. 2 retries left.
+┃        >   0      0   0      0   0      0      0      0                              0
+┃        > curl: (22) The requested URL returned error: 404
+┃        > Warning: Problem (retrying all errors). Retrying in 4 seconds. 1 retry left.
+┃        >   0      0   0      0   0      0      0      0                              0
+┃        > curl: (22) The requested URL returned error: 404
+┃        > error: cannot download PkhxMAx252NYBiHP9CM=.tar.gz from any mirror
+┃        For full logs, run:
+┃          nix log /nix/store/REDACTED.tar.gz.drv
+┣━ Dependency Graph:
+┃       ┌─ ⏸ activation-script waiting for 1 ⏵
+┃       │     ┌─ ⏸ home-manager-fonts waiting for 1 ⏵
+┃       │  ┌─ ⏸ hm_LibraryFonts.homemanagerfontsversion
+┃       │  ├─ ⏸ home-manager-applications waiting for 1 ⏵
+┃       ├─ ⏸ home-manager-files
+┃    ┌─ ⏸ home-manager-generation
+┃ ┌─ ⏸ activation-michael
+┃ │           ┌─ ⏵ PkhxMAx252NYBiHP9CM=.tar.gz ⏱ 8s
+┃ │        ┌─ ⏸ railway-5.27.0
+┃ │     ┌─ ⏸ home-manager-path
+┃ │  ┌─ ⏸ user-environment
+┃ ├─ ⏸ etc
+┃ ⏸ darwin-system-26.11.57a3171
+┣━━━ Builds
+┗━ ∑ ⏵ 1 │ ✔ 0 │ ⏸ 12 │ ⚠ Exited with 9 errors reported by nix at 19:51:51 after 27s
+Error:
+   0: Failed to build Darwin configuration
+   1: Command exited with status ExitStatus(Exited(1))
+
+Location:
+   crates/nh-core/src/command.rs:1044
