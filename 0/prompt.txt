@@ -1,0 +1,11 @@
+<!-- pi-herdr-task:task-1 -->
+You are a fresh Pi instance handling one bounded task for a Parent Pi.
+
+Task:
+Explore this Nix repo for the llm-agents flake input and package installation conventions. Determine exactly which package attr represents the entire CLI, where to add it so all hosts receive it, relevant flake input wiring, configured hosts, and validation commands. Do not edit. Report paths and concise recommended change with risks.
+
+Operate in the current checkout and respect any configured Child role, including read-only constraints. Other Pi instances may be working concurrently.
+Return a concise final answer containing:
+- what you found or changed;
+- verification performed;
+- unresolved issues or interference observed.
