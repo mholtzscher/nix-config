@@ -1,0 +1,2 @@
+{"v":1,"agent":"pi","cli_version":"0.10.0","type":"user","ts":"2026-07-19T21:15:02.077Z","content":[{"text":"hi"}]}
+{"v":1,"agent":"pi","cli_version":"0.10.0","type":"assistant","ts":"2026-07-19T21:15:03.818Z","id":"7a1e09d3","input_tokens":8149,"output_tokens":11,"content":[{"type":"text","text":"Hi! How can I help?"}]}
