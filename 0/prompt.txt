@@ -1,0 +1,1 @@
+update to install herdr from llm-agents flake insteda of nix packages
