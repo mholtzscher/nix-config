@@ -1,0 +1,1 @@
+i fixed the env var but now it shows as GO:unavailable
