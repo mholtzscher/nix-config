@@ -113,6 +113,7 @@ in
     ".pi/agent/herdr-subagents.json".text = builtins.toJSON {
       orchestrator.enabled = true;
       defaults = {
+        placement = "tab";
         model = "openai-codex/gpt-5.6-terra";
         thinking = "high";
       };
