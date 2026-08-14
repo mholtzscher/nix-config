@@ -1,0 +1,56 @@
+{
+  "cli_version": "0.10.0",
+  "checkpoint_id": "01M00HFKT66SD9GKFBRNYGPDJN",
+  "session_id": "a62fede0-2fa8-4e3c-84cf-bd2e137faad8",
+  "strategy": "manual-commit",
+  "created_at": "2026-08-14T16:25:52.149985Z",
+  "branch": "main",
+  "checkpoints_count": 1,
+  "save_step_count": 1,
+  "files_touched": [
+    "modules/home-manager/agents/files/pi/herdr-subagents.json",
+    "modules/home-manager/agents/pi.nix"
+  ],
+  "agent": "Pi",
+  "model": "deepseek-v4-flash",
+  "turn_id": "7ccf86271f57",
+  "compact_transcript_start": 0,
+  "token_usage": {
+    "input_tokens": 45902,
+    "cache_creation_tokens": 0,
+    "cache_read_tokens": 1633792,
+    "output_tokens": 30492,
+    "api_call_count": 39
+  },
+  "session_metrics": {
+    "turn_count": 1
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-08-14T16:25:52.122835Z",
+    "agent_lines": 0,
+    "agent_removed": 0,
+    "human_added": 0,
+    "human_modified": 214,
+    "human_removed": 34,
+    "total_committed": 0,
+    "total_lines_changed": 248,
+    "agent_percentage": 0,
+    "metric_version": 2
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 1,
+      "user_lines_added": 226,
+      "user_lines_removed": 30,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0,
+      "user_added_per_file": {
+        "modules/home-manager/agents/pi.nix": 226
+      },
+      "user_removed_per_file": {
+        "modules/home-manager/agents/files/pi/herdr-subagents.json": 29,
+        "modules/home-manager/agents/pi.nix": 1
+      }
+    }
+  ]
+}
