@@ -124,12 +124,6 @@
       package = pkgs.niri;
     };
 
-    dank-material-shell = {
-      enable = true;
-      systemd.enable = true;
-      systemd.target = "niri.service";
-    };
-
     noctalia = {
       enable = true;
       systemd = {
@@ -152,12 +146,6 @@
 
     # Enable gamemode for performance optimizations during gaming
     gamemode.enable = true;
-  };
-
-  # Start only the shell selected in Noctalia Greeter.
-  systemd.user.services = {
-    dms.unitConfig.ConditionEnvironment = "NIRI_SHELL=dms";
-    noctalia.unitConfig.ConditionEnvironment = "NIRI_SHELL=noctalia";
   };
 
   # Enable Docker containers

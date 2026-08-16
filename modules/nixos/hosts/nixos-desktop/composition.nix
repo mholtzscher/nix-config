@@ -45,10 +45,10 @@ let
 
         section "versions"
         niri --version 2>&1 || true
-        dms version 2>&1 || true
+        noctalia --version 2>&1 || true
 
         section "services"
-        systemctl --user --no-pager --full status niri.service dms.service 2>&1 || true
+        systemctl --user --no-pager --full status niri.service noctalia.service 2>&1 || true
       } > "$output_dir/summary.txt" 2>&1
 
       {
@@ -68,13 +68,11 @@ let
       {
         section "niri outputs"
         niri msg outputs 2>&1 || true
-        section "DMS outputs"
-        dms randr 2>&1 || true
-        section "DMS DPMS"
-        dms dpms list 2>&1 || true
+        section "Noctalia status"
+        noctalia msg status 2>&1 || true
       } > "$output_dir/output-state.txt" 2>&1
 
-      journalctl --user -b -u niri.service -u dms.service --since '-30 min' \
+      journalctl --user -b -u niri.service -u noctalia.service --since '-30 min' \
         --no-pager -o short-precise > "$output_dir/user-journal.txt" 2>&1 || true
       journalctl -k -b --since '-30 min' --no-pager -o short-precise \
         > "$output_dir/kernel-journal.txt" 2>&1 || true
@@ -122,7 +120,7 @@ let
   '';
 in
 {
-  # Wayland composition stack: Niri window manager + DankMaterialShell
+  # Wayland composition stack: Niri window manager + Noctalia
   # This module manages the setup for the desktop environment
   # Niri is enabled by the native NixOS module in hosts/nixos/nixos-desktop/default.nix.
 

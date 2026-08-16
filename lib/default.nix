@@ -90,9 +90,6 @@
         ../modules/nixos
         inputs.catppuccin.nixosModules.catppuccin
 
-        # Conditional module loading based on feature flags
-        (if graphical then inputs.dms.nixosModules.default else { })
-        (if graphical then inputs.dms.nixosModules.greeter else { })
       ]
       ++ (if graphical then [ ../modules/nixos/hosts/nixos-desktop ] else [ ]);
 
