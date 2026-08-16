@@ -6,6 +6,9 @@
 }:
 {
   imports = [
+    inputs.noctalia.nixosModules.default
+    inputs.noctalia-greeter.nixosModules.default
+
     ./hardware-configuration.nix
     ./users.nix
     ./networking.nix
@@ -127,6 +130,14 @@
       systemd.target = "niri.service";
     };
 
+    noctalia = {
+      enable = true;
+      systemd = {
+        enable = true;
+        target = "niri.service";
+      };
+    };
+
     # Enable browsers
     firefox.enable = false;
 
@@ -141,6 +152,12 @@
 
     # Enable gamemode for performance optimizations during gaming
     gamemode.enable = true;
+  };
+
+  # Start only the shell selected in Noctalia Greeter.
+  systemd.user.services = {
+    dms.unitConfig.ConditionEnvironment = "NIRI_SHELL=dms";
+    noctalia.unitConfig.ConditionEnvironment = "NIRI_SHELL=noctalia";
   };
 
   # Enable Docker containers

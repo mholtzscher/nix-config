@@ -1,29 +1,62 @@
-{ config, ... }:
 {
-  # The standalone greeter starts user services such as WirePlumber, which need
-  # a writable home instead of greetd's default /var/empty.
-  users.users.greeter.home = "/var/lib/dms-greeter";
+  config,
+  lib,
+  pkgs,
+  user,
+  ...
+}:
 
-  # DankLinux's docs only describe ownership of the top-level greeter cache.
-  # The standalone greeter additionally requires these hidden XDG directories
-  # with mode 2770, but its NixOS module does not create them. Its pre-start
-  # chown also uses `*`, which skips hidden directories and cannot repair them.
-  systemd.tmpfiles.settings."10-dms-greeter" = {
-    "/var/lib/dms-greeter/.cache".d = {
-      user = "greeter";
-      group = "greeter";
-      mode = "2770";
-    };
-    "/var/lib/dms-greeter/.local/state".d = {
-      user = "greeter";
-      group = "greeter";
-      mode = "2770";
-    };
-    "/var/lib/dms-greeter/.local/share".d = {
-      user = "greeter";
-      group = "greeter";
-      mode = "2770";
-    };
+let
+  mkNiriShellSession =
+    {
+      id,
+      name,
+      shell,
+    }:
+    let
+      launcher = pkgs.writeShellScript "${id}-session" ''
+        export NIRI_SHELL=${lib.escapeShellArg shell}
+        exec ${config.programs.niri.package}/bin/niri-session
+      '';
+      desktopFile = pkgs.writeText "${id}.desktop" ''
+        [Desktop Entry]
+        Name=${name}
+        Comment=Niri with ${name}
+        Exec=${launcher}
+        Type=Application
+        DesktopNames=niri
+      '';
+    in
+    pkgs.runCommand "${id}-wayland-session"
+      {
+        passthru.providedSessions = [ id ];
+      }
+      ''
+        mkdir -p $out/share/wayland-sessions
+        ln -s ${desktopFile} $out/share/wayland-sessions/${id}.desktop
+      '';
+
+  dmsSession = mkNiriShellSession {
+    id = "niri-dms";
+    name = "Niri + DMS";
+    shell = "dms";
+  };
+
+  noctaliaSession = mkNiriShellSession {
+    id = "niri-noctalia";
+    name = "Niri + Noctalia";
+    shell = "noctalia";
+  };
+in
+{
+  # Replace Niri's generic session with shell-specific choices. niri-session
+  # imports NIRI_SHELL into the user systemd manager before starting Niri.
+  services.displayManager = {
+    defaultSession = "niri-dms";
+    sessionPackages = lib.mkForce [
+      dmsSession
+      noctaliaSession
+    ];
   };
 
   # The greeter discovers sessions through XDG_DATA_DIRS. NixOS keeps display
@@ -31,48 +64,20 @@
   systemd.services.greetd.environment.XDG_DATA_DIRS =
     "${config.services.displayManager.sessionData.desktops}/share";
 
-  # DMS (Dank Material Shell) greeter via greetd
-  # Runs the login screen under Niri with an explicit greeter-time config.
-  programs.dank-material-shell.greeter = {
+  programs.noctalia-greeter = {
     enable = true;
+    settings = {
+      # Leave the session unset so the greeter remembers the last selection.
+      user.default = user;
 
-    compositor = {
-      name = "niri";
+      output = {
+        width = 5120;
+        height = 1440;
+        scale = 1;
+      };
 
-      # This runs before the user session (no home-manager), so keep outputs deterministic.
-      customConfig = ''
-        hotkey-overlay {
-          skip-at-startup
-        }
-
-        environment {
-          DMS_RUN_GREETER "1"
-        }
-
-        gestures {
-          hot-corners {
-            off
-          }
-        }
-
-        output "DP-1" {
-          mode "5120x1440@120"
-          scale 1
-          position x=0 y=0
-        }
-
-        layout {
-          background-color "#000000"
-        }
-      '';
-    };
-
-    # Copy the user's DMS config into /var/lib/dms-greeter for theme/wallpaper sync.
-    configHome = "/home/michael";
-
-    logs = {
-      save = false;
-      path = "/var/log/dms-greeter.log";
+      idle.timeout = 0;
+      keyboard.layout = "us";
     };
   };
 }

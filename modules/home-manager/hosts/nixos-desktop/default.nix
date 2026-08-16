@@ -108,6 +108,41 @@ let
       echo "Checkpoint updated to ''${newest##*/}"
     '';
   };
+  desktop-shell = pkgs.writeShellApplication {
+    name = "desktop-shell";
+    runtimeInputs = [ pkgs.systemd ];
+    text = ''
+      if [ "$#" -ne 1 ]; then
+        echo "usage: desktop-shell <action>" >&2
+        exit 2
+      fi
+
+      case "''${NIRI_SHELL:-dms}:$1" in
+        dms:lock) exec dms ipc call lock lock ;;
+        dms:settings) exec dms ipc call settings focusOrToggle ;;
+        dms:processlist) exec dms ipc call processlist focusOrToggle ;;
+        dms:notifications) exec dms ipc call notifications toggle ;;
+        dms:restart) exec systemctl --user restart dms.service ;;
+        dms:launcher) exec dms ipc call spotlight toggle ;;
+        dms:clipboard) exec dms ipc call clipboard toggle ;;
+        dms:wallpaper) exec dms ipc call dankdash wallpaper ;;
+
+        noctalia:lock) exec noctalia msg session lock ;;
+        noctalia:settings) exec noctalia msg settings-toggle ;;
+        noctalia:processlist) exec noctalia msg panel-toggle control-center ;;
+        noctalia:notifications) exec noctalia msg panel-toggle control-center ;;
+        noctalia:restart) exec systemctl --user restart noctalia.service ;;
+        noctalia:launcher) exec noctalia msg panel-toggle launcher ;;
+        noctalia:clipboard) exec noctalia msg panel-toggle clipboard ;;
+        noctalia:wallpaper) exec noctalia msg panel-toggle wallpaper ;;
+
+        *)
+          echo "unsupported shell action: ''${NIRI_SHELL:-dms}:$1" >&2
+          exit 1
+          ;;
+      esac
+    '';
+  };
 in
 {
   # NixOS Desktop-specific home-manager configuration
@@ -154,6 +189,7 @@ in
     localsend # Local network file sharing
     vesktop # Discord client with better Wayland support
     pi-web
+    desktop-shell
 
     python313Packages.huggingface-hub # Hugging Face CLI (provides huggingface-cli) for downloading models
 

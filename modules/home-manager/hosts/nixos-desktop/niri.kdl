@@ -63,10 +63,10 @@ binds {
     Mod+7 { focus-workspace 7; }
     Mod+8 { focus-workspace 8; }
     Mod+9 { focus-workspace 9; }
-    Mod+Alt+L { spawn "dms" "ipc" "call" "lock" "lock"; }
+    Mod+Alt+L { spawn "desktop-shell" "lock"; }
     Mod+B { spawn "helium"; }
     Mod+C { center-column; }
-    Mod+Comma { spawn "dms" "ipc" "call" "settings" "focusOrToggle"; }
+    Mod+Comma { spawn "desktop-shell" "settings"; }
     Mod+Ctrl+0 { move-column-to-workspace 10; }
     Mod+Ctrl+1 { move-column-to-workspace 1; }
     Mod+Ctrl+2 { move-column-to-workspace 2; }
@@ -88,9 +88,9 @@ binds {
     Mod+J { focus-window-down; }
     Mod+K { focus-window-up; }
     Mod+L { focus-column-right; }
-    Mod+M { spawn "dms" "ipc" "call" "processlist" "focusOrToggle"; }
+    Mod+M { spawn "desktop-shell" "processlist"; }
     Mod+Minus { set-column-width "-10%"; }
-    Mod+N { spawn "dms" "ipc" "call" "notifications" "toggle"; }
+    Mod+N { spawn "desktop-shell" "notifications"; }
     Mod+Q { close-window; }
     Mod+R { switch-preset-column-width; }
     Mod+Shift+0 { move-window-to-workspace 10; }
@@ -104,7 +104,7 @@ binds {
     Mod+Shift+8 { move-window-to-workspace 8; }
     Mod+Shift+9 { move-window-to-workspace 9; }
     Mod+Shift+A { spawn "bash" "-c" "grim - | wl-copy"; }
-    Mod+Shift+D { spawn "systemctl" "--user" "restart" "dms.service"; }
+    Mod+Shift+D { spawn "desktop-shell" "restart"; }
     Mod+Shift+E { quit; }
     Mod+Shift+F { fullscreen-window; }
     Mod+Shift+H { move-column-left; }
@@ -117,10 +117,10 @@ binds {
     Mod+Shift+S { spawn "bash" "-c" "grim -g \"$(slurp)\" - | wl-copy"; }
     Mod+Shift+Slash { show-hotkey-overlay; }
     Mod+Slash { spawn "pkill" "-USR2" "-x" "handy"; }
-    Mod+Space { spawn "dms" "ipc" "call" "spotlight" "toggle"; }
+    Mod+Space { spawn "desktop-shell" "launcher"; }
     Mod+T { spawn "ghostty"; }
-    Mod+V { spawn "dms" "ipc" "call" "clipboard" "toggle"; }
-    Mod+Y { spawn "dms" "ipc" "call" "dankdash" "wallpaper"; }
+    Mod+V { spawn "desktop-shell" "clipboard"; }
+    Mod+Y { spawn "desktop-shell" "wallpaper"; }
     XF86AudioLowerVolume { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "5%-"; }
     XF86AudioMute { spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SINK@" "toggle"; }
     XF86AudioRaiseVolume { spawn "wpctl" "set-volume" "-l" "1.0" "@DEFAULT_AUDIO_SINK@" "5%+"; }
@@ -153,6 +153,12 @@ window-rule {
     match app-id="^org\\.quickshell$"
     open-floating true
 }
+window-rule {
+    match app-id="dev.noctalia.Noctalia"
+    open-floating true
+    default-column-width { fixed 1080; }
+    default-window-height { fixed 920; }
+}
 layer-rule {
     match namespace="^quickshell$"
     place-within-backdrop true
@@ -160,6 +166,17 @@ layer-rule {
 layer-rule {
     match namespace="dms:blurwallpaper"
     place-within-backdrop true
+}
+layer-rule {
+    match namespace="^noctalia-wallpaper"
+    place-within-backdrop true
+}
+layer-rule {
+    match namespace="^noctalia-backdrop"
+    place-within-backdrop true
+}
+debug {
+    honor-xdg-activation-with-invalid-serial
 }
 animations {
     slowdown 2.500000
