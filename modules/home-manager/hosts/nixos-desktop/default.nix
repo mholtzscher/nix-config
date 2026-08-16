@@ -22,7 +22,8 @@ let
       checkpoint="$state_dir/checkpoint"
       gallery="$(mktemp)"
       cookie_jar="$(mktemp)"
-      trap 'rm -f "$gallery" "$cookie_jar"' EXIT
+      temporary=""
+      trap 'rm -f "$gallery" "$cookie_jar" "$temporary"' EXIT
       curl_args=(
         --fail
         --silent
