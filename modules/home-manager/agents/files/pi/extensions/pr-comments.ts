@@ -70,6 +70,10 @@ function truncateContext(value: string): string {
 	return `${value.slice(0, MAX_CONTEXT_CHARS)}\n\n[PR comment context truncated; mention this limitation in the report]`;
 }
 
+function escapeDelimiterCharacters(value: string): string {
+	return value.replaceAll("<", "\\u003c").replaceAll(">", "\\u003e");
+}
+
 function errorMessage(error: unknown): string {
 	return error instanceof Error ? error.message : String(error);
 }
@@ -136,13 +140,13 @@ export default function (pi: ExtensionAPI) {
 					.filter((comment) => comment.body?.trim())
 					.map((comment) => ({ ...comment, body: truncateBody(comment.body) }));
 
-				const payload = truncateContext(JSON.stringify({
+				const payload = truncateContext(escapeDelimiterCharacters(JSON.stringify({
 					repository: repo,
 					pullRequest: pr,
 					conversationComments: issueComments,
 					reviewBodies: reviews,
 					inlineReviewComments: reviewComments,
-				}, null, 2));
+				}, null, 2)));
 
 				const count = issueComments.length + reviews.length + reviewComments.length;
 				ctx.ui.notify(`Fetched ${count} PR comment${count === 1 ? "" : "s"}; asking the agent to validate them`, "info");
