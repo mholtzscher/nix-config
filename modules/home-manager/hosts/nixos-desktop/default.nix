@@ -109,6 +109,12 @@ let
       echo "Checkpoint updated to ''${newest##*/}"
     '';
   };
+  ecowittPlugin = pkgs.linkFarm "noctalia-ecowitt-plugin" [
+    {
+      name = "ecowitt";
+      path = ./ecowitt;
+    }
+  ];
 in
 {
   imports = [ inputs.noctalia.homeModules.default ];
@@ -140,6 +146,17 @@ in
         source = "builtin";
         builtin = "Catppuccin";
       };
+      plugins = {
+        source = [
+          {
+            name = "ecowitt-local";
+            kind = "path";
+            location = "${ecowittPlugin}";
+            enabled = true;
+          }
+        ];
+        enabled = [ "michael/ecowitt" ];
+      };
       bar.main = {
         position = "top";
         thickness = 34;
@@ -153,6 +170,7 @@ in
         start = [
           "launcher"
           "media"
+          "ecowitt"
         ];
         center = [ "workspaces" ];
         end = [
@@ -177,6 +195,9 @@ in
         };
       };
       widget.clock.format = "{:%-I:%M %p}";
+      widget.ecowitt = {
+        type = "michael/ecowitt:weather";
+      };
       location = {
         auto_locate = false;
         latitude = 39.273669;

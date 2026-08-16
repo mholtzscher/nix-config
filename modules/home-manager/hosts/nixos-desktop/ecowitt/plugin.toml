@@ -1,0 +1,27 @@
+id = "michael/ecowitt"
+name = "Ecowitt Weather"
+version = "0.1.0"
+plugin_api = 9
+author = "michael"
+license = "MIT"
+dependencies = []
+tags = ["weather", "ecowitt"]
+icon = "cloud-rain"
+description = "Weather from a local Ecowitt gateway."
+
+[[widget]]
+id = "weather"
+entry = "widget.luau"
+
+[[service]]
+id = "data"
+entry = "service.luau"
+
+[[panel]]
+id = "panel"
+entry = "panel.luau"
+width = 560
+height = 720
+placement = "attached"
+position = "auto"
+open_near_click = true
