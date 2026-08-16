@@ -88,9 +88,9 @@ binds {
     Mod+J { focus-window-down; }
     Mod+K { focus-window-up; }
     Mod+L { focus-column-right; }
-    Mod+M { spawn "noctalia" "msg" "panel-toggle" "control-center"; }
+    Mod+M { spawn "noctalia" "msg" "panel-toggle" "control-center" "system"; }
     Mod+Minus { set-column-width "-10%"; }
-    Mod+N { spawn "noctalia" "msg" "panel-toggle" "control-center"; }
+    Mod+N { spawn "noctalia" "msg" "panel-toggle" "control-center" "notifications"; }
     Mod+Q { close-window; }
     Mod+R { switch-preset-column-width; }
     Mod+Shift+0 { move-window-to-workspace 10; }
@@ -127,6 +127,10 @@ binds {
 }
 spawn-at-startup "solaar" "-w" "hide"
 spawn-at-startup "handy --start-hidden"
+window-rule {
+    geometry-corner-radius 10
+    clip-to-geometry true
+}
 window-rule {
     match app-id="1password"
     default-column-width { proportion 0.250000; }
