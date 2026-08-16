@@ -63,7 +63,7 @@ binds {
     Mod+7 { focus-workspace 7; }
     Mod+8 { focus-workspace 8; }
     Mod+9 { focus-workspace 9; }
-    Mod+Alt+L { spawn "noctalia" "msg" "session" "lock"; }
+    Mod+Escape { spawn "noctalia" "msg" "session" "lock"; }
     Mod+B { spawn "helium"; }
     Mod+C { center-column; }
     Mod+Comma { spawn "noctalia" "msg" "settings-toggle"; }

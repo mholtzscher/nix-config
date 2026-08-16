@@ -133,12 +133,66 @@ in
         directory = "${config.home.homeDirectory}/Pictures/wallpapers";
         automation = {
           enabled = true;
-          interval_seconds = 60;
+          interval_seconds = 1800;
         };
       };
       theme = {
         source = "builtin";
         builtin = "Catppuccin";
+      };
+      bar.main = {
+        position = "top";
+        thickness = 34;
+        margin_ends = 1450;
+        margin_edge = 8;
+        auto_hide = false;
+        smart_auto_hide = true;
+        show_on_workspace_switch = true;
+        reserve_space = false;
+        layer = "top";
+        start = [
+          "launcher"
+          "media"
+        ];
+        center = [ "workspaces" ];
+        end = [
+          "tray"
+          "notifications"
+          "volume"
+          "clock"
+          "control-center"
+        ];
+      };
+      shell = {
+        time_format = "{:%-I:%M %p}";
+        panel_anchor_bar = "main";
+        panel = {
+          launcher_placement = "floating";
+          launcher_position = "center";
+          clipboard_placement = "floating";
+          clipboard_position = "center";
+          control_center_placement = "attached";
+          wallpaper_placement = "attached";
+          session_placement = "attached";
+        };
+      };
+      widget.clock.format = "{:%-I:%M %p}";
+      location = {
+        auto_locate = false;
+        latitude = 39.273669;
+        longitude = -94.517765;
+      };
+      weather = {
+        enabled = true;
+        unit = "imperial";
+      };
+      notification = {
+        position = "top_center";
+        offset_y = 8;
+      };
+      osd = {
+        position = "top_center";
+        position_vertical = "top_center";
       };
     };
   };
