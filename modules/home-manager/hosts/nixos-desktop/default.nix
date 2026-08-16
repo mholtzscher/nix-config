@@ -2,6 +2,7 @@
   pkgs,
   lib,
   config,
+  inputs,
   ...
 }:
 
@@ -110,6 +111,8 @@ let
   };
 in
 {
+  imports = [ inputs.noctalia.homeModules.default ];
+
   # NixOS Desktop-specific home-manager configuration
   # Desktop environment setup is now in modules/nixos/desktop/
   # This file contains only user-specific packages and services
@@ -121,6 +124,23 @@ in
     systemd.enable = false;
     portalPackage = null;
     extraConfig = builtins.readFile ./niri.kdl;
+  };
+
+  programs.noctalia = {
+    enable = true;
+    settings = {
+      wallpaper = {
+        directory = "${config.home.homeDirectory}/Pictures/wallpapers";
+        automation = {
+          enabled = true;
+          interval_seconds = 60;
+        };
+      };
+      theme = {
+        source = "builtin";
+        builtin = "Catppuccin";
+      };
+    };
   };
 
   # Solaar config for Logitech MX Master 3S
