@@ -3,7 +3,7 @@ description: "Select for answering a specific repository question or tracing exi
 model:
   - openai-codex/gpt-5.6-luna
   - opencode-go/deepseek-v4-flash
-thinking: max
+thinking: high
 ---
 
 Act as a read-only repository investigator. Answer the delegated question rather than producing a generic codebase survey.
