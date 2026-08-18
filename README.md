@@ -15,10 +15,12 @@ A comprehensive, multi-platform Nix flake managing both macOS (Darwin) and NixOS
 ## Managed Systems
 
 ### macOS (Darwin)
+
 - **Personal M1 Max** (`Michaels-M1-Max`) - Personal development machine
 - **Work Mac** (`Michael-Holtzscher-Work`) - Work machine
 
 ### NixOS
+
 - **Desktop** (`nixos-desktop`) - Gaming and development workstation with Niri compositor
 
 ## Features
@@ -140,7 +142,7 @@ Wrap with platform guard:
 ```nix
 { pkgs, lib, ... }:
 {
-  config = lib.mkIf pkgs.stdenv.isDarwin {
+  config = lib.mkIf pkgs.stdenv.hostPlatform.isDarwin {
     programs.program-name = {
       enable = true;
       # macOS-specific config
@@ -283,6 +285,7 @@ nixosConfigurations.hostname = lib.mkSystem {
 ```
 
 **Note**: The `graphical` and `gaming` flags automatically control which modules are loaded:
+
 - `graphical = true` → Loads `modules/nixos/hosts/hostname/` (for GUI-based hosts)
 - `graphical = false` → Skips graphical modules (for headless servers)
 
@@ -328,17 +331,20 @@ home.packages = with pkgs; [
 ### When to Use Different Module Types
 
 **Shared Programs** (`modules/home-manager/programs/`):
+
 - Tools that work across macOS and NixOS with minimal differences
 - Use platform guards with `lib.mkIf pkgs.stdenv.isDarwin` if behavior differs
 - Example: git, zsh, helix, starship
 
 **Host-Specific Configs** (`modules/home-manager/hosts/*/`):
+
 - Machine-specific settings (git email, Discord, work tools)
 - Desktop environment configs (Niri, Waybar, Vicinae for NixOS desktop)
 - Custom packages for specific hosts
 - No platform guards needed (already isolated to host)
 
 **Platform-Specific Only** (use conditional imports):
+
 - Features only relevant to one platform
 - Use `lib.mkIf pkgs.stdenv.isDarwin` for macOS-only
 - Use `lib.mkIf pkgs.stdenv.isLinux` for Linux-only
@@ -347,26 +353,29 @@ home.packages = with pkgs; [
 ### Platform-Specific vs Host-Specific
 
 **Platform-specific**: Different between macOS and Linux
+
 - Use: `lib.mkIf pkgs.stdenv.isDarwin` or `lib.optionalAttrs`
 - Example: Aerospace (macOS), systemd (Linux)
 
 **Host-specific**: Different between individual machines
+
 - Use: `modules/home-manager/hosts/*.nix`
 - Example: Git email, Discord (personal only), work tools
 
 **Both**: Can be both platform AND host-specific
+
 - Example: Aerospace (macOS, both Macs)
 
 ### Host Differences
 
-| Feature | Personal Mac | Work Mac | Desktop |
-|---------|-------------|----------|---------|
-| Aerospace (WM) | Yes | Yes | No |
-| Niri (WM) | No | No | Yes |
-| Gaming (Steam) | No | No | Yes |
-| Discord | Yes | No | Yes |
-| Git Email | Personal | Work | Personal |
-| Platform | macOS | macOS | Linux |
+| Feature        | Personal Mac | Work Mac | Desktop  |
+| -------------- | ------------ | -------- | -------- |
+| Aerospace (WM) | Yes          | Yes      | No       |
+| Niri (WM)      | No           | No       | Yes      |
+| Gaming (Steam) | No           | No       | Yes      |
+| Discord        | Yes          | No       | Yes      |
+| Git Email      | Personal     | Work     | Personal |
+| Platform       | macOS        | macOS    | Linux    |
 
 ## Documentation
 
@@ -401,7 +410,9 @@ nf <file>.nix                               # Format nix file
 ## Included Configurations
 
 ### Cross-Platform Programs (34 Modules + Utilities)
+
 **Program Modules (home-manager):**
+
 - **Shells**: zsh, nushell
 - **Editors**: helix, zed
 - **Git**: git, gh, gh-dash, lazygit, delta
@@ -413,15 +424,18 @@ nf <file>.nix                               # Format nix file
 - **System**: ssh, carapace (shell completions)
 
 **Additional Packages:**
+
 - **Editors**: neovim, vim
 - **Browsers**: brave
 - **Languages**: node (nodejs_24), zig, lua
 - **Tools**: buf, dive, dust, grpcurl, gum, hey, httpie, jc, just, kdlfmt, kubernetes-helm, nil, nixfmt, sops, statix, tldr, topiary, tree-sitter, websocat, wget, yq
 
 **macOS Only:**
+
 - **Window Manager**: aerospace (via Raycast scripts)
 
 ### Desktop Environment (NixOS Desktop)
+
 - **Niri**: Scrollable tiling Wayland compositor with vim-style navigation
 - **Waybar**: Minimalist status bar with system metrics and window tracking
 - **Vicinae**: High-performance app launcher with calculator and clipboard history
@@ -429,16 +443,19 @@ nf <file>.nix                               # Format nix file
 - **Greetd/tuigreet**: TUI-based login manager
 
 ### Gaming Configuration (NixOS Desktop)
+
 - **Steam**: Full Steam integration with Gamescope session
 - **Performance**: Gamemode, CPU governor, vm.max_map_count tuning
 - **Hardware**: NVIDIA drivers, 32-bit graphics support, Vulkan/OpenGL
 - **KVM Support**: EDID override for display passthrough
 
 ### System Configs
+
 - **macOS**: Dock, Finder, Trackpad settings, Homebrew package management
 - **NixOS**: Greetd login, PipeWire audio, NetworkManager, SSH hardening, fail2ban
 
 ### Package Management
+
 - **Homebrew** (macOS): Declarative package, cask, and app store integration via nix-homebrew
   - Common packages: taps, brews, casks, masApps across all macOS hosts
   - Host-specific: Personal and Work Mac custom packages
@@ -454,16 +471,19 @@ This is a personal configuration, but feel free to use it as inspiration for you
 ## Flake Inputs
 
 ### Core
+
 - **nixpkgs**: NixOS/nixpkgs (unstable channel)
 - **nix-darwin**: macOS system management
 - **home-manager**: User environment management
 - **nix-homebrew**: Declarative Homebrew on macOS
 
 ### Enhancements
+
 - **vicinae**: Modern Wayland app launcher
 - **catppuccin**: Catppuccin color scheme integration
 
 ### Resources (non-flake)
+
 - **topiary-nushell**: Nushell formatter for Topiary
 - **ghostty-shader-playground**: Ghostty terminal shaders
 

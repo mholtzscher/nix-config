@@ -1,6 +1,5 @@
 {
   pkgs,
-  inputs,
   ...
 }:
 let
@@ -22,7 +21,7 @@ in
     initLua = builtins.readFile ../files/neovim/init.lua;
     # CodeSnap.nvim's prebuilt macOS generator links to Homebrew's pcre2 path.
     # Provide Nix pcre2 at runtime instead of installing pcre2 via Homebrew.
-    extraWrapperArgs = pkgs.lib.optionals pkgs.stdenv.isDarwin [
+    extraWrapperArgs = pkgs.lib.optionals pkgs.stdenv.hostPlatform.isDarwin [
       "--prefix"
       "DYLD_LIBRARY_PATH"
       ":"
