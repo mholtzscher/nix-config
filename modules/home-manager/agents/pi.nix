@@ -136,6 +136,11 @@ in
 
     ".pi/agent/mcp.json" = lib.mkIf (!isWork) {
       text = builtins.toJSON {
+        mcpServers.executor = {
+          url = "https://executor.sh/umbrella-corp/mcp";
+          auth = "oauth";
+          lifecycle = "keep-alive";
+        };
       };
     };
   };
