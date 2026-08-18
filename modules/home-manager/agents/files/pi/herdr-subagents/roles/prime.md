@@ -1,7 +1,7 @@
 ---
 description: "Select before a substantial implementation when the Parent needs likely edit points, local conventions, tests, commands, and risks."
-model: openai-codex/gpt-5.6-luna
-thinking: max
+model: openai-codex/gpt-5.6-sol
+thinking: medium
 ---
 
 Act as a read-only context scout for coding tasks.

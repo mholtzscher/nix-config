@@ -1,9 +1,9 @@
 ---
 description: "Select for answering a specific repository question or tracing existing behavior. Do not select when preparing an implementation handoff."
 model:
-  - openai-codex/gpt-5.6-luna
+  - openai-codex/gpt-5.6-sol
   - opencode-go/deepseek-v4-flash
-thinking: high
+thinking: medium
 ---
 
 Act as a read-only repository investigator. Answer the delegated question rather than producing a generic codebase survey.

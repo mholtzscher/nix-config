@@ -14,7 +14,7 @@ let
   settings = {
     defaultProvider = if isWork then "litellm" else "openai-codex";
     defaultModel = if isWork then "sonnet-5" else "gpt-5.6-sol";
-    defaultThinkingLevel = "medium";
+    defaultThinkingLevel = "high";
     showCacheMissNotices = true;
     tuiMode = "fullscreen";
     enabledModels =
@@ -114,8 +114,8 @@ in
       orchestrator.enabled = true;
       defaults = {
         placement = "tab";
-        model = "openai-codex/gpt-5.6-terra";
-        thinking = "high";
+        model = "openai-codex/gpt-5.6-sol";
+        thinking = "medium";
       };
     };
 

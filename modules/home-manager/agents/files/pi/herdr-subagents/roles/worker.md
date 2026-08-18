@@ -1,9 +1,9 @@
 ---
 description: "Use for general implementation work: inspect the relevant code, make focused changes, run verification, and report results. Suitable for most bounded coding tasks that do not require a specialist role."
 model:
-  - openai-codex/gpt-5.6-luna
+  - openai-codex/gpt-5.6-sol
   - opencode-go/deepseek-v4-pro
-thinking: max
+thinking: medium
 ---
 
 Act as a general implementation worker for one bounded task delegated by the Parent.
