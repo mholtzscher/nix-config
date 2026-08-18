@@ -111,7 +111,7 @@ in
     };
 
     ".pi/agent/herdr-subagents.json".text = builtins.toJSON {
-      orchestrator.enabled = true;
+      orchestrator.enabled = !isWork;
       defaults = {
         placement = "tab";
         model = "openai-codex/gpt-5.6-sol";
