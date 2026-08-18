@@ -347,7 +347,7 @@ home.packages = with pkgs; [
 
 - Features only relevant to one platform
 - Use `lib.mkIf pkgs.stdenv.hostPlatform.isDarwin` for macOS-only
-- Use `lib.mkIf pkgs.stdenv.isLinux` for Linux-only
+- Use `lib.mkIf pkgs.stdenv.hostPlatform.isLinux` for Linux-only
 - Example: Aerospace (macOS), systemd (NixOS)
 
 ### Platform-Specific vs Host-Specific
