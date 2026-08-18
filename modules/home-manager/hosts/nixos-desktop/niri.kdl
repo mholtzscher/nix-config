@@ -112,7 +112,7 @@ binds {
     Mod+Shift+J { move-window-down; }
     Mod+Shift+K { move-window-up; }
     Mod+Shift+L { move-column-right; }
-    Mod+Shift+O { spawn "refresh-displays"; }
+    Mod+Shift+O allow-when-locked=true { spawn "refresh-displays"; }
     Mod+Shift+R { switch-preset-window-height; }
     Mod+Shift+S { spawn "bash" "-c" "grim -g \"$(slurp)\" - | wl-copy"; }
     Mod+Shift+Slash { show-hotkey-overlay; }
