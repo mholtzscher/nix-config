@@ -298,7 +298,7 @@ home.file = {
   # Cross-platform files
   ".config/app/config".source = ./files/config;
 }
-// lib.optionalAttrs pkgs.stdenv.isDarwin {
+// lib.optionalAttrs pkgs.stdenv.hostPlatform.isDarwin {
   # macOS-only files
   "Library/Preferences/com.app.plist".source = ./files/app.plist;
 };
@@ -307,7 +307,7 @@ home.file = {
 ### Conditional Programs
 
 ```nix
-config = lib.mkIf pkgs.stdenv.isDarwin {
+config = lib.mkIf pkgs.stdenv.hostPlatform.isDarwin {
   programs.aerospace.enable = true;
 };
 ```
@@ -320,7 +320,7 @@ home.packages = with pkgs; [
   git
   vim
 ]
-++ lib.optionals pkgs.stdenv.isDarwin [
+++ lib.optionals pkgs.stdenv.hostPlatform.isDarwin [
   # macOS-only
   aerospace
 ];
@@ -333,7 +333,7 @@ home.packages = with pkgs; [
 **Shared Programs** (`modules/home-manager/programs/`):
 
 - Tools that work across macOS and NixOS with minimal differences
-- Use platform guards with `lib.mkIf pkgs.stdenv.isDarwin` if behavior differs
+- Use platform guards with `lib.mkIf pkgs.stdenv.hostPlatform.isDarwin` if behavior differs
 - Example: git, zsh, helix, starship
 
 **Host-Specific Configs** (`modules/home-manager/hosts/*/`):
@@ -346,7 +346,7 @@ home.packages = with pkgs; [
 **Platform-Specific Only** (use conditional imports):
 
 - Features only relevant to one platform
-- Use `lib.mkIf pkgs.stdenv.isDarwin` for macOS-only
+- Use `lib.mkIf pkgs.stdenv.hostPlatform.isDarwin` for macOS-only
 - Use `lib.mkIf pkgs.stdenv.isLinux` for Linux-only
 - Example: Aerospace (macOS), systemd (NixOS)
 
@@ -354,7 +354,7 @@ home.packages = with pkgs; [
 
 **Platform-specific**: Different between macOS and Linux
 
-- Use: `lib.mkIf pkgs.stdenv.isDarwin` or `lib.optionalAttrs`
+- Use: `lib.mkIf pkgs.stdenv.hostPlatform.isDarwin` or `lib.optionalAttrs`
 - Example: Aerospace (macOS), systemd (Linux)
 
 **Host-specific**: Different between individual machines
