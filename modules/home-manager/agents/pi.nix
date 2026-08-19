@@ -33,21 +33,51 @@ let
     workingVibe = "parks_and_rec";
     workingVibeMode = "file";
     packages = [
-      "npm:pi-context-view"
-      # "npm:@ff-labs/pi-fff"
-      # "npm:@ifi/oh-pi-themes"
       "npm:@juicesharp/rpiv-ask-user-question"
       "npm:@plannotator/pi-extension"
-      "git:github.com/mholtzscher/pi-herdr-subagents"
-      # "npm:pi-boomerang"
+      "npm:pi-context-view"
       "npm:pi-mcp-adapter"
       "npm:pi-powerline-footer"
+      "npm:pi-subagents"
       "npm:pi-web-access"
       "npm:sideshow"
-    ]
-    ++ lib.optionals (!isWork) [
-      # "npm:@narumitw/pi-codex-usage"
+      # "git:github.com/mholtzscher/pi-herdr-subagents"
+      # "npm:@ff-labs/pi-fff"
+      # "npm:@ifi/oh-pi-themes"
+      # "npm:pi-boomerang"
     ];
+    subagents =
+      if isWork then
+        { }
+      else
+        {
+          agentOverrides = {
+            scout = {
+              model = "openai-codex/gpt-5.6-terra";
+              thinking = "low";
+            };
+            researcher = {
+              model = "openai-codex/gpt-5.6-sol";
+              thinking = "medium";
+            };
+            worker = {
+              model = "openai-codex/gpt-5.6-sol";
+              thinking = "high";
+            };
+            reviewer = {
+              model = "openai-codex/gpt-5.6-sol";
+              thinking = "high";
+            };
+            oracle = {
+              model = "openai-codex/gpt-5.6-sol";
+              thinking = "high";
+            };
+            delegate = {
+              model = "openai-codex/gpt-5.6-sol";
+              thinking = "medium";
+            };
+          };
+        };
     powerline = {
       welcome = false;
       disabledSegments = [ "git" ];
@@ -111,19 +141,19 @@ in
       toolGuidance = "";
     };
 
-    ".pi/agent/herdr-subagents.json".text = builtins.toJSON {
-      orchestrator.enabled = !isWork;
-      defaults = {
-        placement = "tab";
-        model = "openai-codex/gpt-5.6-sol";
-        thinking = "medium";
-      };
-    };
+    # ".pi/agent/herdr-subagents.json".text = builtins.toJSON {
+    #   orchestrator.enabled = !isWork;
+    #   defaults = {
+    #     placement = "tab";
+    #     model = "openai-codex/gpt-5.6-sol";
+    #     thinking = "medium";
+    #   };
+    # };
 
-    ".pi/agent/herdr-subagents/roles" = {
-      source = ./files/pi/herdr-subagents/roles;
-      recursive = true;
-    };
+    # ".pi/agent/herdr-subagents/roles" = {
+    #   source = ./files/pi/herdr-subagents/roles;
+    #   recursive = true;
+    # };
 
     ".pi/agent/extensions" = {
       source = filteredExtensionsSource;
