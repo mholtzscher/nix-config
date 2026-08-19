@@ -38,7 +38,7 @@ let
       "npm:pi-context-view"
       "npm:pi-mcp-adapter"
       "npm:pi-powerline-footer"
-      "npm:pi-subagents"
+      # "npm:pi-subagents"
       "npm:pi-web-access"
       # "npm:sideshow"
       # "git:github.com/mholtzscher/pi-herdr-subagents"
