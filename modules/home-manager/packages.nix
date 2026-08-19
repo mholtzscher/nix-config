@@ -17,6 +17,7 @@ with pkgs;
   cruft
   dive
   doggo
+  duckdb
   dust
   glow
   google-cloud-sdk
