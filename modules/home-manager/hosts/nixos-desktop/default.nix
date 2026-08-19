@@ -7,8 +7,6 @@
 }:
 
 let
-  pi-web = pkgs.callPackage ../../../../pkgs/pi-web { };
-  pi-web-path = "${config.home.profileDirectory}/bin:/run/current-system/sw/bin";
   downloadUltrawideWallpapers = pkgs.writeShellApplication {
     name = "download-ultrawide-wallpapers";
     runtimeInputs = with pkgs; [
@@ -248,7 +246,6 @@ in
     gnused
     localsend # Local network file sharing
     vesktop # Discord client with better Wayland support
-    pi-web
 
     python313Packages.huggingface-hub # Hugging Face CLI (provides huggingface-cli) for downloading models
 
@@ -283,34 +280,6 @@ in
       Persistent = true;
     };
     Install.WantedBy = [ "timers.target" ];
-  };
-
-  systemd.user.services.pi-web-sessiond = {
-    Unit.Description = "PI WEB session daemon";
-    Service = {
-      Type = "simple";
-      ExecStart = "${pi-web}/bin/pi-web-sessiond";
-      Environment = "PATH=${pi-web-path}";
-      Restart = "on-failure";
-      RestartSec = 2;
-    };
-    Install.WantedBy = [ "default.target" ];
-  };
-
-  systemd.user.services.pi-web = {
-    Unit = {
-      Description = "PI WEB server";
-      After = [ "pi-web-sessiond.service" ];
-      Wants = [ "pi-web-sessiond.service" ];
-    };
-    Service = {
-      Type = "simple";
-      ExecStart = "${pi-web}/bin/pi-web-server";
-      Environment = "PATH=${pi-web-path}";
-      Restart = "on-failure";
-      RestartSec = 2;
-    };
-    Install.WantedBy = [ "default.target" ];
   };
 
   systemd.user.services."1password" = {
