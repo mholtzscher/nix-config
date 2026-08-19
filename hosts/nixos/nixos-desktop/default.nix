@@ -44,10 +44,8 @@
 
   # Logitech MX Master 3 via Bolt receiver - fix scroll wheel breaking after KVM switch
   # Use Solaar to manage the device - it properly handles HID++ protocol
-  hardware.logitech.wireless = {
-    enable = true;
-    enableGraphical = true;
-  };
+  hardware.logitech.wireless.enable = true;
+  programs.solaar.enable = true;
 
   # Time zone and locale
   time.timeZone = "America/Chicago";
