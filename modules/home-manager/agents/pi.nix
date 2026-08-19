@@ -168,7 +168,7 @@ in
     ".pi/agent/mcp.json" = lib.mkIf (!isWork) {
       text = builtins.toJSON {
         mcpServers = {
-          home = {
+          home-assistant = {
             url = "https://home.holtzscher.com/api/webhook/mcp_d658f368f407b84c193f22eec56dbb44";
             auth = "oauth";
             oauth = {
