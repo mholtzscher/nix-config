@@ -33,7 +33,8 @@ let
     workingVibe = "parks_and_rec";
     workingVibeMode = "file";
     packages = [
-      "npm:@ff-labs/pi-fff"
+      "npm:pi-context-view"
+      # "npm:@ff-labs/pi-fff"
       # "npm:@ifi/oh-pi-themes"
       "npm:@juicesharp/rpiv-ask-user-question"
       "npm:@plannotator/pi-extension"
@@ -136,10 +137,12 @@ in
 
     ".pi/agent/mcp.json" = lib.mkIf (!isWork) {
       text = builtins.toJSON {
-        mcpServers.executor = {
-          url = "https://executor.sh/umbrella-corp/mcp";
-          auth = "oauth";
-          lifecycle = "keep-alive";
+        mcpServers = {
+          # executor = {
+          #   url = "https://executor.sh/umbrella-corp/mcp";
+          #   auth = "oauth";
+          #   lifecycle = "keep-alive";
+          # };
         };
       };
     };
