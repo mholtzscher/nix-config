@@ -168,11 +168,24 @@ in
     ".pi/agent/mcp.json" = lib.mkIf (!isWork) {
       text = builtins.toJSON {
         mcpServers = {
-          # executor = {
-          #   url = "https://executor.sh/umbrella-corp/mcp";
-          #   auth = "oauth";
-          #   lifecycle = "keep-alive";
-          # };
+          home = {
+            url = "https://home.holtzscher.com/api/webhook/mcp_d658f368f407b84c193f22eec56dbb44";
+            auth = "oauth";
+            oauth = {
+              clientId = "http://localhost:19876";
+              redirectUri = "http://localhost:19876/callback";
+            };
+          };
+
+          railway = {
+            url = "https://mcp.railway.com";
+            auth = "oauth";
+          };
+
+          honeycomb = {
+            url = "https://mcp.honeycomb.io/mcp";
+            auth = "oauth";
+          };
         };
       };
     };
