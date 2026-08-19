@@ -7,6 +7,7 @@
     ];
     casks = [
       "jetbrains-toolbox"
+      "handy"
     ];
     masApps = {
       # Empty for now, but keeping structure for future additions
