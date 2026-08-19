@@ -40,7 +40,7 @@ let
       "npm:pi-powerline-footer"
       "npm:pi-subagents"
       "npm:pi-web-access"
-      "npm:sideshow"
+      # "npm:sideshow"
       # "git:github.com/mholtzscher/pi-herdr-subagents"
       # "npm:@ff-labs/pi-fff"
       # "npm:@ifi/oh-pi-themes"
@@ -180,6 +180,10 @@ in
           railway = {
             url = "https://mcp.railway.com";
             auth = "oauth";
+          };
+
+          sideshow = {
+            url = "https://sideshow.sh/mcp";
           };
 
           honeycomb = {
