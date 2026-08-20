@@ -115,7 +115,10 @@ let
   ];
 in
 {
-  imports = [ inputs.noctalia.homeModules.default ];
+  imports = [
+    inputs.noctalia.homeModules.default
+    ./voxtype.nix
+  ];
 
   # NixOS Desktop-specific home-manager configuration
   # Desktop environment setup is now in modules/nixos/desktop/
@@ -257,9 +260,6 @@ in
     pavucontrol # Audio control GUI
     steam-run # Steam runtime for non-Steam applications
     qpwgraph # PipeWire graph visualizer for audio routing
-
-    wtype # Wayland typing tool for dictation output
-    libnotify # Notifications for dictation status
   ];
 
   # Audio effects processing for microphone and system audio

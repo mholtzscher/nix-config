@@ -20,6 +20,7 @@ in
       "wheel" # Enable sudo
       "networkmanager" # Network management
       "docker" # Docker access (if enabled)
+      "input" # Voxtype push-to-talk hotkey access
     ];
     shell = pkgs.nushell;
     # SSH authorized keys for remote access

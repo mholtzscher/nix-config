@@ -116,7 +116,6 @@ binds {
     Mod+Shift+R { switch-preset-window-height; }
     Mod+Shift+S { spawn "bash" "-c" "grim -g \"$(slurp)\" - | wl-copy"; }
     Mod+Shift+Slash { show-hotkey-overlay; }
-    Mod+Slash { spawn "pkill" "-USR2" "-x" "handy"; }
     Mod+Space { spawn "noctalia" "msg" "panel-toggle" "launcher"; }
     Mod+T { spawn "ghostty"; }
     Mod+V { spawn "noctalia" "msg" "panel-toggle" "clipboard"; }
@@ -126,7 +125,6 @@ binds {
     XF86AudioRaiseVolume { spawn "wpctl" "set-volume" "-l" "1.0" "@DEFAULT_AUDIO_SINK@" "5%+"; }
 }
 spawn-at-startup "solaar" "-w" "hide"
-spawn-at-startup "handy --start-hidden"
 window-rule {
     geometry-corner-radius 10
     clip-to-geometry true
