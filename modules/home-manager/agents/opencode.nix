@@ -56,7 +56,7 @@ in
       package = inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system}.opencode;
       settings = {
         plugin = [
-          "@plannotator/opencode@0.27.4"
+          "@plannotator/opencode@0.27.6"
         ];
         username = "mholtzscher";
         agent = {
