@@ -6,7 +6,7 @@
 
 with pkgs;
 [
-  (pkgs.callPackage ../../pkgs/plannotator { })
+  inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system}.plannotator
   (pkgs.callPackage ../../pkgs/vimhjkl { })
   ast-grep
   bottom
