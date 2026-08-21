@@ -28,6 +28,8 @@ in
 
       keys = {
         prefix = "ctrl+g";
+        switch_tab = [ ];
+        switch_workspace = [ "prefix+1..9" ];
         new_worktree = [ ];
         remove_worktree = [ "prefix+shift+u" ];
 
