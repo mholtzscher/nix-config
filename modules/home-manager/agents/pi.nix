@@ -38,6 +38,7 @@ let
       "npm:pi-context-view"
       "npm:pi-mcp-adapter"
       "npm:pi-powerline-footer"
+      "git:git@github.com:mholtzscher/pi-review-gate"
       # "npm:pi-subagents"
       "npm:pi-web-access"
       # "npm:sideshow"
@@ -102,6 +103,13 @@ in
 
     ".pi/agent/prompts" = {
       source = ./files/pi/prompts;
+      recursive = true;
+    };
+
+    ".pi/agent/review-gate.yaml".source = ./files/pi/review-gate.yaml;
+
+    ".pi/agent/reviewers" = {
+      source = ./files/pi/reviewers;
       recursive = true;
     };
 
