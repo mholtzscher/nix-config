@@ -116,7 +116,6 @@ let
 in
 {
   imports = [
-    inputs.noctalia.homeModules.default
     ./voxtype.nix
   ];
 
@@ -135,6 +134,7 @@ in
 
   programs.noctalia = {
     enable = true;
+    package = inputs.noctalia.packages.${pkgs.stdenv.hostPlatform.system}.default;
     settings = {
       wallpaper = {
         directory = "${config.home.homeDirectory}/Pictures/wallpapers";

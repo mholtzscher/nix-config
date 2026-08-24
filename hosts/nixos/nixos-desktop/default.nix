@@ -6,7 +6,6 @@
 }:
 {
   imports = [
-    inputs.noctalia.nixosModules.default
     inputs.noctalia-greeter.nixosModules.default
 
     ./hardware-configuration.nix
@@ -124,6 +123,7 @@
 
     noctalia = {
       enable = true;
+      package = inputs.noctalia.packages.${pkgs.stdenv.hostPlatform.system}.default;
       systemd = {
         enable = true;
         target = "niri.service";
