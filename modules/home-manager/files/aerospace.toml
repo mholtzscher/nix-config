@@ -86,6 +86,10 @@ if.app-name-regex-substring = 'Claude'
 run = ['move-node-to-workspace VSCode']
 
 [[on-window-detected]]
+if.app-name-regex-substring = 'Glean'
+run = ['move-node-to-workspace VSCode']
+
+[[on-window-detected]]
 if.app-name-regex-substring = "Ghostty"
 run = ["move-node-to-workspace Ghostty"]
 
