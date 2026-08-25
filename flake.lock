@@ -320,11 +320,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1785627969,
-        "narHash": "sha256-4dtXQk/NMePegK/nWp5NSeuZKLATItOq61lpEvmXqGw=",
+        "lastModified": 1787559586,
+        "narHash": "sha256-onL0VLf9vPllmT0H/OlURIU5r5t5WIEl7t4tVNKT0Nw=",
         "owner": "hercules-ci",
         "repo": "flake-parts",
-        "rev": "427bf4bd9435fdf21321c8cc628c24efc14c0f7a",
+        "rev": "9d0d87172c374f89da73c1cfe6d81ae62feac1f1",
         "type": "github"
       },
       "original": {
@@ -537,11 +537,11 @@
         "rust-overlay": "rust-overlay"
       },
       "locked": {
-        "lastModified": 1787615997,
-        "narHash": "sha256-wE2qocYaBBXc/CxAgmwSj6I7LD9nH1/T0AtJAVRr2Nk=",
+        "lastModified": 1787690696,
+        "narHash": "sha256-ljbHQ3i8lkkC4sK3kZ+qOejCANVW7PpQmV6eWTxdMM8=",
         "owner": "ogulcancelik",
         "repo": "herdr",
-        "rev": "6e8b138d0f7d7d695530657a6d8dc475bd3fba2b",
+        "rev": "d79fd746a96ddb5642939c9727baefce642d78e6",
         "type": "github"
       },
       "original": {
@@ -578,11 +578,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1787661347,
-        "narHash": "sha256-THmnBAdAIV+jT348f3r/vyoeb6ilhcVLwVXkBU7Pai8=",
+        "lastModified": 1787680808,
+        "narHash": "sha256-9168tNt0NZdtlx5RM5huEuc9NCWMLACJA9O4UK/l2Zc=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "52c3a5881c821ad7367bbde075e52b76cdb378ab",
+        "rev": "6840c9a8f50722944eb106ce8bb237c138584f2a",
         "type": "github"
       },
       "original": {
@@ -617,11 +617,11 @@
         "systems": "systems_5"
       },
       "locked": {
-        "lastModified": 1787625946,
-        "narHash": "sha256-KRwsVf37zEuVCgDih4RFRzVK+Hp0Ah4THXY3VRpUbpg=",
+        "lastModified": 1787677252,
+        "narHash": "sha256-tA2yv7JUDVDViKyVztdoO/8NDyZPKlDsZcR1bQZVFHk=",
         "owner": "modem-dev",
         "repo": "hunk",
-        "rev": "15ff46225c088e07eb0591df8f2cf672c919dfc1",
+        "rev": "76565a63c48769a4ebc4ab93452db7037d663330",
         "type": "github"
       },
       "original": {
@@ -654,11 +654,11 @@
         "treefmt-nix": "treefmt-nix_2"
       },
       "locked": {
-        "lastModified": 1787660833,
-        "narHash": "sha256-4R2DeS9btVaawjYmkfA9c1QHYCwg0TM2PjlFOSlKk0Y=",
+        "lastModified": 1787692890,
+        "narHash": "sha256-IBONckcMEsjZgtyJ0xdbwkUyv7fvwcbWmJ8Gx9whsso=",
         "owner": "numtide",
         "repo": "llm-agents.nix",
-        "rev": "60e7fc4eab599ae19f53818784955f2f5aab72ec",
+        "rev": "8f1b8e585a65d3297a01bdd3e29e9dbc6ed716ef",
         "type": "github"
       },
       "original": {
@@ -729,11 +729,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1787553820,
-        "narHash": "sha256-ZiPEQWvLJSOiqMdwwpEG1NjfczE6/Egm5N198Es4I5M=",
+        "lastModified": 1787676974,
+        "narHash": "sha256-9eevSuQvvdRu1HnlCeQ9e+G6ttuHyl1AvDk/I/J5RRk=",
         "owner": "nix-community",
         "repo": "neovim-nightly-overlay",
-        "rev": "2f15c05a7aacb8368ee38610b69dad7b94513ebf",
+        "rev": "b72b293cb72c3918ddb7505e39549aff44760464",
         "type": "github"
       },
       "original": {
@@ -745,11 +745,11 @@
     "neovim-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1787527927,
-        "narHash": "sha256-nSi5sTr7GyOwROipIDx6/xfyR4Y0p9zl6qu1CWb82vw=",
+        "lastModified": 1787598110,
+        "narHash": "sha256-k3Opsqiakn1nhG+dPuYqVaLpL7E0EVBf0/gL5EVUxws=",
         "owner": "neovim",
         "repo": "neovim",
-        "rev": "eeefe7ca65dfe6d32d17d2dd438bd8139c3dfa47",
+        "rev": "510f61555b9da5800ccd13de2336c90a64c0b9a5",
         "type": "github"
       },
       "original": {
@@ -1323,11 +1323,11 @@
     "vercel-agent-browser": {
       "flake": false,
       "locked": {
-        "lastModified": 1787627708,
-        "narHash": "sha256-JwFswQgXziHoTXpF/fw3RgiRJdLuSnf+L6XbRoTq7k0=",
+        "lastModified": 1787682473,
+        "narHash": "sha256-UyUbGI+N4bd/NtpJtKDjMaocmWgYDcA9qkeM8b59UOM=",
         "owner": "vercel-labs",
         "repo": "agent-browser",
-        "rev": "585e740fcef069d74e21f0e88e8bf4ea7df34385",
+        "rev": "8d5b08dd45f0033ffcb6411e31b3990852e76563",
         "type": "github"
       },
       "original": {
