@@ -48,6 +48,11 @@ in
     };
 
     "${config.xdg.configHome}/opencode/AGENTS.md".source = ./files/karpathy-agents.md;
+
+    "${config.xdg.configHome}/opencode/plugins/pr-comments.ts" = {
+      source = ./files/opencode/plugins/pr-comments.ts;
+      force = true;
+    };
   };
 
   programs = {
@@ -77,7 +82,31 @@ in
             reasoningEffort = "high";
           };
         };
-        mcp = {
+        mcp.servers = {
+          home-assistant = {
+            type = "remote";
+            url = "https://home.holtzscher.com/api/webhook/mcp_d658f368f407b84c193f22eec56dbb44";
+            oauth = {
+              client_id = "http://localhost:19876";
+              callback_port = 19876;
+              redirect_uri = "http://localhost:19876/callback";
+            };
+          };
+
+          railway = {
+            type = "remote";
+            url = "https://mcp.railway.com";
+          };
+
+          sideshow = {
+            type = "remote";
+            url = "https://sideshow.sh/mcp";
+          };
+
+          honeycomb = {
+            type = "remote";
+            url = "https://mcp.honeycomb.io/mcp";
+          };
         };
       };
     };
