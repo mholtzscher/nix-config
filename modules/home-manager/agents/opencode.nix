@@ -66,8 +66,8 @@ in
         username = "mholtzscher";
         agent = {
           build = {
-            model = "openai/gpt-5.6-terra";
-            reasoningEffort = "high";
+            model = "openai/gpt-5.6-sol";
+            reasoningEffort = "xhigh";
           };
           plan = {
             model = "openai/gpt-5.6-sol";
