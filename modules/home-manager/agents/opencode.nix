@@ -78,8 +78,8 @@ in
             reasoningEffort = "high";
           };
           general = {
-            model = "openai/gpt-5.6-terra";
-            reasoningEffort = "high";
+            model = "openai/gpt-5.6-sol";
+            reasoningEffort = "low";
           };
         };
         mcp.servers = {
