@@ -6,24 +6,24 @@
 }:
 
 let
-  version = "0.4.1";
+  version = "0.5.0";
 
   assets = {
     aarch64-darwin = {
       name = "otel-desktop-viewer_darwin_arm64.tar.gz";
-      hash = "sha256-PRFZhcz4/cR+XSyWsZ8gayM3zjbLsZBF8g7CpgPz4hk=";
+      hash = "sha256-5KAFH4J+akD1Kwl/SQ14Mq+FuuV39LM6aamGESx2GKQ=";
     };
     x86_64-darwin = {
       name = "otel-desktop-viewer_darwin_amd64.tar.gz";
-      hash = "sha256-X8QhZzxQ7gCfdk+KEu2xe29zrLblq9aKkHpRw2eCmg4=";
+      hash = "sha256-spxRISFOiUuL6+3wRQmwD5dsDSC6jMK/Z3v3CJwatr4=";
     };
     aarch64-linux = {
       name = "otel-desktop-viewer_linux_arm64.tar.gz";
-      hash = "sha256-qAfk54YQoOfuBxXWP824myq6Y6NeuonSeY1c80mfxJ0=";
+      hash = "sha256-dK5UICtZUwDMU/z3DBx9MU7MT187gPwHU6gXubPZO0M=";
     };
     x86_64-linux = {
       name = "otel-desktop-viewer_linux_amd64.tar.gz";
-      hash = "sha256-3NxnPLLveTSZzgIpga89xWrSEW3BsehMHg8S5bWeO/s=";
+      hash = "sha256-QAZDzU5pErSQGiXlHh/1goFYBvQZ9WDoh0niFTkxQoY=";
     };
   };
 
