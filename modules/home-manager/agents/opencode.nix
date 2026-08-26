@@ -49,10 +49,10 @@ in
 
     "${config.xdg.configHome}/opencode/AGENTS.md".source = ./files/karpathy-agents.md;
 
-    "${config.xdg.configHome}/opencode/plugins/pr-comments.ts" = {
-      source = ./files/opencode/plugins/pr-comments.ts;
-      force = true;
-    };
+    # "${config.xdg.configHome}/opencode/plugins/pr-comments.ts" = {
+    #   source = ./files/opencode/plugins/pr-comments.ts;
+    #   force = true;
+    # };
   };
 
   programs = {
