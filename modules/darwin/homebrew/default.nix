@@ -35,6 +35,7 @@
       "arc"
       "cleanshot"
       "deskpad"
+      "google-chrome"
       # "docker-desktop"
       "raycast"
       "slack"

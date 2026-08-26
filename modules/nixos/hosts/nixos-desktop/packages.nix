@@ -10,6 +10,7 @@
     gnumake
     vscode
 
+    google-chrome
     libnotify
 
     # Screenshot tools for Wayland
