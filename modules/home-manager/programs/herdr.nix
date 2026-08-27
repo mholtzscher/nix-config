@@ -6,6 +6,7 @@
 }:
 let
   herdr = inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system}.herdr;
+  herdr-annotate = pkgs.callPackage ../../../pkgs/herdr-annotate { };
   herdr-focus-or-tab = pkgs.callPackage ../../../pkgs/herdr-focus-or-tab { };
   herdr-navigator = pkgs.callPackage ../../../pkgs/herdr-navigator { };
   herdr-worktree-picker = pkgs.callPackage ../../../pkgs/herdr-worktree-picker { };
@@ -13,6 +14,7 @@ in
 {
   home.activation.herdrPlugins = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
     run ${herdr}/bin/herdr integration install pi
+    run ${herdr}/bin/herdr plugin link ${herdr-annotate} --enabled
     run ${herdr}/bin/herdr plugin link ${herdr-focus-or-tab} --enabled
     run ${herdr}/bin/herdr plugin link ${herdr-navigator} --enabled
     run ${herdr}/bin/herdr plugin link ${herdr-worktree-picker} --enabled
@@ -79,6 +81,24 @@ in
 
         settings = "prefix+comma";
         command = [
+          {
+            key = "prefix+a";
+            type = "plugin_action";
+            command = "annotate.capture";
+            description = "annotate text";
+          }
+          {
+            key = "prefix+shift+a";
+            type = "plugin_action";
+            command = "annotate.copy-context";
+            description = "copy annotations as context";
+          }
+          {
+            key = "prefix+m";
+            type = "plugin_action";
+            command = "annotate.manage";
+            description = "manage annotations";
+          }
           {
             key = "alt+l";
             type = "plugin_action";
