@@ -121,6 +121,8 @@ in
 
       TOPIARY_CONFIG_FILE = "${config.xdg.configHome}/topiary/languages.ncl";
       TOPIARY_LANGUAGE_DIR = "${config.xdg.configHome}/topiary/languages";
+
+      PI_FFF_MODE = "override";
     };
   };
 

@@ -60,6 +60,7 @@ in
         AGENT_ARTIFACTS_WRITE_KEY = readAgeSecret "agent-artifacts-write-key";
         OPENCODE_GO_AUTH_COOKIE = readAgeSecret "opencode-go-cookie";
         OPENCODE_GO_WORKSPACE_ID = readAgeSecret "opencode-go-workspace-id";
+        PI_FFF_MODE = "override";
       };
       settings = {
         edit_mode = "vi";

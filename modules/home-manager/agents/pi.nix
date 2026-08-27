@@ -43,7 +43,7 @@ let
       "npm:pi-web-access"
       # "npm:sideshow"
       # "git:github.com/mholtzscher/pi-herdr-subagents"
-      # "npm:@ff-labs/pi-fff"
+      "npm:@ff-labs/pi-fff"
       # "npm:@ifi/oh-pi-themes"
       # "npm:pi-boomerang"
     ];
