@@ -3,8 +3,12 @@
   lib,
   inputs,
   isWork,
+  pkgs,
   ...
 }:
+let
+  herdr-annotate = pkgs.callPackage ../../../pkgs/herdr-annotate { };
+in
 {
   imports = [ inputs.agent-skills.homeManagerModules.default ];
 
@@ -65,6 +69,11 @@
         idPrefix = "herdr";
       };
 
+      herdr-annotate = {
+        path = "${herdr-annotate}/skills";
+        idPrefix = "herdr-annotate";
+      };
+
       dmmulroy = {
         input = "dmmulroy-dotfiles";
         subdir = "home/.agents/skills";
@@ -102,6 +111,11 @@
       "mholtzscher/service-design"
       # "mholtzscher/zellij-tasks"
     ];
+
+    skills.explicit.plannotator-tui = {
+      from = "herdr-annotate";
+      path = "plannotator-tui";
+    };
 
     targets.pi = {
       enable = true;

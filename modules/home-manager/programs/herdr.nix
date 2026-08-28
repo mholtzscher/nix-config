@@ -12,6 +12,8 @@ let
   herdr-worktree-picker = pkgs.callPackage ../../../pkgs/herdr-worktree-picker { };
 in
 {
+  home.packages = [ herdr-annotate ];
+
   home.activation.herdrPlugins = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
     run ${herdr}/bin/herdr integration install pi
     run ${herdr}/bin/herdr plugin link ${herdr-annotate} --enabled
@@ -98,6 +100,18 @@ in
             type = "plugin_action";
             command = "annotate.manage";
             description = "manage annotations";
+          }
+          {
+            key = "prefix+o";
+            type = "plugin_action";
+            command = "annotate.open";
+            description = "review documents in this folder";
+          }
+          {
+            key = "prefix+shift+o";
+            type = "plugin_action";
+            command = "annotate.last";
+            description = "review the agent's last reply";
           }
           {
             key = "alt+l";
