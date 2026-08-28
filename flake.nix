@@ -85,6 +85,10 @@
       url = "github:plannotator/effective-html";
       flake = false;
     };
+    pstack-skills = {
+      url = "github:cursor/plugins";
+      flake = false;
+    };
     vercel-agent-browser = {
       url = "github:vercel-labs/agent-browser";
       flake = false;
@@ -143,6 +147,7 @@
       mattpocock-skills,
       mholtzscher-skills,
       plannotator-skills,
+      pstack-skills,
       vercel-agent-browser,
       nicobailon-visual-explainer,
       today,

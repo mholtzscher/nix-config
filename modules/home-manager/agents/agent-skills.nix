@@ -63,6 +63,12 @@ in
         idPrefix = "plannotator";
       };
 
+      pstack = {
+        input = "pstack-skills";
+        subdir = "pstack/skills";
+        idPrefix = "pstack";
+      };
+
       herdr = {
         input = "herdr";
         subdir = "skills";
@@ -71,7 +77,6 @@ in
 
       herdr-annotate = {
         path = "${herdr-annotate}/skills";
-        idPrefix = "herdr-annotate";
       };
 
       dmmulroy = {
@@ -96,6 +101,10 @@ in
       "plannotator/html-prototype"
       "plannotator/html-plan"
       "plannotator/html-diagram"
+      "plannotator-tui"
+      "pstack/create-verification-skill"
+      "pstack/maintain-verification-skill"
+      "pstack/unslop"
       "herdr/herdr"
       "dmmulroy/bro"
     ]
@@ -111,11 +120,6 @@ in
       "mholtzscher/service-design"
       # "mholtzscher/zellij-tasks"
     ];
-
-    skills.explicit.plannotator-tui = {
-      from = "herdr-annotate";
-      path = "plannotator-tui";
-    };
 
     targets.pi = {
       enable = true;

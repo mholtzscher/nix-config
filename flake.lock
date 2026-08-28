@@ -989,6 +989,22 @@
         "type": "github"
       }
     },
+    "pstack-skills": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1787937126,
+        "narHash": "sha256-dt4cl0kJzmluQ/n24QqWqhl0k5EvFTJB2HSVKCEBfBo=",
+        "owner": "cursor",
+        "repo": "plugins",
+        "rev": "68836ddaf5697224520f1847d90cdb90ca8babaa",
+        "type": "github"
+      },
+      "original": {
+        "owner": "cursor",
+        "repo": "plugins",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "aerospace-utils": "aerospace-utils",
@@ -1018,6 +1034,7 @@
         "noctalia": "noctalia",
         "noctalia-greeter": "noctalia-greeter",
         "plannotator-skills": "plannotator-skills",
+        "pstack-skills": "pstack-skills",
         "sem": "sem",
         "today": "today",
         "topiaryNushell": "topiaryNushell",
