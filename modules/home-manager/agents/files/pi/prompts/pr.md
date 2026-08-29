@@ -22,7 +22,7 @@ Package the current working-tree changes into a GitHub pull request. Follow thes
    - Body: a short summary of what changed and why, plus any verification steps the reviewer can run. Use `gh`'s `--body` flag or a heredoc.
    - If `gh` is unavailable or auth fails, stop and report the exact error instead of falling back to manual instructions.
 
-5. **Watch checks when requested** — if an exact standalone `--watch` argument was provided, run `gh pr checks --watch --interval 10 <PR-URL>` after creating the PR. Wait until all reported checks finish, then summarize passed, failed, and cancelled checks. If watching fails, report the exact error.
+5. **Watch checks when requested** — if an exact standalone `--watch` argument was provided, run `gh pr checks <PR-NUMBER> --watch --interval 10` after creating the PR. Wait until all reported checks finish, then summarize passed, failed, and cancelled checks. If watching fails, report the exact error.
 
 6. **Report back** — print the PR URL and a one-line summary of the branch, commit, and PR.
 
