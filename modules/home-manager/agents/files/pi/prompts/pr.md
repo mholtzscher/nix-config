@@ -1,5 +1,6 @@
 ---
 description: Commit changes on the current or a new branch and open a GitHub pull request
+argument-hint: "[--watch] [branch or PR description]"
 ---
 
 Package the current working-tree changes into a GitHub pull request. Follow these steps in order:
@@ -21,9 +22,11 @@ Package the current working-tree changes into a GitHub pull request. Follow thes
    - Body: a short summary of what changed and why, plus any verification steps the reviewer can run. Use `gh`'s `--body` flag or a heredoc.
    - If `gh` is unavailable or auth fails, stop and report the exact error instead of falling back to manual instructions.
 
-5. **Report back** — print the PR URL and a one-line summary of the branch, commit, and PR.
+5. **Watch checks when requested** — if an exact standalone `--watch` argument was provided, run `gh pr checks --watch --interval 10 <PR-URL>` after creating the PR. Wait until all reported checks finish, then summarize passed, failed, and cancelled checks. If watching fails, report the exact error.
 
-If `$ARGUMENTS` is provided, treat it as the intended branch name / PR description and prefer it over an inferred one when a new branch is needed. Do not switch away from an existing non-default branch.
+6. **Report back** — print the PR URL and a one-line summary of the branch, commit, and PR.
+
+Treat an exact standalone `--watch` argument as a control option and remove it before interpreting the remaining arguments. If any arguments remain, treat them as the intended branch name / PR description and prefer them over an inferred one when a new branch is needed. Do not switch away from an existing non-default branch.
 
 Arguments:
 $ARGUMENTS
