@@ -14,7 +14,7 @@ let
   settings = {
     defaultProvider = if isWork then "litellm" else "openai-codex";
     defaultModel = if isWork then "sonnet-5" else "gpt-5.6-sol";
-    defaultThinkingLevel = "high";
+    defaultThinkingLevel = "xhigh";
     showCacheMissNotices = true;
     tuiMode = "fullscreen";
     enabledModels =
@@ -33,19 +33,19 @@ let
     workingVibe = "parks_and_rec";
     workingVibeMode = "file";
     packages = [
+      "npm:@ff-labs/pi-fff"
       "npm:@juicesharp/rpiv-ask-user-question"
       "npm:@plannotator/pi-extension"
       "npm:pi-context-view"
       "npm:pi-mcp-adapter"
       "npm:pi-powerline-footer"
-      # "git:git@github.com:mholtzscher/pi-review-gate"
-      # "npm:pi-subagents"
+      "npm:pi-subagents"
       "npm:pi-web-access"
-      # "npm:sideshow"
+      # "git:git@github.com:mholtzscher/pi-review-gate"
       # "git:github.com/mholtzscher/pi-herdr-subagents"
-      "npm:@ff-labs/pi-fff"
       # "npm:@ifi/oh-pi-themes"
       # "npm:pi-boomerang"
+      # "npm:sideshow"
     ];
     subagents =
       if isWork then
@@ -55,27 +55,31 @@ let
           agentOverrides = {
             scout = {
               model = "openai-codex/gpt-5.6-terra";
-              thinking = "low";
-            };
-            researcher = {
-              model = "openai-codex/gpt-5.6-sol";
-              thinking = "medium";
-            };
-            worker = {
-              model = "openai-codex/gpt-5.6-sol";
-              thinking = "high";
-            };
-            reviewer = {
-              model = "openai-codex/gpt-5.6-sol";
-              thinking = "high";
-            };
-            oracle = {
-              model = "openai-codex/gpt-5.6-sol";
               thinking = "high";
             };
             delegate = {
               model = "openai-codex/gpt-5.6-sol";
-              thinking = "medium";
+              thinking = "xhigh";
+            };
+            worker = {
+              model = "openai-codex/gpt-5.6-sol";
+              thinking = "high";
+              # disable = true;
+            };
+            researcher = {
+              # model = "openai-codex/gpt-5.6-sol";
+              # thinking = "medium";
+              disable = true;
+            };
+            reviewer = {
+              # model = "openai-codex/gpt-5.6-sol";
+              # thinking = "high";
+              disable = true;
+            };
+            oracle = {
+              # model = "openai-codex/gpt-5.6-sol";
+              # thinking = "high";
+              disable = true;
             };
           };
         };
