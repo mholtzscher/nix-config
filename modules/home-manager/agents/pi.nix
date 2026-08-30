@@ -50,40 +50,54 @@ let
     subagents =
       if isWork then
         {
-          scout = {
-            model = "openai-codex/gpt-5.6-terra";
-            thinking = "high";
-            disable = true;
-          };
-          delegate = {
-            model = "openai-codex/gpt-5.6-sol";
-            thinking = "xhigh";
-            disable = true;
-          };
-          worker = {
-            model = "openai-codex/gpt-5.6-sol";
-            thinking = "high";
-            disable = true;
-          };
-          researcher = {
-            # model = "openai-codex/gpt-5.6-sol";
-            # thinking = "medium";
-            disable = true;
-          };
-          reviewer = {
-            # model = "openai-codex/gpt-5.6-sol";
-            # thinking = "high";
-            disable = true;
-          };
-          oracle = {
-            # model = "openai-codex/gpt-5.6-sol";
-            # thinking = "high";
-            disable = true;
+          agentOverrides = {
+            "claude-code".disabled = true;
+            "claude-code-writer".disabled = true;
+            "codex-exec".disabled = true;
+            "codex-exec-writer".disabled = true;
+            "cursor-agent".disabled = true;
+            "cursor-agent-writer".disabled = true;
+            scout = {
+              model = "openai-codex/gpt-5.6-terra";
+              thinking = "high";
+              disabled = true;
+            };
+            delegate = {
+              model = "openai-codex/gpt-5.6-sol";
+              thinking = "xhigh";
+              disabled = true;
+            };
+            worker = {
+              model = "openai-codex/gpt-5.6-sol";
+              thinking = "high";
+              disabled = true;
+            };
+            researcher = {
+              # model = "openai-codex/gpt-5.6-sol";
+              # thinking = "medium";
+              disabled = true;
+            };
+            reviewer = {
+              # model = "openai-codex/gpt-5.6-sol";
+              # thinking = "high";
+              disabled = true;
+            };
+            oracle = {
+              # model = "openai-codex/gpt-5.6-sol";
+              # thinking = "high";
+              disabled = true;
+            };
           };
         }
       else
         {
           agentOverrides = {
+            "claude-code".disabled = true;
+            "claude-code-writer".disabled = true;
+            "codex-exec".disabled = true;
+            "codex-exec-writer".disabled = true;
+            "cursor-agent".disabled = true;
+            "cursor-agent-writer".disabled = true;
             scout = {
               model = "openai-codex/gpt-5.6-terra";
               thinking = "high";
@@ -95,22 +109,22 @@ let
             worker = {
               model = "openai-codex/gpt-5.6-sol";
               thinking = "high";
-              # disable = true;
+              # disabled = true;
             };
             researcher = {
               # model = "openai-codex/gpt-5.6-sol";
               # thinking = "medium";
-              disable = true;
+              disabled = true;
             };
             reviewer = {
               # model = "openai-codex/gpt-5.6-sol";
               # thinking = "high";
-              disable = true;
+              disabled = true;
             };
             oracle = {
               # model = "openai-codex/gpt-5.6-sol";
               # thinking = "high";
-              disable = true;
+              disabled = true;
             };
           };
         };
