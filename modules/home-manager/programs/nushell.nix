@@ -26,6 +26,9 @@ let
       }
       ''
         ${lib.getExe config.programs.atuin.package} init nu > "$out"
+        substituteInPlace "$out" \
+          --replace-fail $'name: atuin\n            modifier: control' \
+          $'name: atuin_ctrl_r\n            modifier: control'
       '';
 in
 {
