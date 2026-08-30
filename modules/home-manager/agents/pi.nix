@@ -49,7 +49,38 @@ let
     ];
     subagents =
       if isWork then
-        { }
+        {
+          scout = {
+            model = "openai-codex/gpt-5.6-terra";
+            thinking = "high";
+            disable = true;
+          };
+          delegate = {
+            model = "openai-codex/gpt-5.6-sol";
+            thinking = "xhigh";
+            disable = true;
+          };
+          worker = {
+            model = "openai-codex/gpt-5.6-sol";
+            thinking = "high";
+            disable = true;
+          };
+          researcher = {
+            # model = "openai-codex/gpt-5.6-sol";
+            # thinking = "medium";
+            disable = true;
+          };
+          reviewer = {
+            # model = "openai-codex/gpt-5.6-sol";
+            # thinking = "high";
+            disable = true;
+          };
+          oracle = {
+            # model = "openai-codex/gpt-5.6-sol";
+            # thinking = "high";
+            disable = true;
+          };
+        }
       else
         {
           agentOverrides = {
