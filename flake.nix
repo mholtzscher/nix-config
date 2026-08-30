@@ -57,43 +57,43 @@
       url = "github:Kyure-A/agent-skills-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    agent-artifacts = {
+    skills-agent-artifacts = {
       url = "github:mholtzscher/agent-artifacts";
       flake = false;
     };
-    dmmulroy-dotfiles = {
+    skills-dmmulroy = {
       url = "github:dmmulroy/.dotfiles";
       flake = false;
     };
-    anthropic-skills = {
+    skills-anthropic = {
       url = "github:anthropics/skills";
       flake = false;
     };
-    cloudflare-skills = {
+    skills-cloudflare = {
       url = "github:cloudflare/skills";
       flake = false;
     };
-    mattpocock-skills = {
+    skills-mattpocock = {
       url = "github:mattpocock/skills";
       flake = false;
     };
-    mholtzscher-skills = {
+    skills-mholtzscher = {
       url = "github:mholtzscher/skills";
       flake = false;
     };
-    plannotator-skills = {
+    skills-plannotator = {
       url = "github:plannotator/effective-html";
       flake = false;
     };
-    pstack-skills = {
+    skills-pstack = {
       url = "github:cursor/plugins";
       flake = false;
     };
-    vercel-agent-browser = {
+    skills-vercel = {
       url = "github:vercel-labs/agent-browser";
       flake = false;
     };
-    nicobailon-visual-explainer = {
+    skills-nicobailon = {
       url = "github:nicobailon/visual-explainer";
       flake = false;
     };
@@ -113,7 +113,7 @@
       url = "github:Ataraxy-Labs/sem";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    herdr = {
+    skills-herdr = {
       url = "github:ogulcancelik/herdr";
       inputs.nixpkgs.follows = "nixpkgs";
     };
@@ -140,21 +140,21 @@
       neovim-nightly,
       llm-agents,
       agent-skills,
-      agent-artifacts,
-      dmmulroy-dotfiles,
-      anthropic-skills,
-      cloudflare-skills,
-      mattpocock-skills,
-      mholtzscher-skills,
-      plannotator-skills,
-      pstack-skills,
-      vercel-agent-browser,
-      nicobailon-visual-explainer,
+      skills-agent-artifacts,
+      skills-dmmulroy,
+      skills-anthropic,
+      skills-cloudflare,
+      skills-mattpocock,
+      skills-mholtzscher,
+      skills-plannotator,
+      skills-pstack,
+      skills-vercel,
+      skills-nicobailon,
       today,
       helium,
       hunk,
       sem,
-      herdr,
+      skills-herdr,
       zellmin,
       ...
     }:

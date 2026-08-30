@@ -17,60 +17,60 @@ in
 
     sources = {
       local = {
-        input = "mholtzscher-skills";
+        input = "skills-mholtzscher";
         idPrefix = "mholtzscher";
       };
 
       agent-artifacts = {
-        input = "agent-artifacts";
+        input = "skills-agent-artifacts";
         subdir = "skills";
         idPrefix = "mholtzscher";
       };
 
       anthropic = {
-        input = "anthropic-skills";
+        input = "skills-anthropic";
         subdir = "skills";
         idPrefix = "anthropic";
       };
 
       # cloudflare = {
-      #   input = "cloudflare-skills";
+      #   input = "skills-cloudflare";
       #   subdir = "skills";
       #   idPrefix = "cloudflare";
       # };
 
       mattpocock = {
-        input = "mattpocock-skills";
+        input = "skills-mattpocock";
         idPrefix = "mattpocock";
         subdir = "skills/engineering";
       };
 
       mattpocock-productivity = {
-        input = "mattpocock-skills";
+        input = "skills-mattpocock";
         idPrefix = "mattpocock";
         subdir = "skills/productivity";
       };
 
       vercel = {
-        input = "vercel-agent-browser";
+        input = "skills-vercel";
         subdir = "skills";
         idPrefix = "vercel";
       };
 
       plannotator = {
-        input = "plannotator-skills";
+        input = "skills-plannotator";
         subdir = "skills";
         idPrefix = "plannotator";
       };
 
       pstack = {
-        input = "pstack-skills";
+        input = "skills-pstack";
         subdir = "pstack/skills";
         idPrefix = "pstack";
       };
 
       herdr = {
-        input = "herdr";
+        input = "skills-herdr";
         subdir = "skills";
         idPrefix = "herdr";
       };
@@ -80,7 +80,7 @@ in
       };
 
       dmmulroy = {
-        input = "dmmulroy-dotfiles";
+        input = "skills-dmmulroy";
         subdir = "home/.agents/skills";
         idPrefix = "dmmulroy";
       };
