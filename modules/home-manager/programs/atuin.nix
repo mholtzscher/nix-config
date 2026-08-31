@@ -8,9 +8,11 @@
   programs = {
     atuin = {
       enable = true;
-      # Personal-host integrations are guarded in each shell so a cleared
+      # Nushell integration is sourced manually in nushell.nix (it patches
+      # the ctrl+r keybind name), so disable home-manager's default here.
+      # Personal-host zsh integration is guarded in-shell so a cleared
       # runtime directory does not break the first shell after reboot.
-      enableNushellIntegration = isWork;
+      enableNushellIntegration = false;
       enableZshIntegration = isWork;
       settings = {
         # Disable sync on work hosts, enable on personal hosts

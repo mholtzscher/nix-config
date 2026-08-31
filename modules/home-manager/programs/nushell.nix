@@ -45,12 +45,17 @@ in
           ${builtins.readFile ../files/nushell/functions.nu}
           ${builtins.readFile ../files/nushell/herdr-nix-status.nu}
         ''
-        (lib.mkIf (!isWork) (
-          lib.mkOrder 2000 ''
-            if ("${config.age.secrets.atuin-key.path}" | path exists) {
+        (lib.mkOrder 2000 (
+          if isWork then
+            ''
               source ${atuinNushellConfig}
-            }
-          ''
+            ''
+          else
+            ''
+              if ("${config.age.secrets.atuin-key.path}" | path exists) {
+                source ${atuinNushellConfig}
+              }
+            ''
         ))
       ];
       shellAliases = sharedAliases.shellAliases;
