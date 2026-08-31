@@ -58,19 +58,19 @@ let
             "cursor-agent".disabled = true;
             "cursor-agent-writer".disabled = true;
             scout = {
-              model = "openai-codex/gpt-5.6-terra";
+              model = "litellm/cheap-but-effective--kimi-k2-5";
               thinking = "high";
-              disabled = true;
+              # disabled = true;
             };
             delegate = {
-              model = "openai-codex/gpt-5.6-sol";
-              thinking = "xhigh";
-              disabled = true;
+              model = "litellm/sonnet-5";
+              thinking = "high";
+              # disabled = true;
             };
             worker = {
-              model = "openai-codex/gpt-5.6-sol";
+              model = "litellm/sonnet-5";
               thinking = "high";
-              disabled = true;
+              # disabled = true;
             };
             researcher = {
               # model = "openai-codex/gpt-5.6-sol";
@@ -104,7 +104,7 @@ let
             };
             delegate = {
               model = "openai-codex/gpt-5.6-sol";
-              thinking = "xhigh";
+              thinking = "high";
             };
             worker = {
               model = "openai-codex/gpt-5.6-sol";
