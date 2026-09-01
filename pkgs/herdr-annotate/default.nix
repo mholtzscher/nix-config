@@ -7,23 +7,23 @@
 }:
 
 let
-  plannotatorTuiVersion = "0.3.1";
+  plannotatorTuiVersion = "0.6.0";
   plannotatorTuiAssets = {
     aarch64-darwin = {
       target = "aarch64-apple-darwin";
-      hash = "sha256-qisoPe48XgkN7QLi36TVPIxP4NG42dcC7Ek29e/v8Jw=";
+      hash = "sha256-CW0MWr2oYsFzrHN5xgb4kJdo9DRYMzrHBr1u3gQkyLc=";
     };
     x86_64-darwin = {
       target = "x86_64-apple-darwin";
-      hash = "sha256-cKnWHmjrE9+Mi8YYPuMosOYja2SaRMhHZv182YMjBKE=";
+      hash = "sha256-ysoUurI13uJkF7+mtJ/nC3v2uYWvnqStTNa6JPVs7DE=";
     };
     aarch64-linux = {
       target = "aarch64-unknown-linux-gnu";
-      hash = "sha256-03FgV+ghy+pDH8+e/DL8aSTohOaFq6nJjRdXU8oH8rI=";
+      hash = "sha256-TnOR+KDIFQEkaWdaxpVpJS60nNK56XV6UJOmrdOgeHI=";
     };
     x86_64-linux = {
       target = "x86_64-unknown-linux-gnu";
-      hash = "sha256-xktsrKGEfBWa8NmhiBoRX13mifac51JZXJnqaag5w+A=";
+      hash = "sha256-36DmwO75zhymTqexjzdlE2Sp8cLAphW91E+JjSRGkgo=";
     };
   };
   plannotatorTuiAsset =
@@ -41,8 +41,8 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "plannotator";
     repo = "herdr-annotate";
-    rev = "fb93a1318f960792452cef6cde72a2c4f4591241";
-    hash = "sha256-1/coPKNlvCbqaEMW+y214wvn4fgl8TdGyUl6BpqXuPw=";
+    rev = "bccf884b874f5f39ccbef1bb6ac67625c5fb5d54";
+    hash = "sha256-h3ibUCd2uLtQENU0IRNJzefZH2pnK13mzCoHmGc1EeU=";
   };
 
   nativeBuildInputs = lib.optional stdenv.hostPlatform.isLinux autoPatchelfHook;
