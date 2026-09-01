@@ -14,7 +14,7 @@ let
   settings = {
     defaultProvider = if isWork then "litellm" else "openai-codex";
     defaultModel = if isWork then "sonnet-5" else "gpt-5.6-sol";
-    defaultThinkingLevel = "xhigh";
+    defaultThinkingLevel = "high";
     showCacheMissNotices = true;
     tuiMode = "fullscreen";
     enabledModels =
@@ -39,7 +39,7 @@ let
       "npm:pi-context-view"
       "npm:pi-mcp-adapter"
       "npm:pi-powerline-footer"
-      "npm:pi-subagents"
+      # "npm:pi-subagents"
       "npm:pi-web-access"
       # "git:git@github.com:mholtzscher/pi-review-gate"
       # "git:github.com/mholtzscher/pi-herdr-subagents"
