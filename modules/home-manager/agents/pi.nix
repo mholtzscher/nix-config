@@ -65,6 +65,18 @@ in
       source = settingsFile;
     };
 
+    ".pi/agent/subagents-lite.json" = lib.mkIf (!isWork) {
+      force = true;
+      text = builtins.toJSON {
+        agent.showCost = true;
+      };
+    };
+
+    ".pi/agent/agents" = {
+      source = ./files/pi/agents;
+      recursive = true;
+    };
+
     ".pi/agent/prompts" = {
       source = ./files/pi/prompts;
       recursive = true;
