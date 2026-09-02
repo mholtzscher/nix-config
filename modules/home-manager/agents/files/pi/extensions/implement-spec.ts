@@ -1,5 +1,5 @@
 import type { ExtensionAPI } from "@earendil-works/pi-coding-agent";
-import { readdir } from "node:fs/promises";
+import { readdir, stat } from "node:fs/promises";
 import { join } from "node:path";
 
 function buildImplementationPrompt(specPath: string): string {
@@ -31,10 +31,16 @@ export default function (pi: ExtensionAPI) {
 			let specs: string[];
 
 			try {
-				specs = (await readdir(specsDirectory, { withFileTypes: true }))
-					.filter((entry) => entry.isFile())
-					.map((entry) => entry.name)
-					.sort((left, right) => left.localeCompare(right));
+				const files = (await readdir(specsDirectory, { withFileTypes: true }))
+					.filter((entry) => entry.isFile());
+				const modifiedFiles = await Promise.all(files.map(async (entry) => ({
+					name: entry.name,
+					modifiedAt: (await stat(join(specsDirectory, entry.name))).mtimeMs,
+				})));
+
+				specs = modifiedFiles
+					.sort((left, right) => right.modifiedAt - left.modifiedAt || left.name.localeCompare(right.name))
+					.map((file) => file.name);
 			} catch (error) {
 				const message = error instanceof Error ? error.message : String(error);
 				ctx.ui.notify(`Could not read specs/: ${message}`, "error");
