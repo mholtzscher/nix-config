@@ -39,95 +39,12 @@ let
       "npm:pi-context-view"
       "npm:pi-mcp-adapter"
       "npm:pi-powerline-footer"
-      # "npm:pi-subagents"
       "npm:pi-web-access"
-      # "git:git@github.com:mholtzscher/pi-review-gate"
       # "git:github.com/mholtzscher/pi-herdr-subagents"
       # "npm:@ifi/oh-pi-themes"
       # "npm:pi-boomerang"
       # "npm:sideshow"
     ];
-    subagents =
-      if isWork then
-        {
-          agentOverrides = {
-            "claude-code".disabled = true;
-            "claude-code-writer".disabled = true;
-            "codex-exec".disabled = true;
-            "codex-exec-writer".disabled = true;
-            "cursor-agent".disabled = true;
-            "cursor-agent-writer".disabled = true;
-            scout = {
-              model = "litellm/cheap-but-effective--kimi-k2-5";
-              thinking = "high";
-              # disabled = true;
-            };
-            delegate = {
-              model = "litellm/sonnet-5";
-              thinking = "high";
-              # disabled = true;
-            };
-            worker = {
-              model = "litellm/sonnet-5";
-              thinking = "high";
-              # disabled = true;
-            };
-            researcher = {
-              # model = "openai-codex/gpt-5.6-sol";
-              # thinking = "medium";
-              disabled = true;
-            };
-            reviewer = {
-              # model = "openai-codex/gpt-5.6-sol";
-              # thinking = "high";
-              disabled = true;
-            };
-            oracle = {
-              # model = "openai-codex/gpt-5.6-sol";
-              # thinking = "high";
-              disabled = true;
-            };
-          };
-        }
-      else
-        {
-          agentOverrides = {
-            "claude-code".disabled = true;
-            "claude-code-writer".disabled = true;
-            "codex-exec".disabled = true;
-            "codex-exec-writer".disabled = true;
-            "cursor-agent".disabled = true;
-            "cursor-agent-writer".disabled = true;
-            scout = {
-              model = "openai-codex/gpt-5.6-terra";
-              thinking = "high";
-            };
-            delegate = {
-              model = "openai-codex/gpt-5.6-sol";
-              thinking = "high";
-            };
-            worker = {
-              model = "openai-codex/gpt-5.6-sol";
-              thinking = "high";
-              # disabled = true;
-            };
-            researcher = {
-              # model = "openai-codex/gpt-5.6-sol";
-              # thinking = "medium";
-              disabled = true;
-            };
-            reviewer = {
-              # model = "openai-codex/gpt-5.6-sol";
-              # thinking = "high";
-              disabled = true;
-            };
-            oracle = {
-              # model = "openai-codex/gpt-5.6-sol";
-              # thinking = "high";
-              disabled = true;
-            };
-          };
-        };
     powerline = {
       welcome = false;
       disabledSegments = [ "git" ];
@@ -152,13 +69,6 @@ in
 
     ".pi/agent/prompts" = {
       source = ./files/pi/prompts;
-      recursive = true;
-    };
-
-    ".pi/agent/review-gate.yaml".source = ./files/pi/review-gate.yaml;
-
-    ".pi/agent/reviewers" = {
-      source = ./files/pi/reviewers;
       recursive = true;
     };
 
