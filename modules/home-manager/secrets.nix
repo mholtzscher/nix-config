@@ -34,6 +34,12 @@
       file = ../../secrets/nixos-desktop-cloudflare-tunnel-token.age;
       path = "${config.home.homeDirectory}/.local/share/agenix/nixos-desktop-cloudflare-tunnel-token";
     };
+    # Explicit path: pi-mcp-adapter's !command env injection cannot expand
+    # agenix's Darwin runtime-directory shell expression.
+    secrets.unifi-password = lib.mkIf (currentSystemName != "wanda") {
+      file = ../../secrets/unifi-password.age;
+      path = "${config.home.homeDirectory}/.local/share/agenix/unifi-password";
+    };
   };
 
   # Upstream also sets Crashed = false, which restarts the agent after every

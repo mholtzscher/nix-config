@@ -1,4 +1,5 @@
 {
+  config,
   pkgs,
   lib,
   inputs,
@@ -120,6 +121,20 @@ in
           honeycomb = {
             url = "https://mcp.honeycomb.io/mcp";
             auth = "oauth";
+          };
+
+          # UniFi Network controller MCP (https://github.com/sirkirby/unifi-mcp).
+          # The ! prefix makes pi-mcp-adapter run the command at connect time;
+          # stdout becomes the env value, so the password stays agenix-only.
+          "unifi-network" = {
+            command = "uvx";
+            args = [ "unifi-network-mcp@latest" ];
+            env = {
+              UNIFI_HOST = "10.69.69.1";
+              UNIFI_USERNAME = "michael-mcp";
+              UNIFI_PASSWORD = "!cat ${config.home.homeDirectory}/.local/share/agenix/unifi-password";
+              UNIFI_VERIFY_SSL = "false";
+            };
           };
         };
       };
