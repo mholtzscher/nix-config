@@ -39,6 +39,7 @@ with pkgs;
   procs
   rm-improved
   slides
+  sqlite
   statix
   tldr
   topiary
