@@ -16,8 +16,8 @@ Operate autonomously:
 Only stop to ask for help when blocked by missing credentials or permissions, or when an ambiguity could cause a destructive or materially different outcome.`;
 }
 
-function buildScrubPrompt(specPath: string): string {
-	return `/skill:unslop Review and refine @${specPath} for cohesiveness and brevity.
+function buildScrubTaskPrompt(specPath: string): string {
+	return `Review and refine @${specPath} for cohesiveness and brevity.
 
 Goals:
 
@@ -44,6 +44,23 @@ When finished, report:
 - The main categories of duplication or stale material removed.
 - Any unresolved contradictions or decisions needing owner input.
 - Validation results.`;
+}
+
+function buildScrubPrompt(specPath: string): string {
+	return `/skill:unslop ${buildScrubTaskPrompt(specPath)}`;
+}
+
+function buildBackgroundScrubPrompt(specPath: string): string {
+	const prompt = `Before editing, read and follow the unslop skill at ~/.pi/agent/skills/pstack/unslop/SKILL.md.\n\n${buildScrubTaskPrompt(specPath)}`;
+
+	return `Call the Agent tool exactly once with these arguments:
+
+- agent: "general-purpose"
+- description: "Scrub ${specPath}"
+- run_in_background: true
+- prompt: ${JSON.stringify(prompt)}
+
+Do not scrub the specification yourself. After the Agent tool confirms the background spawn, stop.`;
 }
 
 type SpecCommand = {
@@ -109,5 +126,11 @@ export default function (pi: ExtensionAPI) {
 		description: "Choose a file from specs/ and ask the agent to refine it",
 		pickerTitle: "Choose a specification to refine",
 		buildPrompt: buildScrubPrompt,
+	});
+	registerSpecCommand(pi, {
+		name: "scrub-spec-bg",
+		description: "Choose a file from specs/ and refine it in a background subagent",
+		pickerTitle: "Choose a specification to refine in the background",
+		buildPrompt: buildBackgroundScrubPrompt,
 	});
 }
