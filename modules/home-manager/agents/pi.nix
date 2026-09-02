@@ -42,10 +42,6 @@ let
       "npm:pi-powerline-footer"
       "npm:pi-web-access"
       "npm:pi-subagents-lite"
-      # "git:github.com/mholtzscher/pi-herdr-subagents"
-      # "npm:@ifi/oh-pi-themes"
-      # "npm:pi-boomerang"
-      # "npm:sideshow"
     ];
     powerline = {
       welcome = false;
@@ -74,55 +70,9 @@ in
       recursive = true;
     };
 
-    # ".pi/agent/models.json" = lib.mkIf (!isWork) {
-    #   text = builtins.toJSON {
-    #     providers = {
-    #       "opencode-go" = {
-    #         models = [
-    #           {
-    #             id = "glm-5.2";
-    #             name = "GLM-5.2";
-    #             reasoning = true;
-    #             input = [ "text" ];
-    #             contextWindow = 1000000;
-    #             maxTokens = 131072;
-    #             thinkingLevelMap = {
-    #               off = null;
-    #               minimal = null;
-    #               low = null;
-    #               medium = null;
-    #               high = "high";
-    #               xhigh = "max";
-    #             };
-    #           }
-    #         ];
-    #       };
-    #     };
-    #   };
-    # };
-
     ".pi/web-search.json".text = builtins.toJSON {
       workflow = "none";
     };
-
-    # ".pi/agent/boomerang.json".text = builtins.toJSON {
-    #   toolEnabled = true;
-    #   toolGuidance = "";
-    # };
-
-    # ".pi/agent/herdr-subagents.json".text = builtins.toJSON {
-    #   orchestrator.enabled = !isWork;
-    #   defaults = {
-    #     placement = "tab";
-    #     model = "openai-codex/gpt-5.6-sol";
-    #     thinking = "medium";
-    #   };
-    # };
-
-    # ".pi/agent/herdr-subagents/roles" = {
-    #   source = ./files/pi/herdr-subagents/roles;
-    #   recursive = true;
-    # };
 
     ".pi/agent/extensions" = {
       source = filteredExtensionsSource;
