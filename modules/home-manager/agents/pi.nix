@@ -41,6 +41,7 @@ let
       "npm:pi-mcp-adapter"
       "npm:pi-powerline-footer"
       "npm:pi-web-access"
+      "npm:pi-subagents-lite"
       # "git:github.com/mholtzscher/pi-herdr-subagents"
       # "npm:@ifi/oh-pi-themes"
       # "npm:pi-boomerang"
@@ -104,10 +105,10 @@ in
       workflow = "none";
     };
 
-    ".pi/agent/boomerang.json".text = builtins.toJSON {
-      toolEnabled = true;
-      toolGuidance = "";
-    };
+    # ".pi/agent/boomerang.json".text = builtins.toJSON {
+    #   toolEnabled = true;
+    #   toolGuidance = "";
+    # };
 
     # ".pi/agent/herdr-subagents.json".text = builtins.toJSON {
     #   orchestrator.enabled = !isWork;
