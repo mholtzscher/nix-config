@@ -58,11 +58,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1786379373,
-        "narHash": "sha256-zrvcpGFA8zG6yRLBqQH9bNkJap8xMvLNvkuT4+7w6X8=",
+        "lastModified": 1788352327,
+        "narHash": "sha256-dWGjrtJBX6UPMI76rg1bEV8T1zDJM6GG75ZYKUsFgIw=",
         "owner": "Kyure-A",
         "repo": "agent-skills-nix",
-        "rev": "1594ba479be81a7cb6dd19faabefcb1ed5b3f964",
+        "rev": "8190d47362f9bacee3d21bb489f1e0c1a8bad148",
         "type": "github"
       },
       "original": {
@@ -236,11 +236,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1787559586,
-        "narHash": "sha256-onL0VLf9vPllmT0H/OlURIU5r5t5WIEl7t4tVNKT0Nw=",
+        "lastModified": 1788306937,
+        "narHash": "sha256-lbrI1UYVpFgKSsyrU9oeF7FHfnu8nLD9ja0ou9f2rxk=",
         "owner": "hercules-ci",
         "repo": "flake-parts",
-        "rev": "9d0d87172c374f89da73c1cfe6d81ae62feac1f1",
+        "rev": "f16b25b8c3d2809b87925d0b76652d7821a75c68",
         "type": "github"
       },
       "original": {
@@ -451,11 +451,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1788306281,
-        "narHash": "sha256-fzkZin1xxYFD5OveNVZudWErqNtr1Pjfdkc9qd8ROCc=",
+        "lastModified": 1788317453,
+        "narHash": "sha256-BTVJDWIuGa5ffxQEG5WujOOm3eXPw3gZX42Wvm32gb8=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "ead131eb1ec3088a11a23638b99f89c50422fbd3",
+        "rev": "b8350fcdf54ccf553e46408053b1ac5b7038c18b",
         "type": "github"
       },
       "original": {
@@ -527,11 +527,11 @@
         "treefmt-nix": "treefmt-nix_2"
       },
       "locked": {
-        "lastModified": 1788307555,
-        "narHash": "sha256-PKLtNDhFEGkjzktIKvXKqMDG4UKq/DFicyGlJwH4NJE=",
+        "lastModified": 1788350369,
+        "narHash": "sha256-Vk+oVo4FNa/McD2/K5BO2Off6Z8l9mKmT9f0xZ6mDYQ=",
         "owner": "numtide",
         "repo": "llm-agents.nix",
-        "rev": "775405507404a6c28246aec9a848e091d3d8478c",
+        "rev": "4ab625e16a6cc52fe3f606b95f1e2ac20dafa80b",
         "type": "github"
       },
       "original": {
@@ -684,11 +684,11 @@
     },
     "nixpkgs-master": {
       "locked": {
-        "lastModified": 1788315101,
-        "narHash": "sha256-HLs8Pby0wW8L4u2RopUUbwNivYGJjuMAjVrCFKdmAck=",
+        "lastModified": 1788353055,
+        "narHash": "sha256-21mJZsQoQHaWW3/uYdCfcCyeL0sg3NIvheoSIAXFdco=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "c13c64e9666385674e577f6c51ba7343f31b9347",
+        "rev": "428aeb6824d1a1155da83a7797bddabd6be77d3b",
         "type": "github"
       },
       "original": {
@@ -764,11 +764,11 @@
         "nixpkgs": "nixpkgs_4"
       },
       "locked": {
-        "lastModified": 1788312597,
-        "narHash": "sha256-2zQiM3COPGZnt7p7iCBIB2WV/M1l4MpINIviNqZFWJI=",
+        "lastModified": 1788352174,
+        "narHash": "sha256-bc/eYR1E6g4DEccF0/9nEBRy+yQRZbOHPwuHiOpsO6I=",
         "owner": "noctalia-dev",
         "repo": "noctalia",
-        "rev": "bbcbfa76e0a14e5079eb26a4d63ca9f9af66002f",
+        "rev": "524bfbaf6530758340f6ed2f673b268dbb3dfb07",
         "type": "github"
       },
       "original": {
@@ -785,11 +785,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1788180806,
-        "narHash": "sha256-veowX6t9Vo6nV6BzJ3YKSUDXgfgX8k8yHccd+6fYlBo=",
+        "lastModified": 1788336398,
+        "narHash": "sha256-1ZdtgBwndNHDltX8J7DLLl2/LBgywQhmt1JNcanfeMA=",
         "owner": "noctalia-dev",
         "repo": "noctalia-greeter",
-        "rev": "b4e668d4f8aada549d5c990c3a18458fae8be6b9",
+        "rev": "6379fe287bb02b0bb538ad155fe18b1bf8615daf",
         "type": "github"
       },
       "original": {
@@ -985,11 +985,11 @@
         "rust-overlay": "rust-overlay_2"
       },
       "locked": {
-        "lastModified": 1788306320,
-        "narHash": "sha256-B5Tlex5ueCRyNTGA2m45FkaRlm4H2ZoylIKz9YxdGRM=",
+        "lastModified": 1788348843,
+        "narHash": "sha256-a/BDeMEfNrBeIJZe4xBT6CTCWd+1IVYERL8K8ZMAUDA=",
         "owner": "ogulcancelik",
         "repo": "herdr",
-        "rev": "cc88b3b8e5bb9f7d9f23ed6ae85a52fd7b5b9ed6",
+        "rev": "8633a398e653eee47b375c963996c78a8a14aa48",
         "type": "github"
       },
       "original": {
@@ -1065,11 +1065,11 @@
     "skills-pstack": {
       "flake": false,
       "locked": {
-        "lastModified": 1788313308,
-        "narHash": "sha256-amAJ6TUg7jeaITP/Yv9fkGDLi/75opxfaH/CSqA+9nc=",
+        "lastModified": 1788323902,
+        "narHash": "sha256-RC5cFtLx9sVM6pFTnIzHgvRQX5Co7il6EhComqN9XTk=",
         "owner": "cursor",
         "repo": "plugins",
-        "rev": "82f1d4f49ba8f21e3315a89c97e82f7c02a48fba",
+        "rev": "efa2a531985e0a8084d36ff3cf87233be8a9f34b",
         "type": "github"
       },
       "original": {
