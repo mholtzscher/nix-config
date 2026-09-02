@@ -60,14 +60,9 @@ in
       ];
       shellAliases = sharedAliases.shellAliases;
       environmentVariables = lib.mkIf (!isWork) {
-        DUMMY_SECRET = readAgeSecret "dummy-env";
         GITHUB_PERSONAL_ACCESS_TOKEN = readAgeSecret "github-pat";
-        SIDESHOW_URL = "https://sideshow.sh";
-        SIDESHOW_TOKEN = readAgeSecret "sideshow-token";
         AGENT_ARTIFACTS_BASE_URL = "https://artifacts.holtzscher.com";
         AGENT_ARTIFACTS_WRITE_KEY = readAgeSecret "agent-artifacts-write-key";
-        OPENCODE_GO_AUTH_COOKIE = readAgeSecret "opencode-go-cookie";
-        OPENCODE_GO_WORKSPACE_ID = readAgeSecret "opencode-go-workspace-id";
         PI_FFF_MODE = "override";
       };
       settings = {

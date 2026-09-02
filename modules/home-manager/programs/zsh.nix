@@ -34,14 +34,9 @@ in
         PATH = "$PATH:/Users/michael/.local/bin";
       }
       // lib.optionalAttrs (!isWork) {
-        DUMMY_SECRET = readAgeSecret config.age.secrets.dummy-env.path;
         GITHUB_PERSONAL_ACCESS_TOKEN = readAgeSecret config.age.secrets.github-pat.path;
-        SIDESHOW_URL = "https://sideshow.sh";
-        SIDESHOW_TOKEN = readAgeSecret config.age.secrets.sideshow-token.path;
         AGENT_ARTIFACTS_BASE_URL = "https://artifacts.holtzscher.com";
         AGENT_ARTIFACTS_WRITE_KEY = readAgeSecret config.age.secrets.agent-artifacts-write-key.path;
-        OPENCODE_GO_AUTH_COOKIE = readAgeSecret config.age.secrets.opencode-go-cookie.path;
-        OPENCODE_GO_WORKSPACE_ID = readAgeSecret config.age.secrets.opencode-go-workspace-id.path;
       };
     };
   };

@@ -12,11 +12,6 @@ in
     recipients."personal-mac"
     recipients."wanda"
   ];
-  "dummy-env.age".publicKeys = [
-    recipients."nixos-desktop"
-    recipients."personal-mac"
-    recipients."wanda"
-  ];
   "github-pat.age".publicKeys = [
     recipients."nixos-desktop"
     recipients."personal-mac"
@@ -26,20 +21,5 @@ in
   "unifi-password.age".publicKeys = [
     recipients."nixos-desktop"
     recipients."personal-mac"
-  ];
-  "opencode-go-cookie.age".publicKeys = [
-    recipients."nixos-desktop"
-    recipients."personal-mac"
-    recipients."wanda"
-  ];
-  "opencode-go-workspace-id.age".publicKeys = [
-    recipients."nixos-desktop"
-    recipients."personal-mac"
-    recipients."wanda"
-  ];
-  "sideshow-token.age".publicKeys = [
-    recipients."nixos-desktop"
-    recipients."personal-mac"
-    recipients."wanda"
   ];
 }
