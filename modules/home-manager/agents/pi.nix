@@ -28,6 +28,7 @@ let
         [
           "openai-codex/gpt-5.6-*"
           "opencode-go/deepseek-v4-flash"
+          "opencode-go/glm-5.3-flash"
         ];
     theme = "dark";
     workingVibe = "parks_and_rec";
