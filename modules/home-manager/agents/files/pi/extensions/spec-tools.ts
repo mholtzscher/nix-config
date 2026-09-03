@@ -7,7 +7,7 @@ function buildImplementationPrompt(specPath: string): string {
 
 Operate autonomously:
 1. Read the specification completely and follow all repository instructions.
-2. Use available subagents for bounded discovery, implementation, or validation work so the main context stays focused.
+2. Use available subagents for bounded discovery, implementation, or validation work so the main context stays focused. Prefer foreground agents over background agents.
 3. Keep a concise log of assumptions and include it in the PR description and final report. Do not create a separate assumptions file unless the specification requests one.
 4. Implement the smallest complete solution and run all relevant local validation.
 5. Create or use an appropriate branch, commit and push the changes, and publish a pull request.
