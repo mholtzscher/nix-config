@@ -20,6 +20,9 @@
 
   users.users.michael.extraGroups = [ "cdrom" ];
 
+  # Run unpatched dynamically linked binaries built for conventional Linux systems.
+  programs.nix-ld.enable = true;
+
   # Keep PI WEB bound to localhost and expose it through the remotely managed
   # Cloudflare Tunnel. Cloudflare Access protects the public hostname.
   systemd.services.pi-web-cloudflare-tunnel = {
