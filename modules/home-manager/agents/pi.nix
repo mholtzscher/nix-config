@@ -30,6 +30,8 @@ let
           "openai-codex/gpt-5.6-*"
           "opencode-go/deepseek-v4-flash"
           "opencode-go/glm-5.3-flash"
+          "opencode-go/muse-spark-1.3-contributor"
+          "opencode/muse-spark-1.3-contributor-free"
         ];
     theme = "dark";
     workingVibe = "parks_and_rec";
@@ -50,7 +52,76 @@ let
       placement = "below";
     };
   };
+  # Muse Spark 1.3 is missing from pi's bundled catalog, and OpenCode serves it
+  # over the Responses API. https://opencode.ai/docs/go/#endpoints
+  models = {
+    providers = {
+      opencode.models = [
+        {
+          id = "muse-spark-1.3-contributor-free";
+          name = "Muse Spark 1.3 Contributor Free";
+          api = "openai-responses";
+          baseUrl = "https://opencode.ai/zen/v1";
+          reasoning = true;
+          input = [
+            "text"
+            "image"
+          ];
+          cost = {
+            input = 0;
+            output = 0;
+            cacheRead = 0;
+            cacheWrite = 0;
+          };
+          compat.sessionAffinityFormat = "openai-nosession";
+          contextWindow = 1048576;
+          maxTokens = 131072;
+          thinkingLevelMap = {
+            off = null;
+            minimal = "minimal";
+            low = "low";
+            medium = "medium";
+            high = "high";
+            xhigh = "xhigh";
+            max = null;
+          };
+        }
+      ];
+      opencode-go.models = [
+        {
+          id = "muse-spark-1.3-contributor";
+          name = "Muse Spark 1.3 Contributor";
+          api = "openai-responses";
+          baseUrl = "https://opencode.ai/zen/go/v1";
+          reasoning = true;
+          input = [
+            "text"
+            "image"
+          ];
+          cost = {
+            input = 0.1;
+            output = 0.2;
+            cacheRead = 0.002;
+            cacheWrite = 0;
+          };
+          compat.sessionAffinityFormat = "openai-nosession";
+          contextWindow = 1048576;
+          maxTokens = 131072;
+          thinkingLevelMap = {
+            off = null;
+            minimal = "minimal";
+            low = "low";
+            medium = "medium";
+            high = "high";
+            xhigh = "xhigh";
+            max = null;
+          };
+        }
+      ];
+    };
+  };
   settingsFile = pkgs.writeText "pi-settings.json" (builtins.toJSON settings);
+  modelsFile = pkgs.writeText "pi-models.json" (builtins.toJSON models);
 in
 {
   home.packages = [
@@ -64,6 +135,11 @@ in
 
     ".pi/agent/settings.json" = lib.mkIf (!isWork) {
       source = settingsFile;
+    };
+
+    ".pi/agent/models.json" = lib.mkIf (!isWork) {
+      force = true;
+      source = modelsFile;
     };
 
     ".pi/agent/subagents-lite.json" = lib.mkIf (!isWork) {
