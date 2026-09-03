@@ -123,6 +123,13 @@ in
   # Desktop environment setup is now in modules/nixos/desktop/
   # This file contains only user-specific packages and services
 
+  # Use nix-ld with mise-managed precompiled binaries on NixOS while keeping
+  # the main mise config writable by commands such as `mise use --global`.
+  programs.mise = {
+    enableMutableConfig = true;
+    globalConfig.settings.all_compile = false;
+  };
+
   # Niri configuration is validated by Home Manager at build time.
   wayland.windowManager.niri = {
     enable = true;
