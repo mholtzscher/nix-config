@@ -14,16 +14,17 @@ let
   };
   settings = {
     defaultProvider = if isWork then "litellm" else "openai-codex";
-    defaultModel = if isWork then "sonnet-5" else "gpt-5.6-sol";
+    defaultModel = if isWork then "claude-sonnet-4-6" else "gpt-5.6-sol";
     defaultThinkingLevel = "high";
     showCacheMissNotices = true;
     tuiMode = "fullscreen";
     enabledModels =
       if isWork then
         [
-          "cheap-but-effective--kimi-k2-5"
-          "sonnet-5"
-          "acceptable--sonnet-4-6"
+          "litellm/kimi-k2.5"
+          "litellm/claude-sonnet-5"
+          "litellm/claude-opus-5"
+          "litellm/claude-sonnet-4-6"
         ]
       else
         [

@@ -401,7 +401,7 @@ export def ai_commit [
     return 1
   }
 
-  let models = "opencode-go/deepseek-v4-flash,sonnet-5"
+  let models = "opencode-go/deepseek-v4-flash,litellm/kimi-k2.5"
   log info $"Analyzing staged changes with AI using pi and ($models)..."
 
   # Use pi in print mode to analyze the diff and generate a commit message.
