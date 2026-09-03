@@ -56,37 +56,6 @@ let
   # over the Responses API. https://opencode.ai/docs/go/#endpoints
   models = {
     providers = {
-      opencode.models = [
-        {
-          id = "muse-spark-1.3-contributor-free";
-          name = "Muse Spark 1.3 Contributor Free";
-          api = "openai-responses";
-          baseUrl = "https://opencode.ai/zen/v1";
-          reasoning = true;
-          input = [
-            "text"
-            "image"
-          ];
-          cost = {
-            input = 0;
-            output = 0;
-            cacheRead = 0;
-            cacheWrite = 0;
-          };
-          compat.sessionAffinityFormat = "openai-nosession";
-          contextWindow = 1048576;
-          maxTokens = 131072;
-          thinkingLevelMap = {
-            off = null;
-            minimal = "minimal";
-            low = "low";
-            medium = "medium";
-            high = "high";
-            xhigh = "xhigh";
-            max = null;
-          };
-        }
-      ];
       opencode-go.models = [
         {
           id = "muse-spark-1.3-contributor";
