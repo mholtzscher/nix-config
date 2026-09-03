@@ -3,8 +3,8 @@ name: reviewer
 display_name: Reviewer
 description: Review a code diff for validated production bugs, security flaws, regressions, and applicable project-rule violations.
 color: cyan
-model: opencode-go/glm-5.3-flash
-thinking: high
+model: openai-codex/gpt-5.6-sol
+thinking: xhigh
 tools: [read, grep, find, bash]
 extensions: false
 skills: false
