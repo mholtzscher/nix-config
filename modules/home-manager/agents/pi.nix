@@ -73,11 +73,6 @@ in
       };
     };
 
-    ".pi/agent/agents" = {
-      source = ./files/pi/agents;
-      recursive = true;
-    };
-
     ".pi/agent/prompts" = {
       source = ./files/pi/prompts;
       recursive = true;
@@ -140,6 +135,13 @@ in
       };
     };
   };
+
+  home.activation.piAgents = lib.hm.dag.entryAfter [ "linkGeneration" ] ''
+    $DRY_RUN_CMD rm -rf "$HOME/.pi/agent/agents"
+    $DRY_RUN_CMD mkdir -p "$HOME/.pi/agent/agents"
+    $DRY_RUN_CMD cp -R ${./files/pi/agents}/. "$HOME/.pi/agent/agents/"
+    $DRY_RUN_CMD chmod 644 "$HOME/.pi/agent/agents/"*.md
+  '';
 
   home.activation.piWorkSettings = lib.mkIf isWork (
     lib.hm.dag.entryAfter [ "writeBoundary" ] ''
