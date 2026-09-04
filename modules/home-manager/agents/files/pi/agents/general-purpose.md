@@ -1,5 +1,5 @@
 ---
 name: general-purpose
-model: openai-codex/gpt-5.6-sol
+model: opencode-go/muse-spark-1.3-contributor
 thinking: high
 ---
