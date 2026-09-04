@@ -40,12 +40,13 @@ let
     packages = [
       "npm:@ff-labs/pi-fff"
       "npm:@juicesharp/rpiv-ask-user-question"
+      "npm:@juicesharp/rpiv-todo"
       "npm:@plannotator/pi-extension"
       "npm:pi-context-view"
       "npm:pi-mcp-adapter"
       "npm:pi-powerline-footer"
-      "npm:pi-web-access"
       "npm:pi-subagents-lite"
+      "npm:pi-web-access"
     ];
     powerline = {
       welcome = false;
