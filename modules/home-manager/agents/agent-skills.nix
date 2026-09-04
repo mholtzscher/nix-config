@@ -94,6 +94,7 @@ in
       "mattpocock/codebase-design"
       "mattpocock/domain-modeling"
       "mattpocock/grilling"
+      "mattpocock/teach"
       "mholtzscher/spec-planner"
       "mholtzscher/go-test-effectiveness"
       "vercel/agent-browser"
