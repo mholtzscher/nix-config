@@ -824,6 +824,7 @@
         "skills-cloudflare": "skills-cloudflare",
         "skills-dmmulroy": "skills-dmmulroy",
         "skills-herdr": "skills-herdr",
+        "skills-humanlayer": "skills-humanlayer",
         "skills-mattpocock": "skills-mattpocock",
         "skills-mholtzscher": "skills-mholtzscher",
         "skills-nicobailon": "skills-nicobailon",
@@ -995,6 +996,22 @@
       "original": {
         "owner": "ogulcancelik",
         "repo": "herdr",
+        "type": "github"
+      }
+    },
+    "skills-humanlayer": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1786633530,
+        "narHash": "sha256-lJvu9CGAN/+dzmzck0CodRXn/p7GUkCbfyZxys4nIoU=",
+        "owner": "humanlayer",
+        "repo": "skills",
+        "rev": "3c2629142c5d437428269b1b722b08c0b87f574d",
+        "type": "github"
+      },
+      "original": {
+        "owner": "humanlayer",
+        "repo": "skills",
         "type": "github"
       }
     },

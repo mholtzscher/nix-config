@@ -75,6 +75,12 @@ in
         idPrefix = "herdr";
       };
 
+      humanlayer = {
+        input = "skills-humanlayer";
+        subdir = "plugins/show-me/skills";
+        idPrefix = "humanlayer";
+      };
+
       herdr-annotate = {
         path = "${herdr-annotate}/skills";
       };
@@ -108,6 +114,7 @@ in
       "pstack/maintain-verification-skill"
       "pstack/unslop"
       "herdr/herdr"
+      "humanlayer/show-me"
       "dmmulroy/bro"
       "dmmulroy/write-discoverable-code"
     ]

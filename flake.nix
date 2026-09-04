@@ -113,6 +113,10 @@
       url = "github:ogulcancelik/herdr";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    skills-humanlayer = {
+      url = "github:humanlayer/skills";
+      flake = false;
+    };
     zellmin = {
       url = "github:Brobicheau/zellmin";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -150,6 +154,7 @@
       hunk,
       sem,
       skills-herdr,
+      skills-humanlayer,
       zellmin,
       ...
     }:
