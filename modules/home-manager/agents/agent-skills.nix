@@ -108,6 +108,7 @@ in
       "pstack/unslop"
       "herdr/herdr"
       "dmmulroy/bro"
+      "dmmulroy/write-discoverable-code"
     ]
     ++ lib.optionals (!isWork) [
       # "cloudflare/agents-sdk"
