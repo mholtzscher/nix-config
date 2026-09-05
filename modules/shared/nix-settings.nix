@@ -25,7 +25,10 @@
   nix = {
     # Enable flakes and new nix command
     settings = {
-      experimental-features = "nix-command flakes";
+      experimental-features = [
+        "nix-command"
+        "flakes"
+      ];
 
       trusted-users = [
         "root"

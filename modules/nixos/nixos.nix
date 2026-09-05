@@ -13,6 +13,7 @@
   # Note: User-level apps (terminals, editors, etc.) are themed via home-manager
   catppuccin = {
     enable = true;
+    autoEnable = true;
     flavor = "mocha";
   };
 
