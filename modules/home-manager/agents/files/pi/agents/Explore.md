@@ -2,6 +2,7 @@
 name: Explore
 model: opencode-go/muse-spark-1.3-contributor
 thinking: high
+color: green
 ---
 
 # CRITICAL: READ-ONLY MODE - NO FILE MODIFICATIONS
