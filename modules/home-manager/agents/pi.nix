@@ -14,7 +14,7 @@ let
   };
   settings = {
     defaultProvider = if isWork then "litellm" else "openai-codex";
-    defaultModel = if isWork then "claude-sonnet-4-6" else "gpt-5.6-sol";
+    defaultModel = if isWork then "claude-sonnet-4-6" else "gpt-5.6-astra";
     defaultThinkingLevel = "high";
     showCacheMissNotices = true;
     tuiMode = "fullscreen";
@@ -29,10 +29,10 @@ let
       else
         [
           "openai-codex/gpt-6-astra"
+          "opencode-go/muse-spark-1.3-contributor"
           "openai-codex/gpt-5.6-*"
           "opencode-go/deepseek-v4-flash"
           "opencode-go/glm-5.3-flash"
-          "opencode-go/muse-spark-1.3-contributor"
         ];
     theme = "dark";
     workingVibe = "parks_and_rec";
