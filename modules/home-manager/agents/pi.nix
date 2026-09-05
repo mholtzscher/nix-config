@@ -28,11 +28,11 @@ let
         ]
       else
         [
+          "openai-codex/gpt-6-astra"
           "openai-codex/gpt-5.6-*"
           "opencode-go/deepseek-v4-flash"
           "opencode-go/glm-5.3-flash"
           "opencode-go/muse-spark-1.3-contributor"
-          "opencode/muse-spark-1.3-contributor-free"
         ];
     theme = "dark";
     workingVibe = "parks_and_rec";
