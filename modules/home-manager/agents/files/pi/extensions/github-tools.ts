@@ -115,7 +115,7 @@ function cleanCommentBody(body: string): string {
 	return body.replace(
 		/^\s*<sub>\s*<sub>([^<]*)<\/sub>\s*<\/sub>\s*/i,
 		(_match, badge: string) => `${badge.trim()} — `,
-	).trim();
+	).replace(/^.*Useful\? React with 👍 \/ 👎.*$/gmi, "").replace(/\n{3,}/g, "\n\n").trim();
 }
 
 function truncateCommentBody(body: string): string {
