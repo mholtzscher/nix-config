@@ -50,6 +50,10 @@ function buildScrubPrompt(specPath: string): string {
 	return `/skill:unslop ${buildScrubTaskPrompt(specPath)}`;
 }
 
+function buildAnnotationPrompt(specPath: string): string {
+	return `/plannotator-annotate @${specPath}`;
+}
+
 function buildBackgroundScrubPrompt(specPath: string): string {
 	const prompt = `Before editing, read and follow the unslop skill at ~/.pi/agent/skills/pstack/unslop/SKILL.md.\n\n${buildScrubTaskPrompt(specPath)}`;
 
@@ -126,6 +130,12 @@ export default function (pi: ExtensionAPI) {
 		description: "Choose a file from specs/ and ask the agent to refine it",
 		pickerTitle: "Choose a specification to refine",
 		buildPrompt: buildScrubPrompt,
+	});
+	registerSpecCommand(pi, {
+		name: "spec-annotate",
+		description: "Choose a file from specs/ and annotate it with Plannotator",
+		pickerTitle: "Choose a specification to annotate",
+		buildPrompt: buildAnnotationPrompt,
 	});
 	registerSpecCommand(pi, {
 		name: "scrub-spec-bg",

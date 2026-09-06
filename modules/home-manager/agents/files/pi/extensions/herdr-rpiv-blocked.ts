@@ -5,7 +5,8 @@ type RpivBlockedEvent = {
 };
 
 export default function (pi: ExtensionAPI) {
-  pi.events.on("rpiv:ask-user:blocked", (event: RpivBlockedEvent) => {
+  pi.events.on("rpiv:ask-user:blocked", (data) => {
+    const event = data as RpivBlockedEvent;
     pi.events.emit("herdr:blocked", {
       active: event.active,
       label: "Waiting for questionnaire",

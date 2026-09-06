@@ -81,7 +81,11 @@ async function getAuthHeaders(ctx: ExtensionContext): Promise<Record<string, str
 		const auth = await ctx.modelRegistry.getApiKeyAndHeaders(model);
 		if (!auth.ok) continue;
 
-		const headers = { ...(auth.headers ?? {}) };
+		const headers: Record<string, string> = Object.fromEntries(
+			Object.entries(auth.headers ?? {}).filter(
+				(entry): entry is [string, string] => entry[1] !== null,
+			),
+		);
 		if (!hasHeader(headers, "Authorization") && auth.apiKey) {
 			headers.Authorization = `Bearer ${auth.apiKey}`;
 		}
