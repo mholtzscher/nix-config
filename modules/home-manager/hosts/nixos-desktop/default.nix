@@ -123,6 +123,14 @@ in
   # Desktop environment setup is now in modules/nixos/desktop/
   # This file contains only user-specific packages and services
 
+  # Plannotator remote configuration. Herdr panes run nushell, which doesn't
+  # source home.sessionVariables, so set them per-shell.
+  programs.nushell.environmentVariables = {
+    PLANNOTATOR_REMOTE = "1";
+    PLANNOTATOR_URL_HOST = "auto";
+    PLANNOTATOR_PORT = "19432-19463";
+  };
+
   # Use nix-ld with mise-managed precompiled binaries on NixOS while keeping
   # the main mise config writable by commands such as `mise use --global`.
   programs.mise = {
