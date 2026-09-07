@@ -94,6 +94,7 @@ in
 
     skills.enable = [
       # "anthropic/frontend-design"
+      "mholtzscher/agent-orchestrator"
       "anthropic/skill-creator"
       "mattpocock/grill-with-docs"
       "mattpocock/improve-codebase-architecture"
