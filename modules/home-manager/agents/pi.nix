@@ -112,6 +112,11 @@ in
       source = modelsFile;
     };
 
+    # ctrl+g is the Herdr prefix, so move Pi's external editor off the default.
+    ".pi/agent/keybindings.json".text = builtins.toJSON {
+      "app.editor.external" = "alt+e";
+    };
+
     ".pi/agent/subagents-lite.json" = lib.mkIf (!isWork) {
       force = true;
       text = builtins.toJSON {
