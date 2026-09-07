@@ -169,81 +169,7 @@ function parsePullRequestCommandArguments(args: string): PullRequestCommandArgum
 	};
 }
 
-const PR_SEED_TIMEOUT_MS = 15_000;
-const PR_SEED_MAX_CHARS = 4_000;
-
-async function execSeedOutput(
-	pi: ExtensionAPI,
-	cwd: string,
-	command: string,
-	args: string[],
-): Promise<string | undefined> {
-	try {
-		const result = await pi.exec(command, args, { cwd, timeout: PR_SEED_TIMEOUT_MS });
-		if (result.code !== 0) return undefined;
-		const output = result.stdout.trim();
-		return output ? output : undefined;
-	} catch {
-		return undefined;
-	}
-}
-
-function truncateSeedOutput(value: string): string {
-	if (value.length <= PR_SEED_MAX_CHARS) return value;
-	return `${value.slice(0, PR_SEED_MAX_CHARS)}\n\n[output truncated]`;
-}
-
-function escapePrSeedDelimiters(value: string): string {
-	return value
-		.replaceAll("<pr-seed-context>", "\\u003cpr-seed-context\\u003e")
-		.replaceAll("</pr-seed-context>", "\\u003c/pr-seed-context\\u003e");
-}
-
-async function fetchPullRequestSeedContext(pi: ExtensionAPI, cwd: string): Promise<string> {
-	const [currentBranch, headSha, upstream, status, diffStat] = await Promise.all([
-		execSeedOutput(pi, cwd, "git", ["branch", "--show-current"]),
-		execSeedOutput(pi, cwd, "git", ["rev-parse", "--short", "HEAD"]),
-		execSeedOutput(pi, cwd, "git", ["rev-parse", "--abbrev-ref", "--symbolic-full-name", "@{u}"]),
-		execSeedOutput(pi, cwd, "git", ["status", "--short", "--branch"]),
-		execSeedOutput(pi, cwd, "git", ["diff", "HEAD", "--stat"]),
-	]);
-	const defaultBranch = await (async () => {
-		const viaGh = await execSeedOutput(pi, cwd, "gh", [
-			"repo",
-			"view",
-			"--json",
-			"defaultBranchRef",
-			"--jq",
-			".defaultBranchRef.name",
-		]);
-		if (viaGh) return viaGh;
-		const viaGit = await execSeedOutput(pi, cwd, "git", [
-			"symbolic-ref",
-			"refs/remotes/origin/HEAD",
-		]);
-		const short = viaGit?.replace("refs/remotes/", "").split("/").slice(1).join("/");
-		return short ? short : undefined;
-	})();
-
-	const branchLine = currentBranch
-		? currentBranch
-		: headSha
-			? `HEAD is detached at ${headSha}`
-			: "(unavailable)";
-	const lines = [
-		`Current branch: ${branchLine}`,
-		`HEAD: ${headSha ?? "(unavailable)"}`,
-		`Default branch: ${defaultBranch ?? "(unavailable)"}`,
-		`Upstream: ${upstream ?? "(no upstream configured)"}`,
-		"Status (`git status --short --branch`):",
-		status ?? "(unavailable)",
-		"Diff stat (`git diff HEAD --stat`):",
-		diffStat ?? "(no changes vs HEAD or unavailable)",
-	];
-	return escapePrSeedDelimiters(truncateSeedOutput(lines.join("\n")));
-}
-
-function buildPullRequestPrompt(args: string, seedContext?: string): string {
+function buildPullRequestPrompt(args: string): string {
 	const { watchChecks, request } = parsePullRequestCommandArguments(args);
 	const checkInstruction = watchChecks
 		? "After creating the PR, run `gh pr checks <PR-NUMBER> --watch --interval 10`. Wait until all reported checks finish, then summarize passed, failed, and cancelled checks. If watching fails, report the exact error."
@@ -251,14 +177,9 @@ function buildPullRequestPrompt(args: string, seedContext?: string): string {
 
 	return `Package the current working-tree changes into a GitHub pull request. Follow these steps in order:
 
-Pre-fetched repository context (fresh as of command invocation; trust it instead of re-running these lookups unless something looks stale):
-<pr-seed-context>
-${seedContext ?? "(unavailable; fall back to discovering the branch state with git/gh commands)"}
-</pr-seed-context>
+1. **Review the repository and changes** — inspect the current branch, working-tree status, and relevant staged, unstaged, and untracked changes. Discover the default branch from GitHub (for example, \`gh repo view --json defaultBranchRef --jq '.defaultBranchRef.name'\`) or the remote's symbolic HEAD; never assume \`main\` or \`master\`. Do not commit anything unrelated or pre-existing.
 
-1. **Review the repository and changes** — use the pre-fetched context above for the current branch, HEAD, default branch, and change summary. Run \`git diff\` only for file-level detail, and re-check branch state only if you suspect staleness (for example, after creating or switching branches). Never assume the default branch is \`main\` or \`master\`; if the context shows it as unavailable, discover it from GitHub (for example, \`gh repo view --json defaultBranchRef --jq '.defaultBranchRef.name'\`) or the remote's symbolic HEAD. Do not commit anything unrelated or pre-existing.
-
-2. **Choose a branch** — if the pre-fetched current branch is a non-default branch, including a branch already checked out in a linked worktree, use it as-is; do not create or switch branches. If it is the default branch or HEAD is detached, derive a short, kebab-case branch name from the change, unless the request below provides one, and create it from the current HEAD with \`git switch -c <branch>\`.
+2. **Choose a branch** — if the current branch is a non-default branch, including a branch already checked out in a linked worktree, use it as-is; do not create or switch branches. If it is the default branch or HEAD is detached, derive a short, kebab-case branch name from the change, unless the request below provides one, and create it from the current HEAD with \`git switch -c <branch>\`.
 
 3. **Commit with a conventional commit message** — stage only the files relevant to this change, then commit using the Conventional Commits format:
    \`<type>(<optional scope>): <imperative subject>\`
@@ -284,13 +205,7 @@ function registerPullRequestCommand(pi: ExtensionAPI): void {
 		description: "Commit the current changes and open a GitHub pull request; pass --watch to monitor checks",
 		handler: async (args, ctx) => {
 			await ctx.waitForIdle();
-			ctx.ui.setStatus("pr", "Collecting branch context...");
-			try {
-				const seedContext = await fetchPullRequestSeedContext(pi, ctx.cwd);
-				pi.sendUserMessage(buildPullRequestPrompt(args, seedContext));
-			} finally {
-				ctx.ui.setStatus("pr", undefined);
-			}
+			pi.sendUserMessage(buildPullRequestPrompt(args));
 			await ctx.waitForIdle();
 		},
 	});
@@ -411,12 +326,13 @@ type GhResult = {
 
 function runGh(args: string[], signal?: AbortSignal): Promise<GhResult> {
 	return new Promise((resolve, reject) => {
-		const child = execFile(
+		execFile(
 			"gh",
 			args,
 			{
 				timeout: 60_000,
 				maxBuffer: 12 * 1024 * 1024,
+				signal,
 				encoding: "utf8",
 				env: { ...process.env, GH_PAGER: "cat", PAGER: "cat" },
 			},
@@ -434,11 +350,6 @@ function runGh(args: string[], signal?: AbortSignal): Promise<GhResult> {
 				resolve({ stdout, stderr });
 			},
 		);
-
-		if (signal) {
-			if (signal.aborted) child.kill();
-			signal.addEventListener("abort", () => child.kill(), { once: true });
-		}
 	});
 }
 
