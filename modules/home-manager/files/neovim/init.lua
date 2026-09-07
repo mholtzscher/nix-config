@@ -71,7 +71,7 @@ vim.lsp.enable({
 	"taplo",
 	"tailwindcss",
 	"terraformls",
-	"tsgo",
+	"tsc",
 	"ty",
 	"yamlls",
 	"zls",
