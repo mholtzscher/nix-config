@@ -3,9 +3,9 @@ import { readdir, stat } from "node:fs/promises";
 import { join } from "node:path";
 
 function buildImplementationPrompt(specPath: string): string {
-	return `Implement @${specPath} end-to-end.
+  return `Implement @${specPath} end-to-end.
 
-Operate autonomously:
+Operate autonomously using ~/.pi/agent/skills/mholtzscher/agent-orchestrator/SKILL.md 
 1. Read the specification completely and follow all repository instructions.
 2. Use available subagents for bounded discovery, implementation, or validation work so the main context stays focused. Prefer foreground agents over background agents.
 3. Keep a concise log of assumptions and include it in the PR description and final report. Do not create a separate assumptions file unless the specification requests one.
@@ -17,7 +17,7 @@ Only stop to ask for help when blocked by missing credentials or permissions, or
 }
 
 function buildScrubTaskPrompt(specPath: string): string {
-	return `Review and refine @${specPath} for cohesiveness and brevity.
+  return `Review and refine @${specPath} for cohesiveness and brevity.
 
 Goals:
 
@@ -47,17 +47,17 @@ When finished, report:
 }
 
 function buildScrubPrompt(specPath: string): string {
-	return `/skill:unslop ${buildScrubTaskPrompt(specPath)}`;
+  return `/skill:unslop ${buildScrubTaskPrompt(specPath)}`;
 }
 
 function buildAnnotationPrompt(specPath: string): string {
-	return `/plannotator-annotate @${specPath}`;
+  return `/plannotator-annotate @${specPath}`;
 }
 
 function buildBackgroundScrubPrompt(specPath: string): string {
-	const prompt = `Before editing, read and follow the unslop skill at ~/.pi/agent/skills/pstack/unslop/SKILL.md.\n\n${buildScrubTaskPrompt(specPath)}`;
+  const prompt = `Before editing, read and follow the unslop skill at ~/.pi/agent/skills/pstack/unslop/SKILL.md.\n\n${buildScrubTaskPrompt(specPath)}`;
 
-	return `Call the Agent tool exactly once with these arguments:
+  return `Call the Agent tool exactly once with these arguments:
 
 - agent: "general-purpose"
 - description: "Scrub ${specPath}"
@@ -68,79 +68,85 @@ Do not scrub the specification yourself. After the Agent tool confirms the backg
 }
 
 type SpecCommand = {
-	name: string;
-	description: string;
-	pickerTitle: string;
-	buildPrompt: (specPath: string) => string;
+  name: string;
+  description: string;
+  pickerTitle: string;
+  buildPrompt: (specPath: string) => string;
 };
 
 function registerSpecCommand(pi: ExtensionAPI, command: SpecCommand): void {
-	pi.registerCommand(command.name, {
-		description: command.description,
-		handler: async (_args, ctx) => {
-			if (!ctx.hasUI) {
-				ctx.ui.notify(`/${command.name} requires an interactive UI`, "warning");
-				return;
-			}
+  pi.registerCommand(command.name, {
+    description: command.description,
+    handler: async (_args, ctx) => {
+      if (!ctx.hasUI) {
+        ctx.ui.notify(`/${command.name} requires an interactive UI`, "warning");
+        return;
+      }
 
-			await ctx.waitForIdle();
+      await ctx.waitForIdle();
 
-			const specsDirectory = join(ctx.cwd, "specs");
-			let specs: string[];
+      const specsDirectory = join(ctx.cwd, "specs");
+      let specs: string[];
 
-			try {
-				const files = (await readdir(specsDirectory, { withFileTypes: true }))
-					.filter((entry) => entry.isFile());
-				const modifiedFiles = await Promise.all(files.map(async (entry) => ({
-					name: entry.name,
-					modifiedAt: (await stat(join(specsDirectory, entry.name))).mtimeMs,
-				})));
+      try {
+        const files = (await readdir(specsDirectory, { withFileTypes: true })).filter((entry) =>
+          entry.isFile(),
+        );
+        const modifiedFiles = await Promise.all(
+          files.map(async (entry) => ({
+            name: entry.name,
+            modifiedAt: (await stat(join(specsDirectory, entry.name))).mtimeMs,
+          })),
+        );
 
-				specs = modifiedFiles
-					.sort((left, right) => right.modifiedAt - left.modifiedAt || left.name.localeCompare(right.name))
-					.map((file) => file.name);
-			} catch (error) {
-				const message = error instanceof Error ? error.message : String(error);
-				ctx.ui.notify(`Could not read specs/: ${message}`, "error");
-				return;
-			}
+        specs = modifiedFiles
+          .sort(
+            (left, right) =>
+              right.modifiedAt - left.modifiedAt || left.name.localeCompare(right.name),
+          )
+          .map((file) => file.name);
+      } catch (error) {
+        const message = error instanceof Error ? error.message : String(error);
+        ctx.ui.notify(`Could not read specs/: ${message}`, "error");
+        return;
+      }
 
-			if (specs.length === 0) {
-				ctx.ui.notify("No files found in specs/", "warning");
-				return;
-			}
+      if (specs.length === 0) {
+        ctx.ui.notify("No files found in specs/", "warning");
+        return;
+      }
 
-			const selected = await ctx.ui.select(command.pickerTitle, specs);
-			if (!selected) return;
+      const selected = await ctx.ui.select(command.pickerTitle, specs);
+      if (!selected) return;
 
-			pi.sendUserMessage(command.buildPrompt(`specs/${selected}`), { expandPromptTemplates: true });
-		},
-	});
+      pi.sendUserMessage(command.buildPrompt(`specs/${selected}`), { expandPromptTemplates: true });
+    },
+  });
 }
 
 export default function (pi: ExtensionAPI) {
-	registerSpecCommand(pi, {
-		name: "implement-spec",
-		description: "Choose a file from specs/ and ask the agent to implement it",
-		pickerTitle: "Choose a specification to implement",
-		buildPrompt: buildImplementationPrompt,
-	});
-	registerSpecCommand(pi, {
-		name: "scrub-spec",
-		description: "Choose a file from specs/ and ask the agent to refine it",
-		pickerTitle: "Choose a specification to refine",
-		buildPrompt: buildScrubPrompt,
-	});
-	registerSpecCommand(pi, {
-		name: "spec-annotate",
-		description: "Choose a file from specs/ and annotate it with Plannotator",
-		pickerTitle: "Choose a specification to annotate",
-		buildPrompt: buildAnnotationPrompt,
-	});
-	registerSpecCommand(pi, {
-		name: "scrub-spec-bg",
-		description: "Choose a file from specs/ and refine it in a background subagent",
-		pickerTitle: "Choose a specification to refine in the background",
-		buildPrompt: buildBackgroundScrubPrompt,
-	});
+  registerSpecCommand(pi, {
+    name: "implement-spec",
+    description: "Choose a file from specs/ and ask the agent to implement it",
+    pickerTitle: "Choose a specification to implement",
+    buildPrompt: buildImplementationPrompt,
+  });
+  registerSpecCommand(pi, {
+    name: "scrub-spec",
+    description: "Choose a file from specs/ and ask the agent to refine it",
+    pickerTitle: "Choose a specification to refine",
+    buildPrompt: buildScrubPrompt,
+  });
+  registerSpecCommand(pi, {
+    name: "spec-annotate",
+    description: "Choose a file from specs/ and annotate it with Plannotator",
+    pickerTitle: "Choose a specification to annotate",
+    buildPrompt: buildAnnotationPrompt,
+  });
+  registerSpecCommand(pi, {
+    name: "scrub-spec-bg",
+    description: "Choose a file from specs/ and refine it in a background subagent",
+    pickerTitle: "Choose a specification to refine in the background",
+    buildPrompt: buildBackgroundScrubPrompt,
+  });
 }
