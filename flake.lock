@@ -490,11 +490,11 @@
         "systems": "systems_5"
       },
       "locked": {
-        "lastModified": 1788819726,
-        "narHash": "sha256-pdR31QxSWs49yX4d1v4iyqj64lAciPRQiYvLQDYYSy0=",
+        "lastModified": 1788835851,
+        "narHash": "sha256-KXgjk8tQL3kqJU2jh8fob5ih8THOSwETJVxnYbzIjyI=",
         "owner": "modem-dev",
         "repo": "hunk",
-        "rev": "99190170947c8392944f1f6c65bb79bb1d1270f9",
+        "rev": "923ce0352707468f60676dc4820d3d54fc933b69",
         "type": "github"
       },
       "original": {
@@ -570,11 +570,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1788739358,
-        "narHash": "sha256-LIth3ea7UZeGfyZ4YqbsMkYM0YgjHmlVZIWPzvN3lT8=",
+        "lastModified": 1788825759,
+        "narHash": "sha256-+MavlPFPQWlZQC6aiXKkXHlXgprCsA3xfP1i/KqMAeE=",
         "owner": "nix-community",
         "repo": "neovim-nightly-overlay",
-        "rev": "fcbd308de28547e7c7483907ada8cd5723b5a8a0",
+        "rev": "924e2b8734b67d46d24c191303c0be69436ec862",
         "type": "github"
       },
       "original": {
@@ -586,11 +586,11 @@
     "neovim-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1788720648,
-        "narHash": "sha256-kjlohKRzbpAiuwjcTsPeSV+Z4y0jeI7jowuOeD/j9j0=",
+        "lastModified": 1788808260,
+        "narHash": "sha256-VqOosQPqvhzbsujh/gLesubc1FOjHGVV9+P//4HbM9o=",
         "owner": "neovim",
         "repo": "neovim",
-        "rev": "6cbde6a95f2da043ef8cb66b7e51daedd3bacffb",
+        "rev": "8d5ebdf986226e182b26f9590e65f2ad678b1ca3",
         "type": "github"
       },
       "original": {
@@ -684,11 +684,11 @@
     },
     "nixpkgs-master": {
       "locked": {
-        "lastModified": 1788640188,
-        "narHash": "sha256-lnTH94Ww1WGN46U1SGpY3GYzLvvIrZcJmlY853FwWSc=",
+        "lastModified": 1788835926,
+        "narHash": "sha256-/nIep+3siwnuNZAT4ttnJUHYj4wVEVjUcw4LSOKE8/0=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "8bf1308761517c52cf3a5f8565a27ae789db1047",
+        "rev": "1ab3a9f3803f0e4bf2bd68f92f6edfaaed86bc83",
         "type": "github"
       },
       "original": {
@@ -716,11 +716,11 @@
     },
     "nixpkgs_3": {
       "locked": {
-        "lastModified": 1788531059,
-        "narHash": "sha256-hLD4l3QOGBQhkVp3mQ2lJ/YbEi99qUgKapb40KovZ88=",
+        "lastModified": 1788752844,
+        "narHash": "sha256-VaWGJ6+cIYN2erfSecbRV+4ljI185Ty2wUrXyvQbgOw=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "801bef6abd86b91e51083066b83fb354a11fc640",
+        "rev": "dc5d91f840324650bac8c379428c7037a416959a",
         "type": "github"
       },
       "original": {
@@ -732,11 +732,11 @@
     },
     "nixpkgs_4": {
       "locked": {
-        "lastModified": 1787900134,
-        "narHash": "sha256-5GWj0FI2uOwKNpXkmpWrSFDe1rCaNBCUQ8d+HDtFQPI=",
-        "rev": "83199d0d373dd3ac2b9a1996b1d0263f76ab7a4c",
+        "lastModified": 1788614874,
+        "narHash": "sha256-PRK1fSEiAcO29DkUoOlsVLGYRK3h1YKVr+qQJB0VcYQ=",
+        "rev": "c043004d1c6985732bcc1cbc5a9c9aecbbb4e0f0",
         "type": "tarball",
-        "url": "https://releases.nixos.org/nixos/unstable/nixos-26.11pre1063296.83199d0d373d/nixexprs.tar.zst"
+        "url": "https://releases.nixos.org/nixos/unstable/nixos-26.11pre1068089.c043004d1c69/nixexprs.tar.zst"
       },
       "original": {
         "type": "tarball",
@@ -764,11 +764,11 @@
         "nixpkgs": "nixpkgs_4"
       },
       "locked": {
-        "lastModified": 1788637504,
-        "narHash": "sha256-uR/1rFaIbYb7kEp8HnAO1Y+/FTEvJdtAuTj3BjONPqQ=",
+        "lastModified": 1788833480,
+        "narHash": "sha256-pKcWk70yLhU9Q5k5Ds3eyIsQSRTcRROZWKogWjp8y/g=",
         "owner": "noctalia-dev",
         "repo": "noctalia",
-        "rev": "5be0b0c99d5c6ee67aba53b36927223007e68656",
+        "rev": "7e919a0c0e2b7fca9242658a471b5d11f3961e7f",
         "type": "github"
       },
       "original": {
@@ -785,11 +785,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1788600494,
-        "narHash": "sha256-XZExDvjW3GSbBs7JjUzbARtlegmdbQFkUojsHQ5cVzY=",
+        "lastModified": 1788702995,
+        "narHash": "sha256-/+62D/xOeWw1hXS5Q4O8CbjL06aeOted36Xl12PX1KU=",
         "owner": "noctalia-dev",
         "repo": "noctalia-greeter",
-        "rev": "8c97c04329e4cf73c6e5b9318be2f088b9b4a399",
+        "rev": "eebac5bf6488ac038c5582a89fb369dc146849d9",
         "type": "github"
       },
       "original": {
@@ -901,11 +901,11 @@
         "rust-overlay": "rust-overlay"
       },
       "locked": {
-        "lastModified": 1788813960,
-        "narHash": "sha256-xx2vdQs/JAdyD4AssQ1svOvCNOuqCS75bfw7p6qz3ow=",
+        "lastModified": 1788835551,
+        "narHash": "sha256-B0YdojrSHpvpFxx41hbUAs0E5fTVhZl1Vy7ZhmulWJA=",
         "owner": "Ataraxy-Labs",
         "repo": "sem",
-        "rev": "181ba9ffd542c1db1ae7033fb3c24ba54e96360b",
+        "rev": "c3fcd49eb68054dd0be7038cba6af31edff8af1f",
         "type": "github"
       },
       "original": {
@@ -986,11 +986,11 @@
         "rust-overlay": "rust-overlay_2"
       },
       "locked": {
-        "lastModified": 1788818682,
-        "narHash": "sha256-IM+okuqRYhs24ZKD4UxEM1kFaGo5KzKMxngKwqIxDU0=",
+        "lastModified": 1788827694,
+        "narHash": "sha256-yTmO5EfIS//FPR60oWt0W0lN8rMYSbLTN7jLSLXSJ7o=",
         "owner": "ogulcancelik",
         "repo": "herdr",
-        "rev": "792b2baa447a3ed413cc755ea3d76582021c648a",
+        "rev": "9e01168b140ce8e3821131345dc82bc2bf9994eb",
         "type": "github"
       },
       "original": {
@@ -1034,11 +1034,11 @@
     "skills-mholtzscher": {
       "flake": false,
       "locked": {
-        "lastModified": 1788809837,
-        "narHash": "sha256-uLFwHOiWIZpgrrpK1j0W1zIHkz7DT0gGWrqpOtL/A8Y=",
+        "lastModified": 1788836636,
+        "narHash": "sha256-Kjxm0ab3KO5oRfwopBIGdWCcTdQi9eNOTrwztmGo4bU=",
         "owner": "mholtzscher",
         "repo": "skills",
-        "rev": "34608dd50cf45505666af6bbad03120eab51290a",
+        "rev": "b9e3efa12822ea1cf8f37f68f26e403dc888c2b7",
         "type": "github"
       },
       "original": {
@@ -1082,11 +1082,11 @@
     "skills-pstack": {
       "flake": false,
       "locked": {
-        "lastModified": 1788819251,
-        "narHash": "sha256-amcZdMIieakLacrzTPfcijMeWzL1jFjfyFq6cpdOHuQ=",
+        "lastModified": 1788825612,
+        "narHash": "sha256-RaXe8EvirHA7cCv8oprwSnS4pXGF9xEMTfRfvvTaSSM=",
         "owner": "cursor",
         "repo": "plugins",
-        "rev": "e8d856f0273b42ebafe0ec3546bd645709e7c1b0",
+        "rev": "d7cde2b84eadbcd6fd890302c876f4436ccb6d82",
         "type": "github"
       },
       "original": {
