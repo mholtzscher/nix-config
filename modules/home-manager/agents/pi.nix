@@ -139,7 +139,7 @@ in
   ];
 
   home.file = {
-    ".pi/agent/AGENTS.md".source = ./files/karpathy-agents.md;
+    # ".pi/agent/AGENTS.md".source = ./files/karpathy-agents.md;
 
     ".pi/agent/settings.json" = lib.mkIf (!isWork) {
       source = settingsFile;
