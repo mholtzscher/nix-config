@@ -7,7 +7,7 @@ let
   # SSH Public Keys - Get your key with: ssh-add -L
   sshPublicKeys = [
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJwjFs5j8xyYI+p3ckPU0nUYyJ9S2Y753DYUEPRbyGqX"
-    # Add additional keys as needed
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIE0VaQaiWMQ0NSgw5U8KUqZB7KhLggTW/Rwp0zcmisjw work-mac"
   ];
 in
 {
