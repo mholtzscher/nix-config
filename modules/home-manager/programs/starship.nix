@@ -48,6 +48,14 @@
           vimcmd_symbol = "[❮](green)";
         };
 
+        username = {
+          disabled = true;
+        };
+
+        hostname = {
+          disabled = true;
+        };
+
         git_branch = {
           format = "[$branch]($style)";
           style = "bright-black";
