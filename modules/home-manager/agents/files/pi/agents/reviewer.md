@@ -3,7 +3,7 @@ name: reviewer
 display_name: Reviewer
 description: Review a code diff for validated production bugs, security flaws, regressions, and applicable project-rule violations.
 color: purple
-model: openai-codex/gpt-5.6-astra
+model: @piAgentModel@
 thinking: medium
 include_context_files: true
 ---

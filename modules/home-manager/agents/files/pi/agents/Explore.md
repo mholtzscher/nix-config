@@ -1,6 +1,6 @@
 ---
 name: Explore
-model: opencode-go/muse-spark-1.3-contributor
+model: @piAgentModel@
 thinking: high
 color: green
 ---

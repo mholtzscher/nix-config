@@ -4,6 +4,7 @@
   lib,
   inputs,
   isWork,
+  currentSystemName,
   ...
 }:
 let
@@ -14,7 +15,7 @@ let
   };
   settings = {
     defaultProvider = if isWork then "litellm" else "openai-codex";
-    defaultModel = if isWork then "claude-sonnet-4-6" else "gpt-5.6-sol";
+    defaultModel = if isWork then "claude-opus-5" else "gpt-5.6-sol";
     defaultThinkingLevel = "high";
     showCacheMissNotices = true;
     tuiMode = "fullscreen";
@@ -57,41 +58,78 @@ let
   # over the Responses API. https://opencode.ai/docs/go/#endpoints
   models = {
     providers = {
-      opencode-go.models = [
-        {
-          id = "muse-spark-1.3-contributor";
-          name = "Muse Spark 1.3 Contributor";
-          api = "openai-responses";
-          baseUrl = "https://opencode.ai/zen/go/v1";
-          reasoning = true;
-          input = [
-            "text"
-            "image"
-          ];
-          cost = {
-            input = 0.1;
-            output = 0.2;
-            cacheRead = 0.002;
-            cacheWrite = 0;
-          };
-          compat.sessionAffinityFormat = "openai-nosession";
-          contextWindow = 1048576;
-          maxTokens = 131072;
-          thinkingLevelMap = {
-            off = null;
-            minimal = "minimal";
-            low = "low";
-            medium = "medium";
-            high = "high";
-            xhigh = "xhigh";
-            max = null;
-          };
-        }
-      ];
+      # opencode-go.models = [
+      #   {
+      #     id = "muse-spark-1.3-contributor";
+      #     name = "Muse Spark 1.3 Contributor";
+      #     api = "openai-responses";
+      #     baseUrl = "https://opencode.ai/zen/go/v1";
+      #     reasoning = true;
+      #     input = [
+      #       "text"
+      #       "image"
+      #     ];
+      #     cost = {
+      #       input = 0.1;
+      #       output = 0.2;
+      #       cacheRead = 0.002;
+      #       cacheWrite = 0;
+      #     };
+      #     compat.sessionAffinityFormat = "openai-nosession";
+      #     contextWindow = 1048576;
+      #     maxTokens = 131072;
+      #     thinkingLevelMap = {
+      #       off = null;
+      #       minimal = "minimal";
+      #       low = "low";
+      #       medium = "medium";
+      #       high = "high";
+      #       xhigh = "xhigh";
+      #       max = null;
+      #     };
+      #   }
+      # ];
     };
   };
   settingsFile = pkgs.writeText "pi-settings.json" (builtins.toJSON settings);
   modelsFile = pkgs.writeText "pi-models.json" (builtins.toJSON models);
+
+  piAgentTemplates = {
+    Explore = ./files/pi/agents/Explore.md;
+    general-purpose = ./files/pi/agents/general-purpose.md;
+    reviewer = ./files/pi/agents/reviewer.md;
+  };
+
+  # Defaults preserve the current hardcoded frontmatter models.
+  defaultPiAgentModels = {
+    Explore = "opencode-go/muse-spark-1.3-contributor";
+    general-purpose = "opencode-go/muse-spark-1.3-contributor";
+    reviewer = "openai-codex/gpt-5.6-astra";
+  };
+
+  # Host-specific per-agent model overrides, e.g. work-mac must use the
+  # enterprise AI gateway (litellm/* from settings.enabledModels).
+  piAgentModelOverrides = {
+    work-mac = {
+      Explore = "litellm/kimi-k2.5";
+      general-purpose = "litellm/claude-sonnet-4-6";
+      reviewer = "litellm/claude-opus-5";
+    };
+  };
+
+  currentPiAgentModelOverrides = piAgentModelOverrides.${currentSystemName} or { };
+
+  currentPiAgentModels = defaultPiAgentModels // currentPiAgentModelOverrides;
+
+  renderedPiAgentFiles = lib.mapAttrs' (
+    agentName: template:
+    lib.nameValuePair ".pi/agent/agents/${agentName}.md" {
+      force = true;
+      source = pkgs.replaceVars template {
+        piAgentModel = currentPiAgentModels.${agentName};
+      };
+    }
+  ) piAgentTemplates;
 in
 {
   home.packages = [
@@ -185,14 +223,8 @@ in
         };
       };
     };
-  };
-
-  home.activation.piAgents = lib.hm.dag.entryAfter [ "linkGeneration" ] ''
-    $DRY_RUN_CMD rm -rf "$HOME/.pi/agent/agents"
-    $DRY_RUN_CMD mkdir -p "$HOME/.pi/agent/agents"
-    $DRY_RUN_CMD cp -R ${./files/pi/agents}/. "$HOME/.pi/agent/agents/"
-    $DRY_RUN_CMD chmod 644 "$HOME/.pi/agent/agents/"*.md
-  '';
+  }
+  // renderedPiAgentFiles;
 
   home.activation.piWorkSettings = lib.mkIf isWork (
     lib.hm.dag.entryAfter [ "writeBoundary" ] ''
