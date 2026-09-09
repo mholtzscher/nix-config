@@ -843,9 +843,86 @@ function registerPullRequestActionsCommand(pi: ExtensionAPI): void {
 	});
 }
 
+type OpenPullRequest = {
+	number: number;
+	title: string;
+	url: string;
+	headRefName: string;
+	author?: GhUser | null;
+	isDraft?: boolean;
+};
+
+function formatOpenPullRequestOption(pr: OpenPullRequest): string {
+	const author = pr.author?.login ? ` · @${pr.author.login}` : "";
+	const draft = pr.isDraft ? " · draft" : "";
+	return `#${pr.number} · ${pr.title}${author} · ${pr.headRefName}${draft}`;
+}
+
+function registerPrReviewCommand(pi: ExtensionAPI): void {
+	pi.registerCommand("pr-review", {
+		description: "Choose an open pull request and open it in Plannotator code review",
+		handler: async (_args, ctx) => {
+			if (!ctx.hasUI) {
+				ctx.ui.notify("/pr-review requires an interactive UI", "warning");
+				return;
+			}
+
+			await ctx.waitForIdle();
+			ctx.ui.setStatus("pr-review", "Listing open pull requests...");
+
+			try {
+				const result = await pi.exec("gh", [
+					"pr",
+					"list",
+					"--state",
+					"open",
+					"--limit",
+					"50",
+					"--json",
+					"number,title,url,headRefName,author,isDraft",
+				], {
+					cwd: ctx.cwd,
+					timeout: 30_000,
+				});
+
+				if (result.code !== 0) {
+					throw new Error(result.stderr.trim() || "gh pr list failed");
+				}
+
+				const prs = parseRequiredJson<OpenPullRequest[]>(result.stdout, "open pull requests");
+				if (prs.length === 0) {
+					ctx.ui.notify("No open pull requests found", "info");
+					return;
+				}
+
+				const options = prs.map(formatOpenPullRequestOption);
+				const urlByOption = new Map(prs.map((pr) => [formatOpenPullRequestOption(pr), pr.url] as const));
+
+				ctx.ui.setStatus("pr-review", undefined);
+				const selected = await ctx.ui.select("Choose a PR to review", options);
+				if (!selected) return;
+
+				const url = urlByOption.get(selected);
+				if (!url) {
+					ctx.ui.notify("Could not resolve the selected pull request", "error");
+					return;
+				}
+
+				pi.sendUserMessage(`/plannotator-review ${url}`, { expandPromptTemplates: true });
+				await ctx.waitForIdle();
+			} catch (error) {
+				ctx.ui.notify(`Could not list open pull requests: ${githubErrorMessage(error)}`, "error");
+			} finally {
+				ctx.ui.setStatus("pr-review", undefined);
+			}
+		},
+	});
+}
+
 /** Registers explicit GitHub pull request creation, review-comment, and Actions commands. */
 export default function githubToolsExtension(pi: ExtensionAPI) {
 	registerPullRequestCommand(pi);
+	registerPrReviewCommand(pi);
 	registerPrCommentsCommand(pi);
 	registerPrCommentsFixCommand(pi);
 	registerPullRequestActionsCommand(pi);
