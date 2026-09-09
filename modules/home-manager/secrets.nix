@@ -26,10 +26,6 @@
       path = "${config.home.homeDirectory}/.local/share/agenix/atuin-key";
     };
     secrets.agent-artifacts-write-key.file = ../../secrets/agent-artifacts-write-key.age;
-    secrets.nixos-desktop-cloudflare-tunnel-token = lib.mkIf (currentSystemName == "nixos-desktop") {
-      file = ../../secrets/nixos-desktop-cloudflare-tunnel-token.age;
-      path = "${config.home.homeDirectory}/.local/share/agenix/nixos-desktop-cloudflare-tunnel-token";
-    };
     # Explicit path: pi-mcp-adapter's !command env injection cannot expand
     # agenix's Darwin runtime-directory shell expression.
     secrets.unifi-password = lib.mkIf (currentSystemName != "wanda") {

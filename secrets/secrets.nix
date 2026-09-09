@@ -17,7 +17,6 @@ in
     recipients."personal-mac"
     recipients."wanda"
   ];
-  "nixos-desktop-cloudflare-tunnel-token.age".publicKeys = [ recipients."nixos-desktop" ];
   "unifi-password.age".publicKeys = [
     recipients."nixos-desktop"
     recipients."personal-mac"
