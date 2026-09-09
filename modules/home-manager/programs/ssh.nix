@@ -24,7 +24,8 @@ in
           HostName = "10.69.69.183";
           User = "michael";
           ForwardAgent = true;
-        };
+        }
+        // lib.optionalAttrs (!isWork && isDarwin) { IdentityAgent = onePasswordAgent; };
       }
       // lib.optionalAttrs (!isWork) {
         mina-nas = {
