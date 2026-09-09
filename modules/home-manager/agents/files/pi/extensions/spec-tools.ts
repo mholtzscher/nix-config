@@ -16,6 +16,24 @@ Operate autonomously using ~/.pi/agent/skills/mholtzscher/agent-orchestrator/SKI
 Only stop to ask for help when blocked by missing credentials or permissions, or when an ambiguity could cause a destructive or materially different outcome.`;
 }
 
+function buildStackedImplementationPrompt(specPath: string): string {
+  return `Implement @${specPath} end-to-end as a stack of pull requests, one per deliverable, using the official gh stack extension (github/gh-stack, stacked PRs public preview).
+
+Operate autonomously using ~/.pi/agent/skills/mholtzscher/agent-orchestrator/SKILL.md
+1. Read the specification completely and follow all repository instructions. Identify the ordered deliverables (e.g. Deliverables Ordered, Ordered implementation steps, Scope & Deliverables). If the spec has no explicit deliverables, infer the smallest sensible ordered split and proceed.
+2. Use available subagents for bounded discovery, implementation, or validation work so the main context stays focused. Prefer foreground agents over background agents.
+3. Keep a concise log of assumptions and include it in each PR description and the final report. Do not create a separate assumptions file unless the specification requests one.
+4. Manage the stack with gh stack (assume the github/gh-stack extension is installed):
+   a. Discover the trunk via \`gh repo view --json defaultBranchRef\`; never assume main/master.
+   b. Start from a clean trunk checkout, then \`gh stack init <first-branch-kebab-case>\` for the first deliverable.
+   c. For each deliverable in dependency order: implement the smallest complete solution for that deliverable only, run all relevant local validation, commit with a conventional commit message, then open the next layer with \`gh stack add <next-branch-kebab-case>\` (or \`gh stack add -Am "<message>"\` to stage/commit in one step). Title each layer the same as its commit subject; each PR body must state the deliverable number, what changed and why, verification steps, and the stack order.
+   d. Publish with \`gh stack push && gh stack submit\` so each branch gets a PR based on the branch below it (first targets trunk). Use \`gh stack view\` to confirm links and order.
+   e. Monitor all required GitHub Actions checks per PR until green. If a check fails, fix on the corresponding layer (\`gh stack checkout <branch>\`), validate locally, \`gh stack push\`, and repeat; use \`gh stack rebase\` to cascade trunk/stack updates when needed. Do not move to the next deliverable until the current layer's checks pass.
+5. Report the full stack in dependency order (bottom to top) with a PR URL per deliverable plus a one-line summary of each branch, commit, and PR.
+
+Only stop to ask for help when blocked by missing credentials or permissions, or when an ambiguity could cause a destructive or materially different outcome.`;
+}
+
 function buildScrubTaskPrompt(specPath: string): string {
   return `Review and refine @${specPath} for cohesiveness and brevity.
 
@@ -130,6 +148,12 @@ export default function (pi: ExtensionAPI) {
     description: "Choose a file from specs/ and ask the agent to implement it",
     pickerTitle: "Choose a specification to implement",
     buildPrompt: buildImplementationPrompt,
+  });
+  registerSpecCommand(pi, {
+    name: "implement-spec-stacked",
+    description: "Choose a file from specs/ and ask the agent to implement it as stacked PRs, one per deliverable",
+    pickerTitle: "Choose a specification to implement as a stack",
+    buildPrompt: buildStackedImplementationPrompt,
   });
   registerSpecCommand(pi, {
     name: "scrub-spec",
