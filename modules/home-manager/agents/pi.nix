@@ -121,15 +121,22 @@ let
 
   currentPiAgentModels = defaultPiAgentModels // currentPiAgentModelOverrides;
 
-  renderedPiAgentFiles = lib.mapAttrs' (
+  # pi-subagents-lite (and pi's agent loader) skip symlinked agent files for
+  # security, and home.file (both source and text) installs symlinks to the
+  # Nix store. So render templated models to store files here and copy them
+  # as regular files in home.activation.piAgents below.
+  renderedPiAgentSources = lib.mapAttrs (
     agentName: template:
-    lib.nameValuePair ".pi/agent/agents/${agentName}.md" {
-      force = true;
-      source = pkgs.replaceVars template {
-        piAgentModel = currentPiAgentModels.${agentName};
-      };
+    pkgs.replaceVars template {
+      piAgentModel = currentPiAgentModels.${agentName};
     }
   ) piAgentTemplates;
+
+  copyRenderedPiAgents = lib.concatStringsSep "\n" (
+    lib.mapAttrsToList (agentName: src: ''
+      $DRY_RUN_CMD cp ${src} "$HOME/.pi/agent/agents/${agentName}.md"
+      $DRY_RUN_CMD chmod 644 "$HOME/.pi/agent/agents/${agentName}.md"'') renderedPiAgentSources
+  );
 in
 {
   home.packages = [
@@ -223,8 +230,14 @@ in
         };
       };
     };
-  }
-  // renderedPiAgentFiles;
+  };
+
+  # Copy (not symlink) so pi-subagents-lite loads the agent roles.
+  home.activation.piAgents = lib.hm.dag.entryAfter [ "linkGeneration" ] ''
+    $DRY_RUN_CMD rm -rf "$HOME/.pi/agent/agents"
+    $DRY_RUN_CMD mkdir -p "$HOME/.pi/agent/agents"
+    ${copyRenderedPiAgents}
+  '';
 
   home.activation.piWorkSettings = lib.mkIf isWork (
     lib.hm.dag.entryAfter [ "writeBoundary" ] ''
