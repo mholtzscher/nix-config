@@ -365,7 +365,7 @@ For each agreed-valid thread:
 1. Implement the smallest fix (or follow the user scope/fix instructions above when provided).
 2. Record a GitHub reaction on each fixed comment using its Comment ID from the payload:
    \`gh api repos/${owner}/${name}/pulls/comments/<COMMENT_ID>/reactions -f content='+1'\` (thumbs up)
-   For threads we agreed are invalid, record `-f content='-1'` (thumbs down) instead of fixing. Leave already-addressed or unclear threads alone: no code change, no reaction.
+   For threads we agreed are invalid, record \`-f content='-1'\` (thumbs down) instead of fixing. Leave already-addressed or unclear threads alone: no code change, no reaction.
 3. After all fixes are complete, resolve each fixed thread using its Thread ID from the payload:
    \`gh api graphql -f query='mutation($threadId: ID!) { resolveReviewThread(input: {threadId: $threadId}) { thread { isResolved } } }' -f threadId='<THREAD_ID>'\`
    Leave all other threads unresolved.
