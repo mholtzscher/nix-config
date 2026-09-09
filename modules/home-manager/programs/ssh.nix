@@ -30,22 +30,20 @@ in
         mina-nas = {
           HostName = "10.69.69.156";
           User = "root";
-        };
+        }
+        // lib.optionalAttrs (isDarwin) { IdentityAgent = onePasswordAgent; };
 
         max-nas = {
           HostName = "10.69.69.186";
           User = "root";
-        };
+        }
+        // lib.optionalAttrs (isDarwin) { IdentityAgent = onePasswordAgent; };
 
         wanda = {
           HostName = "10.69.69.60";
           User = "michael";
-        };
-      }
-      // lib.optionalAttrs (!isWork && isDarwin) {
-        mina-nas.IdentityAgent = onePasswordAgent;
-        max-nas.IdentityAgent = onePasswordAgent;
-        wanda.IdentityAgent = onePasswordAgent;
+        }
+        // lib.optionalAttrs (isDarwin) { IdentityAgent = onePasswordAgent; };
       }
       // lib.optionalAttrs (!isWork && !isDarwin) {
         # Preserve a forwarded agent when connected from another machine.
