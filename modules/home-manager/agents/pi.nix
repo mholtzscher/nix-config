@@ -19,6 +19,23 @@ let
     defaultThinkingLevel = "high";
     showCacheMissNotices = true;
     tuiMode = "fullscreen";
+    # pi-subagents-lite gates every subagent's tools to `registeredTools`
+    # (agent frontmatter `tools:`) union the tools it discovers from loaded
+    # extensions, and falls back to this list for agents without `tools:`.
+    # pi-fff registers grep/find lazily on session_start, after that
+    # discovery already ran, so the names must be present here or subagents
+    # (general-purpose, reviewer) get no FFF-backed grep/find at all.
+    # Explore is unaffected: its built-in config supplies registeredTools.
+    # Note these must match pi-fff's names for the active mode; in
+    # PI_FFF_MODE=override they are the built-in names `grep` and `find`.
+    defaultTools = [
+      "read"
+      "bash"
+      "edit"
+      "write"
+      "grep"
+      "find"
+    ];
     enabledModels =
       if isWork then
         [
