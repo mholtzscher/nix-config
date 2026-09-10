@@ -32,7 +32,7 @@ let
           "openai-codex/gpt-6-astra"
           "opencode-go/muse-spark-1.3-contributor"
           "openai-codex/gpt-5.6-*"
-          "opencode-go/deepseek-v4-flash"
+          "opencode-go/deepseek-flash"
         ];
     theme = "dark";
     workingVibe = "parks_and_rec";
