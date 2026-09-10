@@ -59,12 +59,6 @@ in
       };
       ".idea-lazy.vim".source = lazyIdeaVim;
 
-      ## Topiary Config
-      "${config.xdg.configHome}/topiary/languages.ncl".text =
-        builtins.replaceStrings [ "TREE_SITTER_NU_PATH" ] [ "${pkgs.tree-sitter-grammars.tree-sitter-nu}" ]
-          (builtins.readFile ./files/topiary/languages.ncl);
-      "${config.xdg.configHome}/topiary/languages/nu.scm".source =
-        "${inputs.topiaryNushell}/languages/nu.scm";
       "${config.xdg.configHome}/1Password/ssh/agent.toml".source = ./files/1password-agent.toml;
     }
     # macOS-specific config files
@@ -118,9 +112,6 @@ in
       COMPOSE_PROFILES = "default";
       NH_DARWIN_FLAKE = "${config.home.homeDirectory}/.config/nix-config";
       NH_OS_FLAKE = "/home/michael/nix-config";
-
-      TOPIARY_CONFIG_FILE = "${config.xdg.configHome}/topiary/languages.ncl";
-      TOPIARY_LANGUAGE_DIR = "${config.xdg.configHome}/topiary/languages";
 
       PI_FFF_MODE = "override";
     };

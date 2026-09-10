@@ -21,9 +21,6 @@ with pkgs;
   nil
   nixfmt
 
-  # Protocol Buffers
-  buf
-
   # Shell
   bash-language-server
 

@@ -409,26 +409,24 @@ nf <file>.nix                               # Format nix file
 
 ## Included Configurations
 
-### Cross-Platform Programs (34 Modules + Utilities)
+### Cross-Platform Programs (30 Modules + Utilities)
 
 **Program Modules (home-manager):**
 
 - **Shells**: zsh, nushell
-- **Editors**: helix, zed
+- **Editors**: neovim (vim mode), vim
 - **Git**: git, gh, gh-dash, lazygit, delta
 - **Terminal**: ghostty, zellij, starship
-- **Dev Tools**: bun, go, poetry, pyenv, uv
+- **Dev Tools**: bun, go, uv
 - **Cloud**: opencode (CLI for Claude)
-- **Utils**: atuin, bat, bottom, btop, eza, fd, fzf, jq, k9s, lazydocker, ripgrep, zoxide
-- **Web**: firefox, webapps
+- **Utils**: atuin, bat, bottom, btop, eza, fd, fzf, jq, lazydocker, ripgrep, zoxide
+- **Web**: webapps
 - **System**: ssh, carapace (shell completions)
 
 **Additional Packages:**
 
-- **Editors**: neovim, vim
-- **Browsers**: brave
-- **Languages**: node (nodejs_24), zig, lua
-- **Tools**: buf, dive, dust, grpcurl, gum, hey, httpie, jc, just, kdlfmt, kubernetes-helm, nil, nixfmt, sops, statix, tldr, topiary, tree-sitter, websocat, wget, yq
+- **Languages**: node (nodejs_24), lua
+- **Tools**: ast-grep, dive, dust, grpcurl, httpie, jc, just, kdlfmt, nil, nixfmt, sops, statix, tree-sitter, websocat, wget, yq
 
 **macOS Only:**
 
@@ -484,7 +482,6 @@ This is a personal configuration, but feel free to use it as inspiration for you
 
 ### Resources (non-flake)
 
-- **topiary-nushell**: Nushell formatter for Topiary
 - **ghostty-shader-playground**: Ghostty terminal shaders
 
 ---

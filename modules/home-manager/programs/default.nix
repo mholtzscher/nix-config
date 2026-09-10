@@ -10,34 +10,28 @@
     ./direnv.nix
     ./eza.nix
     ./fd.nix
-    ./firefox.nix
     ./fzf.nix
     ./gh-dash.nix
     ./gh.nix
     ./ghostty.nix
     ./git.nix
     ./go.nix
-    ./helix.nix
     ./herdr.nix
     ./hunk.nix
     ./jq.nix
-    ./k9s.nix
     ./lazydocker.nix
     ./lazygit.nix
     ./mise.nix
     ./nh.nix
     ./neovim.nix
     ./nushell.nix
-    ./poetry.nix
     ./podman.nix
     ./ripgrep.nix
     ./ssh.nix
     ./starship.nix
-    ./tmux.nix
     ./uv.nix
     ./webapps.nix # NixOS-only (has platform guard inside)
     ./yazi.nix
-    ./zed.nix
     ./zellij.nix
     ./zsh.nix
     ./zoxide.nix

@@ -26,10 +26,6 @@
       inputs.darwin.follows = "nix-darwin";
       inputs.home-manager.follows = "home-manager";
     };
-    topiaryNushell = {
-      url = "github:blindFS/topiary-nushell";
-      flake = false;
-    };
     ghostty-shader-playground = {
       url = "github:KroneCorylus/ghostty-shader-playground";
       flake = false;
@@ -132,7 +128,6 @@
       homebrew-brew,
       home-manager,
       agenix,
-      topiaryNushell,
       ghostty-shader-playground,
       catppuccin,
       aerospace-utils,

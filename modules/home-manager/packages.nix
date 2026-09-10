@@ -10,7 +10,6 @@ with pkgs;
   (pkgs.callPackage ../../pkgs/vimhjkl { })
   ast-grep
   bottom
-  buf
   cachix
   codesnap
   cookiecutter
@@ -20,10 +19,7 @@ with pkgs;
   duckdb
   dust
   glow
-  google-cloud-sdk
   grpcurl
-  gum
-  hey
   httpie
   inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system}.opencode2
   inputs.melt.packages.${pkgs.stdenv.hostPlatform.system}.default
@@ -41,16 +37,12 @@ with pkgs;
   slides
   sqlite
   statix
-  tldr
-  topiary
   tree-sitter
-  tree-sitter-grammars.tree-sitter-nu
   vim
   websocat
   wget
   yq
   yt-dlp
-  zig
 ]
 ++ pkgs.lib.optionals (!isWork) [
   (pkgs.callPackage ../../pkgs/railway-cli { })

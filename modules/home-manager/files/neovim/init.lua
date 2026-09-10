@@ -74,7 +74,6 @@ vim.lsp.enable({
 	"tsc",
 	"ty",
 	"yamlls",
-	"zls",
 })
 
 -- lua_ls VIM support

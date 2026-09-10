@@ -3,7 +3,7 @@
   ...
 }:
 let
-  # Shared LSP packages used by multiple editors
+  # Shared LSP packages
   lspPackages = import ../lsp-packages.nix { inherit pkgs; };
 
 in
@@ -31,7 +31,8 @@ in
       pkgs.vimPlugins.nvim-treesitter.withAllGrammars
     ];
     extraPackages = lspPackages ++ [
-      # Neovim-specific extras (not needed by Helix)
+      # Neovim-specific extras
+      pkgs.kotlin-language-server
       pkgs.rust-analyzer
       pkgs.rustfmt
       pkgs.stylua # lua formatter

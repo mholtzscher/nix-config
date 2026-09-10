@@ -102,8 +102,8 @@ let
 
   # Defaults preserve the current hardcoded frontmatter models.
   defaultPiAgentModels = {
-    Explore = "opencode-go/muse-spark-1.3-contributor";
-    general-purpose = "opencode-go/muse-spark-1.3-contributor";
+    Explore = "opencode-go/deepseek-flash";
+    general-purpose = "opencode-go/deepseek-flash";
     reviewer = "openai-codex/gpt-5.6-astra";
   };
 
