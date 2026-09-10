@@ -3,6 +3,7 @@
 {
   homebrew = {
     brews = [
+      "circleci"
       "opencode"
     ];
     casks = [
