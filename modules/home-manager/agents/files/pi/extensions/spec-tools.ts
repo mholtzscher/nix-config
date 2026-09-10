@@ -1,4 +1,5 @@
 import type { ExtensionAPI } from "@earendil-works/pi-coding-agent";
+import { execFile } from "node:child_process";
 import { readdir, stat } from "node:fs/promises";
 import { join } from "node:path";
 
@@ -85,6 +86,96 @@ function buildBackgroundScrubPrompt(specPath: string): string {
 Do not scrub the specification yourself. After the Agent tool confirms the background spawn, stop.`;
 }
 
+type SpecRecency = {
+  name: string;
+  /** 0 for uncommitted files, 1 for committed ones; lower sorts first. */
+  rank: number;
+  /** Milliseconds: mtime when uncommitted, committer date when committed. */
+  recency: number;
+};
+
+/** Runs git, resolving to null instead of rejecting so callers can treat failure as "no git". */
+function runGit(args: string[], cwd: string): Promise<string | null> {
+  return new Promise((resolve) => {
+    execFile(
+      "git",
+      args,
+      { cwd, encoding: "utf8", timeout: 5_000, maxBuffer: 4 * 1024 * 1024 },
+      (error, stdout) => resolve(error ? null : stdout),
+    );
+  });
+}
+
+/**
+ * Names of spec files with uncommitted changes, relative to specsDirectory, or null when
+ * specsDirectory is not in a git repository. Covers staged, unstaged, and untracked files.
+ */
+async function readUncommittedSpecNames(specsDirectory: string): Promise<Set<string> | null> {
+  const prefix = await runGit(["rev-parse", "--show-prefix"], specsDirectory);
+  if (prefix === null) return null;
+
+  // --no-renames avoids the extra source path that -z emits for rename entries.
+  const status = await runGit(
+    ["status", "--porcelain", "-z", "--no-renames", "--", "."],
+    specsDirectory,
+  );
+  if (status === null) return null;
+
+  // git status paths are always repository-root relative, so strip the specs/ prefix.
+  const pathPrefix = prefix.trim();
+  return new Set(
+    status
+      .split("\0")
+      .filter((entry) => entry.length > 0)
+      .map((entry) => entry.slice(3))
+      .filter((path) => path.startsWith(pathPrefix))
+      .map((path) => path.slice(pathPrefix.length)),
+  );
+}
+
+/** Committer date in milliseconds of the last commit touching the file, or null when untracked. */
+async function readLastCommitTimeMs(specsDirectory: string, name: string): Promise<number | null> {
+  const stdout = await runGit(["log", "-1", "--format=%ct", "--", name], specsDirectory);
+  if (stdout === null) return null;
+
+  const seconds = Number.parseInt(stdout.trim(), 10);
+  return Number.isFinite(seconds) ? seconds * 1000 : null;
+}
+
+/**
+ * Orders spec file names newest first. Worktree checkouts stamp every file with the same mtime,
+ * so uncommitted files use their mtime (which the editor just refreshed) and committed files use
+ * the last commit that touched them. Without git, every file falls back to mtime.
+ */
+async function orderSpecsByRecency(specsDirectory: string, names: string[]): Promise<string[]> {
+  const uncommitted = await readUncommittedSpecNames(specsDirectory);
+
+  const recencies: SpecRecency[] = await Promise.all(
+    names.map(async (name) => {
+      // Uncommitted files keep their mtime: the editor just wrote them, so it is meaningful.
+      const committedAt =
+        uncommitted === null || uncommitted.has(name)
+          ? null
+          : await readLastCommitTimeMs(specsDirectory, name);
+
+      return {
+        name,
+        rank: committedAt === null ? 0 : 1,
+        recency: committedAt ?? (await stat(join(specsDirectory, name))).mtimeMs,
+      };
+    }),
+  );
+
+  return recencies
+    .sort(
+      (left, right) =>
+        left.rank - right.rank ||
+        right.recency - left.recency ||
+        left.name.localeCompare(right.name),
+    )
+    .map((entry) => entry.name);
+}
+
 type SpecCommand = {
   name: string;
   description: string;
@@ -110,19 +201,11 @@ function registerSpecCommand(pi: ExtensionAPI, command: SpecCommand): void {
         const files = (await readdir(specsDirectory, { withFileTypes: true })).filter((entry) =>
           entry.isFile(),
         );
-        const modifiedFiles = await Promise.all(
-          files.map(async (entry) => ({
-            name: entry.name,
-            modifiedAt: (await stat(join(specsDirectory, entry.name))).mtimeMs,
-          })),
-        );
 
-        specs = modifiedFiles
-          .sort(
-            (left, right) =>
-              right.modifiedAt - left.modifiedAt || left.name.localeCompare(right.name),
-          )
-          .map((file) => file.name);
+        specs = await orderSpecsByRecency(
+          specsDirectory,
+          files.map((entry) => entry.name),
+        );
       } catch (error) {
         const message = error instanceof Error ? error.message : String(error);
         ctx.ui.notify(`Could not read specs/: ${message}`, "error");
