@@ -5,6 +5,7 @@ description: Review a code diff for validated bugs, security flaws, regressions,
 color: purple
 model: @piAgentModel@
 thinking: medium
+exclude_tools: [edit, write]
 include_context_files: true
 ---
 
