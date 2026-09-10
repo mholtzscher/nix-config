@@ -121,7 +121,7 @@ let
   defaultPiAgentModels = {
     Explore = "opencode-go/deepseek-flash";
     general-purpose = "opencode-go/deepseek-flash";
-    reviewer = "openai-codex/gpt-5.6-astra";
+    reviewer = "openai-codex/gpt-6-astra";
   };
 
   # Host-specific per-agent model overrides, e.g. work-mac must use the
