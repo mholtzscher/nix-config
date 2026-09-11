@@ -22,7 +22,10 @@ let
   komodoFerretDbVersion = "2.7.0";
   komodoPostgresDocumentDbVersion = "17-0.107.0-ferretdb-2.7.0";
 
-  # Reachable from the LAN only; nothing here is exposed to the internet.
+  # Keep the origin bound to Wanda's LAN address. Browser access uses the
+  # Cloudflare Access-protected external URL, while Periphery connects directly
+  # over the LAN and does not depend on the tunnel.
+  komodoExternalUrl = "https://wanda.holtzscher.com";
   komodoLanAddress = "10.69.69.60";
   komodoCorePort = 9120;
 
@@ -88,7 +91,7 @@ let
     environment = {
       KOMODO_DATABASE_ADDRESS = "ferretdb:27017";
       KOMODO_DATABASE_USERNAME = "komodo";
-      KOMODO_HOST = "http://${komodoLanAddress}:${toString komodoCorePort}";
+      KOMODO_HOST = komodoExternalUrl;
       KOMODO_TITLE = "Komodo — Wanda";
       TZ = "America/Chicago";
       KOMODO_LOCAL_AUTH = "true";
