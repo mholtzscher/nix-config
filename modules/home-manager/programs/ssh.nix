@@ -15,8 +15,8 @@ in
       settings = {
         "github.com" = {
           IdentityFile = "~/.ssh/id_ed25519";
-          IdentitiesOnly = true;
-          IdentityAgent = "none";
+          # IdentitiesOnly = true;
+          # IdentityAgent = "none";
         };
       }
       // {
