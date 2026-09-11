@@ -32,6 +32,31 @@
       file = ../../secrets/unifi-password.age;
       path = "${config.home.homeDirectory}/.local/share/agenix/unifi-password";
     };
+
+    # Komodo trial stack on Wanda. Docker Compose reads these as file-backed
+    # secrets, so `symlink = false` writes the decrypted value straight to the
+    # explicit path instead of the per-boot runtime directory. Keep the paths
+    # and names in sync with modules/home-manager/hosts/wanda/komodo.nix.
+    secrets.komodo-database-environment = lib.mkIf (currentSystemName == "wanda") {
+      file = ../../secrets/komodo-database-environment.age;
+      path = "${config.home.homeDirectory}/.local/share/agenix/komodo-database-environment";
+      symlink = false;
+    };
+    secrets.komodo-init-admin-password = lib.mkIf (currentSystemName == "wanda") {
+      file = ../../secrets/komodo-init-admin-password.age;
+      path = "${config.home.homeDirectory}/.local/share/agenix/komodo-init-admin-password";
+      symlink = false;
+    };
+    secrets.komodo-jwt-secret = lib.mkIf (currentSystemName == "wanda") {
+      file = ../../secrets/komodo-jwt-secret.age;
+      path = "${config.home.homeDirectory}/.local/share/agenix/komodo-jwt-secret";
+      symlink = false;
+    };
+    secrets.komodo-webhook-secret = lib.mkIf (currentSystemName == "wanda") {
+      file = ../../secrets/komodo-webhook-secret.age;
+      path = "${config.home.homeDirectory}/.local/share/agenix/komodo-webhook-secret";
+      symlink = false;
+    };
   };
 
   # Upstream also sets Crashed = false, which restarts the agent after every

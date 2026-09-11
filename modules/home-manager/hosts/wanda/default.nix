@@ -2,6 +2,7 @@
 {
   imports = [
     ./containers.nix
+    ./komodo.nix
   ];
 
   # Wanda-specific CLI tooling and dotfiles
