@@ -49,7 +49,7 @@ let
           "openai-codex/gpt-6-astra"
           "opencode-go/muse-spark-1.3-contributor"
           "openai-codex/gpt-5.6-*"
-          "opencode-go/deepseek-flash"
+          "opencode-go/deepseek-v4.1-flash"
         ];
     theme = "dark";
     workingVibe = "parks_and_rec";
@@ -119,8 +119,8 @@ let
 
   # Defaults preserve the current hardcoded frontmatter models.
   defaultPiAgentModels = {
-    Explore = "opencode-go/deepseek-flash";
-    general-purpose = "opencode-go/deepseek-flash";
+    Explore = "opencode-go/deepseek-v4.1-flash";
+    general-purpose = "opencode-go/deepseek-v4.1-flash";
     reviewer = "openai-codex/gpt-6-astra";
   };
 
