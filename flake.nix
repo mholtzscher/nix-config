@@ -192,15 +192,19 @@
       };
 
       # Standalone home-manager configurations for non-NixOS Linux hosts
-      homeConfigurations = {
+      homeConfigurations = rec {
         # Wanda - Ubuntu server with home-manager
-        # Activation: home-manager switch --flake .#wanda
+        # Activation: `nh home switch` on Wanda or
+        # `home-manager switch --flake .#wanda` elsewhere.
         wanda = lib.mkHome {
           name = "wanda";
           system = "x86_64-linux";
           hostPath = ./hosts/ubuntu/wanda;
           user = "michael";
         };
+
+        # nh auto-detects standalone configurations as $USER@$HOSTNAME.
+        "michael@wanda" = wanda;
       };
     };
 }

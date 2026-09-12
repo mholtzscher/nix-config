@@ -1,4 +1,7 @@
 { pkgs, lib, ... }:
+let
+  wandaHomeFlake = "/home/michael/nix-config";
+in
 {
   imports = [
     ./containers.nix
@@ -13,6 +16,12 @@
     mtr
     sops
   ];
+
+  # Let bare `nh home` commands select Wanda's standalone Home Manager output.
+  programs.nh.homeFlake = wandaHomeFlake;
+  programs.nushell.extraConfig = lib.mkAfter ''
+    $env.NH_HOME_FLAKE = "${wandaHomeFlake}"
+  '';
 
   # Disable GUI programs on headless server
   programs.ghostty.enable = lib.mkForce false;

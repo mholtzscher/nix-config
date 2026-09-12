@@ -27,14 +27,16 @@ let
   # over the LAN and does not depend on the tunnel.
   komodoExternalUrl = "https://wanda.holtzscher.com";
   komodoLanAddress = "10.69.69.60";
-  # Tailnet node `tailscale-wanda` (verify with `tailscale ip -4` on wanda).
-  # Bound so the Komodo MCP client can reach Core on and off the LAN over
-  # WireGuard-encrypted Tailscale instead of the LAN-only address. This must
-  # stay a literal IP — Docker port bindings don't resolve hostnames. Clients
-  # use the MagicDNS name `tailscale-wanda.tailea9b59.ts.net` (see KOMODO_URL
-  # in modules/home-manager/agents/pi.nix), which keeps working across
-  # reinstalls even if this IP changes.
-  komodoTailscaleAddress = "100.112.7.108";
+  # Wanda's own Tailscale identity and IPv4 address, from the native tailscaled
+  # running on the host (verify with `tailscale ip -4` on wanda). Binding Core
+  # here lets the Komodo MCP client reach it on and off the LAN over
+  # WireGuard-encrypted Tailscale instead of the LAN-only address. Docker port
+  # bindings do not resolve hostnames, so this stays a literal IP; clients
+  # instead use the native MagicDNS name `wanda.tailea9b59.ts.net` (see
+  # KOMODO_URL in modules/home-manager/agents/pi.nix). The tailnet assigns this
+  # IP, so it can change when the node is re-registered — treat the MagicDNS
+  # name as the durable client-facing identity.
+  komodoTailscaleAddress = "100.92.161.83";
   komodoCorePort = 9120;
 
   # Docker Compose reads secrets from plain files on the host, so the agenix
