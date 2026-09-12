@@ -27,6 +27,14 @@ let
   # over the LAN and does not depend on the tunnel.
   komodoExternalUrl = "https://wanda.holtzscher.com";
   komodoLanAddress = "10.69.69.60";
+  # Tailnet node `tailscale-wanda` (verify with `tailscale ip -4` on wanda).
+  # Bound so the Komodo MCP client can reach Core on and off the LAN over
+  # WireGuard-encrypted Tailscale instead of the LAN-only address. This must
+  # stay a literal IP — Docker port bindings don't resolve hostnames. Clients
+  # use the MagicDNS name `tailscale-wanda.tailea9b59.ts.net` (see KOMODO_URL
+  # in modules/home-manager/agents/pi.nix), which keeps working across
+  # reinstalls even if this IP changes.
+  komodoTailscaleAddress = "100.112.7.108";
   komodoCorePort = 9120;
 
   # Docker Compose reads secrets from plain files on the host, so the agenix
@@ -86,7 +94,10 @@ let
     init = true;
     restart = "unless-stopped";
     depends_on = [ "ferretdb" ];
-    ports = [ "${komodoLanAddress}:${toString komodoCorePort}:${toString komodoCorePort}" ];
+    ports = [
+      "${komodoLanAddress}:${toString komodoCorePort}:${toString komodoCorePort}"
+      "${komodoTailscaleAddress}:${toString komodoCorePort}:${toString komodoCorePort}"
+    ];
     env_file = [ komodoDatabaseEnvironmentFile ];
     environment = {
       KOMODO_DATABASE_ADDRESS = "ferretdb:27017";

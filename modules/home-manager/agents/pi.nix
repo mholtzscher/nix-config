@@ -249,6 +249,13 @@ in
           # as unifi above: stdout becomes the env value, so the API key and
           # secret stay agenix-only and never enter the Nix store. Bare `-e
           # NAME` forwards the adapter-provided value into the container.
+          # KOMODO_URL uses wanda's MagicDNS name so the MCP works on and
+          # off the LAN (plain HTTP is fine — Tailscale already encrypts it).
+          # The FQDN avoids depending on DNS search domains. Note the Docker
+          # port binding in modules/home-manager/hosts/wanda/komodo.nix must
+          # stay a literal IP (Docker doesn't resolve hostnames there) — if
+          # wanda is ever reinstalled and gets a new tailnet IP, update it
+          # there; this name keeps working.
           komodo = {
             command = "docker";
             args = [
@@ -256,7 +263,7 @@ in
               "-i"
               "--rm"
               "-e"
-              "KOMODO_URL=http://10.69.69.60:9120"
+              "KOMODO_URL=http://tailscale-wanda.tailea9b59.ts.net:9120"
               "-e"
               "KOMODO_API_KEY"
               "-e"
