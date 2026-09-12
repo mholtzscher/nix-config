@@ -22,6 +22,18 @@ in
     recipients."personal-mac"
   ];
 
+  # Komodo MCP client (pi mcp.json on all non-work hosts).
+  "komodo-api-key.age".publicKeys = [
+    recipients."nixos-desktop"
+    recipients."personal-mac"
+    recipients."wanda"
+  ];
+  "komodo-api-secret.age".publicKeys = [
+    recipients."nixos-desktop"
+    recipients."personal-mac"
+    recipients."wanda"
+  ];
+
   # Komodo trial stack on wanda.
   "komodo-database-environment.age".publicKeys = [
     recipients."nixos-desktop"
@@ -43,4 +55,5 @@ in
     recipients."personal-mac"
     recipients."wanda"
   ];
+
 }

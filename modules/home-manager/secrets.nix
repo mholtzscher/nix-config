@@ -32,6 +32,18 @@
       file = ../../secrets/unifi-password.age;
       path = "${config.home.homeDirectory}/.local/share/agenix/unifi-password";
     };
+    # Komodo MCP client credentials for pi's mcp.json (all non-work hosts,
+    # including wanda). Explicit paths: pi-mcp-adapter's !command env
+    # injection cannot expand agenix's Darwin runtime-directory shell
+    # expression.
+    secrets.komodo-api-key = {
+      file = ../../secrets/komodo-api-key.age;
+      path = "${config.home.homeDirectory}/.local/share/agenix/komodo-api-key";
+    };
+    secrets.komodo-api-secret = {
+      file = ../../secrets/komodo-api-secret.age;
+      path = "${config.home.homeDirectory}/.local/share/agenix/komodo-api-secret";
+    };
 
     # Komodo trial stack on Wanda. Docker Compose reads these as file-backed
     # secrets, so `symlink = false` writes the decrypted value straight to the

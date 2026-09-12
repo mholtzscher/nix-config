@@ -2,7 +2,7 @@
 
 Guidance for this multi-platform Nix flake repo.
 
-**Last updated:** 2026-04-22
+**Last updated:** 2026-09-12
 **Repository:** nix-config (personal NixOS/Darwin/home-manager configurations)
 
 ## Safety
@@ -49,6 +49,19 @@ User: Runs switch command manually
 - When adding a Neovim plugin, use `vim.pack` and configure it in `init.lua`
 - Use platform guards like `lib.mkIf isDarwin` for OS-specific behavior
 - Use host modules for machine-specific behavior
+
+## Secrets (agenix)
+
+- Always use `./scripts/secrets` for secret work — never invoke `agenix` directly.
+  - New secret: `./scripts/secrets create` (adds recipient rule + Home Manager entry, then opens the editor)
+  - Real values: `./scripts/secrets edit` — the user pastes values there; the agent must never handle plaintext secrets
+  - Verify: `./scripts/secrets audit`
+- Never place secret values inline in Nix — they land world-readable in the Nix store.
+  - pi MCP servers: `env = { VAR = "!cat ${config.home.homeDirectory}/.local/share/agenix/<name>"; }` with bare `-e VAR` forwarding into containers (see `unifi-network` / `komodo` in `modules/home-manager/agents/pi.nix`).
+  - Secrets consumed via `!cat` need an explicit `path` under `~/.local/share/agenix/` in `modules/home-manager/secrets.nix` (the adapter cannot expand agenix's Darwin runtime-directory expression), so extend the script-generated entry — do not simplify it to the bare `file` form.
+- If the build must pass before values exist, seed placeholder content in the `.age` files and have the user replace it via `./scripts/secrets edit` (agenix decrypts at activation time, so no rebuild is needed afterwards).
+- `git add` new `.age` files: flakes ignore untracked files and evaluation fails without it.
+- Keep `secrets/secrets.nix` entries in the script's sorted order to avoid diff noise on the next scripted rewrite (note: a scripted rewrite also drops comments).
 
 ## Key Concepts
 

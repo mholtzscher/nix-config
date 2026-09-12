@@ -244,6 +244,32 @@ in
               UNIFI_VERIFY_SSL = "false";
             };
           };
+
+          # Komodo MCP (ghcr.io/mp-tool/komodo-mcp-server). Same !cat pattern
+          # as unifi above: stdout becomes the env value, so the API key and
+          # secret stay agenix-only and never enter the Nix store. Bare `-e
+          # NAME` forwards the adapter-provided value into the container.
+          komodo = {
+            command = "docker";
+            args = [
+              "run"
+              "-i"
+              "--rm"
+              "-e"
+              "KOMODO_URL=http://10.69.69.60:9120"
+              "-e"
+              "KOMODO_API_KEY"
+              "-e"
+              "KOMODO_API_SECRET"
+              "-e"
+              "MCP_TRANSPORT=stdio"
+              "ghcr.io/mp-tool/komodo-mcp-server:latest"
+            ];
+            env = {
+              KOMODO_API_KEY = "!cat ${config.home.homeDirectory}/.local/share/agenix/komodo-api-key";
+              KOMODO_API_SECRET = "!cat ${config.home.homeDirectory}/.local/share/agenix/komodo-api-secret";
+            };
+          };
         };
       };
     };
