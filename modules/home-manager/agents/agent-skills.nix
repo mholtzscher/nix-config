@@ -97,8 +97,8 @@ in
       "mholtzscher/agent-orchestrator"
       "anthropic/skill-creator"
       "mattpocock/grill-with-docs"
-      "mattpocock/improve-codebase-architecture"
-      "mattpocock/codebase-design"
+      # "mattpocock/improve-codebase-architecture"
+      # "mattpocock/codebase-design"
       "mattpocock/domain-modeling"
       "mattpocock/grilling"
       # "mattpocock/teach"
@@ -116,7 +116,7 @@ in
       "pstack/unslop"
       "herdr/herdr"
       "humanlayer/show-me"
-      "dmmulroy/bro"
+      # "dmmulroy/bro"
       "dmmulroy/write-discoverable-code"
     ]
     ++ lib.optionals (!isWork) [
