@@ -55,6 +55,7 @@ let
     workingVibe = "parks_and_rec";
     workingVibeMode = "file";
     packages = [
+      "git:github.com/earendil-works/pi-review"
       "npm:@ff-labs/pi-fff"
       "npm:@juicesharp/rpiv-ask-user-question"
       "npm:@juicesharp/rpiv-todo"
