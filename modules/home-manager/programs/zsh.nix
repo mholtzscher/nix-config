@@ -31,7 +31,8 @@ in
         ''}
       '';
       sessionVariables = {
-        PATH = "$PATH:/Users/michael/.local/bin";
+        # Bun installs global executable shims in ~/.bun/bin by default.
+        PATH = "$PATH:$HOME/.local/bin:$HOME/.bun/bin";
       }
       // lib.optionalAttrs (!isWork) {
         GITHUB_PERSONAL_ACCESS_TOKEN = readAgeSecret config.age.secrets.github-pat.path;

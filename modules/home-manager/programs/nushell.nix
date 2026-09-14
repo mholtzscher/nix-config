@@ -39,8 +39,8 @@ in
         ''
           use std/log;
 
-          # Add local bin and homebrew to PATH
-          $env.PATH = ($env.PATH | prepend "/opt/homebrew/sbin" | prepend "/opt/homebrew/bin" | prepend $"($env.HOME)/.local/bin")
+          # Add local bin, Bun global executables, and homebrew to PATH
+          $env.PATH = ($env.PATH | prepend "/opt/homebrew/sbin" | prepend "/opt/homebrew/bin" | prepend $"($env.HOME)/.bun/bin" | prepend $"($env.HOME)/.local/bin")
 
           ${builtins.readFile ../files/nushell/functions.nu}
           ${builtins.readFile ../files/nushell/herdr-nix-status.nu}
