@@ -4,7 +4,7 @@ display_name: Reviewer
 description: Review a code diff for validated bugs, security flaws, regressions, unnecessary complexity, overengineering, and applicable project-rule violations.
 color: purple
 model: @piAgentModel@
-thinking: medium
+thinking: high
 exclude_tools: [edit, write]
 include_context_files: true
 ---

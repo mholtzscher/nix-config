@@ -122,7 +122,7 @@ let
   defaultPiAgentModels = {
     Explore = "opencode-go/deepseek-v4.1-flash";
     general-purpose = "opencode-go/deepseek-v4.1-flash";
-    reviewer = "openai-codex/gpt-6-astra";
+    reviewer = "openai-codex/gpt-6-sol";
   };
 
   # Host-specific per-agent model overrides, e.g. work-mac must use the
@@ -232,9 +232,6 @@ in
             auth = "oauth";
           };
 
-          # UniFi Network controller MCP (https://github.com/sirkirby/unifi-mcp).
-          # The ! prefix makes pi-mcp-adapter run the command at connect time;
-          # stdout becomes the env value, so the password stays agenix-only.
           "unifi-network" = {
             command = "uvx";
             args = [ "unifi-network-mcp@latest" ];
@@ -246,15 +243,6 @@ in
             };
           };
 
-          # Komodo MCP (ghcr.io/mp-tool/komodo-mcp-server). Same !cat pattern
-          # as unifi above: stdout becomes the env value, so the API key and
-          # secret stay agenix-only and never enter the Nix store. Bare `-e
-          # NAME` forwards the adapter-provided value into the container.
-          # KOMODO_URL is wanda's native MagicDNS name, resolvable from any
-          # tailnet-reachable network, and written as an FQDN so it does not
-          # depend on the local DNS search domain. Plain HTTP is protected by
-          # Tailscale's WireGuard encryption. Core still binds the LAN address
-          # too (see modules/home-manager/hosts/wanda/komodo.nix).
           komodo = {
             command = "docker";
             args = [
