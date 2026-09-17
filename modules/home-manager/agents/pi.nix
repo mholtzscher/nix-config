@@ -59,6 +59,7 @@ let
       "npm:@ff-labs/pi-fff"
       "npm:@juicesharp/rpiv-ask-user-question"
       "npm:@juicesharp/rpiv-todo"
+      "npm:@mholtzscher/pi-extensions"
       "npm:@plannotator/pi-extension"
       "npm:pi-context-view"
       "npm:pi-mcp-adapter"
