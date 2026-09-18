@@ -193,7 +193,7 @@ in
       recursive = true;
     };
 
-    ".pi/web-search.json".text = builtins.toJSON {
+    ".pi/agent/web-search.json".text = builtins.toJSON {
       workflow = "none";
     };
 
