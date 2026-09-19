@@ -50,7 +50,10 @@ let
           "opencode-go/deepseek-v4.1-flash"
           "openai-codex/gpt-6-astra"
           "opencode-go/muse-spark-1.3-contributor"
-        ];
+        ]
+        # Local Bonsai 2 27B served by services.bonsai (llama-server on
+        # localhost:8888). Only nixos-desktop runs that server.
+        ++ lib.optional (currentSystemName == "nixos-desktop") "bonsai/bonsai-2-27b";
     theme = "dark";
     workingVibe = "parks_and_rec";
     workingVibeMode = "file";
@@ -76,7 +79,49 @@ let
   # Muse Spark 1.3 is missing from pi's bundled catalog, and OpenCode serves it
   # over the Responses API. https://opencode.ai/docs/go/#endpoints
   models = {
-    providers = {
+    providers = lib.optionalAttrs (currentSystemName == "nixos-desktop") {
+      # Local Bonsai 2 27B via services.bonsai (Prism llama.cpp fork,
+      # single-model mode at http://localhost:8888/v1). apiKey is a dummy:
+      # llama-server runs without --api-key and ignores the header, but pi
+      # needs auth presence before models appear in /model.
+      bonsai = {
+        baseUrl = "http://localhost:8888/v1";
+        api = "openai-completions";
+        apiKey = "local";
+        compat = {
+          supportsDeveloperRole = false;
+          supportsReasoningEffort = false;
+          maxTokensField = "max_tokens";
+          # Maps pi thinking levels to llama.cpp thinking_budget_tokens.
+          thinkingTokenBudgetField = "thinking_budget_tokens";
+        };
+        models = [
+          {
+            id = "bonsai-2-27b";
+            name = "Bonsai 2 27B (local RTX 3090)";
+            reasoning = true;
+            input = [
+              "text"
+              "image"
+            ];
+            # Must match services.bonsai.contextSize (-c 131072).
+            contextWindow = 131072;
+            maxTokens = 8192;
+            cost = {
+              input = 0;
+              output = 0;
+              cacheRead = 0;
+              cacheWrite = 0;
+            };
+            # Upstream-recommended Bonsai 2 thinking-mode sampling.
+            samplingParams = {
+              temperature = 1.0;
+              top_p = 0.95;
+              top_k = 20;
+            };
+          }
+        ];
+      };
       # opencode-go.models = [
       #   {
       #     id = "muse-spark-1.3-contributor";

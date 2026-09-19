@@ -19,6 +19,11 @@
     ];
 
     secrets.github-pat.file = ../../secrets/github-pat.age;
+    secrets.typesafe-api-key = {
+      file = ../../secrets/typesafe-api-key.age;
+      # The Pi extension reads this stable path directly for hosted Jev.
+      path = "${config.home.homeDirectory}/.local/share/agenix/typesafe-api-key";
+    };
     secrets.atuin-key = {
       file = ../../secrets/atuin-key.age;
       # Atuin reads this path itself, so it cannot expand agenix's Darwin

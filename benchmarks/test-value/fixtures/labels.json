@@ -1,0 +1,371 @@
+[
+  {
+    "fixtureId": "go-format-cents-duplicated-oracle",
+    "tier": 1,
+    "acceptableVerdicts": [
+      "low-value"
+    ],
+    "expectedTestKind": "tautological",
+    "scoreRange": [
+      0,
+      30
+    ],
+    "riskExpectations": {
+      "tautology": {
+        "min": 70
+      },
+      "falseConfidence": {
+        "min": 55
+      },
+      "implementationCoupling": {
+        "max": 50
+      },
+      "flakiness": {
+        "max": 15
+      },
+      "mutationSurvival": {
+        "min": 65
+      }
+    },
+    "rationale": "The arrange step re-implements the formatter's own sign/division/modulo logic, so the expectation is manufactured from the same idea under test and can only disagree by accident. No independent oracle, no boundaries (zero, negative, rounding), and mutations to sign handling or padding survive."
+  },
+  {
+    "fixtureId": "typescript-user-service-trivial-delegation",
+    "tier": 2,
+    "acceptableVerdicts": [
+      "low-value",
+      "questionable"
+    ],
+    "expectedTestKind": "structural",
+    "scoreRange": [
+      15,
+      52
+    ],
+    "riskExpectations": {
+      "tautology": {
+        "max": 70
+      },
+      "falseConfidence": {
+        "min": 50
+      },
+      "implementationCoupling": {
+        "min": 35
+      },
+      "flakiness": {
+        "max": 15
+      },
+      "mutationSurvival": {
+        "min": 45
+      }
+    },
+    "rationale": "This verifies the service's delegation and ID forwarding, so it is not purely tautological. Its regression value is still low: the mock supplies the asserted object, the production method has no independent behavior, and the null/error and real repository paths remain untested. The interaction assertion also couples the test to the current delegation structure."
+  },
+  {
+    "fixtureId": "ruby-invoice-render-smoke-only",
+    "tier": 2,
+    "acceptableVerdicts": [
+      "low-value",
+      "questionable"
+    ],
+    "expectedTestKind": "smoke",
+    "scoreRange": [
+      10,
+      42
+    ],
+    "riskExpectations": {
+      "tautology": {
+        "max": 30
+      },
+      "falseConfidence": {
+        "min": 50
+      },
+      "implementationCoupling": {
+        "max": 45
+      },
+      "flakiness": {
+        "max": 20
+      },
+      "mutationSurvival": {
+        "min": 50
+      }
+    },
+    "rationale": "Assertions only check that something non-nil and non-empty came back. The exact bug the context describes (wrong subtotal multiplication, missing line, empty output for zero lines) would leave this green, so it is a smoke check rather than a regression guard."
+  },
+  {
+    "fixtureId": "react-search-box-sleep-based-debounce",
+    "tier": 2,
+    "acceptableVerdicts": [
+      "low-value",
+      "questionable"
+    ],
+    "expectedTestKind": "interaction",
+    "scoreRange": [
+      15,
+      48
+    ],
+    "riskExpectations": {
+      "tautology": {
+        "max": 35
+      },
+      "falseConfidence": {
+        "min": 40
+      },
+      "implementationCoupling": {
+        "max": 55
+      },
+      "flakiness": {
+        "min": 65
+      },
+      "mutationSurvival": {
+        "min": 40
+      }
+    },
+    "rationale": "A real 300ms wall-clock sleep races a 250ms debounce, so a loaded runner can observe zero calls; typing four characters and asserting exactly one call also breaks if the debounce window or userEvent scheduling changes. Meanwhile the queried value could be trimmed or the wrong argument forwarded and the call-count assertion would still pass."
+  },
+  {
+    "fixtureId": "python-parse-duration-happy-path",
+    "tier": 3,
+    "acceptableVerdicts": [
+      "questionable",
+      "useful"
+    ],
+    "expectedTestKind": "behavioral",
+    "scoreRange": [
+      40,
+      68
+    ],
+    "riskExpectations": {
+      "tautology": {
+        "max": 25
+      },
+      "falseConfidence": {
+        "min": 40
+      },
+      "implementationCoupling": {
+        "max": 40
+      },
+      "flakiness": {
+        "max": 15
+      },
+      "mutationSurvival": {
+        "min": 40
+      }
+    },
+    "rationale": "Three independent exact-value checks over real production code with a clear oracle, so it is genuinely useful. It is incomplete: the documented compound form (\"1h30m\"), zero, surrounding whitespace, and both ValueError paths are untested, so a mutation to the token-adjacency check or unit table survives."
+  },
+  {
+    "fixtureId": "java-registration-mockito-captor",
+    "tier": 3,
+    "acceptableVerdicts": [
+      "questionable",
+      "useful"
+    ],
+    "expectedTestKind": "interaction",
+    "scoreRange": [
+      45,
+      72
+    ],
+    "riskExpectations": {
+      "tautology": {
+        "max": 30
+      },
+      "falseConfidence": {
+        "min": 35
+      },
+      "implementationCoupling": {
+        "min": 55
+      },
+      "flakiness": {
+        "max": 20
+      },
+      "mutationSurvival": {
+        "min": 35
+      }
+    },
+    "rationale": "The captor does assert the real normalization contract (trim + lowercase) on a mocked collaborator, which is meaningful. But verifyNoMoreInteractions and the exact collaborator set make harmless refactors fail, and persistence failures, rollback, and the message body — the parts that actually broke duplicates — are unverified."
+  },
+  {
+    "fixtureId": "rust-config-parser-contracts",
+    "tier": 4,
+    "acceptableVerdicts": [
+      "useful",
+      "high-value"
+    ],
+    "expectedTestKind": "behavioral",
+    "scoreRange": [
+      60,
+      85
+    ],
+    "riskExpectations": {
+      "tautology": {
+        "max": 15
+      },
+      "falseConfidence": {
+        "max": 35
+      },
+      "implementationCoupling": {
+        "max": 40
+      },
+      "flakiness": {
+        "max": 10
+      },
+      "mutationSurvival": {
+        "max": 40
+      }
+    },
+    "rationale": "Three distinct contracts are pinned with exact oracles: successful parse, line-accurate UnknownKey errors, and documented defaults that are the actual production regression. Deterministic, no mocks. Gaps: duplicate keys, comment/whitespace interplay, and the InvalidNumber path are uncovered."
+  },
+  {
+    "fixtureId": "csharp-password-policy-boundaries",
+    "tier": 4,
+    "acceptableVerdicts": [
+      "useful",
+      "high-value"
+    ],
+    "expectedTestKind": "behavioral",
+    "scoreRange": [
+      60,
+      86
+    ],
+    "riskExpectations": {
+      "tautology": {
+        "max": 15
+      },
+      "falseConfidence": {
+        "max": 30
+      },
+      "implementationCoupling": {
+        "max": 35
+      },
+      "flakiness": {
+        "max": 10
+      },
+      "mutationSurvival": {
+        "max": 35
+      }
+    },
+    "rationale": "Classic boundary analysis: exactly-at-minimum, one-below, and one-above, plus both guard clauses in the public contract. Off-by-one and inverted-comparison mutations are caught. It does not cover whitespace-only candidates or non-BMP/UTF-16 length semantics, so it is strong rather than exceptional."
+  },
+  {
+    "fixtureId": "kotlin-order-view-model-state-machine",
+    "tier": 4,
+    "acceptableVerdicts": [
+      "useful",
+      "high-value"
+    ],
+    "expectedTestKind": "behavioral",
+    "scoreRange": [
+      62,
+      88
+    ],
+    "riskExpectations": {
+      "tautology": {
+        "max": 15
+      },
+      "falseConfidence": {
+        "max": 30
+      },
+      "implementationCoupling": {
+        "max": 40
+      },
+      "flakiness": {
+        "max": 15
+      },
+      "mutationSurvival": {
+        "max": 35
+      }
+    },
+    "rationale": "Virtual-time dispatchers remove real timing, so the suite is deterministic while still asserting the observable state sequence and the failure branch. The total is computed from a non-trivial production path. Slightly overspecified by pinning the exact intermediate emission order, and cancellation/unmount behavior is untested."
+  },
+  {
+    "fixtureId": "swift-cart-line-parser-value-and-errors",
+    "tier": 5,
+    "acceptableVerdicts": [
+      "high-value",
+      "useful"
+    ],
+    "expectedTestKind": "behavioral",
+    "scoreRange": [
+      74,
+      100
+    ],
+    "riskExpectations": {
+      "tautology": {
+        "max": 10
+      },
+      "falseConfidence": {
+        "max": 25
+      },
+      "implementationCoupling": {
+        "max": 30
+      },
+      "flakiness": {
+        "max": 10
+      },
+      "mutationSurvival": {
+        "max": 25
+      }
+    },
+    "rationale": "Exact expected values, the half-cent rounding boundary that motivated the Decimal migration, and both typed error paths with payload assertions. No mocks, no timing, no locale dependence, so it is stable under harmless refactoring while a rounding-mode, separator, or validation mutation reliably fails."
+  },
+  {
+    "fixtureId": "c-saturating-add-extremes",
+    "tier": 5,
+    "acceptableVerdicts": [
+      "high-value"
+    ],
+    "expectedTestKind": "behavioral",
+    "scoreRange": [
+      76,
+      100
+    ],
+    "riskExpectations": {
+      "tautology": {
+        "max": 10
+      },
+      "falseConfidence": {
+        "max": 20
+      },
+      "implementationCoupling": {
+        "max": 25
+      },
+      "flakiness": {
+        "max": 5
+      },
+      "mutationSurvival": {
+        "max": 20
+      }
+    },
+    "rationale": "Covers both saturation extremes and confirms interior arithmetic is exact (so an unconditional clamp or a widened-but-wrong return is caught), with an explicit failing exit code rather than a printed warning. Fully deterministic with no shared state; only exotic mutation of the int64 widening path is arguable."
+  },
+  {
+    "fixtureId": "elixir-order-state-machine-lifecycle",
+    "tier": 5,
+    "acceptableVerdicts": [
+      "high-value"
+    ],
+    "expectedTestKind": "behavioral",
+    "scoreRange": [
+      74,
+      100
+    ],
+    "riskExpectations": {
+      "tautology": {
+        "max": 10
+      },
+      "falseConfidence": {
+        "max": 25
+      },
+      "implementationCoupling": {
+        "max": 30
+      },
+      "flakiness": {
+        "max": 5
+      },
+      "mutationSurvival": {
+        "max": 25
+      }
+    },
+    "rationale": "Covers the full lifecycle, a terminal state, a disallowed transition from a reachable state, and an unknown event, and asserts state is unchanged after rejection. Pure and deterministic (no shared state despite async: true). A mutation to the transition table or the error-classification branch is reliably detected."
+  }
+]
