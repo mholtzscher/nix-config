@@ -19,23 +19,24 @@ let
     defaultThinkingLevel = "high";
     showCacheMissNotices = true;
     tuiMode = "fullscreen";
-    # pi-subagents-lite gates every subagent's tools to `registeredTools`
-    # (agent frontmatter `tools:`) union the tools it discovers from loaded
-    # extensions, and falls back to this list for agents without `tools:`.
-    # pi-fff registers grep/find lazily on session_start, after that
-    # discovery already ran, so the names must be present here or subagents
-    # (general-purpose, reviewer) get no FFF-backed grep/find at all.
-    # Explore is unaffected: its built-in config supplies registeredTools.
-    # Note these must match pi-fff's names for the active mode; in
-    # PI_FFF_MODE=override they are the built-in names `grep` and `find`.
-    defaultTools = [
-      "read"
-      "bash"
-      "edit"
-      "write"
-      "grep"
-      "find"
-    ];
+    subagents = {
+      defaultThinking = "high";
+      agentOverrides = {
+        scout.model = currentPiAgentModels.scout;
+        worker.model = currentPiAgentModels.worker;
+        reviewer.model = currentPiAgentModels.reviewer;
+        researcher.disabled = true;
+        oracle.disabled = true;
+        delegate.disabled = true;
+        "evidence-auditor".disabled = true;
+        "claude-code".disabled = true;
+        "claude-code-writer".disabled = true;
+        "codex-exec".disabled = true;
+        "codex-exec-writer".disabled = true;
+        "cursor-agent".disabled = true;
+        "cursor-agent-writer".disabled = true;
+      };
+    };
     enabledModels =
       if isWork then
         [
@@ -67,7 +68,7 @@ let
       "npm:pi-context-view"
       "npm:pi-mcp-adapter"
       "npm:pi-powerline-footer"
-      "npm:pi-subagents-lite"
+      "npm:pi-subagents"
       "npm:pi-web-access"
     ];
     powerline = {
@@ -158,25 +159,21 @@ let
   settingsFile = pkgs.writeText "pi-settings.json" (builtins.toJSON settings);
   modelsFile = pkgs.writeText "pi-models.json" (builtins.toJSON models);
 
-  piAgentTemplates = {
-    Explore = ./files/pi/agents/Explore.md;
-    general-purpose = ./files/pi/agents/general-purpose.md;
+  piAgentSources = {
     reviewer = ./files/pi/agents/reviewer.md;
   };
 
-  # Defaults preserve the current hardcoded frontmatter models.
   defaultPiAgentModels = {
-    Explore = "opencode-go/deepseek-v4.1-flash";
-    general-purpose = "opencode-go/deepseek-v4.1-flash";
+    scout = "opencode-go/deepseek-v4.1-flash";
+    worker = "opencode-go/deepseek-v4.1-flash";
     reviewer = "opencode-go/muse-spark-1.3-contributor";
   };
 
-  # Host-specific per-agent model overrides, e.g. work-mac must use the
-  # enterprise AI gateway (litellm/* from settings.enabledModels).
+  # Work hosts must use models exposed through the enterprise AI gateway.
   piAgentModelOverrides = {
     work-mac = {
-      Explore = "litellm/kimi-k2.5";
-      general-purpose = "litellm/claude-sonnet-4-6";
+      scout = "litellm/kimi-k2.5";
+      worker = "litellm/claude-sonnet-4-6";
       reviewer = "litellm/claude-opus-5";
     };
   };
@@ -185,21 +182,11 @@ let
 
   currentPiAgentModels = defaultPiAgentModels // currentPiAgentModelOverrides;
 
-  # pi-subagents-lite (and pi's agent loader) skip symlinked agent files for
-  # security, and home.file (both source and text) installs symlinks to the
-  # Nix store. So render templated models to store files here and copy them
-  # as regular files in home.activation.piAgents below.
-  renderedPiAgentSources = lib.mapAttrs (
-    agentName: template:
-    pkgs.replaceVars template {
-      piAgentModel = currentPiAgentModels.${agentName};
-    }
-  ) piAgentTemplates;
-
-  copyRenderedPiAgents = lib.concatStringsSep "\n" (
+  # Copy custom agents as regular files so Pi discovers them consistently.
+  copyPiAgents = lib.concatStringsSep "\n" (
     lib.mapAttrsToList (agentName: src: ''
       $DRY_RUN_CMD cp ${src} "$HOME/.pi/agent/agents/${agentName}.md"
-      $DRY_RUN_CMD chmod 644 "$HOME/.pi/agent/agents/${agentName}.md"'') renderedPiAgentSources
+      $DRY_RUN_CMD chmod 644 "$HOME/.pi/agent/agents/${agentName}.md"'') piAgentSources
   );
 in
 {
@@ -224,13 +211,6 @@ in
     # ctrl+g is the Herdr prefix, so move Pi's external editor off the default.
     ".pi/agent/keybindings.json".text = builtins.toJSON {
       "app.editor.external" = "alt+e";
-    };
-
-    ".pi/agent/subagents-lite.json" = lib.mkIf (!isWork) {
-      force = true;
-      text = builtins.toJSON {
-        agent.showCost = true;
-      };
     };
 
     ".pi/agent/prompts" = {
@@ -315,11 +295,11 @@ in
     };
   };
 
-  # Copy (not symlink) so pi-subagents-lite loads the agent roles.
+  # Copy the custom reviewer into Pi's user agent directory.
   home.activation.piAgents = lib.hm.dag.entryAfter [ "linkGeneration" ] ''
     $DRY_RUN_CMD rm -rf "$HOME/.pi/agent/agents"
     $DRY_RUN_CMD mkdir -p "$HOME/.pi/agent/agents"
-    ${copyRenderedPiAgents}
+    ${copyPiAgents}
   '';
 
   home.activation.piWorkSettings = lib.mkIf isWork (
