@@ -9,7 +9,7 @@
   systemd.services.greetd.environment.XDG_DATA_DIRS =
     "${config.services.displayManager.sessionData.desktops}/share";
 
-  programs.noctalia-greeter = {
+  services.displayManager.noctalia-greeter = {
     enable = true;
     settings = {
       user.default = user;
