@@ -17,6 +17,11 @@ in
     recipients."personal-mac"
     recipients."wanda"
   ];
+  "hearth-openai-api-key.age".publicKeys = [
+    recipients."nixos-desktop"
+    recipients."personal-mac"
+    recipients."wanda"
+  ];
   "komodo-api-key.age".publicKeys = [
     recipients."nixos-desktop"
     recipients."personal-mac"
