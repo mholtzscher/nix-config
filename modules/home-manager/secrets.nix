@@ -30,6 +30,10 @@
       # runtime-directory shell expression.
       path = "${config.home.homeDirectory}/.local/share/agenix/atuin-key";
     };
+    secrets.hearth-openai-api-key = {
+      file = ../../secrets/hearth-openai-api-key.age;
+      path = "${config.home.homeDirectory}/.local/share/agenix/hearth-openai-api-key";
+    };
     secrets.agent-artifacts-write-key.file = ../../secrets/agent-artifacts-write-key.age;
     # Explicit path: pi-mcp-adapter's !command env injection cannot expand
     # agenix's Darwin runtime-directory shell expression.
