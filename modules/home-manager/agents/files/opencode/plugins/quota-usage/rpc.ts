@@ -4,6 +4,7 @@ export type QuotaWindow = {
   id: string
   label: string
   remainingPercent: number
+  display?: string
   resetAt?: number
 }
 
@@ -30,6 +31,7 @@ const quotaOutput = {
           id: { type: "string" },
           label: { type: "string" },
           remainingPercent: { type: "number" },
+          display: { type: "string" },
           resetAt: { type: "number" },
         },
         required: ["id", "label", "remainingPercent"],

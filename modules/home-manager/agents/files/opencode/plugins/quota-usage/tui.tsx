@@ -62,7 +62,7 @@ export default Plugin.define({
             {props.window.label.toUpperCase()}
           </text>
           <text fg={tone(props.window.remainingPercent)}>
-            <b>{props.window.remainingPercent.toFixed(0)}%</b>
+            <b>{props.window.display ?? `${props.window.remainingPercent.toFixed(0)}%`}</b>
           </text>
           <Show when={reset()}>
             {(value) => <text fg={context.theme.text.muted} wrapMode="none" truncate>{value()}</text>}
@@ -103,7 +103,7 @@ export default Plugin.define({
                 <text fg={context.theme.text.base}><b>{props.provider.name}</b></text>
                 <box flexDirection="row" gap={1}>
                   <text fg={tone(primaryWindow()!.remainingPercent)}>
-                    <b>{primaryWindow()!.remainingPercent.toFixed(0)}%</b>
+                    <b>{primaryWindow()!.display ?? `${primaryWindow()!.remainingPercent.toFixed(0)}%`}</b>
                   </text>
                   <Show when={primaryReset()}>
                     {(value) => <text fg={context.theme.text.muted}>· {value()}</text>}
