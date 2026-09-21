@@ -150,22 +150,24 @@ export default Plugin.define({
     const removeQuotaPanel = context.ui.slot({
       append: "sidebar.content",
       render: () => (
-        <box
-          width="100%"
-          flexDirection="column"
-          gap={1}
-          border
-          borderStyle="rounded"
-          borderColor={context.theme.border.base}
-          title="Quotas"
-          titleColor={context.theme.text.base}
-          paddingLeft={1}
-          paddingRight={1}
-        >
-          <For each={providers()}>
-            {(provider) => <ProviderQuota provider={provider} />}
-          </For>
-        </box>
+        <Show when={providers().length > 0}>
+          <box
+            width="100%"
+            flexDirection="column"
+            gap={1}
+            border
+            borderStyle="rounded"
+            borderColor={context.theme.border.base}
+            title="Quotas"
+            titleColor={context.theme.text.base}
+            paddingLeft={1}
+            paddingRight={1}
+          >
+            <For each={providers()}>
+              {(provider) => <ProviderQuota provider={provider} />}
+            </For>
+          </box>
+        </Show>
       ),
     })
 
