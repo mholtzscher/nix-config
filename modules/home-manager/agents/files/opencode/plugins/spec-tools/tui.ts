@@ -8,6 +8,7 @@ import { Plugin } from "@opencode/plugin/tui";
 interface CommandContext {
   cwd: string;
   hasUI: true;
+  signal: AbortSignal;
   waitForIdle: () => Promise<void>;
   ui: {
     input: (title: string) => Promise<string | undefined>;
@@ -100,7 +101,7 @@ When finished, report:
 const buildScrubPrompt = (specPath: string): string =>
   `Use the unslop skill for this task.\n\n${buildScrubTaskPrompt(specPath)}`;
 
-const buildSimplifyPrompt = (specPath: string): string =>
+export const buildSimplifyPrompt = (specPath: string): string =>
   `Read @${specPath} completely.
 
 Now come up with a much simpler solution that provides 80% of the benefits we are talking about here.
@@ -124,7 +125,7 @@ Do not edit any files. Present the simpler alternative in chat and wait for dire
 const buildAnnotationPrompt = (specPath: string): string =>
   `/plannotator-annotate @${specPath}`;
 
-const buildBackgroundScrubPrompt = (specPath: string): string => {
+export const buildBackgroundScrubPrompt = (specPath: string): string => {
   const prompt = `Before editing, load and follow the unslop skill.\n\n${buildScrubTaskPrompt(specPath)}`;
 
   return `Call the subagent tool exactly once with these arguments:
@@ -155,12 +156,17 @@ interface SpecRecency {
 }
 
 /** Runs git, resolving to null instead of rejecting so callers can treat failure as "no git". */
-const runGit = async (args: string[], cwd: string): Promise<string | null> => {
+const runGit = async (
+  args: string[],
+  cwd: string,
+  signal: AbortSignal
+): Promise<string | null> => {
   try {
     const { stdout } = await execFileAsync("git", args, {
       cwd,
       encoding: "utf-8",
       maxBuffer: GIT_MAX_BUFFER,
+      signal,
       timeout: GIT_TIMEOUT_MS,
     });
     return stdout;
@@ -174,9 +180,14 @@ const runGit = async (args: string[], cwd: string): Promise<string | null> => {
  * specsDirectory is not in a git repository. Covers staged, unstaged, and untracked files.
  */
 const readUncommittedSpecNames = async (
-  specsDirectory: string
+  specsDirectory: string,
+  signal: AbortSignal
 ): Promise<Set<string> | null> => {
-  const prefix = await runGit(["rev-parse", "--show-prefix"], specsDirectory);
+  const prefix = await runGit(
+    ["rev-parse", "--show-prefix"],
+    specsDirectory,
+    signal
+  );
   if (prefix === null) {
     return null;
   }
@@ -184,7 +195,8 @@ const readUncommittedSpecNames = async (
   // --no-renames avoids the extra source path that -z emits for rename entries.
   const status = await runGit(
     ["status", "--porcelain", "-z", "--no-renames", "--", "."],
-    specsDirectory
+    specsDirectory,
+    signal
   );
   if (status === null) {
     return null;
@@ -205,11 +217,13 @@ const readUncommittedSpecNames = async (
 /** Committer date in milliseconds of the last commit touching the file, or null when untracked. */
 const readLastCommitTimeMs = async (
   specsDirectory: string,
-  name: string
+  name: string,
+  signal: AbortSignal
 ): Promise<number | null> => {
   const stdout = await runGit(
     ["log", "-1", "--format=%ct", "--", name],
-    specsDirectory
+    specsDirectory,
+    signal
   );
   if (stdout === null) {
     return null;
@@ -230,9 +244,10 @@ const readLastCommitTimeMs = async (
  */
 const orderSpecsByRecency = async (
   specsDirectory: string,
-  names: string[]
+  names: string[],
+  signal: AbortSignal
 ): Promise<string[]> => {
-  const uncommitted = await readUncommittedSpecNames(specsDirectory);
+  const uncommitted = await readUncommittedSpecNames(specsDirectory, signal);
 
   const recencies: SpecRecency[] = await Promise.all(
     names.map(async (name) => {
@@ -240,7 +255,7 @@ const orderSpecsByRecency = async (
       const committedAt =
         uncommitted === null || uncommitted.has(name)
           ? null
-          : await readLastCommitTimeMs(specsDirectory, name);
+          : await readLastCommitTimeMs(specsDirectory, name, signal);
 
       let recency = committedAt;
       if (recency === null) {
@@ -293,7 +308,8 @@ const registerSpecCommand = (host: OpenCodeCommandHost, command: SpecCommand): v
 
         specs = await orderSpecsByRecency(
           specsDirectory,
-          files.map((entry) => entry.name)
+          files.map((entry) => entry.name),
+          ctx.signal
         );
       } catch (error) {
         const message = error instanceof Error ? error.message : String(error);
@@ -351,6 +367,7 @@ export default Plugin.define({
   id: "spec-tools.tui",
   setup(context) {
     const location = context.location ?? context.data.location.default();
+    const commandAbortController = new AbortController();
     let submittedPrompt: Promise<unknown> | undefined;
     const commands: Array<{
       name: string;
@@ -360,6 +377,7 @@ export default Plugin.define({
     const commandContext: CommandContext = {
       cwd: location.directory,
       hasUI: true,
+      signal: commandAbortController.signal,
       waitForIdle: async () => {
         await submittedPrompt;
         submittedPrompt = undefined;
@@ -395,7 +413,7 @@ export default Plugin.define({
                     location,
                     title: "Spec tools",
                   })
-                ).data.id;
+                ).id;
 
           if (route.type !== "session") {
             context.ui.router.navigate({ type: "session", sessionID });
@@ -464,7 +482,7 @@ export default Plugin.define({
       pickerTitle: "Choose a specification to refine in the background",
     });
 
-    return context.ui.slot({
+    const removeCommandSlot = context.ui.slot({
       append: "app",
       render: () => {
         context.keymap.layer(() => ({
@@ -482,5 +500,10 @@ export default Plugin.define({
         return null;
       },
     });
+
+    return () => {
+      commandAbortController.abort();
+      removeCommandSlot();
+    };
   },
 });

@@ -487,7 +487,7 @@ Write as one human talking to another: simple, coherent, concise.`;
 
 const PR_DESCRIPTION_PUBLISH_INSTRUCTIONS = `Publish the description with \`gh pr edit {number} --body "..."\`; for long bodies, write the body to a file under \`/tmp/\` (for example \`/tmp/pr-{number}-body.md\`) and publish with \`gh pr edit {number} --body-file <path>\`. Confirm the update succeeded.`;
 
-const parsePullRequestCommandArguments = (
+export const parsePullRequestCommandArguments = (
   args: string
 ): PullRequestCommandArguments => {
   const tokens = args.trim().split(/\s+/u).filter(Boolean);
@@ -563,11 +563,13 @@ ${request || "(none provided; infer it from the PR diff)"}`;
 
 const fetchPrRepoContext = async (
   host: OpenCodeCommandHost,
-  cwd: string
+  cwd: string,
+  signal: AbortSignal
 ): Promise<{ owner: string; name: string; pr: PrMetadata }> => {
   const [repoResult, prResult] = await Promise.all([
     host.exec("gh", ["repo", "view", "--json", "nameWithOwner"], {
       cwd,
+      signal,
       timeout: 30_000,
     }),
     host.exec(
@@ -575,6 +577,7 @@ const fetchPrRepoContext = async (
       ["pr", "view", "--json", "number,title,url,headRefName,baseRefName"],
       {
         cwd,
+        signal,
         timeout: 30_000,
       }
     ),
@@ -612,7 +615,7 @@ const registerPullRequestCommand = (host: OpenCodeCommandHost): void => {
       await ctx.waitForIdle();
       ctx.ui.setStatus("pr", "Resolving pull request...");
       try {
-        const { pr } = await fetchPrRepoContext(host, ctx.cwd);
+        const { pr } = await fetchPrRepoContext(host, ctx.cwd, ctx.signal);
         host.sendUserMessage(buildPrDescribePrompt(pr, request, watchChecks));
         await ctx.waitForIdle();
       } catch (error) {
@@ -629,9 +632,10 @@ const registerPullRequestCommand = (host: OpenCodeCommandHost): void => {
 
 const fetchUnresolvedReviewThreads = async (
   host: OpenCodeCommandHost,
-  cwd: string
+  cwd: string,
+  signal: AbortSignal
 ): Promise<PrReviewContext> => {
-  const { owner, name, pr } = await fetchPrRepoContext(host, cwd);
+  const { owner, name, pr } = await fetchPrRepoContext(host, cwd, signal);
   const reviewThreadResult = await host.exec(
     "gh",
     [
@@ -650,6 +654,7 @@ const fetchUnresolvedReviewThreads = async (
     ],
     {
       cwd,
+      signal,
       timeout: 60_000,
     }
   );
@@ -680,7 +685,8 @@ const registerPrCommentsCommand = (host: OpenCodeCommandHost): void => {
       try {
         const { pr, reviewThreads } = await fetchUnresolvedReviewThreads(
           host,
-          ctx.cwd
+          ctx.cwd,
+          ctx.signal
         );
         if (reviewThreads.length === 0) {
           ctx.ui.notify("No unresolved inline review threads found", "info");
@@ -767,7 +773,11 @@ const registerPrCommentsFixCommand = (host: OpenCodeCommandHost): void => {
         // Deliberately no review-thread refetch here: reuse the Thread IDs,
         // Comment IDs, and verdicts from the earlier /pr-comments discussion
         // so the comment bodies don't consume context twice.
-        const { owner, name, pr } = await fetchPrRepoContext(host, ctx.cwd);
+        const { owner, name, pr } = await fetchPrRepoContext(
+          host,
+          ctx.cwd,
+          ctx.signal
+        );
         host.sendUserMessage(
           buildPrCommentsFixPrompt(owner, name, pr, args.trim())
         );
@@ -1408,6 +1418,7 @@ const registerPrReviewCommand = (host: OpenCodeCommandHost): void => {
           ],
           {
             cwd: ctx.cwd,
+            signal: ctx.signal,
             timeout: 30_000,
           }
         );
@@ -1532,7 +1543,7 @@ export default Plugin.define({
                     location,
                     title: "GitHub tools",
                   })
-                ).data.id;
+                ).id;
 
           if (route.type !== "session") {
             context.ui.router.navigate({ type: "session", sessionID });
