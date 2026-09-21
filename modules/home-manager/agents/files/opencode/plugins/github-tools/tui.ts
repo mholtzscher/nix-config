@@ -1522,24 +1522,36 @@ export default Plugin.define({
         commands.push({ name, ...command });
       },
       sendUserMessage: (prompt) => {
-        const route = context.ui.router.current();
-        if (route.type !== "session") {
-          context.ui.toast.show({
-            message: "Open a session before running a GitHub command",
-            variant: "warning",
-          });
-          return;
-        }
-        const command = /^\/(?<name>[^\s]+)(?:\s+(?<arguments>[\s\S]*))?$/u.exec(prompt);
-        const submission = command?.groups?.name
-          ? context.client.session.command({
-              sessionID: route.sessionID,
+        submittedPrompt = (async () => {
+          const route = context.ui.router.current();
+          const sessionID =
+            route.type === "session"
+              ? route.sessionID
+              : (
+                  await context.client.session.create({
+                    location,
+                    title: "GitHub tools",
+                  })
+                ).data.id;
+
+          if (route.type !== "session") {
+            context.ui.router.navigate({ type: "session", sessionID });
+          }
+
+          const command =
+            /^\/(?<name>[^\s]+)(?:\s+(?<arguments>[\s\S]*))?$/u.exec(
+              prompt
+            );
+          if (command?.groups?.name) {
+            await context.client.session.command({
+              sessionID,
               name: command.groups.name,
               text: command.groups.arguments ?? "",
-            })
-          : context.client.session.prompt({ sessionID: route.sessionID, text: prompt });
-        submittedPrompt = submission
-          .catch((error: unknown) => {
+            });
+            return;
+          }
+          await context.client.session.prompt({ sessionID, text: prompt });
+        })().catch((error: unknown) => {
             context.ui.toast.show({
               message: `Could not submit GitHub prompt: ${githubErrorMessage(error)}`,
               variant: "error",
