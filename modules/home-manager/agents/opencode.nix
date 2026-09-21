@@ -17,8 +17,30 @@ let
   openCodeSettings = {
     "$schema" = "https://opencode.ai/config.json";
     model = personalOpenCodeModelProfile.default;
-    plugins = [ "@plannotator/opencode@0.27.14" ];
+    plugins = [ "@plannotator/opencode" ];
     username = "mholtzscher";
+    permissions = [
+      {
+        action = "external_directory";
+        resource = "/nix/store/*";
+        effect = "allow";
+      }
+      {
+        action = "read";
+        resource = "/nix/store/*";
+        effect = "allow";
+      }
+      {
+        action = "external_directory";
+        resource = "~/code/*";
+        effect = "allow";
+      }
+      {
+        action = "read";
+        resource = "~/code/*";
+        effect = "allow";
+      }
+    ];
     agents = {
       build.model = personalOpenCodeModelProfile.build;
       plan.model = personalOpenCodeModelProfile.plan;
