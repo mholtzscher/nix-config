@@ -4,7 +4,7 @@
   homebrew = {
     brews = [
       "circleci"
-      "opencode"
+      # "opencode"
     ];
     casks = [
       "jetbrains-toolbox"
