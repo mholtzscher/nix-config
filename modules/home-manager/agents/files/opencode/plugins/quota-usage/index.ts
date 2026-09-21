@@ -1,5 +1,6 @@
 import { Plugin } from "@opencode/plugin"
-import { CodexUsage, OpenCodeGoUsage } from "./rpc.js"
+import { CodexUsage, LiteLLMUsage, OpenCodeGoUsage } from "./rpc.js"
+import type { QuotaProvider, QuotaWindow } from "./rpc.js"
 
 const CODEX_USAGE_URL = "https://chatgpt.com/backend-api/wham/usage"
 const OPENCODE_GO_USAGE_URL = "https://opencode.ai/zen/go/v1/usage"
@@ -48,16 +49,9 @@ const extractAccountID = (token: string): string | undefined => {
   }
 }
 
-const formatReset = (epochSeconds: number): string => {
-  const minutes = Math.max(0, Math.floor((epochSeconds * 1000 - Date.now()) / 60_000))
-  const days = Math.floor(minutes / 1440)
-  const hours = Math.floor((minutes % 1440) / 60)
-  if (days > 0) return `${days}d${hours > 0 ? `${hours}h` : ""}`
-  if (hours > 0) return `${hours}h`
-  return `${minutes}m`
-}
+const remainingPercent = (used: number): number => Math.max(0, Math.min(100, 100 - used))
 
-const formatUsage = (payload: unknown): string => {
+const parseCodexUsage = (payload: unknown): QuotaWindow[] => {
   if (!isObject(payload) || !isObject(payload.rate_limit)) throw new Error("rate limit missing")
   const rateLimit = payload.rate_limit
   const windows = [rateLimit.primary_window, rateLimit.secondary_window].filter(isObject)
@@ -67,26 +61,81 @@ const formatUsage = (payload: unknown): string => {
 
   const used = numberValue(weekly.used_percent)
   if (used === undefined) throw new Error("weekly usage missing")
-  const remaining = Math.max(0, Math.min(100, 100 - used))
   const resetAt = numberValue(weekly.reset_at)
-  return `CX ${remaining.toFixed(0)}%${resetAt === undefined ? "" : ` [${formatReset(resetAt)}]`}`
+  return [{
+    id: "weekly",
+    label: "Weekly",
+    remainingPercent: remainingPercent(used),
+    ...(resetAt === undefined ? {} : { resetAt }),
+  }]
 }
 
-const formatOpenCodeGoUsage = (payload: unknown): string => {
+const parseOpenCodeGoUsage = (payload: unknown): QuotaWindow[] => {
   if (!isObject(payload) || !isObject(payload.usage)) throw new Error("usage windows missing")
 
-  const labels = { rolling: "R", weekly: "W", monthly: "M" } as const
-  const formatted = Object.entries(labels).flatMap(([name, label]) => {
+  const labels = { rolling: "Rolling", weekly: "Weekly", monthly: "Monthly" } as const
+  const windows = Object.entries(labels).flatMap(([name, label]) => {
     const window = payload.usage[name]
     if (!isObject(window)) return []
     const used = numberValue(window.percent)
     if (used === undefined || typeof window.resetsAt !== "string") return []
-    const remaining = Math.max(0, Math.min(100, 100 - used))
-    return [`${label}${remaining.toFixed(0)}%`]
+    const parsedReset = Date.parse(window.resetsAt)
+    return [{
+      id: name,
+      label,
+      remainingPercent: remainingPercent(used),
+      ...(Number.isFinite(parsedReset) ? { resetAt: Math.floor(parsedReset / 1000) } : {}),
+    }]
   })
-  if (formatted.length === 0) throw new Error("usage windows missing")
-  return `GO ${formatted.join(" ")}`
+  if (windows.length === 0) throw new Error("usage windows missing")
+  return windows
 }
+
+const findBaseURL = (provider: unknown): string | undefined => {
+  if (!isObject(provider)) return undefined
+  for (const key of ["baseURL", "baseUrl", "apiBase", "api_base"]) {
+    const value = provider[key]
+    if (typeof value === "string" && value !== "") return value
+  }
+  for (const key of ["settings", "options", "info", "provider"]) {
+    const value = findBaseURL(provider[key])
+    if (value) return value
+  }
+}
+
+const liteLLMManagementURL = (baseURL: string): URL => {
+  const url = new URL(baseURL)
+  url.pathname = url.pathname.replace(/\/?v1\/?$/, "/key/info")
+  url.search = ""
+  url.hash = ""
+  return url
+}
+
+const parseLiteLLMUsage = (payload: unknown): QuotaWindow[] => {
+  if (!isObject(payload)) throw new Error("key info missing")
+  const info = isObject(payload.info) ? payload.info : payload
+  const spend = numberValue(info.spend)
+  const budget = numberValue(info.max_budget)
+  if (spend === undefined || budget === undefined || budget <= 0) {
+    throw new Error("budget missing")
+  }
+  const reset = typeof info.budget_reset_at === "string" ? Date.parse(info.budget_reset_at) : NaN
+  return [{
+    id: "budget",
+    label: `$${spend.toFixed(2)} / $${budget.toFixed(2)}`,
+    remainingPercent: remainingPercent((spend / budget) * 100),
+    ...(Number.isFinite(reset) ? { resetAt: Math.floor(reset / 1000) } : {}),
+  }]
+}
+
+const unavailable = (provider: QuotaProvider["provider"], name: string): QuotaProvider => ({
+  provider,
+  name,
+  status: "unavailable",
+  windows: [],
+  message: "Usage unavailable",
+  fetchedAt: Date.now(),
+})
 
 export default Plugin.define({
   id: "quota-usage",
@@ -95,11 +144,11 @@ export default Plugin.define({
       get: async (_input, rpcContext) => {
         try {
           const connection = await context.integration.connection.active("openai")
-          if (!connection) return { text: "CX unavailable" }
+          if (!connection) return unavailable("codex", "Codex")
           const credential = await context.integration.connection.resolve(connection)
           const token = findAccessToken(credential)
           const accountID = token ? extractAccountID(token) : undefined
-          if (!token || !accountID) return { text: "CX unavailable" }
+          if (!token || !accountID) return unavailable("codex", "Codex")
 
           const response = await fetch(CODEX_USAGE_URL, {
             headers: {
@@ -110,9 +159,15 @@ export default Plugin.define({
             signal: AbortSignal.any([rpcContext.signal, AbortSignal.timeout(15_000)]),
           })
           if (!response.ok) throw new Error(`usage request failed: ${response.status}`)
-          return { text: formatUsage(await response.json()) }
+          return {
+            provider: "codex",
+            name: "Codex",
+            status: "ok",
+            windows: parseCodexUsage(await response.json()),
+            fetchedAt: Date.now(),
+          } satisfies QuotaProvider
         } catch {
-          return { text: "CX unavailable" }
+          return unavailable("codex", "Codex")
         }
       },
     })
@@ -121,10 +176,10 @@ export default Plugin.define({
       get: async (_input, rpcContext) => {
         try {
           const connection = await context.integration.connection.active("opencode-go")
-          if (!connection) return { text: "GO unavailable" }
+          if (!connection) return unavailable("opencode-go", "OpenCode Go")
           const credential = await context.integration.connection.resolve(connection)
           const token = findAccessToken(credential)
-          if (!token) return { text: "GO unavailable" }
+          if (!token) return unavailable("opencode-go", "OpenCode Go")
 
           const response = await fetch(OPENCODE_GO_USAGE_URL, {
             headers: {
@@ -134,9 +189,49 @@ export default Plugin.define({
             signal: AbortSignal.any([rpcContext.signal, AbortSignal.timeout(15_000)]),
           })
           if (!response.ok) throw new Error(`usage request failed: ${response.status}`)
-          return { text: formatOpenCodeGoUsage(await response.json()) }
+          return {
+            provider: "opencode-go",
+            name: "OpenCode Go",
+            status: "ok",
+            windows: parseOpenCodeGoUsage(await response.json()),
+            fetchedAt: Date.now(),
+          } satisfies QuotaProvider
         } catch {
-          return { text: "GO unavailable" }
+          return unavailable("opencode-go", "OpenCode Go")
+        }
+      },
+    })
+
+    await context.rpc.register(LiteLLMUsage, {
+      get: async (_input, rpcContext) => {
+        try {
+          const connection = await context.integration.connection.active("litellm")
+          if (!connection) return unavailable("litellm", "LiteLLM")
+          const credential = await context.integration.connection.resolve(connection)
+          const token = findAccessToken(credential)
+          const provider = await context.provider.get({ providerID: "litellm" })
+          const baseURL = findBaseURL(provider)
+          if (!token || !baseURL) return unavailable("litellm", "LiteLLM")
+
+          const url = liteLLMManagementURL(baseURL)
+          url.searchParams.set("key", token)
+          const response = await fetch(url, {
+            headers: {
+              accept: "application/json",
+              authorization: `Bearer ${token}`,
+            },
+            signal: AbortSignal.any([rpcContext.signal, AbortSignal.timeout(15_000)]),
+          })
+          if (!response.ok) throw new Error(`usage request failed: ${response.status}`)
+          return {
+            provider: "litellm",
+            name: "LiteLLM",
+            status: "ok",
+            windows: parseLiteLLMUsage(await response.json()),
+            fetchedAt: Date.now(),
+          } satisfies QuotaProvider
+        } catch {
+          return unavailable("litellm", "LiteLLM")
         }
       },
     })

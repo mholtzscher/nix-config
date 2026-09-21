@@ -112,21 +112,19 @@ in
     # };
   };
 
-  home.activation.openCodeQuotaUsagePlugin = lib.mkIf (!isWork) (
-    lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-      legacy_plugin_dir=${lib.escapeShellArg "${config.xdg.configHome}/opencode/plugins/codex-usage"}
-      plugin_dir=${lib.escapeShellArg "${config.xdg.configHome}/opencode/plugins/quota-usage"}
-      if [[ -d "$legacy_plugin_dir" && ! -e "$plugin_dir" ]]; then
-        run mv "$legacy_plugin_dir" "$plugin_dir"
-      elif [[ -e "$legacy_plugin_dir" || -L "$legacy_plugin_dir" ]]; then
-        run rm -rf "$legacy_plugin_dir"
-      fi
-      if [[ -L "$plugin_dir" ]]; then
-        run rm "$plugin_dir"
-      fi
-      run mkdir -p "$plugin_dir"
-      run cp -R ${./files/opencode/plugins/quota-usage}/. "$plugin_dir/"
-    ''
-  );
+  home.activation.openCodeQuotaUsagePlugin = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+    legacy_plugin_dir=${lib.escapeShellArg "${config.xdg.configHome}/opencode/plugins/codex-usage"}
+    plugin_dir=${lib.escapeShellArg "${config.xdg.configHome}/opencode/plugins/quota-usage"}
+    if [[ -d "$legacy_plugin_dir" && ! -e "$plugin_dir" ]]; then
+      run mv "$legacy_plugin_dir" "$plugin_dir"
+    elif [[ -e "$legacy_plugin_dir" || -L "$legacy_plugin_dir" ]]; then
+      run rm -rf "$legacy_plugin_dir"
+    fi
+    if [[ -L "$plugin_dir" ]]; then
+      run rm "$plugin_dir"
+    fi
+    run mkdir -p "$plugin_dir"
+    run cp -R ${./files/opencode/plugins/quota-usage}/. "$plugin_dir/"
+  '';
 
 }
