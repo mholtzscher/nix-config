@@ -21,7 +21,6 @@ with pkgs;
   glow
   grpcurl
   httpie
-  # inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system}.opencode2
   inputs.melt.packages.${pkgs.stdenv.hostPlatform.system}.default
   inputs.sem.packages.${pkgs.stdenv.hostPlatform.system}.default
   jc

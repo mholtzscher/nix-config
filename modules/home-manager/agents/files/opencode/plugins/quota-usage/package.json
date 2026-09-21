@@ -1,0 +1,10 @@
+{
+  "name": "opencode-quota-usage-plugin",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "@opencode/plugin": "2.0.11",
+    "solid-js": "1.9.15"
+  }
+}
