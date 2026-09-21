@@ -1,6 +1,6 @@
-import { Plugin, Provider } from "@opencode/plugin/effect"
+import { Plugin } from "@opencode/plugin/effect"
 import { Effect } from "effect"
-import { CodexUsage, LiteLLMUsage, OpenCodeGoUsage } from "./rpc.js"
+import { CodexUsage, OpenCodeGoUsage } from "./rpc.js"
 import type { QuotaProvider, QuotaWindow } from "./rpc.js"
 
 const CODEX_USAGE_URL = "https://chatgpt.com/backend-api/wham/usage"
@@ -94,82 +94,6 @@ const parseOpenCodeGoUsage = (payload: unknown): QuotaWindow[] => {
   return windows
 }
 
-const findBaseURL = (provider: unknown): string | undefined => {
-  if (!isObject(provider)) return undefined
-  for (const key of ["baseURL", "baseUrl", "apiBase", "api_base"]) {
-    const value = provider[key]
-    if (typeof value === "string" && value !== "") return value
-  }
-  for (const key of ["settings", "options", "info", "provider", "data"]) {
-    const value = findBaseURL(provider[key])
-    if (value) return value
-  }
-}
-
-const findApiKey = (provider: unknown): string | undefined => {
-  if (!isObject(provider)) return undefined
-  for (const key of ["apiKey", "api_key", "key", "token"]) {
-    const value = provider[key]
-    if (typeof value === "string" && value !== "") return value
-  }
-  for (const key of ["settings", "options", "info", "provider", "data"]) {
-    const value = findApiKey(provider[key])
-    if (value) return value
-  }
-}
-
-const liteLLMManagementURL = (baseURL: string): URL => {
-  const url = new URL(baseURL)
-  url.pathname = url.pathname.replace(/\/?v1\/?$/, "/user/info")
-  url.search = ""
-  url.hash = ""
-  return url
-}
-
-const parseLiteLLMBudget = (
-  info: JsonObject,
-  id: string,
-  label: string,
-): QuotaWindow | undefined => {
-  const spend = numberValue(info.spend)
-  const budget = numberValue(info.max_budget)
-  if (spend === undefined || budget === undefined || budget <= 0) return undefined
-  const reset = typeof info.budget_reset_at === "string" ? Date.parse(info.budget_reset_at) : NaN
-  return {
-    id,
-    label,
-    display: `$${spend.toFixed(2)} / $${budget.toFixed(2)}`,
-    remainingPercent: remainingPercent((spend / budget) * 100),
-    ...(Number.isFinite(reset) ? { resetAt: Math.floor(reset / 1000) } : {}),
-  }
-}
-
-const parseLiteLLMUsage = (payload: unknown): QuotaWindow[] => {
-  if (!isObject(payload)) throw new Error("user info missing")
-
-  // Personal budget: teams[0].team_memberships[0].litellm_budget_table
-  // spend comes from the membership row itself (not the budget table)
-  const teams = Array.isArray(payload.teams) ? payload.teams : []
-  const firstTeam = teams.find(isObject)
-  const memberships = isObject(firstTeam) && Array.isArray(firstTeam.team_memberships)
-    ? firstTeam.team_memberships
-    : []
-  const membership = memberships.find(isObject)
-  const budgetTable = isObject(membership) && isObject(membership.litellm_budget_table)
-    ? membership.litellm_budget_table
-    : undefined
-
-  if (!isObject(membership) || !budgetTable) throw new Error("budget missing")
-
-  const w = parseLiteLLMBudget(
-    { ...budgetTable, spend: membership.spend ?? budgetTable.spend },
-    "budget",
-    "LiteLLM",
-  )
-  if (!w) throw new Error("budget missing")
-  return [w]
-}
-
 const unavailable = (provider: QuotaProvider["provider"], name: string): QuotaProvider => ({
   provider,
   name,
@@ -250,36 +174,6 @@ const openCodeGoQuota = (context: Plugin.Context): Effect.Effect<QuotaProvider, 
     } satisfies QuotaProvider
   })
 
-const liteLLMQuota = (context: Plugin.Context): Effect.Effect<QuotaProvider, unknown> =>
-  Effect.gen(function* () {
-    const provider = yield* context.provider.get({ providerID: Provider.ID.make("litellm") })
-    const baseURL = findBaseURL(provider)
-    // The token lives in provider.settings.apiKey (OAuth flow writes it there).
-    // Fall back to the integration credential for non-OAuth key setups.
-    const token = findApiKey(provider) ?? (yield* Effect.gen(function* () {
-      const connection = yield* context.integration.connection.active("litellm")
-      if (!connection) return undefined
-      const credential = yield* context.integration.connection.resolve(connection)
-      return findAccessToken(credential)
-    }))
-    if (!token || !baseURL) return unavailable("litellm", "LiteLLM")
-
-    const url = liteLLMManagementURL(baseURL)
-    const payload = yield* fetchUsage(url, {
-      headers: {
-        accept: "application/json",
-        authorization: `Bearer ${token}`,
-      },
-    })
-    return {
-      provider: "litellm",
-      name: "LiteLLM",
-      status: "ok",
-      windows: parseLiteLLMUsage(payload),
-      fetchedAt: Date.now(),
-    } satisfies QuotaProvider
-  })
-
 export default Plugin.define({
   id: "quota-usage",
   effect: (context) =>
@@ -290,11 +184,6 @@ export default Plugin.define({
       yield* context.rpc
         .register(OpenCodeGoUsage, {
           get: () => quotaHandler("opencode-go", "OpenCode Go", openCodeGoQuota(context)),
-        })
-        .pipe(Effect.orDie)
-      yield* context.rpc
-        .register(LiteLLMUsage, {
-          get: () => quotaHandler("litellm", "LiteLLM", liteLLMQuota(context)),
         })
         .pipe(Effect.orDie)
     }),

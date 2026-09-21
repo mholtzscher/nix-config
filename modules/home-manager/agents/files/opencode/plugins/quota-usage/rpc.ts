@@ -9,7 +9,7 @@ export type QuotaWindow = {
 }
 
 export type QuotaProvider = {
-  provider: "codex" | "opencode-go" | "litellm"
+  provider: "codex" | "opencode-go"
   name: string
   status: "ok" | "unavailable"
   windows: QuotaWindow[]
@@ -20,7 +20,7 @@ export type QuotaProvider = {
 const quotaOutput = {
   type: "object",
   properties: {
-    provider: { type: "string", enum: ["codex", "opencode-go", "litellm"] },
+    provider: { type: "string", enum: ["codex", "opencode-go"] },
     name: { type: "string" },
     status: { type: "string", enum: ["ok", "unavailable"] },
     windows: {
@@ -63,12 +63,6 @@ export const CodexUsage = Rpc.define({
 
 export const OpenCodeGoUsage = Rpc.define({
   id: "opencode-go-usage",
-  methods: { get: quotaMethod },
-  events: {},
-})
-
-export const LiteLLMUsage = Rpc.define({
-  id: "litellm-usage",
   methods: { get: quotaMethod },
   events: {},
 })

@@ -1,6 +1,6 @@
 import { Plugin } from "@opencode/plugin/tui"
 import { For, Show, createSignal } from "solid-js"
-import { CodexUsage, LiteLLMUsage, OpenCodeGoUsage } from "./rpc.js"
+import { CodexUsage, OpenCodeGoUsage } from "./rpc.js"
 import type { QuotaProvider, QuotaWindow } from "./rpc.js"
 
 const fallbackProvider = (
@@ -31,7 +31,6 @@ export default Plugin.define({
     const location = context.location ?? context.data.location.default()
     const codex = context.client.rpc(CodexUsage)
     const openCodeGo = context.client.rpc(OpenCodeGoUsage)
-    const liteLLM = context.client.rpc(LiteLLMUsage)
     const [providers, setProviders] = createSignal<QuotaProvider[]>([])
     const [now, setNow] = createSignal(Date.now())
     let refreshing = false
@@ -135,12 +134,6 @@ export default Plugin.define({
           requests.push(openCodeGo.get({}).then(
             (value) => value as QuotaProvider,
             () => fallbackProvider("opencode-go", "OpenCode Go"),
-          ))
-        }
-        if (configured.has("litellm")) {
-          requests.push(liteLLM.get({}).then(
-            (value) => value as QuotaProvider,
-            () => fallbackProvider("litellm", "LiteLLM"),
           ))
         }
         setProviders(await Promise.all(requests))
