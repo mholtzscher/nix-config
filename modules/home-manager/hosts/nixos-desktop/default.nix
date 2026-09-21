@@ -127,6 +127,7 @@ in
   # source home.sessionVariables, so set them per-shell.
   programs.nushell.environmentVariables = {
     PLANNOTATOR_REMOTE = "1";
+    PLANNOTATOR_SHARE = "disabled";
     PLANNOTATOR_URL_HOST = "auto";
     PLANNOTATOR_PORT = "19432-19463";
   };

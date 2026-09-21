@@ -101,11 +101,6 @@ in
       source = openCodeSettingsFile;
     };
 
-    "${config.xdg.configHome}/opencode/commands" = {
-      source = ./files/commands;
-      recursive = true;
-    };
-
     # "${config.xdg.configHome}/opencode/plugins/pr-comments.ts" = {
     #   source = ./files/opencode/plugins/pr-comments.ts;
     #   force = true;
@@ -125,6 +120,20 @@ in
     fi
     run mkdir -p "$plugin_dir"
     run cp -R ${./files/opencode/plugins/quota-usage}/. "$plugin_dir/"
+
+    install_local_plugin() {
+      plugin_name=$1
+      plugin_source=$2
+      plugin_dir=${lib.escapeShellArg "${config.xdg.configHome}/opencode/plugins"}/$plugin_name
+      if [[ -e "$plugin_dir" || -L "$plugin_dir" ]]; then
+        run rm -rf "$plugin_dir"
+      fi
+      run mkdir -p "$plugin_dir"
+      run cp -R "$plugin_source"/. "$plugin_dir/"
+    }
+
+    install_local_plugin spec-tools ${./files/opencode/plugins/spec-tools}
+    install_local_plugin github-tools ${./files/opencode/plugins/github-tools}
   '';
 
 }
