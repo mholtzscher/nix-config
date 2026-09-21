@@ -1,4 +1,5 @@
-import { Plugin } from "@opencode/plugin"
+import { Plugin, Provider } from "@opencode/plugin/effect"
+import { Effect } from "effect"
 import { CodexUsage, LiteLLMUsage, OpenCodeGoUsage } from "./rpc.js"
 import type { QuotaProvider, QuotaWindow } from "./rpc.js"
 
@@ -6,6 +7,7 @@ const CODEX_USAGE_URL = "https://chatgpt.com/backend-api/wham/usage"
 const OPENCODE_GO_USAGE_URL = "https://opencode.ai/zen/go/v1/usage"
 const WEEK_SECONDS = 7 * 24 * 60 * 60
 const JWT_CLAIM_PATH = "https://api.openai.com/auth"
+const USAGE_TIMEOUT = "15 seconds"
 
 type JsonObject = { [key: string]: unknown }
 
@@ -72,10 +74,11 @@ const parseCodexUsage = (payload: unknown): QuotaWindow[] => {
 
 const parseOpenCodeGoUsage = (payload: unknown): QuotaWindow[] => {
   if (!isObject(payload) || !isObject(payload.usage)) throw new Error("usage windows missing")
+  const usage = payload.usage
 
   const labels = { rolling: "Rolling", weekly: "Weekly", monthly: "Monthly" } as const
   const windows = Object.entries(labels).flatMap(([name, label]) => {
-    const window = payload.usage[name]
+    const window = usage[name]
     if (!isObject(window)) return []
     const used = numberValue(window.percent)
     if (used === undefined || typeof window.resetsAt !== "string") return []
@@ -137,103 +140,120 @@ const unavailable = (provider: QuotaProvider["provider"], name: string): QuotaPr
   fetchedAt: Date.now(),
 })
 
+const fetchUsage = (
+  input: string | URL,
+  init: RequestInit,
+): Effect.Effect<unknown, unknown> =>
+  Effect.tryPromise({
+    try: async (signal) => {
+      const response = await fetch(input, { ...init, signal })
+      if (!response.ok) throw new Error(`usage request failed: ${response.status}`)
+      return (await response.json()) as unknown
+    },
+    catch: (cause) => cause,
+  }).pipe(Effect.timeout(USAGE_TIMEOUT))
+
+const quotaHandler = (
+  provider: QuotaProvider["provider"],
+  name: string,
+  body: Effect.Effect<QuotaProvider, unknown>,
+): Effect.Effect<QuotaProvider> =>
+  body.pipe(
+    Effect.catchDefect(() => Effect.succeed(unavailable(provider, name))),
+    Effect.orElseSucceed(() => unavailable(provider, name)),
+  )
+
+const codexQuota = (context: Plugin.Context): Effect.Effect<QuotaProvider, unknown> =>
+  Effect.gen(function* () {
+    const connection = yield* context.integration.connection.active("openai")
+    if (!connection) return unavailable("codex", "Codex")
+    const credential = yield* context.integration.connection.resolve(connection)
+    const token = findAccessToken(credential)
+    const accountID = token ? extractAccountID(token) : undefined
+    if (!token || !accountID) return unavailable("codex", "Codex")
+
+    const payload = yield* fetchUsage(CODEX_USAGE_URL, {
+      headers: {
+        authorization: `Bearer ${token}`,
+        "chatgpt-account-id": accountID,
+        originator: "opencode",
+      },
+    })
+    return {
+      provider: "codex",
+      name: "Codex",
+      status: "ok",
+      windows: parseCodexUsage(payload),
+      fetchedAt: Date.now(),
+    } satisfies QuotaProvider
+  })
+
+const openCodeGoQuota = (context: Plugin.Context): Effect.Effect<QuotaProvider, unknown> =>
+  Effect.gen(function* () {
+    const connection = yield* context.integration.connection.active("opencode-go")
+    if (!connection) return unavailable("opencode-go", "OpenCode Go")
+    const credential = yield* context.integration.connection.resolve(connection)
+    const token = findAccessToken(credential)
+    if (!token) return unavailable("opencode-go", "OpenCode Go")
+
+    const payload = yield* fetchUsage(OPENCODE_GO_USAGE_URL, {
+      headers: {
+        accept: "application/json",
+        authorization: `Bearer ${token}`,
+      },
+    })
+    return {
+      provider: "opencode-go",
+      name: "OpenCode Go",
+      status: "ok",
+      windows: parseOpenCodeGoUsage(payload),
+      fetchedAt: Date.now(),
+    } satisfies QuotaProvider
+  })
+
+const liteLLMQuota = (context: Plugin.Context): Effect.Effect<QuotaProvider, unknown> =>
+  Effect.gen(function* () {
+    const connection = yield* context.integration.connection.active("litellm")
+    if (!connection) return unavailable("litellm", "LiteLLM")
+    const credential = yield* context.integration.connection.resolve(connection)
+    const token = findAccessToken(credential)
+    const provider = yield* context.provider.get({ providerID: Provider.ID.make("litellm") })
+    const baseURL = findBaseURL(provider.data)
+    if (!token || !baseURL) return unavailable("litellm", "LiteLLM")
+
+    const url = liteLLMManagementURL(baseURL)
+    url.searchParams.set("key", token)
+    const payload = yield* fetchUsage(url, {
+      headers: {
+        accept: "application/json",
+        authorization: `Bearer ${token}`,
+      },
+    })
+    return {
+      provider: "litellm",
+      name: "LiteLLM",
+      status: "ok",
+      windows: parseLiteLLMUsage(payload),
+      fetchedAt: Date.now(),
+    } satisfies QuotaProvider
+  })
+
 export default Plugin.define({
   id: "quota-usage",
-  async setup(context) {
-    await context.rpc.register(CodexUsage, {
-      get: async (_input, rpcContext) => {
-        try {
-          const connection = await context.integration.connection.active("openai")
-          if (!connection) return unavailable("codex", "Codex")
-          const credential = await context.integration.connection.resolve(connection)
-          const token = findAccessToken(credential)
-          const accountID = token ? extractAccountID(token) : undefined
-          if (!token || !accountID) return unavailable("codex", "Codex")
-
-          const response = await fetch(CODEX_USAGE_URL, {
-            headers: {
-              authorization: `Bearer ${token}`,
-              "chatgpt-account-id": accountID,
-              originator: "opencode",
-            },
-            signal: AbortSignal.any([rpcContext.signal, AbortSignal.timeout(15_000)]),
-          })
-          if (!response.ok) throw new Error(`usage request failed: ${response.status}`)
-          return {
-            provider: "codex",
-            name: "Codex",
-            status: "ok",
-            windows: parseCodexUsage(await response.json()),
-            fetchedAt: Date.now(),
-          } satisfies QuotaProvider
-        } catch {
-          return unavailable("codex", "Codex")
-        }
-      },
-    })
-
-    await context.rpc.register(OpenCodeGoUsage, {
-      get: async (_input, rpcContext) => {
-        try {
-          const connection = await context.integration.connection.active("opencode-go")
-          if (!connection) return unavailable("opencode-go", "OpenCode Go")
-          const credential = await context.integration.connection.resolve(connection)
-          const token = findAccessToken(credential)
-          if (!token) return unavailable("opencode-go", "OpenCode Go")
-
-          const response = await fetch(OPENCODE_GO_USAGE_URL, {
-            headers: {
-              accept: "application/json",
-              authorization: `Bearer ${token}`,
-            },
-            signal: AbortSignal.any([rpcContext.signal, AbortSignal.timeout(15_000)]),
-          })
-          if (!response.ok) throw new Error(`usage request failed: ${response.status}`)
-          return {
-            provider: "opencode-go",
-            name: "OpenCode Go",
-            status: "ok",
-            windows: parseOpenCodeGoUsage(await response.json()),
-            fetchedAt: Date.now(),
-          } satisfies QuotaProvider
-        } catch {
-          return unavailable("opencode-go", "OpenCode Go")
-        }
-      },
-    })
-
-    await context.rpc.register(LiteLLMUsage, {
-      get: async (_input, rpcContext) => {
-        try {
-          const connection = await context.integration.connection.active("litellm")
-          if (!connection) return unavailable("litellm", "LiteLLM")
-          const credential = await context.integration.connection.resolve(connection)
-          const token = findAccessToken(credential)
-          const provider = await context.provider.get({ providerID: "litellm" })
-          const baseURL = findBaseURL(provider)
-          if (!token || !baseURL) return unavailable("litellm", "LiteLLM")
-
-          const url = liteLLMManagementURL(baseURL)
-          url.searchParams.set("key", token)
-          const response = await fetch(url, {
-            headers: {
-              accept: "application/json",
-              authorization: `Bearer ${token}`,
-            },
-            signal: AbortSignal.any([rpcContext.signal, AbortSignal.timeout(15_000)]),
-          })
-          if (!response.ok) throw new Error(`usage request failed: ${response.status}`)
-          return {
-            provider: "litellm",
-            name: "LiteLLM",
-            status: "ok",
-            windows: parseLiteLLMUsage(await response.json()),
-            fetchedAt: Date.now(),
-          } satisfies QuotaProvider
-        } catch {
-          return unavailable("litellm", "LiteLLM")
-        }
-      },
-    })
-  },
+  effect: (context) =>
+    Effect.gen(function* () {
+      yield* context.rpc
+        .register(CodexUsage, { get: () => quotaHandler("codex", "Codex", codexQuota(context)) })
+        .pipe(Effect.orDie)
+      yield* context.rpc
+        .register(OpenCodeGoUsage, {
+          get: () => quotaHandler("opencode-go", "OpenCode Go", openCodeGoQuota(context)),
+        })
+        .pipe(Effect.orDie)
+      yield* context.rpc
+        .register(LiteLLMUsage, {
+          get: () => quotaHandler("litellm", "LiteLLM", liteLLMQuota(context)),
+        })
+        .pipe(Effect.orDie)
+    }),
 })

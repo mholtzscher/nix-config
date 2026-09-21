@@ -100,11 +100,6 @@ in
     "${config.xdg.configHome}/opencode/opencode.json" = lib.mkIf (!isWork) {
       source = openCodeSettingsFile;
     };
-
-    # "${config.xdg.configHome}/opencode/plugins/pr-comments.ts" = {
-    #   source = ./files/opencode/plugins/pr-comments.ts;
-    #   force = true;
-    # };
   };
 
   home.activation.openCodeQuotaUsagePlugin = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
