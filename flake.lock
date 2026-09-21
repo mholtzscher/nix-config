@@ -419,19 +419,19 @@
         "type": "github"
       }
     },
-    "homebrew-brew": {
+    "brew-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1778146321,
-        "narHash": "sha256-HeBwuJmuBioZHyZqDOcf7W/xsMFupSD583v6I5Cl7a8=",
+        "lastModified": 1789661079,
+        "narHash": "sha256-geVTQ51PGZ1mLULM5k7wO7qt/6xenOR/YG8X7Q3eCaI=",
         "owner": "Homebrew",
         "repo": "brew",
-        "rev": "af835384ac574f76025adb38b292b04cecee1f1f",
+        "rev": "edb70f031e4170c780799633a1226ff73e1077f4",
         "type": "github"
       },
       "original": {
         "owner": "Homebrew",
-        "ref": "5.1.10",
+        "ref": "7.0.4",
         "repo": "brew",
         "type": "github"
       }
@@ -576,9 +576,7 @@
     },
     "nix-homebrew": {
       "inputs": {
-        "brew-src": [
-          "homebrew-brew"
-        ]
+        "brew-src": "brew-src"
       },
       "locked": {
         "lastModified": 1789928041,
@@ -762,7 +760,6 @@
         "ghostty-shader-playground": "ghostty-shader-playground",
         "helium": "helium",
         "home-manager": "home-manager",
-        "homebrew-brew": "homebrew-brew",
         "hunk": "hunk",
         "llm-agents": "llm-agents",
         "melt": "melt",
