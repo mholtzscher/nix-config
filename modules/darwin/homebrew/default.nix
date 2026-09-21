@@ -3,6 +3,12 @@
 # Host-specific packages defined in ./hosts/*.nix
 { ... }:
 {
+  nix-homebrew.trust.formulae = [
+    "1jehuang/mmdr/mmdr"
+    "FelixKratz/formulae/borders"
+    "JetBrains/utils/kotlin-lsp"
+  ];
+
   homebrew = {
     enable = true;
     onActivation = {
