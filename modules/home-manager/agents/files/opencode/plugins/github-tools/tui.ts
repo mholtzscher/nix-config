@@ -1538,12 +1538,7 @@ export default Plugin.define({
           const sessionID =
             route.type === "session"
               ? route.sessionID
-              : (
-                  await context.client.session.create({
-                    location,
-                    title: "GitHub tools",
-                  })
-                ).id;
+              : (await context.client.session.create({ location })).id;
 
           if (route.type !== "session") {
             context.ui.router.navigate({ type: "session", sessionID });

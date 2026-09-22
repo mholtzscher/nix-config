@@ -149,8 +149,6 @@ When the interview and domain model are complete, invoke the spec-planner skill 
 
 interface SpecRecency {
   name: string;
-  /** 0 for uncommitted files, 1 for committed ones; lower sorts first. */
-  rank: number;
   /** Milliseconds: mtime when uncommitted, committer date when committed. */
   recency: number;
 }
@@ -263,18 +261,13 @@ const orderSpecsByRecency = async (
         recency = fileStat.mtimeMs;
       }
 
-      return {
-        name,
-        rank: committedAt === null ? 0 : 1,
-        recency,
-      };
+      return { name, recency };
     })
   );
 
   return recencies
     .toSorted(
       (left, right) =>
-        left.rank - right.rank ||
         right.recency - left.recency ||
         left.name.localeCompare(right.name)
     )
@@ -408,12 +401,7 @@ export default Plugin.define({
           const sessionID =
             route.type === "session"
               ? route.sessionID
-              : (
-                  await context.client.session.create({
-                    location,
-                    title: "Spec tools",
-                  })
-                ).id;
+              : (await context.client.session.create({ location })).id;
 
           if (route.type !== "session") {
             context.ui.router.navigate({ type: "session", sessionID });
