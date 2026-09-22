@@ -1,5 +1,4 @@
 {
-  pkgs,
   lib,
   isWork,
   config,
@@ -111,7 +110,6 @@ let
       };
     };
   };
-  openCodeSettingsFile = pkgs.writeText "opencode-settings.json" (builtins.toJSON openCodeSettings);
 in
 {
   home.sessionVariables = {
@@ -120,7 +118,11 @@ in
 
   home.file = {
     "${config.xdg.configHome}/opencode/opencode.json" = lib.mkIf (!isWork) {
-      source = openCodeSettingsFile;
+      text = builtins.toJSON openCodeSettings;
+    };
+    "${config.xdg.configHome}/opencode/cli.json".text = builtins.toJSON {
+      "$schema" = "https://opencode.ai/v2/cli.json";
+      theme.name = "opencode";
     };
   };
 
