@@ -376,7 +376,7 @@ export def nfu [] {
   }
 }
 
-# AI-powered conventional commit using pi
+# AI-powered conventional commit using OpenCode
 # Analyzes staged changes and generates a conventional commit message
 # Usage: ai_commit          # With confirmation prompt
 #        ai_commit --yes    # Skip confirmation (auto-commit)
@@ -384,7 +384,7 @@ export def ai_commit [
   --yes (-y) # Skip confirmation and commit immediately
 ] {
   _require_tool git
-  _require_tool pi
+  _require_tool opencode
 
   # Check if we're in a git repository
   let git_check = (git rev-parse --is-inside-work-tree | complete)
@@ -401,10 +401,10 @@ export def ai_commit [
     return 1
   }
 
-  let models = "opencode-go/deepseek-v4.1-flash,litellm/kimi-k2.5"
-  log info $"Analyzing staged changes with AI using pi and ($models)..."
+  let model = "opencode-go/deepseek-v4.1-flash"
+  log info $"Analyzing staged changes with AI using OpenCode and ($model)..."
 
-  # Use pi in print mode to analyze the diff and generate a commit message.
+  # Use OpenCode's non-interactive run command to generate a commit message.
   let commit_prompt = $"Analyze the following staged git diff and create a conventional commit message that best describes the changes:
 
 Staged changes:
@@ -413,18 +413,18 @@ Staged changes:
 
 Return ONLY the commit message, nothing else. No explanations, no markdown code blocks, just the commit message text."
 
-  let pi_result = (pi -p --no-session --no-tools --no-extensions --models $models $commit_prompt | complete)
+  let opencode_result = (opencode run --model $model $commit_prompt | complete)
 
-  if $pi_result.exit_code != 0 {
-    log error "Failed to generate commit message with pi"
-    log error $pi_result.stderr
+  if $opencode_result.exit_code != 0 {
+    log error "Failed to generate commit message with OpenCode"
+    log error $opencode_result.stderr
     return
   }
 
-  let commit_message = ($pi_result.stdout | str trim)
+  let commit_message = ($opencode_result.stdout | str trim)
 
   if ($commit_message | is-empty) {
-    log error "pi returned an empty commit message"
+    log error "OpenCode returned an empty commit message"
     return
   }
 
