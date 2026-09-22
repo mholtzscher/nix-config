@@ -125,6 +125,7 @@ in
       theme.name = "opencode";
       tabs.mode = "on";
       tabs.layout = "vertical";
+      plugins = [ "./herdr-opencode" ];
     };
   };
 

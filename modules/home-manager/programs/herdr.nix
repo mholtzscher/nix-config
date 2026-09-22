@@ -15,6 +15,7 @@ in
   home.packages = [ herdr-annotate ];
 
   home.activation.herdrPlugins = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+    run ${herdr}/bin/herdr integration install opencode
     run ${herdr}/bin/herdr integration install pi
     run ${herdr}/bin/herdr plugin link ${herdr-annotate} --enabled
     run ${herdr}/bin/herdr plugin link ${herdr-focus-or-tab} --enabled
