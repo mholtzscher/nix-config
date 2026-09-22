@@ -141,6 +141,7 @@ in
       run rm "$plugin_dir"
     fi
     run mkdir -p "$plugin_dir"
+    run chmod -R u+w "$plugin_dir"
     run cp -R ${./files/opencode/plugins/quota-usage}/. "$plugin_dir/"
 
     install_local_plugin() {
