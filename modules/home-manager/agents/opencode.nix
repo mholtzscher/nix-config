@@ -6,7 +6,7 @@
 }:
 let
   personalOpenCodeModelProfile = {
-    default = "openai/gpt-5.6-sol";
+    default = "openai/gpt-6-sol";
     build = "openai/gpt-5.6-sol#high";
     plan = "openai/gpt-5.6-sol#high";
     explore = "opencode-go/deepseek-v4.1-flash";
@@ -37,6 +37,26 @@ let
       {
         action = "read";
         resource = "~/code/*";
+        effect = "allow";
+      }
+      {
+        action = "external_directory";
+        resource = "~/nix-config/*";
+        effect = "allow";
+      }
+      {
+        action = "read";
+        resource = "~/nix-config/*";
+        effect = "allow";
+      }
+      {
+        action = "external_directory";
+        resource = "~/.config/nix-config/*";
+        effect = "allow";
+      }
+      {
+        action = "read";
+        resource = "~/.config/nix-config/*";
         effect = "allow";
       }
     ];
