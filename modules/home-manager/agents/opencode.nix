@@ -123,6 +123,8 @@ in
     "${config.xdg.configHome}/opencode/cli.json".text = builtins.toJSON {
       "$schema" = "https://opencode.ai/v2/cli.json";
       theme.name = "opencode";
+      tabs.mode = "on";
+      tabs.layout = "vertical";
     };
   };
 
