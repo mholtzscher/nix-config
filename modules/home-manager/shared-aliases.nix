@@ -19,7 +19,7 @@
 
     clean = "git clean -Xdf";
 
-    oc = if isWork then "sh ~/code/paytient/ai-container/opencode/start" else "opencode";
+    oc = "opencode";
     # pi = if isWork then "sh ~/code/paytient/ai-container/pi/start" else "pi";
 
     pbj = "pbpaste | jq";
