@@ -47,23 +47,23 @@ let
     inherit (runtimeAsset) hash;
   };
 
-  plannotatorTuiVersion = "0.8.0";
+  plannotatorTuiVersion = "0.9.2";
   plannotatorTuiAssets = {
     aarch64-darwin = {
       asset = "plannotator-tui-aarch64-apple-darwin";
-      hash = "sha256-fQV/Oho6ojywpEhD/tPwTUmKHaUhl83sAhLG+OFhjLI=";
+      hash = "sha256-eciAG6usXNJXA0A2U2u89Rp7TNjQa0N/HoVxNxRSHrA=";
     };
     x86_64-darwin = {
       asset = "plannotator-tui-x86_64-apple-darwin";
-      hash = "sha256-a2CE0W7YqgmRWJL5B+WBhqbsacVgdSz/nQQr3Ltigg8=";
+      hash = "sha256-Nu8FZmwGbbfDJ1nI1u6+YiNxF7iHSIGEY/oqz5TvWDQ=";
     };
     aarch64-linux = {
       asset = "plannotator-tui-aarch64-unknown-linux-gnu";
-      hash = "sha256-I/keWx5dBKGsQfHY9Q6/TCDwRhFBlShilypjDvaQ4Y4=";
+      hash = "sha256-71efY8JLvkdAGb48xcxaW9BUHreTkbGQlX5Qq26g7bM=";
     };
     x86_64-linux = {
       asset = "plannotator-tui-x86_64-unknown-linux-gnu";
-      hash = "sha256-+qZROtGkdXooYelVcBaPLIEY8hm36NalF1oAj+I0/gs=";
+      hash = "sha256-h07KuqNeOs5UnVvzxzg/pNEoi6BrNunwTrT0t7VSKaU=";
     };
   };
   plannotatorTuiAsset =
@@ -76,13 +76,13 @@ let
 in
 stdenv.mkDerivation rec {
   pname = "herdr-annotate";
-  version = "0.4.0";
+  version = "0.5.0";
 
   src = fetchFromGitHub {
     owner = "plannotator";
     repo = "herdr-annotate";
-    rev = "7c8f5a177b8285dc56efc471ef04f7ab44a2b4b6";
-    hash = "sha256-f+/2mDs8d5JICqbwzC7/tIYdLlb8NPJuV00Odp4CMSU=";
+    rev = "d02b0b42cf1955a3b206959659f1833622f213b8";
+    hash = "sha256-ra+iX1QrsaPe0lmbJ+FOxMp2YWP1YsvPUHPoB3HgOqY=";
   };
 
   nativeBuildInputs = lib.optional stdenv.hostPlatform.isLinux autoPatchelfHook;
