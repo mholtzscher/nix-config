@@ -50,12 +50,22 @@ let
         effect = "allow";
       }
       {
+        action = "edit";
+        resource = "~/nix-config/*";
+        effect = "allow";
+      }
+      {
         action = "external_directory";
         resource = "~/.config/nix-config/*";
         effect = "allow";
       }
       {
         action = "read";
+        resource = "~/.config/nix-config/*";
+        effect = "allow";
+      }
+      {
+        action = "edit";
         resource = "~/.config/nix-config/*";
         effect = "allow";
       }
