@@ -1535,10 +1535,31 @@ export default Plugin.define({
       sendUserMessage: (prompt) => {
         submittedPrompt = (async () => {
           const route = context.ui.router.current();
-          const sessionID =
-            route.type === "session"
-              ? route.sessionID
-              : (await context.client.session.create({ location })).id;
+          let sessionID: string;
+          if (route.type === "session") {
+            sessionID = route.sessionID;
+            const session = await context.client.session.get({ sessionID });
+            if (!session.model) {
+              const build = await context.client.agent.get({ agentID: "build", location });
+              if (!build.data.model) {
+                throw new Error("Build agent has no configured model");
+              }
+              await context.client.session.switchAgent({ sessionID, agent: "build" });
+              await context.client.session.switchModel({ sessionID, model: build.data.model });
+            }
+          } else {
+            const build = await context.client.agent.get({ agentID: "build", location });
+            if (!build.data.model) {
+              throw new Error("Build agent has no configured model");
+            }
+            sessionID = (
+              await context.client.session.create({
+                location,
+                agent: "build",
+                model: build.data.model,
+              })
+            ).id;
+          }
 
           if (route.type !== "session") {
             context.ui.router.navigate({ type: "session", sessionID });
