@@ -14,7 +14,12 @@ let
 
   openCodeSettings = {
     "$schema" = "https://opencode.ai/config.json";
-    plugins = [ "@plannotator/opencode" ];
+    plugins = [
+      "@plannotator/opencode"
+      "github:mholtzscher/opencode-plugins#main::path:quota-usage"
+      "github:mholtzscher/opencode-plugins#main::path:spec-tools"
+      "github:mholtzscher/opencode-plugins#main::path:github-tools"
+    ];
     username = "mholtzscher";
     permissions = [
       {
@@ -152,39 +157,18 @@ in
       "$schema" = "https://opencode.ai/v2/cli.json";
       theme.name = "opencode";
       tabs.mode = "on";
-      tabs.layout = "vertical";
+      tabs.layout = "horizontal";
       plugins = [ "./herdr-opencode" ];
     };
   };
 
-  home.activation.openCodeQuotaUsagePlugin = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-    legacy_plugin_dir=${lib.escapeShellArg "${config.xdg.configHome}/opencode/plugins/codex-usage"}
-    plugin_dir=${lib.escapeShellArg "${config.xdg.configHome}/opencode/plugins/quota-usage"}
-    if [[ -d "$legacy_plugin_dir" && ! -e "$plugin_dir" ]]; then
-      run mv "$legacy_plugin_dir" "$plugin_dir"
-    elif [[ -e "$legacy_plugin_dir" || -L "$legacy_plugin_dir" ]]; then
-      run rm -rf "$legacy_plugin_dir"
-    fi
-    if [[ -L "$plugin_dir" ]]; then
-      run rm "$plugin_dir"
-    fi
-    run mkdir -p "$plugin_dir"
-    run chmod -R u+w "$plugin_dir"
-    run cp -R ${./files/opencode/plugins/quota-usage}/. "$plugin_dir/"
-
-    install_local_plugin() {
-      plugin_name=$1
-      plugin_source=$2
+  home.activation.removeBundledOpenCodePlugins = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+    for plugin_name in codex-usage quota-usage spec-tools github-tools; do
       plugin_dir=${lib.escapeShellArg "${config.xdg.configHome}/opencode/plugins"}/$plugin_name
       if [[ -e "$plugin_dir" || -L "$plugin_dir" ]]; then
         run rm -rf "$plugin_dir"
       fi
-      run mkdir -p "$plugin_dir"
-      run cp -R "$plugin_source"/. "$plugin_dir/"
-    }
-
-    install_local_plugin spec-tools ${./files/opencode/plugins/spec-tools}
-    install_local_plugin github-tools ${./files/opencode/plugins/github-tools}
+    done
   '';
 
 }
