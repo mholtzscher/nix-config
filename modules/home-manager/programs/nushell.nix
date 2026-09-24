@@ -36,11 +36,12 @@ in
     nushell = {
       enable = true;
       extraConfig = lib.mkMerge [
+        (lib.mkOrder 400 ''
+          # Set user paths before mise captures the shell PATH.
+          $env.PATH = ($env.PATH | prepend "/opt/homebrew/sbin" | prepend "/opt/homebrew/bin" | prepend $"($env.HOME)/.bun/bin" | prepend $"($env.HOME)/.local/bin")
+        '')
         ''
           use std/log;
-
-          # Add local bin, Bun global executables, and homebrew to PATH
-          $env.PATH = ($env.PATH | prepend "/opt/homebrew/sbin" | prepend "/opt/homebrew/bin" | prepend $"($env.HOME)/.bun/bin" | prepend $"($env.HOME)/.local/bin")
 
           ${builtins.readFile ../files/nushell/functions.nu}
           ${builtins.readFile ../files/nushell/herdr-nix-status.nu}

@@ -137,6 +137,10 @@ in
   programs.mise = {
     enableMutableConfig = true;
     globalConfig.settings.all_compile = false;
+    # Upstream's Nix check phase runs macOS fixture tests on Linux and fails.
+    package = inputs.mise.packages.${pkgs.stdenv.hostPlatform.system}.mise.overrideAttrs (_: {
+      doCheck = false;
+    });
   };
 
   # Niri configuration is validated by Home Manager at build time.
