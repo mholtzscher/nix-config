@@ -33,6 +33,12 @@ in
         idPrefix = "anthropic";
       };
 
+      codex = {
+        input = "skills-codex";
+        subdir = "codex-rs/skills/src/assets/samples";
+        idPrefix = "codex";
+      };
+
       # cloudflare = {
       #   input = "skills-cloudflare";
       #   subdir = "skills";
@@ -95,7 +101,8 @@ in
     skills.enable = [
       # "anthropic/frontend-design"
       "mholtzscher/agent-orchestrator"
-      "anthropic/skill-creator"
+      # "anthropic/skill-creator"
+      "codex/skill-creator"
       "mattpocock/grill-with-docs"
       # "mattpocock/improve-codebase-architecture"
       # "mattpocock/codebase-design"

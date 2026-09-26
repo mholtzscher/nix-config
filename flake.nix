@@ -59,6 +59,10 @@
       url = "github:anthropics/skills";
       flake = false;
     };
+    skills-codex = {
+      url = "github:openai/codex";
+      flake = false;
+    };
     skills-cloudflare = {
       url = "github:cloudflare/skills";
       flake = false;
@@ -131,6 +135,7 @@
       skills-agent-artifacts,
       skills-dmmulroy,
       skills-anthropic,
+      skills-codex,
       skills-cloudflare,
       skills-mattpocock,
       skills-mholtzscher,

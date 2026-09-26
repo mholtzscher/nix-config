@@ -828,6 +828,7 @@
         "skills-agent-artifacts": "skills-agent-artifacts",
         "skills-anthropic": "skills-anthropic",
         "skills-cloudflare": "skills-cloudflare",
+        "skills-codex": "skills-codex",
         "skills-dmmulroy": "skills-dmmulroy",
         "skills-herdr": "skills-herdr",
         "skills-humanlayer": "skills-humanlayer",
@@ -964,6 +965,22 @@
       "original": {
         "owner": "cloudflare",
         "repo": "skills",
+        "type": "github"
+      }
+    },
+    "skills-codex": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1790383881,
+        "narHash": "sha256-J3v1XKE5TABT8WHkDHqOEMrvXCXifoMwomG8SXEGybU=",
+        "owner": "openai",
+        "repo": "codex",
+        "rev": "25270df2615eb4da5b9d4a9a392226933fb096c5",
+        "type": "github"
+      },
+      "original": {
+        "owner": "openai",
+        "repo": "codex",
         "type": "github"
       }
     },
