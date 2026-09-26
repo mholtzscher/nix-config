@@ -35,6 +35,9 @@
       };
   };
 
+  # Keep Michael's user services (including OpenCode web) running before login.
+  users.users.${user}.linger = true;
+
   # Set correct ownership for Steam games partition
   # Using tmpfiles.d is the idiomatic NixOS way for declarative directory permissions
   systemd.tmpfiles.rules = [
