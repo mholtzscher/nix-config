@@ -57,6 +57,12 @@ in
         subdir = "skills/productivity";
       };
 
+      mattpocock-in-progress = {
+        input = "skills-mattpocock";
+        idPrefix = "mattpocock";
+        subdir = "skills/in-progress";
+      };
+
       vercel = {
         input = "skills-vercel";
         subdir = "skills";
@@ -108,6 +114,7 @@ in
       # "mattpocock/codebase-design"
       "mattpocock/domain-modeling"
       "mattpocock/grilling"
+      "mattpocock/retro"
       # "mattpocock/teach"
       "mholtzscher/spec-planner"
       "mholtzscher/go-test-effectiveness"
