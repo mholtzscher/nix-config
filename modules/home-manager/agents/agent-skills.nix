@@ -115,6 +115,7 @@ in
       "mattpocock/domain-modeling"
       "mattpocock/grilling"
       "mattpocock/retro"
+      "mattpocock/writing-for-agents"
       # "mattpocock/teach"
       "mholtzscher/spec-planner"
       "mholtzscher/go-test-effectiveness"
