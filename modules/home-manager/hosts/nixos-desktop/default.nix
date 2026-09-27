@@ -113,6 +113,7 @@ let
       path = ./ecowitt;
     }
   ];
+
 in
 {
   imports = [
@@ -284,18 +285,6 @@ in
 
   # Audio effects processing for microphone and system audio
   services.easyeffects.enable = true;
-
-  # Serve the shared OpenCode V2 web/API endpoint locally; Tailscale Serve
-  # supplies tailnet-only HTTPS without exposing this port to the LAN.
-  systemd.user.services.opencode-web = {
-    Unit.Description = "OpenCode V2 web and API server";
-    Service = {
-      ExecStart = "%h/.bun/bin/opencode serve --service --hostname 127.0.0.1 --port 49374";
-      Restart = "on-failure";
-      RestartSec = 5;
-    };
-    Install.WantedBy = [ "default.target" ];
-  };
 
   systemd.user.services.download-ultrawide-wallpapers = {
     Unit.Description = "Download new weekly ultrawide wallpapers";
