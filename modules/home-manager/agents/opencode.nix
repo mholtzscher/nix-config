@@ -9,7 +9,7 @@ let
     build = "openai/gpt-6-sol#low";
     plan = "openai/gpt-6-sol";
     explore = "opencode-go/deepseek-v4.1-flash";
-    general = "openai/gpt-6-luna#high";
+    general = "openai/gpt-6-sol#low";
   };
 
   openCodeSettings = {
