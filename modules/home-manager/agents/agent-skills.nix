@@ -131,7 +131,6 @@ in
       "herdr/herdr"
       "humanlayer/show-me"
       # "dmmulroy/bro"
-      "dmmulroy/write-discoverable-code"
     ]
     ++ lib.optionals (!isWork) [
       # "cloudflare/agents-sdk"
