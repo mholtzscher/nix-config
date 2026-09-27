@@ -45,6 +45,16 @@ let
       }
       {
         action = "external_directory";
+        resource = "~/go/pkg/mod/*";
+        effect = "allow";
+      }
+      {
+        action = "read";
+        resource = "~/go/pkg/mod/*";
+        effect = "allow";
+      }
+      {
+        action = "external_directory";
         resource = "~/nix-config/*";
         effect = "allow";
       }
