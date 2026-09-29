@@ -6,14 +6,15 @@
 }:
 let
   personalOpenCodeModelProfile = {
-    build = "openai/gpt-6-sol#low";
-    plan = "openai/gpt-6-sol";
+    build = "openai/gpt-6.1-sol#low";
+    plan = "openai/gpt-6.1-sol";
     explore = "opencode-go/deepseek-v4.1-flash";
-    general = "openai/gpt-6-sol#low";
+    general = "openai/gpt-6.1-sol#low";
   };
 
   openCodeSettings = {
     "$schema" = "https://opencode.ai/config.json";
+    model = "openai/gpt-6.1-sol";
     plugins = [
       "@plannotator/opencode"
       "github:mholtzscher/opencode-plugins#main::path:quota-usage"
