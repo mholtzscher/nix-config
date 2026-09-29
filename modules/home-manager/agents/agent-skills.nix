@@ -107,6 +107,7 @@ in
     skills.enable = [
       # "anthropic/frontend-design"
       "mholtzscher/agent-orchestrator"
+      "mholtzscher/show-complexity"
       # "anthropic/skill-creator"
       "codex/skill-creator"
       "mattpocock/grill-with-docs"
