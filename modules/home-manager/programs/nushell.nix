@@ -60,7 +60,10 @@ in
         ))
       ];
       shellAliases = sharedAliases.shellAliases;
-      environmentVariables = lib.mkIf (!isWork) {
+      environmentVariables = {
+        AI_COMMIT_MODEL = if isWork then "litellm/kimi-k-2.5" else "opencode-go/deepseek-v4.1-flash";
+      }
+      // lib.optionalAttrs (!isWork) {
         GITHUB_PERSONAL_ACCESS_TOKEN = readAgeSecret "github-pat";
         AGENT_ARTIFACTS_BASE_URL = "https://artifacts.holtzscher.com";
         AGENT_ARTIFACTS_WRITE_KEY = readAgeSecret "agent-artifacts-write-key";

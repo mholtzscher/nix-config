@@ -401,19 +401,14 @@ export def ai_commit [
     return 1
   }
 
-  let model = "opencode-go/deepseek-v4.1-flash"
+  let model = $env.AI_COMMIT_MODEL
   log info $"Analyzing staged changes with AI using OpenCode and ($model)..."
 
-  # Use OpenCode's non-interactive run command to generate a commit message.
-  let commit_prompt = $"Analyze the following staged git diff and create a conventional commit message that best describes the changes:
-
-Staged changes:
-```($staged_diff)
-```
-
-Return ONLY the commit message, nothing else. No explanations, no markdown code blocks, just the commit message text."
-
-  let opencode_result = (opencode run --model $model $commit_prompt | complete)
+  # Attach the diff instead of passing it as an argument (which can exceed ARG_MAX).
+  let diff_file = (^mktemp -t ai-commit.XXXXXXXXXX | str trim)
+  $staged_diff | save --force $diff_file
+  let opencode_result = (opencode run --model $model --file $diff_file "Analyze the attached staged git diff and create a conventional commit message that best describes the changes. Return ONLY the commit message, nothing else. No explanations, no markdown code blocks, just the commit message text." | complete)
+  ^rm -f $diff_file
 
   if $opencode_result.exit_code != 0 {
     log error "Failed to generate commit message with OpenCode"
