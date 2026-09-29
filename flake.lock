@@ -964,11 +964,11 @@
     "skills-codex": {
       "flake": false,
       "locked": {
-        "lastModified": 1790687370,
-        "narHash": "sha256-Lec6xnxNLO/i2Uuq4iyIQEsyIBvM+aQ0nGhTNgVe4nM=",
+        "lastModified": 1790698599,
+        "narHash": "sha256-CRQeVbJaG2m2TcyhyCE/+ZL6bA3AyQrsdLTL3Nlc6RQ=",
         "owner": "openai",
         "repo": "codex",
-        "rev": "a7660cd15490875b8c22f66e577da115ed927fe3",
+        "rev": "d5e6526362f6efa322ca091b61eda495f16ffb30",
         "type": "github"
       },
       "original": {
@@ -1001,11 +1001,11 @@
         "rust-overlay": "rust-overlay_2"
       },
       "locked": {
-        "lastModified": 1790685200,
-        "narHash": "sha256-xoYbmq9DBn2wDmVt+16OZR39WtnVKzR4ONnBeZigtvk=",
+        "lastModified": 1790692527,
+        "narHash": "sha256-aB/vTt8/bp1kS7uXH0pCYNULlJbeYqxkcFppo0VShyE=",
         "owner": "ogulcancelik",
         "repo": "herdr",
-        "rev": "fc86d866aa7ae9d801d158b93a2ebe7b76eff562",
+        "rev": "dbe3a2360e4832c72d7565f50b31cafb70807e99",
         "type": "github"
       },
       "original": {
@@ -1049,11 +1049,11 @@
     "skills-mholtzscher": {
       "flake": false,
       "locked": {
-        "lastModified": 1790687657,
-        "narHash": "sha256-/1U7SqMqZjjEYRGjrHZWFYDRFqTKGbvSy4igDA5a89w=",
+        "lastModified": 1790698661,
+        "narHash": "sha256-qoqp36UmhvJhevk4Q24W9hHbxOb6MBUKgMgNLB3kx+w=",
         "owner": "mholtzscher",
         "repo": "skills",
-        "rev": "b7920b036c28eb0f1dc8f550ed7806860c63e3f0",
+        "rev": "7e25903f507c829070a95003a5248aff89e338fc",
         "type": "github"
       },
       "original": {
