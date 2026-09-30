@@ -266,6 +266,7 @@ in
 
   # Desktop-specific programs and packages
   home.packages = with pkgs; [
+    inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system}.opencode2-desktop
     awscli2 # AWS command-line interface
     gnused
     localsend # Local network file sharing
