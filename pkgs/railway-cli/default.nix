@@ -5,7 +5,7 @@
 }:
 
 let
-  version = "5.59.0";
+  version = "5.63.1";
 
   # Map Nix system strings to Rust target triples used in release tarballs
   rustTargets = {
@@ -16,10 +16,10 @@ let
   };
 
   hashes = {
-    aarch64-darwin = "sha256-VLB5mwqCSLwdkT3fIWtFHxV7KoilgzaRbPzBzdG0G/A=";
-    x86_64-darwin = "sha256-cMqB10f/Rwoh7gV8k11HNdN9X5+rmzHFwfa0QA6Zao0=";
-    aarch64-linux = "sha256-rTMG9Ubrg1V8vcWEz707kCBqSaJrDErXepkTlQXRwPE=";
-    x86_64-linux = "sha256-1t7CiheDSLb+7jUOrm0TfhToiUjqLXKJ7gN5kaM1ULE=";
+    aarch64-darwin = "sha256-+HhSTYPv9llVPzHZKnXlqM7vuPD84Dxtpd1p29/AX/0=";
+    x86_64-darwin = "sha256-a8zwmg7YYCzOMOpbeDAMmxfYpSpihXcKSiC0GFnNoI8=";
+    aarch64-linux = "sha256-akOrc4pZa/++DqlGpKXTgyHXizlXt747CbliJWy1p2E=";
+    x86_64-linux = "sha256-y7VZ3kTNMEz51lmKTqd1dQNaDm4yFTcLs7EFuPSCNcw=";
   };
 
   rustTarget =

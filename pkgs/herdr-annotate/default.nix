@@ -20,23 +20,23 @@
 # stamps bin/*.version, so the hooks short-circuit instead of downloading into the read-only
 # store. Everything else in the plugin root (manifest, scripts, skills) comes from src.
 let
-  runtimeVersion = "0.1.0";
+  runtimeVersion = "0.2.0";
   runtimeAssets = {
     aarch64-darwin = {
       asset = "herdr-annotate-aarch64-apple-darwin";
-      hash = "sha256-IjQ5Khzt9LCwVhtMpU2nWqUTnfKW29Tlk3HPf6IB+rc=";
+      hash = "sha256-WpxT03fNh+ZN4BueQ8hJBFP2q4GhExHTQKS/8HDqQwg=";
     };
     x86_64-darwin = {
       asset = "herdr-annotate-x86_64-apple-darwin";
-      hash = "sha256-kcrRYkRacpGdthjRZCrJwAX0ZRPtxJeGYrhmfIz1UHw=";
+      hash = "sha256-GUMf4vGkC98SL7b9wipo/1/5VcxOjJw7iz3qJONA/+0=";
     };
     aarch64-linux = {
       asset = "herdr-annotate-aarch64-unknown-linux-gnu";
-      hash = "sha256-qh3xiNQ+/XaJPKpfjDuJtZv/57HcPCHLkJcjiHk4IuY=";
+      hash = "sha256-xNOA7VpwzXtDZCgsPXApCkgal5NQYrvlxnJXmRxpH28=";
     };
     x86_64-linux = {
       asset = "herdr-annotate-x86_64-unknown-linux-gnu";
-      hash = "sha256-P1cRHCOtcGIWP2FkxWQrdJMJ08xZdDC+He8I3A2r1xI=";
+      hash = "sha256-o+9OcnhLuoz3nlgtYCHKNPDWAPFw2jCVvMYKh7G8uUI=";
     };
   };
   runtimeAsset =
@@ -47,23 +47,23 @@ let
     inherit (runtimeAsset) hash;
   };
 
-  plannotatorTuiVersion = "0.9.2";
+  plannotatorTuiVersion = "0.9.4";
   plannotatorTuiAssets = {
     aarch64-darwin = {
       asset = "plannotator-tui-aarch64-apple-darwin";
-      hash = "sha256-eciAG6usXNJXA0A2U2u89Rp7TNjQa0N/HoVxNxRSHrA=";
+      hash = "sha256-qdpJ3WpE00lP7Q6DZsoymW7N9A4CcfztQQzsPIg5F10=";
     };
     x86_64-darwin = {
       asset = "plannotator-tui-x86_64-apple-darwin";
-      hash = "sha256-Nu8FZmwGbbfDJ1nI1u6+YiNxF7iHSIGEY/oqz5TvWDQ=";
+      hash = "sha256-XRloPW+QpCSf+vOmp+0LoTJaE2p5XHsRqLofsW/o0U8=";
     };
     aarch64-linux = {
       asset = "plannotator-tui-aarch64-unknown-linux-gnu";
-      hash = "sha256-71efY8JLvkdAGb48xcxaW9BUHreTkbGQlX5Qq26g7bM=";
+      hash = "sha256-45B3qsLh537XmNJZD4Rc+ZjkVvoqIS/nyuLiX+v2III=";
     };
     x86_64-linux = {
       asset = "plannotator-tui-x86_64-unknown-linux-gnu";
-      hash = "sha256-h07KuqNeOs5UnVvzxzg/pNEoi6BrNunwTrT0t7VSKaU=";
+      hash = "sha256-1U3GA8lfcQZ3vBPr5rJLLm6xDOdhV3r4qVoFAChit00=";
     };
   };
   plannotatorTuiAsset =
@@ -76,13 +76,13 @@ let
 in
 stdenv.mkDerivation rec {
   pname = "herdr-annotate";
-  version = "0.5.0";
+  version = "0.8.0";
 
   src = fetchFromGitHub {
     owner = "plannotator";
     repo = "herdr-annotate";
-    rev = "d02b0b42cf1955a3b206959659f1833622f213b8";
-    hash = "sha256-ra+iX1QrsaPe0lmbJ+FOxMp2YWP1YsvPUHPoB3HgOqY=";
+    rev = "cbba4732229191347ff5128e3da71f64474a6a49";
+    hash = "sha256-CDh80DN7xWtEAPTNu80T+PGBjUAHt66HSWgNVx87tXU=";
   };
 
   nativeBuildInputs = lib.optional stdenv.hostPlatform.isLinux autoPatchelfHook;
