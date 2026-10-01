@@ -22,6 +22,42 @@ let
       "github:mholtzscher/opencode-plugins#main::path:spec-tools"
       "github:mholtzscher/opencode-plugins#main::path:github-tools"
       "github:mholtzscher/opencode-plugins#main::path:cache-metrics"
+      {
+        package = "github:mholtzscher/opencode-plugins#main::path:classify";
+        options = {
+          backend = {
+            provider = "typesafe";
+            apiKeyFile = "${config.home.homeDirectory}/.local/share/agenix/typesafe-api-key";
+          };
+          timeoutMs = 120000;
+          maxRetries = 0;
+          classifiers.conventional-commit-type = {
+            description = "Determine only the Conventional Commit type for pending tracked changes in the session's Git scope. Invoke with only the classifier name; Git evidence is resolved automatically.";
+            state = {
+              type = "evidence";
+              diffs = [ { base = "HEAD"; } ];
+            };
+            questions.commit_type = {
+              type = "choice";
+              instructions = "Determine only the Conventional Commit type that best describes the supplied changes. Judge the actual changes, not the file extension. Do not select a scope or write a commit message.";
+              criteria = {
+                feat = "Adds new user-facing functionality or capability.";
+                fix = "Corrects an existing defect.";
+                chore = "Routine maintenance, dependency additions or tool configuration without implementing application functionality.";
+                build = "Changes build tooling or dependency-system mechanics.";
+                ci = "Changes continuous integration configuration.";
+                docs = "Changes documentation only.";
+                refactor = "Restructures code without changing behavior.";
+                perf = "Improves performance.";
+                test = "Adds or changes tests.";
+                style = "Formatting-only changes without behavior changes.";
+                revert = "Reverts an earlier commit.";
+                unknown = "Insufficient evidence to determine a type.";
+              };
+            };
+          };
+        };
+      }
     ];
     username = "mholtzscher";
     permissions = [
