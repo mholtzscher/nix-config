@@ -65,6 +65,10 @@
       url = "github:cloudflare/skills";
       flake = false;
     };
+    skills-kitlangton = {
+      url = "github:kitlangton/skills";
+      flake = false;
+    };
     skills-mattpocock = {
       url = "github:mattpocock/skills";
       flake = false;
@@ -135,6 +139,7 @@
       skills-anthropic,
       skills-codex,
       skills-cloudflare,
+      skills-kitlangton,
       skills-mattpocock,
       skills-mholtzscher,
       skills-plannotator,

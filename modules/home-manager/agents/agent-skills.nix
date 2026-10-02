@@ -45,6 +45,12 @@ in
       #   idPrefix = "cloudflare";
       # };
 
+      kitlangton = {
+        input = "skills-kitlangton";
+        subdir = "skills";
+        idPrefix = "kitlangton";
+      };
+
       mattpocock = {
         input = "skills-mattpocock";
         idPrefix = "mattpocock";
@@ -110,6 +116,7 @@ in
       "mholtzscher/show-complexity"
       # "anthropic/skill-creator"
       "codex/skill-creator"
+      "kitlangton/effect"
       "mattpocock/grill-with-docs"
       # "mattpocock/improve-codebase-architecture"
       # "mattpocock/codebase-design"

@@ -825,6 +825,7 @@
         "skills-dmmulroy": "skills-dmmulroy",
         "skills-herdr": "skills-herdr",
         "skills-humanlayer": "skills-humanlayer",
+        "skills-kitlangton": "skills-kitlangton",
         "skills-mattpocock": "skills-mattpocock",
         "skills-mholtzscher": "skills-mholtzscher",
         "skills-nicobailon": "skills-nicobailon",
@@ -1026,6 +1027,22 @@
       },
       "original": {
         "owner": "humanlayer",
+        "repo": "skills",
+        "type": "github"
+      }
+    },
+    "skills-kitlangton": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1788010184,
+        "narHash": "sha256-JsxNMstBdG3O0GuCjQs8oZ6VadNd15Ir8fj1VjCZs2I=",
+        "owner": "kitlangton",
+        "repo": "skills",
+        "rev": "22c35cb7fd29f931789253fc3c8eb142f2863a8a",
+        "type": "github"
+      },
+      "original": {
+        "owner": "kitlangton",
         "repo": "skills",
         "type": "github"
       }
