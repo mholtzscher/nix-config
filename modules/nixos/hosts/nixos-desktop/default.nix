@@ -1,4 +1,4 @@
-{ ... }:
+{ pkgs, ... }:
 {
   # NixOS Desktop Environment Configuration
   # This module provides a complete desktop environment setup including:
@@ -22,4 +22,19 @@
 
   # Run unpatched dynamically linked binaries built for conventional Linux systems.
   programs.nix-ld.enable = true;
+
+  services.ollama = {
+    enable = true;
+    # Keep this override until nixpkgs provides Ollama 0.35 or newer.
+    package = pkgs.ollama-cuda.overrideAttrs {
+      version = "0.35.0";
+      src = pkgs.fetchFromGitHub {
+        owner = "ollama";
+        repo = "ollama";
+        tag = "v0.35.0";
+        hash = "sha256-J/4wqiQKVnGYaeFMb1n2lp5seGfCdScJQj3SgOhZLog=";
+      };
+      vendorHash = "sha256-45FfI47tNHBPYOBLRrwuhADCUtkjAhlFrExlEy9piMI=";
+    };
+  };
 }

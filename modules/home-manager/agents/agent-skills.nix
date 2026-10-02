@@ -113,6 +113,7 @@ in
     skills.enable = [
       # "anthropic/frontend-design"
       "mholtzscher/agent-orchestrator"
+      "mholtzscher/classify-code-review"
       "mholtzscher/show-complexity"
       # "anthropic/skill-creator"
       "codex/skill-creator"
