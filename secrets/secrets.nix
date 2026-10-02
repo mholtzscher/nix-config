@@ -12,6 +12,10 @@ in
     recipients."personal-mac"
     recipients."wanda"
   ];
+  "cloudflare-workers-ai-key.age".publicKeys = [
+    recipients."nixos-desktop"
+    recipients."personal-mac"
+  ];
   "github-pat.age".publicKeys = [
     recipients."nixos-desktop"
     recipients."personal-mac"

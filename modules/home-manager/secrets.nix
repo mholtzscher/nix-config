@@ -34,6 +34,16 @@
       file = ../../secrets/hearth-openai-api-key.age;
       path = "${config.home.homeDirectory}/.local/share/agenix/hearth-openai-api-key";
     };
+    secrets.cloudflare-workers-ai-key =
+      lib.mkIf
+        (builtins.elem currentSystemName [
+          "nixos-desktop"
+          "personal-mac"
+        ])
+        {
+          file = ../../secrets/cloudflare-workers-ai-key.age;
+          path = "${config.home.homeDirectory}/.local/share/agenix/cloudflare-workers-ai-key";
+        };
     secrets.agent-artifacts-write-key.file = ../../secrets/agent-artifacts-write-key.age;
     # Explicit path: pi-mcp-adapter's !command env injection cannot expand
     # agenix's Darwin runtime-directory shell expression.
