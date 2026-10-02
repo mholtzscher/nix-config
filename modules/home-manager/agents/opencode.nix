@@ -25,9 +25,22 @@ let
       {
         package = "github:mholtzscher/opencode-plugins#main::path:classify";
         options = {
-          backend = {
-            provider = "typesafe";
-            apiKeyFile = "${config.home.homeDirectory}/.local/share/agenix/typesafe-api-key";
+          defaultBackend = "typesafe";
+          backends = {
+            ollama = {
+              provider = "ollama";
+              baseURL = "http://127.0.0.1:11434";
+              model = "nimble";
+            };
+            cloudflare = {
+              provider = "cloudflare";
+              accountID = "f3ccf566c685532060346747f4610aa6";
+              apiKeyFile = "${config.home.homeDirectory}/.local/share/agenix/cloudflare-workers-ai-key";
+            };
+            typesafe = {
+              provider = "typesafe";
+              apiKeyFile = "${config.home.homeDirectory}/.local/share/agenix/typesafe-api-key";
+            };
           };
           timeoutMs = 120000;
           maxRetries = 0;
