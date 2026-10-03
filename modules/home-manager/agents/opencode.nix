@@ -23,7 +23,7 @@ let
       "github:mholtzscher/opencode-plugins#main::path:github-tools"
       "github:mholtzscher/opencode-plugins#main::path:cache-metrics"
       {
-        package = "github:mholtzscher/opencode-plugins#main::path:classify";
+        package = "@mholtzscher/opencode-classify";
         options = {
           defaultBackend = "typesafe-jev-latest";
           backends = {
