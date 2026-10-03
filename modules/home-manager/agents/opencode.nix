@@ -25,24 +25,30 @@ let
       {
         package = "github:mholtzscher/opencode-plugins#main::path:classify";
         options = {
-          defaultBackend = "typesafe";
+          defaultBackend = "typesafe-jev-latest";
           backends = {
-            ollama = {
+            ollama-nimble = {
               provider = "ollama";
               baseURL = "http://127.0.0.1:11434";
               model = "nimble";
             };
-            clef-flash = {
+            ollama-clef-flash = {
               provider = "ollama";
               baseURL = "http://127.0.0.1:11434";
               model = "clef-flash";
             };
-            cloudflare = {
+            cloudflare-clef = {
               provider = "cloudflare";
               accountID = "f3ccf566c685532060346747f4610aa6";
               apiKeyFile = "${config.home.homeDirectory}/.local/share/agenix/cloudflare-workers-ai-key";
             };
-            typesafe = {
+            cloudflare-clef-flash = {
+              provider = "cloudflare";
+              accountID = "f3ccf566c685532060346747f4610aa6";
+              apiKeyFile = "${config.home.homeDirectory}/.local/share/agenix/cloudflare-workers-ai-key";
+              model = "clef-flash";
+            };
+            typesafe-jev-latest = {
               provider = "typesafe";
               apiKeyFile = "${config.home.homeDirectory}/.local/share/agenix/typesafe-api-key";
             };
