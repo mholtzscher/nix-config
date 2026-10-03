@@ -25,16 +25,25 @@
 
   services.ollama = {
     enable = true;
-    # Keep this override until nixpkgs provides Ollama 0.35 or newer.
-    package = pkgs.ollama-cuda.overrideAttrs {
-      version = "0.35.0";
+    # Keep this override until nixpkgs provides Ollama 0.35.1 or newer.
+    package = pkgs.ollama-cuda.overrideAttrs (oldAttrs: {
+      version = "0.35.1";
       src = pkgs.fetchFromGitHub {
         owner = "ollama";
         repo = "ollama";
-        tag = "v0.35.0";
-        hash = "sha256-J/4wqiQKVnGYaeFMb1n2lp5seGfCdScJQj3SgOhZLog=";
+        tag = "v0.35.1";
+        hash = "sha256-5qJyJhqL/Zhfq2s/Z3x5Sq0GFgBai812cQkgNq82nm4=";
       };
       vendorHash = "sha256-45FfI47tNHBPYOBLRrwuhADCUtkjAhlFrExlEy9piMI=";
-    };
+      passthru = oldAttrs.passthru // {
+        llamaCppVersion = "b11232";
+        llamaCppSrc = pkgs.fetchFromGitHub {
+          owner = "ggml-org";
+          repo = "llama.cpp";
+          tag = "b11232";
+          hash = "sha256-2+yobqi5pOI8FyMK2StFIWAOLR2JgQGh/7gX6o4k8JU=";
+        };
+      };
+    });
   };
 }

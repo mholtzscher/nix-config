@@ -32,6 +32,11 @@ let
               baseURL = "http://127.0.0.1:11434";
               model = "nimble";
             };
+            clef-flash = {
+              provider = "ollama";
+              baseURL = "http://127.0.0.1:11434";
+              model = "clef-flash";
+            };
             cloudflare = {
               provider = "cloudflare";
               accountID = "f3ccf566c685532060346747f4610aa6";
