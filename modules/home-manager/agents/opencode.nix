@@ -15,7 +15,6 @@ let
   openCodeSettings = {
     "$schema" = "https://opencode.ai/config.json";
     model = "openai/gpt-6.1-sol";
-    providers.openai.models."gpt-6.1-sol".settings.reasoningEffort = "medium";
     plugins = [
       "@plannotator/opencode"
       "github:mholtzscher/opencode-plugins#main::path:quota-usage"
