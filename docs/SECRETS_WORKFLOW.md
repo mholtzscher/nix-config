@@ -1,0 +1,13 @@
+# Secrets workflow
+
+Read the usage and relevant command implementation in `scripts/secrets` for creation, editing, auditing, host keys, or rekeying. Verify secret declaration/file changes with `./scripts/secrets audit`.
+
+## Build and rewrite gotchas
+
+- If a build must pass before real values exist, use the helper to encrypt non-secret placeholder content. Do not write plaintext into `.age` files. The user replaces placeholders through the editor workflow in `AGENTS.md`; agenix decrypts at activation, so replacing values needs no rebuild.
+- Run `git add` for new `.age` files before evaluation. Flakes ignore untracked files.
+- Treat `secrets/secrets.nix` as script-rewritten data. For manual declaration edits, match `write_rules_from_tsv` in `scripts/secrets`; rewrites discard comments.
+
+## pi MCP servers and containers
+
+Before wiring secret-backed MCP environment variables or container forwarding, read `unifi-network` and `komodo` in `modules/home-manager/agents/pi.nix` for the `!cat` and bare `-e VAR` patterns. Also read their declarations and Darwin runtime-path comments in `modules/home-manager/secrets.nix`. Extend script-generated entries to preserve the explicit paths those consumers require; do not reduce them to the bare `file` form.
