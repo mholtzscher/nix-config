@@ -14,6 +14,6 @@ Read each matching reference before work on that branch:
 - Adding or moving programs, packages, settings, modules, or managed files: `docs/common-tasks.md`.
 - Adding hosts: `docs/add-host.md`.
 - Tracing repository layout, host inventory, or module flow, or changing host builders/module arguments: `docs/layout.md`.
-- Adding Neovim plugins or implementing OS-specific or machine-specific behavior, including platform guards/module arguments: `CODING_STANDARDS.md`.
-- Creating, editing, wiring, or auditing secrets, including secret-backed MCP environment variables and containers: `SECRETS_WORKFLOW.md`.
-- After changes, or before Nix evaluation/builds, validation, or build-failure diagnosis/reporting: `NIX_WORKFLOW.md`. Its validation procedure takes precedence over commands in other docs.
+- Adding Neovim plugins or implementing OS-specific or machine-specific behavior, including platform guards/module arguments: `docs/CODING_STANDARDS.md`.
+- Creating, editing, wiring, or auditing secrets, including secret-backed MCP environment variables and containers: `docs/SECRETS_WORKFLOW.md`.
+- After changes, or before Nix evaluation/builds, validation, or build-failure diagnosis/reporting: `docs/NIX_WORKFLOW.md`. Its validation procedure takes precedence over commands in other docs.
