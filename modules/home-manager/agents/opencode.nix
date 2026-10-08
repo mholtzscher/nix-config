@@ -24,8 +24,13 @@ let
       {
         package = "@mholtzscher/opencode-classify";
         options = {
-          defaultBackend = "typesafe-jev-latest";
+          defaultBackend = "openai-gpt-6-luna";
           backends = {
+            openai-gpt-6-luna = {
+              provider = "openai-decisions";
+              model = "gpt-6-luna";
+              apiKeyFile = "${config.home.homeDirectory}/.local/share/agenix/hearth-openai-api-key";
+            };
             ollama-nimble = {
               provider = "ollama";
               baseURL = "http://127.0.0.1:11434";
