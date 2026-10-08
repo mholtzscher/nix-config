@@ -76,13 +76,13 @@ let
 in
 stdenv.mkDerivation rec {
   pname = "herdr-annotate";
-  version = "0.8.0";
+  version = "0.9.0";
 
   src = fetchFromGitHub {
     owner = "plannotator";
     repo = "herdr-annotate";
-    rev = "cbba4732229191347ff5128e3da71f64474a6a49";
-    hash = "sha256-CDh80DN7xWtEAPTNu80T+PGBjUAHt66HSWgNVx87tXU=";
+    rev = "e3ca7e88ada0c77baf5714c006a5abe36798349c";
+    hash = "sha256-bIfG+uOJ3nAtXQLcPQ3VT8/8vyc078vit8S9pWWtdwA=";
   };
 
   nativeBuildInputs = lib.optional stdenv.hostPlatform.isLinux autoPatchelfHook;
