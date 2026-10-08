@@ -8,6 +8,7 @@ with pkgs;
 [
   inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system}.plannotator
   inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system}.terminal-browser
+  (pkgs.callPackage ../../pkgs/terminal-control { })
   (pkgs.callPackage ../../pkgs/vimhjkl { })
   ast-grep
   bottom

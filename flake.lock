@@ -831,6 +831,7 @@
         "skills-nicobailon": "skills-nicobailon",
         "skills-plannotator": "skills-plannotator",
         "skills-pstack": "skills-pstack",
+        "skills-terminal-control": "skills-terminal-control",
         "skills-vercel": "skills-vercel",
         "zellmin": "zellmin"
       }
@@ -1124,6 +1125,22 @@
       "original": {
         "owner": "cursor",
         "repo": "plugins",
+        "type": "github"
+      }
+    },
+    "skills-terminal-control": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1788534215,
+        "narHash": "sha256-mFW6C99zyEyGzqichDN8gZgkDGJg1T9ORcGfx/QZMUM=",
+        "owner": "anomalyco",
+        "repo": "terminal-control",
+        "rev": "c1d4f95e4f1b7638f6229e9bfc9599a955f95ce2",
+        "type": "github"
+      },
+      "original": {
+        "owner": "anomalyco",
+        "repo": "terminal-control",
         "type": "github"
       }
     },

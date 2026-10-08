@@ -75,6 +75,12 @@ in
         idPrefix = "vercel";
       };
 
+      terminal-control = {
+        input = "skills-terminal-control";
+        subdir = "skills";
+        idPrefix = "anomalyco";
+      };
+
       plannotator = {
         input = "skills-plannotator";
         subdir = "skills";
@@ -129,6 +135,7 @@ in
       "mholtzscher/spec-planner"
       "mholtzscher/go-test-effectiveness"
       "vercel/agent-browser"
+      "anomalyco/terminal-control"
       "plannotator/html"
       "plannotator/html-wireframe"
       "plannotator/html-prototype"

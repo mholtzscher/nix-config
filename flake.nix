@@ -89,6 +89,10 @@
       url = "github:vercel-labs/agent-browser";
       flake = false;
     };
+    skills-terminal-control = {
+      url = "github:anomalyco/terminal-control";
+      flake = false;
+    };
     skills-nicobailon = {
       url = "github:nicobailon/visual-explainer";
       flake = false;
