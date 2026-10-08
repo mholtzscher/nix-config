@@ -4,6 +4,7 @@
   homebrew = {
     brews = [
       "circleci"
+      "ollama"
       # "opencode"
     ];
     casks = [
