@@ -356,12 +356,12 @@ require("gitsigns").setup()
 vim.pack.add({ "https://github.com/MagicDuck/grug-far.nvim" })
 require("grug-far").setup()
 
--- markdown-preview
+-- mdkite
 vim.pack.add({
-	"https://github.com/selimacerbas/live-server.nvim", -- HTTP server for markdown preview
-	"https://github.com/selimacerbas/markdown-preview.nvim", -- markdown preview in browser
+	"https://github.com/selimacerbas/kitehost.nvim", -- HTTP server for markdown preview
+	"https://github.com/selimacerbas/mdkite.nvim", -- markdown preview in browser
 })
-require("markdown_preview").setup({
+require("mdkite").setup({
 	port = 8421,
 	open_browser = true,
 	debounce_ms = 300,
@@ -412,8 +412,8 @@ require("which-key").setup({
 		-- Plugins
 		{ "<leader>l", function() vim.pack.update() end, desc = "Update plugins" },
 		-- Markdown Preview
-		{ "<leader>mp", "<CMD>MarkdownPreview<CR>", desc = "Markdown Preview" },
-		{ "<leader>ms", "<CMD>MarkdownPreviewStop<CR>", desc = "Stop Preview" },
+		{ "<leader>mp", "<CMD>MdKite start<CR>", desc = "Markdown Preview" },
+		{ "<leader>ms", "<CMD>MdKite stop<CR>", desc = "Stop Preview" },
 		-- CodeSnap
 		{ "<leader>cx", ":CodeSnap<CR>", desc = "Copy CodeSnap to clipboard", mode = "x" },
 		-- dadbod-grip.nvim
