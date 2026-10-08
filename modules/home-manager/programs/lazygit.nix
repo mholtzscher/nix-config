@@ -1,4 +1,20 @@
+{ pkgs, inputs, ... }:
 {
+  # Lazygit now expects authorColors inside gui.theme. Migrate the pinned
+  # Catppuccin source at build time, since runtime migration cannot write to /nix/store.
+  catppuccin.sources.lazygit =
+    ((import inputs.catppuccin { inherit pkgs; }).packages.lazygit).overrideAttrs
+      (old: {
+        nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ pkgs.yq-go ];
+        postInstall = (old.postInstall or "") + ''
+          while IFS= read -r -d "" theme; do
+            if yq -e '.gui | has("authorColors")' "$theme" >/dev/null; then
+              yq -i '.gui.theme.authorColors = .gui.authorColors | del(.gui.authorColors)' "$theme"
+            fi
+          done < <(find "$out" -name '*.yml' -print0)
+        '';
+      });
+
   programs = {
     lazygit = {
       enable = true;
