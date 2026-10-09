@@ -357,11 +357,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1791493663,
-        "narHash": "sha256-acMioLAR/yTEHBGARJrnsxjoxqni4xKC4mrd8fYI3TQ=",
+        "lastModified": 1791535095,
+        "narHash": "sha256-PpCQNz4yfF/kKStwYjSY35E7Y7eXhgH++oC+e5DjEHU=",
         "owner": "AlvaroParker",
         "repo": "helium-nix",
-        "rev": "223b112629d98d3f588b7463814d33b13687cab2",
+        "rev": "7072cafee8e069679b32905ae5f4c786dca6e052",
         "type": "github"
       },
       "original": {
@@ -436,11 +436,11 @@
         "treefmt-nix": "treefmt-nix_2"
       },
       "locked": {
-        "lastModified": 1791505753,
-        "narHash": "sha256-C9ghotdlHLOGciJdqPhvkiV5T/8+JpW9a8PNRO2NNAc=",
+        "lastModified": 1791522838,
+        "narHash": "sha256-Q6VbwYvayJgN/7x4jI7KnSkd5NGyUwfUw57Dho4jJAE=",
         "owner": "numtide",
         "repo": "llm-agents.nix",
-        "rev": "9b522fff9fdccf4df65445b04efd44adda2d1b77",
+        "rev": "4bb57cff45b5554a02dba0cf7a8c7f4f010a864d",
         "type": "github"
       },
       "original": {
@@ -476,11 +476,11 @@
         "nixpkgs": "nixpkgs_3"
       },
       "locked": {
-        "lastModified": 1791511317,
-        "narHash": "sha256-3l0llVatj8nRLaxEA1/4NbluonheOUs5A9TlVpkajdY=",
+        "lastModified": 1791534926,
+        "narHash": "sha256-JSOCp9gwfIaMGNW0/hhn0YswFMc6iz5hztu4VNikw6Q=",
         "owner": "jdx",
         "repo": "mise",
-        "rev": "0e9a7e6ba59aa18794862b7ecdf230ed16291b7f",
+        "rev": "6be3cbdc639a66c03651479428e4c5f60b00485f",
         "type": "github"
       },
       "original": {
@@ -786,11 +786,11 @@
     "skills-anthropic": {
       "flake": false,
       "locked": {
-        "lastModified": 1791208002,
-        "narHash": "sha256-APw+xMKqRvkLnuQxttiyyIeylrIMSxZovQnw3xEl1C4=",
+        "lastModified": 1791540411,
+        "narHash": "sha256-0cP92Q3ia3DUOkwHb134azFb0kKMBKDQOeRj/2/0fwg=",
         "owner": "anthropics",
         "repo": "skills",
-        "rev": "683bc88e56f3e09ba94f7055977f3d3aa499f202",
+        "rev": "9d630808e4add0a7146de4af9384155d5dee350a",
         "type": "github"
       },
       "original": {
@@ -818,11 +818,11 @@
     "skills-codex": {
       "flake": false,
       "locked": {
-        "lastModified": 1791511475,
-        "narHash": "sha256-mIfnhEFpd6TYb8z+TPaI45iOTqlie/ZIcmdZxYfAt50=",
+        "lastModified": 1791548647,
+        "narHash": "sha256-/k+5Uop36cj6oI5yOFns8Mofu2KgUSS6H0E0v98orWI=",
         "owner": "openai",
         "repo": "codex",
-        "rev": "03b761dca9b04f47e166494232d70b3fe7c6738a",
+        "rev": "5fe4fc8f7cd16688b5c661d8cdb76e2a340b046d",
         "type": "github"
       },
       "original": {
@@ -903,11 +903,11 @@
     "skills-mattpocock": {
       "flake": false,
       "locked": {
-        "lastModified": 1791449074,
-        "narHash": "sha256-1QwFBwG+gORvDvW4HM0LrZlHZKmKtWr7pUHU0MAXF2Y=",
+        "lastModified": 1791543409,
+        "narHash": "sha256-NljCSZNI3sZ+vbCw7pRdrwR7try4BxOFp4gdjuWYtzs=",
         "owner": "mattpocock",
         "repo": "skills",
-        "rev": "b0618bc436ad893b3c5e84e55fba86586d34a404",
+        "rev": "49dd158d1076134a641b33efb035946536778336",
         "type": "github"
       },
       "original": {
