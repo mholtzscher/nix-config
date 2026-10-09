@@ -148,10 +148,10 @@ let
       #   url = "https://mcp.railway.com";
       # };
 
-      sideshow = {
-        type = "remote";
-        url = "https://sideshow.sh/mcp";
-      };
+      # sideshow = {
+      #   type = "remote";
+      #   url = "https://sideshow.sh/mcp";
+      # };
 
       # honeycomb = {
       #   type = "remote";
