@@ -13,9 +13,5 @@
       # ollama
       _1password-cli
     ];
-
-    sessionVariables = {
-      ZELLIJ_SOCKET_DIR = "/tmp/zellij";
-    };
   };
 }

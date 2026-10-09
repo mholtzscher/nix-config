@@ -159,7 +159,6 @@ in
       # "cloudflare/wrangler"
       # "mholtzscher/upload-artifact"
       "mholtzscher/service-design"
-      # "mholtzscher/zellij-tasks"
     ];
 
     targets.pi = {

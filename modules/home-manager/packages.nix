@@ -24,7 +24,6 @@ with pkgs;
   grpcurl
   httpie
   inputs.melt.packages.${pkgs.stdenv.hostPlatform.system}.default
-  inputs.sem.packages.${pkgs.stdenv.hostPlatform.system}.default
   jc
   just
   kdlfmt

@@ -32,7 +32,6 @@
     ./uv.nix
     ./webapps.nix # NixOS-only (has platform guard inside)
     ./yazi.nix
-    ./zellij.nix
     ./zsh.nix
     ./zoxide.nix
   ];

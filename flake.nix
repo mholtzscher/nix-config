@@ -105,10 +105,6 @@
       url = "github:modem-dev/hunk";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    sem = {
-      url = "github:Ataraxy-Labs/sem";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     skills-herdr = {
       url = "github:ogulcancelik/herdr";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -116,10 +112,6 @@
     skills-humanlayer = {
       url = "github:humanlayer/skills";
       flake = false;
-    };
-    zellmin = {
-      url = "github:Brobicheau/zellmin";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
@@ -152,10 +144,8 @@
       skills-nicobailon,
       helium,
       hunk,
-      sem,
       skills-herdr,
       skills-humanlayer,
-      zellmin,
       ...
     }:
     let

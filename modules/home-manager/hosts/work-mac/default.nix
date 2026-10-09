@@ -21,9 +21,5 @@
       oras
       sops
     ];
-
-    sessionVariables = {
-      ZELLIJ_SOCKET_DIR = "/tmp/zellij";
-    };
   };
 }

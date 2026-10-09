@@ -416,7 +416,7 @@ nf <file>.nix                               # Format nix file
 - **Shells**: zsh, nushell
 - **Editors**: neovim (vim mode), vim
 - **Git**: git, gh, gh-dash, lazygit, delta
-- **Terminal**: ghostty, zellij, starship
+- **Terminal**: ghostty, starship
 - **Dev Tools**: bun, go, uv
 - **Cloud**: opencode (CLI for Claude)
 - **Utils**: atuin, bat, bottom, btop, eza, fd, fzf, jq, lazydocker, ripgrep, zoxide
