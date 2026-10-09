@@ -36,9 +36,9 @@ For packages maintained locally under `pkgs/<name>/`:
 
 1. Add the derivation in `pkgs/<name>/default.nix` and wire it into the shared or host-specific package list above.
 2. For versioned packages, add an executable `scripts/updates/update-<name>.sh` accepting `<version|latest> [--validate]`.
-   - GitHub release assets: use `scripts/updates/common.sh`; see `update-otel-desktop-viewer.sh`.
-   - GitHub source archives: use `scripts/updates/common-source.sh`; see `update-vimhjkl.sh`.
-   - Other artifact sources: follow `scripts/updates/update-terminal-control.sh` or `update-railway-cli.sh`.
+   - GitHub release assets: use `scripts/updates/common.sh`.
+   - GitHub source archives: use `scripts/updates/common-source.sh`.
+   - Other artifact sources: write a package-specific updater following the same version/hash workflow.
 3. Fetch all supported platform hashes before modifying the package. Test the updater against the currently packaged version, then validate using `docs/NIX_WORKFLOW.md`.
 
 Completion requires both the package and its executable updater. `scripts/update-all.sh` discovers `scripts/updates/update-*.sh` automatically; there is no registry to edit.

@@ -32,7 +32,6 @@ in
     ];
     extraPackages = lspPackages ++ [
       # Neovim-specific extras
-      (pkgs.callPackage ../../../pkgs/mermaid-rs-renderer { }) # mdkite's Rust Mermaid renderer
       pkgs.kotlin-language-server
       pkgs.rust-analyzer
       pkgs.rustfmt
