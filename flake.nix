@@ -178,8 +178,26 @@
         };
       };
 
-      # Standalone home-manager configurations for non-NixOS Linux hosts
+      # Standalone Home Manager: native Mise is the primary Mac user manager.
       homeConfigurations = rec {
+        personal-mac = lib.mkHome {
+          name = "personal-mac";
+          system = "aarch64-darwin";
+          hostPath = ./hosts/darwin/personal-mac/home.nix;
+          user = "michael";
+        };
+
+        work-mac = lib.mkHome {
+          name = "work-mac";
+          system = "aarch64-darwin";
+          hostPath = ./hosts/darwin/work-mac/home.nix;
+          user = "michaelholtzcher";
+          isWork = true;
+        };
+
+        "michael@Michaels-M1-Max" = personal-mac;
+        "michaelholtzcher@Michael-Holtzscher-Work" = work-mac;
+
         # Wanda - Ubuntu server with home-manager
         # Activation: `nh home switch` on Wanda or
         # `home-manager switch --flake .#wanda` elsewhere.

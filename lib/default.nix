@@ -109,8 +109,8 @@
       // (if isLinux then { inherit system; } else { })
     );
 
-  # Standalone home-manager configuration for non-NixOS Linux hosts (Ubuntu, Debian, etc.)
-  # This creates a home-manager configuration that can be activated without NixOS.
+  # Standalone home-manager configuration for macOS and non-NixOS Linux hosts.
+  # This can be activated without nix-darwin or NixOS.
   #
   # Usage:
   #   mkHome { name = "wanda"; system = "x86_64-linux"; hostPath = ./hosts/ubuntu/wanda.nix; user = "michael"; }
@@ -130,8 +130,8 @@
         inherit system;
         config.allowUnfree = true;
       };
-      isDarwin = false;
-      isLinux = true;
+      isDarwin = pkgs.stdenv.hostPlatform.isDarwin;
+      isLinux = pkgs.stdenv.hostPlatform.isLinux;
     in
     inputs.home-manager.lib.homeManagerConfiguration {
       inherit pkgs;

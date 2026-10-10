@@ -11,9 +11,21 @@ echo "Format OK."
 OS="$(uname -s)"
 
 if [[ "$OS" == "Darwin" ]]; then
-  echo "→ nh darwin build -q --no-nom"
-  nh darwin build -q --no-nom
-  echo "Build OK. Apply: nh darwin switch"
+  HOST="${1:-}"
+  if [[ -z "$HOST" ]]; then
+    case "$(id -un)" in
+      michael) HOST="personal-mac" ;;
+      michaelholtzcher) HOST="work-mac" ;;
+      *) echo "Usage: $0 personal-mac|work-mac" >&2; exit 1 ;;
+    esac
+  fi
+  case "$HOST" in
+    personal-mac|work-mac) ;;
+    *) echo "Unknown Mac host: $HOST" >&2; exit 1 ;;
+  esac
+  echo "→ Building standalone Home Manager: $HOST"
+  nix build --no-link ".#homeConfigurations.${HOST}.activationPackage"
+  echo "Build OK. Apply (user only): home-manager switch --flake .#$HOST"
   exit 0
 fi
 

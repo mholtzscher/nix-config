@@ -2,6 +2,8 @@
 
 A comprehensive, multi-platform Nix flake managing both macOS (Darwin) and NixOS systems with shared and host-specific configurations.
 
+**Mac transition:** Mise is the preferred manager, with standalone Home Manager for remaining Nix integrations. Follow [Retiring nix-darwin](docs/mac-retirement.md) for both Macs; the legacy Darwin instructions below remain recovery reference until the system handoff is verified.
+
 ## Prerequisites
 
 - **Nix**: Installed with flakes support enabled

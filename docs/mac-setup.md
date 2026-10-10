@@ -1,5 +1,7 @@
 # Mac configuration handoff
 
+For the current **Mise-first, no nix-darwin** goal, follow [Retiring nix-darwin](mac-retirement.md). That guide prepares both standalone Home Manager fallbacks and lists the mandatory Mac-side system gates. The original Darwin-to-Mise adoption steps below describe the earlier handoff, not the next activation command; do not resume Darwin switches after moving to standalone Home Manager.
+
 Mac user configuration is managed by native Mise declarations and history in the private `mholtzscher/workstation` repository. Nix still provides the remaining binaries and their generated integrations, except Mise itself: every machine uses the self-updatable official executable at `~/.local/bin/mise`. Linux retains its existing Nix shell, Git, SSH, and Herdr configuration, with Mise activation using the standalone executable.
 
 ## Ownership

@@ -18,10 +18,8 @@
     users.${user} =
       { ... }:
       {
-        imports = [
-          ../../../modules/home-manager/home.nix
-          ../../../modules/home-manager/hosts/personal-mac
-        ];
+        imports = [ ./home.nix ];
+        _module.args.user = user;
       };
   };
 

@@ -4,6 +4,8 @@ Reference for adding Darwin, NixOS, and standalone home-manager hosts.
 
 ## Darwin Host
 
+For existing Macs retiring nix-darwin, use `lib.mkHome` with `system = "aarch64-darwin"` and `hostPath = ./hosts/darwin/<host>/home.nix` instead. Declare `/Users/<username>` in that user entrypoint; keep host-specific modules and the established agenix host name. See [Mac retirement](mac-retirement.md) for the staged handoff. The Darwin builder below is retained for recovery, not the preferred Mac management model.
+
 1. Create `hosts/darwin/<hostname>/default.nix`
 2. Create `modules/home-manager/hosts/<hostname>/default.nix`
 3. Add host to `flake.nix`

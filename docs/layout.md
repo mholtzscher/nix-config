@@ -6,7 +6,8 @@ Reference for repo structure and module flow.
 
 - Darwin: `personal-mac`, `work-mac`
 - NixOS: `nixos-desktop`
-- Standalone home-manager: `wanda`
+- Standalone home-manager: `wanda`, `personal-mac`, `work-mac`
+- Darwin outputs remain temporarily as recovery support; see `docs/mac-retirement.md`.
 
 ## Top-Level Layout
 
@@ -33,6 +34,7 @@ hosts/
 ```
 
 - `hosts/darwin/<host>/default.nix`: darwin host entrypoint
+- `hosts/darwin/<host>/home.nix`: shared Mac user entrypoint for standalone and legacy embedded Home Manager
 - `hosts/nixos/<host>/default.nix`: NixOS host entrypoint
 - `hosts/nixos/<host>/hardware-configuration.nix`: generated hardware config
 - `hosts/ubuntu/<host>/default.nix`: standalone home-manager host entrypoint
