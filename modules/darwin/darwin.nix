@@ -2,12 +2,6 @@
 {
   nixpkgs.hostPlatform = "aarch64-darwin";
 
-  # Native Mise packages link commands into the standard Homebrew prefix.
-  environment.systemPath = [
-    "/opt/homebrew/bin"
-    "/opt/homebrew/sbin"
-  ];
-
   # Darwin-specific nix settings
   # Garbage collection schedule for macOS (runs weekly on Sundays at 2:00 AM)
   nix.gc.interval = {
@@ -28,9 +22,63 @@
     reattach = true;
   };
 
-  # User preferences are declared in Mise. Guest login is a system-wide
-  # policy, which Mise's user-defaults declarations cannot represent.
-  system.defaults.loginwindow.GuestEnabled = false;
+  system.defaults = {
+    NSGlobalDomain = {
+      AppleKeyboardUIMode = 3;
+      AppleShowAllExtensions = true;
+      InitialKeyRepeat = 15;
+      KeyRepeat = 2;
+    };
+
+    dock = {
+      autohide = true;
+      tilesize = 48;
+      orientation = "left";
+      minimize-to-application = true;
+      show-process-indicators = true;
+      show-recents = false;
+      expose-group-apps = true;
+      wvous-bl-corner = 1;
+      wvous-br-corner = 1;
+      wvous-tl-corner = 1;
+      wvous-tr-corner = 1;
+    };
+
+    finder = {
+      AppleShowAllExtensions = true;
+      ShowPathbar = true;
+      FXEnableExtensionChangeWarning = false;
+      FXPreferredViewStyle = "clmv";
+    };
+
+    trackpad = {
+      Clicking = true;
+    };
+
+    screencapture.location = "~/Downloads/ScreenShots";
+    loginwindow.GuestEnabled = false;
+
+    CustomUserPreferences = {
+      "com.jetbrains.intellij" = {
+        ApplePressAndHoldEnabled = false;
+      };
+      "com.jetbrains.intellij.ce" = {
+        ApplePressAndHoldEnabled = false;
+      };
+      "pl.maketheweb.cleanshotx" = {
+        afterScreenshotActions = [
+          0
+          1
+          2
+        ];
+        afterVideoActions = [
+          0
+          2
+        ];
+      };
+    };
+
+  };
 
   system.activationScripts.applications.text =
     let

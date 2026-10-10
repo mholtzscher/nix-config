@@ -17,8 +17,7 @@ Quick routing guide for common edits.
 
 ## Modify System Settings
 
-- macOS user preferences and Dock layouts: live Mise configuration under `~/.config/mise/`
-- macOS privileged settings and Nix/package integration: `modules/darwin/darwin.nix`
+- macOS defaults: `modules/darwin/darwin.nix`
 - Shared Nix settings: `modules/shared/nix-settings.nix`
 - Core NixOS services/packages: `modules/nixos/nixos.nix`
 - NixOS host-specific desktop/services: `modules/nixos/hosts/<hostname>/`
@@ -28,7 +27,8 @@ Quick routing guide for common edits.
 
 - Shared Nix packages: `modules/home-manager/packages.nix`
 - Host-specific user packages: `modules/home-manager/hosts/<hostname>/default.nix`
-- Mac formulae and casks: live Mise configuration under `~/.config/mise/`, not Nix modules
+- Shared Homebrew packages: `modules/darwin/homebrew/default.nix`
+- Host-specific Homebrew packages: `modules/darwin/homebrew/hosts/<hostname>.nix`
 
 ## Add Custom Packages
 
@@ -36,9 +36,9 @@ For packages maintained locally under `pkgs/<name>/`:
 
 1. Add the derivation in `pkgs/<name>/default.nix` and wire it into the shared or host-specific package list above.
 2. For versioned packages, add an executable `scripts/updates/update-<name>.sh` accepting `<version|latest> [--validate]`.
-   - GitHub release assets: use `scripts/updates/common.sh`.
-   - GitHub source archives: use `scripts/updates/common-source.sh`.
-   - Other artifact sources: write a package-specific updater following the same version/hash workflow.
+   - GitHub release assets: use `scripts/updates/common.sh`; see `update-otel-desktop-viewer.sh`.
+   - GitHub source archives: use `scripts/updates/common-source.sh`; see `update-vimhjkl.sh`.
+   - Other artifact sources: follow `scripts/updates/update-terminal-control.sh` or `update-railway-cli.sh`.
 3. Fetch all supported platform hashes before modifying the package. Test the updater against the currently packaged version, then validate using `docs/NIX_WORKFLOW.md`.
 
 Completion requires both the package and its executable updater. `scripts/update-all.sh` discovers `scripts/updates/update-*.sh` automatically; there is no registry to edit.
@@ -53,17 +53,15 @@ Skill input URLs follow upstream's default branch unless the user explicitly req
 
 ## Add Homebrew Package
 
-1. Edit the live shared or personal/work Mise configuration under `~/.config/mise/`.
-2. Add a native `[bootstrap.packages]` entry, restricted to macOS. Use fully-qualified names for third-party taps.
-3. Preview with `mise bootstrap packages apply --dry-run` on the target Mac; run `mise bootstrap` to install missing packages.
-4. Upgrade installed packages with `mise bootstrap packages upgrade`. Existing Homebrew-owned casks still need Homebrew for upgrades until separately adopted. Do not prune or zap user data during migration.
+1. Edit shared or host-specific Homebrew module
+2. Add package to `taps`, `brews`, `casks`, or `masApps`
+3. Validate with `nix flake check`
 
 ## Add Managed Files
 
 - Shared dotfiles/assets: `modules/home-manager/files/`
 - Wire file into home-manager from `modules/home-manager/home.nix` or a program module
 - Use platform guards when the target path is OS-specific
-- Mac user dotfiles: native Mise declarations and tracked sources under `~/.config/mise/dotfiles/macos/`; see `docs/mac-setup.md`
 
 ## Validation Rule
 

@@ -1,0 +1,8 @@
+{ ... }:
+{
+  programs = {
+    go = {
+      enable = true;
+    };
+  };
+}

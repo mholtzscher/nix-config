@@ -9,7 +9,6 @@
     nfc = "nix flake check";
 
     c = "clear";
-    eza = "eza --git --header";
     ll = "ls -al";
     ltd = "eza --tree --only-dirs --level 3";
     lg = "lazygit";

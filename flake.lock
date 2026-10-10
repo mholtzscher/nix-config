@@ -62,6 +62,23 @@
         "type": "github"
       }
     },
+    "brew-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1789661079,
+        "narHash": "sha256-geVTQ51PGZ1mLULM5k7wO7qt/6xenOR/YG8X7Q3eCaI=",
+        "owner": "Homebrew",
+        "repo": "brew",
+        "rev": "edb70f031e4170c780799633a1226ff73e1077f4",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Homebrew",
+        "ref": "7.0.4",
+        "repo": "brew",
+        "type": "github"
+      }
+    },
     "bun2nix": {
       "inputs": {
         "flake-parts": "flake-parts",
@@ -272,6 +289,40 @@
         "type": "github"
       }
     },
+    "flake-utils_4": {
+      "inputs": {
+        "systems": "systems_6"
+      },
+      "locked": {
+        "lastModified": 1731533236,
+        "narHash": "sha256-l0KFg5HjrsfsO/JpG+r7fRrqm12kzFHyUHqHCVpMMbI=",
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "rev": "11707dc2f618dd54ca8739b309ec4fc024de578b",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "type": "github"
+      }
+    },
+    "ghostty-shader-playground": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1767540959,
+        "narHash": "sha256-Z3jF76MnyEGQuzfeZNTyOhpGAiGfhm6rnkdeBIpsJck=",
+        "owner": "KroneCorylus",
+        "repo": "ghostty-shader-playground",
+        "rev": "7295ebf717f236f114912ec5de0d8ce91661448f",
+        "type": "github"
+      },
+      "original": {
+        "owner": "KroneCorylus",
+        "repo": "ghostty-shader-playground",
+        "type": "github"
+      }
+    },
     "gomod2nix": {
       "inputs": {
         "flake-utils": [
@@ -419,6 +470,25 @@
         "type": "github"
       }
     },
+    "mise": {
+      "inputs": {
+        "flake-utils": "flake-utils_4",
+        "nixpkgs": "nixpkgs_3"
+      },
+      "locked": {
+        "lastModified": 1791534926,
+        "narHash": "sha256-JSOCp9gwfIaMGNW0/hhn0YswFMc6iz5hztu4VNikw6Q=",
+        "owner": "jdx",
+        "repo": "mise",
+        "rev": "6be3cbdc639a66c03651479428e4c5f60b00485f",
+        "type": "github"
+      },
+      "original": {
+        "owner": "jdx",
+        "repo": "mise",
+        "type": "github"
+      }
+    },
     "neovim-nightly": {
       "inputs": {
         "flake-parts": "flake-parts_3",
@@ -477,6 +547,24 @@
         "type": "github"
       }
     },
+    "nix-homebrew": {
+      "inputs": {
+        "brew-src": "brew-src"
+      },
+      "locked": {
+        "lastModified": 1789928041,
+        "narHash": "sha256-iV37ieTcE4ZLOYEe0VznW6dWMBe4lEL8AbK1vblyZGM=",
+        "owner": "zhaofengli-wip",
+        "repo": "nix-homebrew",
+        "rev": "c11cccfdd36dd69b5323d70d354b2853379c2426",
+        "type": "github"
+      },
+      "original": {
+        "owner": "zhaofengli-wip",
+        "repo": "nix-homebrew",
+        "type": "github"
+      }
+    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1790652569,
@@ -528,6 +616,22 @@
         "owner": "NixOS",
         "repo": "nixpkgs",
         "rev": "f45c6f04c2f013f004bf94e284e95d72898d9393",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixpkgs-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs_3": {
+      "locked": {
+        "lastModified": 1788746152,
+        "narHash": "sha256-RaKngusl5I8pNi8RfrVvsHq3NZe7eFWzDlb01+hEVqY=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "42f17a57f4f6e33b3de3dca0a2a5ea5233169d02",
         "type": "github"
       },
       "original": {
@@ -611,13 +715,16 @@
         "agenix": "agenix",
         "agent-skills": "agent-skills",
         "catppuccin": "catppuccin",
+        "ghostty-shader-playground": "ghostty-shader-playground",
         "helium": "helium",
         "home-manager": "home-manager",
         "hunk": "hunk",
         "llm-agents": "llm-agents",
         "melt": "melt",
+        "mise": "mise",
         "neovim-nightly": "neovim-nightly",
         "nix-darwin": "nix-darwin",
+        "nix-homebrew": "nix-homebrew",
         "nixpkgs": "nixpkgs_4",
         "nixpkgs-master": "nixpkgs-master",
         "noctalia": "noctalia",
@@ -966,6 +1073,21 @@
       }
     },
     "systems_5": {
+      "locked": {
+        "lastModified": 1681028828,
+        "narHash": "sha256-Vy1rq5AaRuLzOxct8nz4T6wlgyUR7zLU309k9mBC768=",
+        "owner": "nix-systems",
+        "repo": "default",
+        "rev": "da67096a3b9bf56a91d16901293e51ba5b49a27e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-systems",
+        "repo": "default",
+        "type": "github"
+      }
+    },
+    "systems_6": {
       "locked": {
         "lastModified": 1681028828,
         "narHash": "sha256-Vy1rq5AaRuLzOxct8nz4T6wlgyUR7zLU309k9mBC768=",

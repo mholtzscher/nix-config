@@ -3,8 +3,12 @@
   lib,
   inputs,
   isWork,
+  pkgs,
   ...
 }:
+let
+  herdr-annotate = pkgs.callPackage ../../../pkgs/herdr-annotate { };
+in
 {
   imports = [ inputs.agent-skills.homeManagerModules.default ];
 
@@ -99,6 +103,10 @@
         input = "skills-humanlayer";
         subdir = "plugins/show-me/skills";
         idPrefix = "humanlayer";
+      };
+
+      herdr-annotate = {
+        path = "${herdr-annotate}/skills";
       };
 
       dmmulroy = {

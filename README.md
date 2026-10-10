@@ -2,8 +2,6 @@
 
 A comprehensive, multi-platform Nix flake managing both macOS (Darwin) and NixOS systems with shared and host-specific configurations.
 
-**Mac transition:** Mise is the preferred manager, with standalone Home Manager for remaining Nix integrations. Follow [Retiring nix-darwin](docs/mac-retirement.md) for both Macs; the legacy Darwin instructions below remain recovery reference until the system handoff is verified.
-
 ## Prerequisites
 
 - **Nix**: Installed with flakes support enabled
@@ -54,6 +52,11 @@ A comprehensive, multi-platform Nix flake managing both macOS (Darwin) and NixOS
 │   ├── darwin/                  # macOS system defaults
 │   │   ├── default.nix          # Entry point
 │   │   └── darwin.nix           # System defaults (dock, finder, etc.)
+│   ├── homebrew/                # Homebrew package management (macOS only)
+│   │   ├── default.nix          # Common packages across all macOS hosts
+│   │   └── hosts/               # Host-specific Homebrew packages
+│   │       ├── personal-mac.nix
+│   │       └── work-mac.nix
 │   ├── nixos/                   # NixOS-only modules
 │   │   ├── default.nix
 │   │   ├── fonts.nix            # Fonts (cross-NixOS)
@@ -172,6 +175,10 @@ This config uses a unified `lib.mkSystem` helper that handles both Darwin and Ni
 ```nix
 { pkgs, inputs, user, ... }:
 {
+  imports = [
+    ../../modules/homebrew/hosts/hostname.nix  # Create this for host-specific packages
+  ];
+
   users.users.${user} = {
     name = user;
     home = "/Users/${user}";
@@ -190,6 +197,13 @@ This config uses a unified `lib.mkSystem` helper that handles both Darwin and Ni
     };
   };
 
+  nix-homebrew = {
+    enable = true;
+    enableRosetta = true;  # For Apple Silicon
+    inherit user;
+    autoMigrate = true;
+  };
+
   system = {
     primaryUser = user;
     defaults = {
@@ -203,7 +217,7 @@ This config uses a unified `lib.mkSystem` helper that handles both Darwin and Ni
 }
 ```
 
-2. Select the personal/work Mise environment before bootstrapping Mac packages
+2. Create `modules/homebrew/hosts/hostname.nix` for host-specific Homebrew packages
 3. Create `modules/home-manager/hosts/hostname.nix` for host-specific programs/settings
 4. Add to `flake.nix`:
 
@@ -395,20 +409,24 @@ nf <file>.nix                               # Format nix file
 
 ## Included Configurations
 
-### Cross-Platform Programs and Utilities
+### Cross-Platform Programs (30 Modules + Utilities)
 
 **Program Modules (home-manager):**
 
 - **Shells**: zsh, nushell
 - **Editors**: neovim (vim mode), vim
-- **Git**: git
-- **Terminal**: ghostty
+- **Git**: git, gh, gh-dash, lazygit, delta
+- **Terminal**: ghostty, starship
+- **Dev Tools**: bun, go, uv
+- **Cloud**: opencode (CLI for Claude)
+- **Utils**: atuin, bat, bottom, btop, eza, fd, fzf, jq, lazydocker, ripgrep, zoxide
 - **Web**: webapps
-- **System**: ssh
+- **System**: ssh, carapace (shell completions)
 
 **Additional Packages:**
 
-- **Tools**: kdlfmt, nil, nixfmt, sops, statix
+- **Languages**: node (nodejs_24), lua
+- **Tools**: ast-grep, dive, dust, grpcurl, httpie, jc, just, kdlfmt, nil, nixfmt, sops, statix, tree-sitter, websocat, wget, yq
 
 **macOS Only:**
 
@@ -431,12 +449,14 @@ nf <file>.nix                               # Format nix file
 
 ### System Configs
 
-- **macOS**: Dock, Finder, Trackpad settings
+- **macOS**: Dock, Finder, Trackpad settings, Homebrew package management
 - **NixOS**: Greetd login, PipeWire audio, NetworkManager, SSH hardening, fail2ban
 
 ### Package Management
 
-- **Mise**: Native bootstrap owns Mac package declarations outside this repository, with shared and personal/work configuration.
+- **Homebrew** (macOS): Declarative package, cask, and app store integration via nix-homebrew
+  - Common packages: taps, brews, casks, masApps across all macOS hosts
+  - Host-specific: Personal and Work Mac custom packages
 
 ## License
 
@@ -453,11 +473,16 @@ This is a personal configuration, but feel free to use it as inspiration for you
 - **nixpkgs**: NixOS/nixpkgs (unstable channel)
 - **nix-darwin**: macOS system management
 - **home-manager**: User environment management
+- **nix-homebrew**: Declarative Homebrew on macOS
 
 ### Enhancements
 
 - **vicinae**: Modern Wayland app launcher
 - **catppuccin**: Catppuccin color scheme integration
+
+### Resources (non-flake)
+
+- **ghostty-shader-playground**: Ghostty terminal shaders
 
 ---
 

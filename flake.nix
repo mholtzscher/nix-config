@@ -4,10 +4,12 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkgs-master.url = "github:NixOS/nixpkgs/master";
+    mise.url = "github:jdx/mise";
     nix-darwin = {
       url = "github:LnL7/nix-darwin";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nix-homebrew.url = "github:zhaofengli-wip/nix-homebrew";
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -15,6 +17,10 @@
     agenix = {
       url = "github:ryantm/agenix";
       inputs.nixpkgs.follows = "nixpkgs";
+    };
+    ghostty-shader-playground = {
+      url = "github:KroneCorylus/ghostty-shader-playground";
+      flake = false;
     };
     catppuccin.url = "github:catppuccin/nix";
     aerospace-utils = {
@@ -114,8 +120,10 @@
       self,
       nix-darwin,
       nixpkgs,
+      nix-homebrew,
       home-manager,
       agenix,
+      ghostty-shader-playground,
       catppuccin,
       aerospace-utils,
       melt,
@@ -178,26 +186,8 @@
         };
       };
 
-      # Standalone Home Manager: native Mise is the primary Mac user manager.
+      # Standalone home-manager configurations for non-NixOS Linux hosts
       homeConfigurations = rec {
-        personal-mac = lib.mkHome {
-          name = "personal-mac";
-          system = "aarch64-darwin";
-          hostPath = ./hosts/darwin/personal-mac/home.nix;
-          user = "michael";
-        };
-
-        work-mac = lib.mkHome {
-          name = "work-mac";
-          system = "aarch64-darwin";
-          hostPath = ./hosts/darwin/work-mac/home.nix;
-          user = "michaelholtzcher";
-          isWork = true;
-        };
-
-        "michael@Michaels-M1-Max" = personal-mac;
-        "michaelholtzcher@Michael-Holtzscher-Work" = work-mac;
-
         # Wanda - Ubuntu server with home-manager
         # Activation: `nh home switch` on Wanda or
         # `home-manager switch --flake .#wanda` elsewhere.

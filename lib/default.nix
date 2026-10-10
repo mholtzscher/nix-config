@@ -76,6 +76,8 @@
       # Darwin-specific modules
       darwinModules = [
         ../modules/darwin
+        ../modules/darwin/homebrew
+        inputs.nix-homebrew.darwinModules.nix-homebrew
         {
           # Used for backwards compatibility, please read the changelog before changing.
           # $ darwin-rebuild changelog
@@ -109,8 +111,8 @@
       // (if isLinux then { inherit system; } else { })
     );
 
-  # Standalone home-manager configuration for macOS and non-NixOS Linux hosts.
-  # This can be activated without nix-darwin or NixOS.
+  # Standalone home-manager configuration for non-NixOS Linux hosts (Ubuntu, Debian, etc.)
+  # This creates a home-manager configuration that can be activated without NixOS.
   #
   # Usage:
   #   mkHome { name = "wanda"; system = "x86_64-linux"; hostPath = ./hosts/ubuntu/wanda.nix; user = "michael"; }
@@ -130,8 +132,8 @@
         inherit system;
         config.allowUnfree = true;
       };
-      isDarwin = pkgs.stdenv.hostPlatform.isDarwin;
-      isLinux = pkgs.stdenv.hostPlatform.isLinux;
+      isDarwin = false;
+      isLinux = true;
     in
     inputs.home-manager.lib.homeManagerConfiguration {
       inherit pkgs;

@@ -8,8 +8,6 @@ let
   onePasswordAgent = "\"~/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock\"";
 in
 {
-  home.file.".ssh/config".enable = lib.mkIf isDarwin false;
-
   programs = {
     ssh = {
       enable = true;

@@ -6,8 +6,7 @@ Reference for repo structure and module flow.
 
 - Darwin: `personal-mac`, `work-mac`
 - NixOS: `nixos-desktop`
-- Standalone home-manager: `wanda`, `personal-mac`, `work-mac`
-- Darwin outputs remain temporarily as recovery support; see `docs/mac-retirement.md`.
+- Standalone home-manager: `wanda`
 
 ## Top-Level Layout
 
@@ -34,7 +33,6 @@ hosts/
 ```
 
 - `hosts/darwin/<host>/default.nix`: darwin host entrypoint
-- `hosts/darwin/<host>/home.nix`: shared Mac user entrypoint for standalone and legacy embedded Home Manager
 - `hosts/nixos/<host>/default.nix`: NixOS host entrypoint
 - `hosts/nixos/<host>/hardware-configuration.nix`: generated hardware config
 - `hosts/ubuntu/<host>/default.nix`: standalone home-manager host entrypoint
@@ -45,6 +43,7 @@ hosts/
 modules/
   darwin/
     darwin.nix
+    homebrew/
   nixos/
     nixos.nix
     hosts/nixos-desktop/
@@ -59,7 +58,7 @@ modules/
 ```
 
 - `modules/darwin/darwin.nix`: macOS defaults
-- Mac package declarations live in Mise configuration under `~/.config/mise/`, outside this repository.
+- `modules/darwin/homebrew/`: Homebrew config, shared and host-specific
 - `modules/nixos/nixos.nix`: core NixOS services and system config
 - `modules/nixos/hosts/<host>/`: host-specific NixOS modules
 - `modules/home-manager/home.nix`: shared home-manager entrypoint
@@ -76,7 +75,7 @@ modules/
 
 ## Module Flow
 
-- Darwin: host -> `modules/shared` -> home-manager -> `modules/darwin`
+- Darwin: host -> `modules/shared` -> home-manager -> `modules/darwin` -> `modules/darwin/homebrew` -> `nix-homebrew`
 - NixOS: host -> `modules/shared` -> home-manager -> `modules/nixos` -> optional graphical modules
 - Standalone Linux: host -> `mkHome` -> home-manager modules only
 

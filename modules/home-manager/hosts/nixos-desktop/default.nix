@@ -133,6 +133,17 @@ in
     PLANNOTATOR_PORT = "19432-19463";
   };
 
+  # Use nix-ld with mise-managed precompiled binaries on NixOS while keeping
+  # the main mise config writable by commands such as `mise use --global`.
+  programs.mise = {
+    enableMutableConfig = true;
+    globalConfig.settings.all_compile = false;
+    # Upstream's Nix check phase runs macOS fixture tests on Linux and fails.
+    package = inputs.mise.packages.${pkgs.stdenv.hostPlatform.system}.mise.overrideAttrs (_: {
+      doCheck = false;
+    });
+  };
+
   # Niri configuration is validated by Home Manager at build time.
   wayland.windowManager.niri = {
     enable = true;
@@ -256,9 +267,12 @@ in
   # Desktop-specific programs and packages
   home.packages = with pkgs; [
     inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system}.opencode2-desktop
+    awscli2 # AWS command-line interface
     gnused
     localsend # Local network file sharing
     vesktop # Discord client with better Wayland support
+
+    python313Packages.huggingface-hub # Hugging Face CLI (provides huggingface-cli) for downloading models
 
     # Linux desktop-specific GUI tools
     nautilus # File manager
