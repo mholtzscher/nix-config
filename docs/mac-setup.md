@@ -1,6 +1,6 @@
 # Mac configuration handoff
 
-Mac user configuration is managed by native Mise declarations and history in the private `mholtzscher/workstation` repository. Nix still provides the remaining binaries and their generated integrations. Linux retains its existing Nix shell, Git, SSH, and Herdr configuration.
+Mac user configuration is managed by native Mise declarations and history in the private `mholtzscher/workstation` repository. Nix still provides the remaining binaries and their generated integrations, except Mise itself: every machine uses the self-updatable official executable at `~/.local/bin/mise`. Linux retains its existing Nix shell, Git, SSH, and Herdr configuration, with Mise activation using the standalone executable.
 
 ## Ownership
 
@@ -12,7 +12,7 @@ Mac user configuration is managed by native Mise declarations and history in the
 
 ## Prerequisites
 
-The pending Nix migration changes must be reviewed and published before either Mac can fetch them. The agent has **not** committed, pushed, or applied the Nix changes. The Mise history is published separately.
+The pending standalone-Mise Nix changes must be reviewed and published before either Mac can fetch them. The agent has **not** committed, pushed, or applied these Nix changes. The Mise history is published separately. Follow [Standalone Mise](mise-setup.md) to install the official executable before switching away from the Nix package.
 
 Back up the existing Mac configuration locally before the handoff, particularly any files edited since their last Nix activation. Keep that backup outside tracked Mise sources. Preserve existing Homebrew installations and apps; do not prune or zap them.
 
@@ -26,10 +26,10 @@ Keep your current terminal open until the entire bootstrap succeeds. Do not rest
    git -C ~/.config/nix-config pull --ff-only
    nh darwin build
    nh darwin switch
-   mise --version
+   ~/.local/bin/mise --version
    ```
 
-   The Mac Nix declarations now select the already-pinned upstream Mise package, version `2026.10.6`, rather than nixpkgs' `2026.10.3`. Confirm `2026.10.6` or newer before adoption. No flake update is required for this handoff.
+   Nix no longer installs Mise. Confirm the standalone executable is `2026.10.6` or newer before adoption. No flake update is required for this handoff.
 
 2. In zsh, choose the profile **before first adoption**. Create or edit the untracked `~/.config/mise/miserc.local.toml`; preserve any other local settings. Personal Mac:
 
@@ -46,7 +46,7 @@ Keep your current terminal open until the entire bootstrap succeeds. Do not rest
 3. Confirm GitHub SSH authentication and preview adoption:
 
    ```sh
-   mise bootstrap --adopt git@github.com:mholtzscher/workstation.git --dry-run
+   ~/.local/bin/mise bootstrap --adopt git@github.com:mholtzscher/workstation.git --dry-run
    ```
 
    Review configuration differences. Symlink deployment refuses existing regular files, including the old writable AeroSpace config. Inspect those files, preserve wanted changes in the appropriate shared or profile source, and move only the conflicting old files to the local backup before retrying. Do **not** use a blanket `--force`.
@@ -54,11 +54,11 @@ Keep your current terminal open until the entire bootstrap succeeds. Do not rest
 4. Apply the reviewed setup:
 
    ```sh
-   mise bootstrap --adopt git@github.com:mholtzscher/workstation.git
-   mise bootstrap services apply
-   mise doctor
-   mise dot status
-   mise bootstrap macos defaults status
+   ~/.local/bin/mise bootstrap --adopt git@github.com:mholtzscher/workstation.git
+   ~/.local/bin/mise bootstrap services apply
+   ~/.local/bin/mise doctor
+   ~/.local/bin/mise dot status
+   ~/.local/bin/mise bootstrap macos defaults status
    ```
 
    The Dock declaration requires every listed application to exist. This includes existing manually installed work apps and Nix's `~/Applications/Home Manager Apps/` aliases. Resolve a missing app, or deliberately adjust that profile's Dock list, rather than silently discarding pins. Existing Homebrew-owned casks remain installed and are not forcibly replaced; ownership transfer and upgrades are a separate Mac-side decision.
@@ -79,4 +79,4 @@ History services automatically save, push, fetch, and apply tracked configuratio
 
 The Linux NixOS build, byte-for-byte Linux config preservation, Mac preference/Dock parity, personal/work isolated restoration and file deployment, shell parsing/startup fixtures, and Apple-Silicon tool-resolution previews were checked on Linux. Fixtures verify that real-file conflicts and unrelated Raycast scripts are preserved, permissions survive restoration, and edits through native links can be saved.
 
-Full Darwin builds and actual macOS preference, GUI, Keychain, and cask execution still require a Mac. Linux-side evaluation of the final personal Darwin system still reaches the existing `herdr-annotate` platform mismatch (`aarch64-darwin` required, `x86_64-linux` available); that is not proof of a Mac build failure. Build on the target Mac before switching. Targeted evaluations confirm Mise `2026.10.6`, no Nix-owned Mise config file, and retained Touch ID, guest-login policy, agenix, and Nushell plugin registry on both Macs.
+Full Darwin builds and actual macOS preference, GUI, Keychain, and app execution still require a Mac. Linux-side evaluation of the final personal Darwin system still reaches the existing `herdr-annotate` platform mismatch (`aarch64-darwin` required, `x86_64-linux` available); that is not proof of a Mac build failure. Build on the target Mac before switching. The standalone handoff must also confirm no Nix-owned Mise package or Mac Mise config file, with retained Touch ID, guest-login policy, agenix, and Nushell plugin registry on both Macs.

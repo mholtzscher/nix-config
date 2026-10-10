@@ -133,17 +133,6 @@ in
     PLANNOTATOR_PORT = "19432-19463";
   };
 
-  # Use nix-ld with mise-managed precompiled binaries on NixOS while keeping
-  # the main mise config writable by commands such as `mise use --global`.
-  programs.mise = {
-    enableMutableConfig = true;
-    globalConfig.settings.all_compile = false;
-    # Upstream's Nix check phase runs macOS fixture tests on Linux and fails.
-    package = inputs.mise.packages.${pkgs.stdenv.hostPlatform.system}.mise.overrideAttrs (_: {
-      doCheck = false;
-    });
-  };
-
   # Niri configuration is validated by Home Manager at build time.
   wayland.windowManager.niri = {
     enable = true;
