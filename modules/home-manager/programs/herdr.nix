@@ -8,22 +8,17 @@
 let
   herdr = inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system}.herdr;
   herdr-annotate = pkgs.callPackage ../../../pkgs/herdr-annotate { };
-  herdr-focus-or-tab = pkgs.callPackage ../../../pkgs/herdr-focus-or-tab { };
-  herdr-navigator = pkgs.callPackage ../../../pkgs/herdr-navigator { };
-  herdr-worktree-picker = pkgs.callPackage ../../../pkgs/herdr-worktree-picker { };
 in
 {
   xdg.configFile."herdr/config.toml".enable = lib.mkIf isDarwin false;
 
   home.packages = [ herdr-annotate ];
 
-  home.activation.herdrPlugins = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+  # Mise's herdr-plugins package manager owns plugin installation and updates.
+  # Retain the standalone annotation binaries and built-in agent integrations.
+  home.activation.herdrIntegrations = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
     run ${herdr}/bin/herdr integration install opencode
     run ${herdr}/bin/herdr integration install pi
-    run ${herdr}/bin/herdr plugin link ${herdr-annotate} --enabled
-    run ${herdr}/bin/herdr plugin link ${herdr-focus-or-tab} --enabled
-    run ${herdr}/bin/herdr plugin link ${herdr-navigator} --enabled
-    run ${herdr}/bin/herdr plugin link ${herdr-worktree-picker} --enabled
   '';
 
   programs.herdr = {

@@ -31,7 +31,7 @@ Work Mac:
 ./scripts/agent-validate.sh work-mac
 ```
 
-Full Darwin builds cannot be validated on this Linux workstation: the existing `herdr-annotate` import-from-derivation needs an Apple-Silicon Darwin builder. Metadata evaluation is not a successful Mac build.
+Both standalone activation derivations now evaluate on Linux: moving plugin ownership to [Mise's Herdr manager](herdr-plugins.md) also removed the unused annotation-skill source that previously forced a foreign build during evaluation. Full Darwin builds and actual activation still need an Apple-Silicon Mac; successful evaluation is not a successful Mac build.
 
 ## 2. Activate only the fallback user configuration
 
