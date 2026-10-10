@@ -102,4 +102,4 @@ home-manager switch --flake .#hostname
 - Cross-platform user config: `modules/home-manager/programs/`
 - Host-specific user config: `modules/home-manager/hosts/<hostname>/`
 - Host-specific NixOS system config: `modules/nixos/hosts/<hostname>/`
-- macOS package-manager config: `modules/darwin/homebrew/`
+- macOS package-manager config: live Mise configuration under `~/.config/mise/`; select the personal/work environment before bootstrapping

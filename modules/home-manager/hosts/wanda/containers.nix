@@ -186,6 +186,5 @@ in
   # For now, just install docker tooling
   home.packages = with pkgs; [
     docker-compose
-    lazydocker
   ];
 }

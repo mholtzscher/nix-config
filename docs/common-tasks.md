@@ -17,7 +17,8 @@ Quick routing guide for common edits.
 
 ## Modify System Settings
 
-- macOS defaults: `modules/darwin/darwin.nix`
+- macOS user preferences and Dock layouts: live Mise configuration under `~/.config/mise/`
+- macOS privileged settings and Nix/package integration: `modules/darwin/darwin.nix`
 - Shared Nix settings: `modules/shared/nix-settings.nix`
 - Core NixOS services/packages: `modules/nixos/nixos.nix`
 - NixOS host-specific desktop/services: `modules/nixos/hosts/<hostname>/`
@@ -27,8 +28,7 @@ Quick routing guide for common edits.
 
 - Shared Nix packages: `modules/home-manager/packages.nix`
 - Host-specific user packages: `modules/home-manager/hosts/<hostname>/default.nix`
-- Shared Homebrew packages: `modules/darwin/homebrew/default.nix`
-- Host-specific Homebrew packages: `modules/darwin/homebrew/hosts/<hostname>.nix`
+- Mac formulae and casks: live Mise configuration under `~/.config/mise/`, not Nix modules
 
 ## Add Custom Packages
 
@@ -53,15 +53,17 @@ Skill input URLs follow upstream's default branch unless the user explicitly req
 
 ## Add Homebrew Package
 
-1. Edit shared or host-specific Homebrew module
-2. Add package to `taps`, `brews`, `casks`, or `masApps`
-3. Validate with `nix flake check`
+1. Edit the live shared or personal/work Mise configuration under `~/.config/mise/`.
+2. Add a native `[bootstrap.packages]` entry, restricted to macOS. Use fully-qualified names for third-party taps.
+3. Preview with `mise bootstrap packages apply --dry-run` on the target Mac; run `mise bootstrap` to install missing packages.
+4. Upgrade installed packages with `mise bootstrap packages upgrade`. Existing Homebrew-owned casks still need Homebrew for upgrades until separately adopted. Do not prune or zap user data during migration.
 
 ## Add Managed Files
 
 - Shared dotfiles/assets: `modules/home-manager/files/`
 - Wire file into home-manager from `modules/home-manager/home.nix` or a program module
 - Use platform guards when the target path is OS-specific
+- Mac user dotfiles: native Mise declarations and tracked sources under `~/.config/mise/dotfiles/macos/`; see `docs/mac-setup.md`
 
 ## Validation Rule
 

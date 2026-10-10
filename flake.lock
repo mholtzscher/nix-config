@@ -62,23 +62,6 @@
         "type": "github"
       }
     },
-    "brew-src": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1789661079,
-        "narHash": "sha256-geVTQ51PGZ1mLULM5k7wO7qt/6xenOR/YG8X7Q3eCaI=",
-        "owner": "Homebrew",
-        "repo": "brew",
-        "rev": "edb70f031e4170c780799633a1226ff73e1077f4",
-        "type": "github"
-      },
-      "original": {
-        "owner": "Homebrew",
-        "ref": "7.0.4",
-        "repo": "brew",
-        "type": "github"
-      }
-    },
     "bun2nix": {
       "inputs": {
         "flake-parts": "flake-parts",
@@ -307,22 +290,6 @@
         "type": "github"
       }
     },
-    "ghostty-shader-playground": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1767540959,
-        "narHash": "sha256-Z3jF76MnyEGQuzfeZNTyOhpGAiGfhm6rnkdeBIpsJck=",
-        "owner": "KroneCorylus",
-        "repo": "ghostty-shader-playground",
-        "rev": "7295ebf717f236f114912ec5de0d8ce91661448f",
-        "type": "github"
-      },
-      "original": {
-        "owner": "KroneCorylus",
-        "repo": "ghostty-shader-playground",
-        "type": "github"
-      }
-    },
     "gomod2nix": {
       "inputs": {
         "flake-utils": [
@@ -547,24 +514,6 @@
         "type": "github"
       }
     },
-    "nix-homebrew": {
-      "inputs": {
-        "brew-src": "brew-src"
-      },
-      "locked": {
-        "lastModified": 1789928041,
-        "narHash": "sha256-iV37ieTcE4ZLOYEe0VznW6dWMBe4lEL8AbK1vblyZGM=",
-        "owner": "zhaofengli-wip",
-        "repo": "nix-homebrew",
-        "rev": "c11cccfdd36dd69b5323d70d354b2853379c2426",
-        "type": "github"
-      },
-      "original": {
-        "owner": "zhaofengli-wip",
-        "repo": "nix-homebrew",
-        "type": "github"
-      }
-    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1790652569,
@@ -715,7 +664,6 @@
         "agenix": "agenix",
         "agent-skills": "agent-skills",
         "catppuccin": "catppuccin",
-        "ghostty-shader-playground": "ghostty-shader-playground",
         "helium": "helium",
         "home-manager": "home-manager",
         "hunk": "hunk",
@@ -724,7 +672,6 @@
         "mise": "mise",
         "neovim-nightly": "neovim-nightly",
         "nix-darwin": "nix-darwin",
-        "nix-homebrew": "nix-homebrew",
         "nixpkgs": "nixpkgs_4",
         "nixpkgs-master": "nixpkgs-master",
         "noctalia": "noctalia",

@@ -11,8 +11,6 @@ in
   # Wanda-specific CLI tooling and dotfiles
   home.packages = with pkgs; [
     bandwhich
-    dive
-    jq
     mtr
     sops
   ];

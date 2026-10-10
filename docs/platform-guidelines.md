@@ -16,7 +16,8 @@ Examples:
 ## Where Things Go
 
 - macOS system config: `modules/darwin/`
-- Homebrew config: `modules/darwin/homebrew/`
+- macOS user preferences/dotfiles: live Mise config and `~/.config/mise/dotfiles/macos/`, not Nix-generated files
+- Mac package declarations: live Mise configuration under `~/.config/mise/`, with native macOS restrictions
 - NixOS system config: `modules/nixos/`
 - Shared user config: `modules/home-manager/`
 - Machine-specific overrides: `modules/*/hosts/<hostname>/`

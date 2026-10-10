@@ -1,9 +1,12 @@
 {
   pkgs,
   lib,
+  isDarwin,
   ...
 }:
 {
+  xdg.configFile."git/config".enable = lib.mkIf isDarwin false;
+
   programs.git = {
     enable = true;
     settings = {
@@ -46,8 +49,18 @@
       pull = {
         rebase = true;
       };
+      credential."https://github.com".helper = [
+        ""
+        "!gh auth git-credential"
+      ];
+      credential."https://gist.github.com".helper = [
+        ""
+        "!gh auth git-credential"
+      ];
     };
+    includes = [
+      { path = "~/.config/delta/gitconfig"; }
+    ];
     lfs.enable = true;
-    # Delta config in delta.nix (handles pager, interactive diffFilter, etc.)
   };
 }

@@ -1,7 +1,17 @@
-{ lib, ... }:
+{
+  lib,
+  inputs,
+  pkgs,
+  isDarwin,
+  ...
+}:
 {
   programs = {
-    mise.enable = true;
+    mise = {
+      enable = true;
+      # Native history/bootstrap needs 2026.10.6; nixpkgs still has 2026.10.3.
+      package = lib.mkIf isDarwin inputs.mise.packages.${pkgs.stdenv.hostPlatform.system}.mise;
+    };
     nushell.extraConfig = lib.mkMerge [
       (lib.mkOrder 500 ''
         # Home Manager generates mise's Nushell integration in a Nix build

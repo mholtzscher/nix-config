@@ -1,5 +1,7 @@
-{ ... }:
+{ lib, isDarwin, ... }:
 {
+  xdg.configFile."direnv/direnv.toml".enable = lib.mkIf isDarwin false;
+
   programs = {
     devenv = {
       enable = true;

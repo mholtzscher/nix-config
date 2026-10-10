@@ -2,6 +2,7 @@
   inputs,
   lib,
   pkgs,
+  isDarwin,
   ...
 }:
 let
@@ -12,6 +13,8 @@ let
   herdr-worktree-picker = pkgs.callPackage ../../../pkgs/herdr-worktree-picker { };
 in
 {
+  xdg.configFile."herdr/config.toml".enable = lib.mkIf isDarwin false;
+
   home.packages = [ herdr-annotate ];
 
   home.activation.herdrPlugins = lib.hm.dag.entryAfter [ "writeBoundary" ] ''

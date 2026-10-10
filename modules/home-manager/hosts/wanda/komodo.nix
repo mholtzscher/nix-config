@@ -33,7 +33,7 @@ let
   # WireGuard-encrypted Tailscale instead of the LAN-only address. Docker port
   # bindings do not resolve hostnames, so this stays a literal IP; clients
   # instead use the native MagicDNS name `wanda.tailea9b59.ts.net` (see
-  # KOMODO_URL in modules/home-manager/agents/pi.nix). The tailnet assigns this
+  # KOMODO_URL in ~/.pi/agent/mcp.json, tracked by Mise). The tailnet assigns this
   # IP, so it can change when the node is re-registered — treat the MagicDNS
   # name as the durable client-facing identity.
   komodoTailscaleAddress = "100.92.161.83";

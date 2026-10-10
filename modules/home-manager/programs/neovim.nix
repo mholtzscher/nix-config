@@ -1,4 +1,5 @@
 {
+  config,
   pkgs,
   ...
 }:
@@ -8,8 +9,12 @@ let
 
 in
 {
+  # Configuration and the native plugin lockfile are tracked by Mise.
+  catppuccin.nvim.enable = false;
+
   programs.neovim = {
     enable = true;
+    sideloadInitLua = true;
     # package = inputs.neovim-nightly.packages.${pkgs.stdenv.hostPlatform.system}.default;
     defaultEditor = true;
     # Pin the new defaults here so Home Manager upgrades stay quiet and explicit.
@@ -18,7 +23,6 @@ in
     viAlias = true;
     vimAlias = true;
     vimdiffAlias = true;
-    initLua = builtins.readFile ../files/neovim/init.lua;
     # CodeSnap.nvim's prebuilt macOS generator links to Homebrew's pcre2 path.
     # Provide Nix pcre2 at runtime instead of installing pcre2 via Homebrew.
     extraWrapperArgs = pkgs.lib.optionals pkgs.stdenv.hostPlatform.isDarwin [
@@ -28,6 +32,7 @@ in
       "${pkgs.lib.getLib pkgs.pcre2}/lib"
     ];
     plugins = [
+      config.catppuccin.sources.nvim
       pkgs.vimPlugins.nvim-treesitter.withAllGrammars
     ];
     extraPackages = lspPackages ++ [

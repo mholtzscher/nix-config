@@ -42,14 +42,15 @@ in
     flavor = "mocha";
     # Disable for programs with custom configs
     opencode.enable = false;
+    glamour.enable = lib.mkIf isDarwin false;
   };
 
   home = {
     stateVersion = "25.05";
     packages = import ./packages.nix { inherit pkgs inputs isWork; };
 
-    file = {
-      # Cross-platform config files
+    # Mac user files are native Mise dotfiles. Keep the existing Linux owners.
+    file = lib.optionalAttrs (!isDarwin) {
       "${config.xdg.configHome}/kafkactl/config.yml".source = ./files/kafkactl.yaml;
       ".ideavimrc".source = ./files/ideavimrc;
       "bin/pr-diff" = {
@@ -59,52 +60,6 @@ in
       ".idea-lazy.vim".source = lazyIdeaVim;
 
       "${config.xdg.configHome}/1Password/ssh/agent.toml".source = ./files/1password-agent.toml;
-    }
-    # macOS-specific config files
-    // lib.optionalAttrs isDarwin {
-      # "${config.xdg.configHome}/borders/bordersrc" = {
-      #   source = ./files/bordersrc;
-      #   executable = true;
-      # };
-
-      ## Raycast Scripts (macOS only)
-      "${config.xdg.configHome}/raycast/scripts/toggle-aerospace.sh" = {
-        source = ./files/raycast/toggle-aerospace.sh;
-        executable = true;
-      };
-      "${config.xdg.configHome}/raycast/scripts/aerospace-workspace-size.sh" = {
-        source = ./files/raycast/aerospace-workspace-size.sh;
-        executable = true;
-      };
-      "${config.xdg.configHome}/raycast/scripts/aerospace-workspace-size-increment.sh" = {
-        source = ./files/raycast/aerospace-workspace-size-increment.sh;
-        executable = true;
-      };
-      "${config.xdg.configHome}/raycast/scripts/aerospace-workspace-size-decrement.sh" = {
-        source = ./files/raycast/aerospace-workspace-size-decrement.sh;
-        executable = true;
-      };
-      "${config.xdg.configHome}/raycast/scripts/aerospace-workspace-shift-left.sh" = {
-        source = ./files/raycast/aerospace-workspace-shift-left.sh;
-        executable = true;
-      };
-      "${config.xdg.configHome}/raycast/scripts/aerospace-workspace-shift-right.sh" = {
-        source = ./files/raycast/aerospace-workspace-shift-right.sh;
-        executable = true;
-      };
-      "${config.xdg.configHome}/raycast/scripts/aerospace-workspace-shift-reset.sh" = {
-        source = ./files/raycast/aerospace-workspace-shift-reset.sh;
-        executable = true;
-      };
-    };
-
-    # macOS-only activation scripts
-    activation = lib.mkIf isDarwin {
-      aerospaceConfig = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-        run mkdir -p "${config.xdg.configHome}/aerospace"
-        run cp -f ${./files/aerospace.toml} "${config.xdg.configHome}/aerospace/aerospace.toml"
-        run chmod u+w "${config.xdg.configHome}/aerospace/aerospace.toml"
-      '';
     };
 
     sessionVariables = {

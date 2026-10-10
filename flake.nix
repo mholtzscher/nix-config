@@ -9,7 +9,6 @@
       url = "github:LnL7/nix-darwin";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nix-homebrew.url = "github:zhaofengli-wip/nix-homebrew";
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -17,10 +16,6 @@
     agenix = {
       url = "github:ryantm/agenix";
       inputs.nixpkgs.follows = "nixpkgs";
-    };
-    ghostty-shader-playground = {
-      url = "github:KroneCorylus/ghostty-shader-playground";
-      flake = false;
     };
     catppuccin.url = "github:catppuccin/nix";
     aerospace-utils = {
@@ -120,10 +115,8 @@
       self,
       nix-darwin,
       nixpkgs,
-      nix-homebrew,
       home-manager,
       agenix,
-      ghostty-shader-playground,
       catppuccin,
       aerospace-utils,
       melt,

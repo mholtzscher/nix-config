@@ -267,12 +267,9 @@ in
   # Desktop-specific programs and packages
   home.packages = with pkgs; [
     inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system}.opencode2-desktop
-    awscli2 # AWS command-line interface
     gnused
     localsend # Local network file sharing
     vesktop # Discord client with better Wayland support
-
-    python313Packages.huggingface-hub # Hugging Face CLI (provides huggingface-cli) for downloading models
 
     # Linux desktop-specific GUI tools
     nautilus # File manager
