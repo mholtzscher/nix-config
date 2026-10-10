@@ -18,8 +18,7 @@ let
     plugins = [
       "@plannotator/opencode"
       "github:mholtzscher/opencode-plugins#main::path:quota-usage"
-      "github:mholtzscher/opencode-plugins#main::path:spec-tools"
-      "github:mholtzscher/opencode-plugins#main::path:github-tools"
+      "@mholtzscher/opencode-workflow-tools"
       "github:mholtzscher/opencode-plugins#main::path:cache-metrics"
       {
         package = "@mholtzscher/opencode-classify";
