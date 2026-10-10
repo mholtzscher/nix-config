@@ -2,7 +2,7 @@
 
 **Status: replacement user configurations are prepared; system teardown is blocked on checks on each Mac. Do not uninstall nix-darwin yet.** NixOS and Wanda are unchanged. No Nix configuration has been applied by the agent.
 
-Mise is the preferred manager for portable tools, writable configuration, fonts, preferences and user services. Standalone Home Manager is only the fallback for remaining Nix packages, agenix, app aliases, Nushell's generated plugin registry, nix-direnv and package-coupled integrations. The old Darwin outputs remain available for recovery until both Macs pass the gates below; removing them or the input now would not uninstall the running systems safely.
+Mise is the preferred manager for portable tools, writable configuration, fonts, preferences and user services. Standalone Home Manager is only the fallback for remaining Nix packages, agenix, app aliases, Nushell's generated plugin registry and package-coupled integrations. The old Darwin outputs remain available for recovery until both Macs pass the gates below; removing them or the input now would not uninstall the running systems safely.
 
 ## Prepared
 
