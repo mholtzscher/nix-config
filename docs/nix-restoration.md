@@ -48,6 +48,21 @@ a private recovery directory. It does not apply Nix, remove installed tools,
 read credentials, touch Tailscale, or change Podman state. Native source
 directories remain in place for the current shell.
 
+Home Manager backs up regular files, but refuses to overwrite foreign symlinks.
+Before applying, archive only migration links at paths the restored generation
+owns (this also fixes a system switch whose Home Manager activation stopped):
+
+```bash
+hm="$(nix build --no-link --print-out-paths ".#darwinConfigurations.${host}.config.home-manager.users.$(id -un).home.activationPackage")"
+/bin/bash scripts/archive-mise-links.sh "$hm/home-files"
+```
+
+The helper moves only symlinks pointing into `~/.config/mise/`, at paths present
+in that generation's `home-files`. It preserves links in a private, unique
+recovery directory, without reading their contents. It does not move unrelated
+links, regular files, or `.backup` files. Keep the terminal open until activation
+has successfully installed the replacement links.
+
 ## Personal Mac: hand the native Tailscale daemon back to nix-darwin
 
 Skip this section on the work Mac. Check the current daemon and plist first:
