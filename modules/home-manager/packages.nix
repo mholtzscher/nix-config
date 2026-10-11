@@ -8,12 +8,9 @@ with pkgs;
 [
   inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system}.terminal-browser
   (pkgs.callPackage ../../pkgs/vimhjkl { })
-  bottom
   cachix
   codesnap
-  cookiecutter
   cruft
-  glow
   httpie
   inputs.melt.packages.${pkgs.stdenv.hostPlatform.system}.default
   kdlfmt
@@ -21,7 +18,6 @@ with pkgs;
   nil
   nixfmt
   nodejs_24
-  pnpm
   procs
   rm-improved
   slides
