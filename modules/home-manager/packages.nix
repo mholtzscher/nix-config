@@ -10,15 +10,12 @@ with pkgs;
   (pkgs.callPackage ../../pkgs/vimhjkl { })
   cachix
   codesnap
-  cruft
-  httpie
   inputs.melt.packages.${pkgs.stdenv.hostPlatform.system}.default
   kdlfmt
   lua
   nil
   nixfmt
   nodejs_24
-  procs
   rm-improved
   slides
   sqlite
