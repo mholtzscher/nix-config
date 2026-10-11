@@ -3,9 +3,6 @@
   # Desktop-specific system packages
   environment.systemPackages = with pkgs; [
     # Development tools
-    python314
-    rustc
-    cargo
     gcc
     gnumake
     vscode

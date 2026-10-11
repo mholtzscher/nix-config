@@ -35,6 +35,11 @@ in
   programs = {
     nushell = {
       enable = true;
+      # Generate from the installed fzf so integration follows Mise updates.
+      extraEnv = ''
+        mkdir ~/.cache/fzf
+        ^${lib.getExe config.programs.mise.package} exec -- fzf --nushell | save --force ~/.cache/fzf/init.nu
+      '';
       extraConfig = lib.mkMerge [
         (lib.mkOrder 400 ''
           # Set user paths before mise captures the shell PATH.
@@ -46,6 +51,12 @@ in
           ${builtins.readFile ../files/nushell/functions.nu}
           ${builtins.readFile ../files/nushell/herdr-nix-status.nu}
         ''
+        (lib.mkOrder 1600 ''
+          # Load after Mise and carapace, before Atuin.
+          $env.FZF_CTRL_R_COMMAND = ""
+          $env.FZF_DEFAULT_OPTS_FILE = $"($env.HOME)/.config/fzf/mise-theme.rc"
+          source ~/.cache/fzf/init.nu
+        '')
         (lib.mkOrder 2000 (
           if isWork then
             ''

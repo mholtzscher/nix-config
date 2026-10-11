@@ -21,15 +21,25 @@ in
     zsh = {
       enable = true;
       shellAliases = sharedAliases.shellAliases;
-      initContent = ''
-        ${builtins.readFile ../files/zsh/herdr-nix-status.zsh}
-        ${if isWork then workOnboardingScript else ""}
-        ${lib.optionalString (!isWork) ''
-          if [[ -r ${config.age.secrets.atuin-key.path} && $options[zle] = on ]]; then
-            eval "$(${lib.getExe config.programs.atuin.package} init zsh)"
+      initContent = lib.mkMerge [
+        (lib.mkOrder 910 ''
+          # Mise supplies fzf; Atuin keeps Ctrl-R.
+          if [[ $options[zle] = on ]]; then
+            export FZF_CTRL_R_COMMAND=""
+            export FZF_DEFAULT_OPTS_FILE="$HOME/.config/fzf/mise-theme.rc"
+            source <(${lib.getExe config.programs.mise.package} exec -- fzf --zsh)
           fi
-        ''}
-      '';
+        '')
+        ''
+          ${builtins.readFile ../files/zsh/herdr-nix-status.zsh}
+          ${if isWork then workOnboardingScript else ""}
+          ${lib.optionalString (!isWork) ''
+            if [[ -r ${config.age.secrets.atuin-key.path} && $options[zle] = on ]]; then
+              eval "$(${lib.getExe config.programs.atuin.package} init zsh)"
+            fi
+          ''}
+        ''
+      ];
       sessionVariables = {
         # Bun installs global executable shims in ~/.bun/bin by default.
         PATH = "$PATH:$HOME/.local/bin:$HOME/.bun/bin";

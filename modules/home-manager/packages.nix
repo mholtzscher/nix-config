@@ -11,11 +11,8 @@ with pkgs;
   cachix
   codesnap
   inputs.melt.packages.${pkgs.stdenv.hostPlatform.system}.default
-  lua
   nil
   nixfmt
-  nodejs_24
-  sqlite
   statix
   vim
   wget

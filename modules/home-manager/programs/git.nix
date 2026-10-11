@@ -32,6 +32,10 @@
         defaultBranch = "main";
       };
       diff = {
+        lockb = {
+          textconv = "bun";
+          binary = true;
+        };
         algorithm = "histogram";
         colorMoved = "plain";
         mnemonicPrefix = true;
@@ -56,6 +60,7 @@
       };
     };
     lfs.enable = true;
+    attributes = [ "*.lockb binary diff=lockb" ];
     includes = [ { path = "~/.config/delta/config.gitconfig"; } ];
   };
 }
