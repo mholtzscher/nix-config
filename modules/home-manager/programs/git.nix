@@ -7,6 +7,14 @@
   programs.git = {
     enable = true;
     settings = {
+      # Delta is installed by Mise; its writable settings are synced separately.
+      pager = {
+        blame = "delta";
+        diff = "delta";
+        log = "delta";
+        show = "delta";
+      };
+      interactive.diffFilter = "delta --color-only";
       user = {
         name = "Michael Holtzscher";
         email = lib.mkDefault "michael@holtzscher.com";
@@ -48,6 +56,6 @@
       };
     };
     lfs.enable = true;
-    # Delta config in delta.nix (handles pager, interactive diffFilter, etc.)
+    includes = [ { path = "~/.config/delta/config.gitconfig"; } ];
   };
 }

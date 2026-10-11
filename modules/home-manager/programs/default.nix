@@ -2,11 +2,9 @@
 {
   imports = [
     ./atuin.nix
-    ./bat.nix
     ./btop.nix
     ./bun.nix
     ./carapace.nix
-    ./delta.nix
     ./direnv.nix
     ./fzf.nix
     ./ghostty.nix
