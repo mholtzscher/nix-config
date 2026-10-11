@@ -8,15 +8,11 @@ with pkgs;
 [
   inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system}.terminal-browser
   (pkgs.callPackage ../../pkgs/vimhjkl { })
-  ast-grep
   bottom
   cachix
   codesnap
   cookiecutter
   cruft
-  dive
-  doggo
-  duckdb
   glow
   httpie
   inputs.melt.packages.${pkgs.stdenv.hostPlatform.system}.default
@@ -31,7 +27,6 @@ with pkgs;
   slides
   sqlite
   statix
-  tree-sitter
   vim
   wget
   yq
