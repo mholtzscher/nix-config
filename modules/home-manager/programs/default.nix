@@ -8,12 +8,10 @@
     ./carapace.nix
     ./delta.nix
     ./direnv.nix
-    ./eza.nix
     ./fzf.nix
     ./ghostty.nix
     ./git.nix
     ./go.nix
-    ./lazydocker.nix
     ./lazygit.nix
     ./mise.nix
     ./nh.nix

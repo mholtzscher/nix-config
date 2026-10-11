@@ -10,7 +10,6 @@
 
     c = "clear";
     ll = "ls -al";
-    ltd = "eza --tree --only-dirs --level 3";
     lg = "lazygit";
     n = "nvim";
     j = "just";
