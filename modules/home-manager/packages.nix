@@ -17,12 +17,9 @@ with pkgs;
   dive
   doggo
   duckdb
-  dust
   glow
-  grpcurl
   httpie
   inputs.melt.packages.${pkgs.stdenv.hostPlatform.system}.default
-  jc
   kdlfmt
   lua
   nil
@@ -36,7 +33,6 @@ with pkgs;
   statix
   tree-sitter
   vim
-  websocat
   wget
   yq
   yt-dlp
