@@ -16,7 +16,6 @@
     ./ghostty.nix
     ./git.nix
     ./go.nix
-    ./hunk.nix
     ./jq.nix
     ./lazydocker.nix
     ./lazygit.nix

@@ -45,10 +45,6 @@
       url = "github:AlvaroParker/helium-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    hunk = {
-      url = "github:modem-dev/hunk";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 
   outputs =
@@ -66,7 +62,6 @@
       neovim-nightly,
       llm-agents,
       helium,
-      hunk,
       ...
     }:
     let
