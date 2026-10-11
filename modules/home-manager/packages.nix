@@ -6,7 +6,6 @@
 
 with pkgs;
 [
-  inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system}.terminal-browser
   cachix
   inputs.melt.packages.${pkgs.stdenv.hostPlatform.system}.default
   nil
