@@ -41,66 +41,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     llm-agents.url = "github:numtide/llm-agents.nix";
-    agent-skills = {
-      url = "github:Kyure-A/agent-skills-nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    skills-agent-artifacts = {
-      url = "github:mholtzscher/agent-artifacts";
-      flake = false;
-    };
-    skills-anatomy = {
-      url = "github:wheresryan22/anatomy";
-      flake = false;
-    };
-    skills-dmmulroy = {
-      url = "github:dmmulroy/.dotfiles";
-      flake = false;
-    };
-    skills-anthropic = {
-      url = "github:anthropics/skills";
-      flake = false;
-    };
-    skills-codex = {
-      url = "github:openai/codex";
-      flake = false;
-    };
-    skills-cloudflare = {
-      url = "github:cloudflare/skills";
-      flake = false;
-    };
-    skills-kitlangton = {
-      url = "github:kitlangton/skills";
-      flake = false;
-    };
-    skills-mattpocock = {
-      url = "github:mattpocock/skills";
-      flake = false;
-    };
-    skills-mholtzscher = {
-      url = "github:mholtzscher/skills";
-      flake = false;
-    };
-    skills-plannotator = {
-      url = "github:plannotator/effective-html";
-      flake = false;
-    };
-    skills-pstack = {
-      url = "github:cursor/plugins";
-      flake = false;
-    };
-    skills-vercel = {
-      url = "github:vercel-labs/agent-browser";
-      flake = false;
-    };
-    skills-terminal-control = {
-      url = "github:anomalyco/terminal-control";
-      flake = false;
-    };
-    skills-nicobailon = {
-      url = "github:nicobailon/visual-explainer";
-      flake = false;
-    };
     helium = {
       url = "github:AlvaroParker/helium-nix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -108,14 +48,6 @@
     hunk = {
       url = "github:modem-dev/hunk";
       inputs.nixpkgs.follows = "nixpkgs";
-    };
-    skills-herdr = {
-      url = "github:ogulcancelik/herdr";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    skills-humanlayer = {
-      url = "github:humanlayer/skills";
-      flake = false;
     };
   };
 
@@ -133,23 +65,8 @@
       melt,
       neovim-nightly,
       llm-agents,
-      agent-skills,
-      skills-agent-artifacts,
-      skills-dmmulroy,
-      skills-anthropic,
-      skills-codex,
-      skills-cloudflare,
-      skills-kitlangton,
-      skills-mattpocock,
-      skills-mholtzscher,
-      skills-plannotator,
-      skills-pstack,
-      skills-vercel,
-      skills-nicobailon,
       helium,
       hunk,
-      skills-herdr,
-      skills-humanlayer,
       ...
     }:
     let

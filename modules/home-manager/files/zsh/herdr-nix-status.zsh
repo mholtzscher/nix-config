@@ -3,7 +3,7 @@ autoload -Uz add-zsh-hook
 typeset -g HERDR_NIX_STATUS=
 
 _herdr_nix_status_enabled() {
-  [[ ${HERDR_ENV:-} == 1 && -n ${HERDR_PANE_ID:-} ]]
+  [[ ${HERDR_ENV:-} == 1 && -n ${HERDR_PANE_ID:-} ]] && command -v herdr >/dev/null 2>&1
 }
 
 _herdr_nix_command() {

@@ -1,5 +1,5 @@
 def herdr-nix-status-enabled [] {
-  (($env.HERDR_ENV? | default "") == "1") and (($env.HERDR_PANE_ID? | default "") != "")
+  (($env.HERDR_ENV? | default "") == "1") and (($env.HERDR_PANE_ID? | default "") != "") and (not (which herdr | is-empty))
 }
 
 def herdr-nix-command [command: string] {

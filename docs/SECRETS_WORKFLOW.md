@@ -10,4 +10,4 @@ Read the usage and relevant command implementation in `scripts/secrets` for crea
 
 ## pi MCP servers and containers
 
-Before wiring secret-backed MCP environment variables or container forwarding, read `unifi-network` and `komodo` in `modules/home-manager/agents/pi.nix` for the `!cat` and bare `-e VAR` patterns. Also read their declarations and Darwin runtime-path comments in `modules/home-manager/secrets.nix`. Extend script-generated entries to preserve the explicit paths those consumers require; do not reduce them to the bare `file` form.
+AI configuration now lives in `mholtzscher/workstation`. Before wiring secret-backed MCP environment variables or container forwarding, read `unifi-network` and `komodo` in that repository's `home@personal/.pi/agent/mcp.json` for the `!cat` and bare `-e VAR` patterns. Also read their declarations and Darwin runtime-path comments in `modules/home-manager/secrets.nix`. Extend script-generated entries to preserve the explicit paths those consumers require; do not reduce them to the bare `file` form.

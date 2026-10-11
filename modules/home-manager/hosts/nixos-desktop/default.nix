@@ -127,22 +127,16 @@ in
   # Plannotator remote configuration. Herdr panes run nushell, which doesn't
   # source home.sessionVariables, so set them per-shell.
   programs.nushell.environmentVariables = {
+    AGENT_BROWSER_EXECUTABLE_PATH = "${pkgs.chromium}/bin/chromium";
     PLANNOTATOR_REMOTE = "1";
     PLANNOTATOR_SHARE = "disabled";
     PLANNOTATOR_URL_HOST = "auto";
     PLANNOTATOR_PORT = "19432-19463";
   };
 
-  # Use nix-ld with mise-managed precompiled binaries on NixOS while keeping
-  # the main mise config writable by commands such as `mise use --global`.
-  programs.mise = {
-    enableMutableConfig = true;
-    globalConfig.settings.all_compile = false;
-    # Upstream's Nix check phase runs macOS fixture tests on Linux and fails.
-    package = inputs.mise.packages.${pkgs.stdenv.hostPlatform.system}.mise.overrideAttrs (_: {
-      doCheck = false;
-    });
-  };
+  # The npm CLI uses NixOS-compatible Chromium instead of downloading a
+  # browser built for an FHS distribution.
+  home.sessionVariables.AGENT_BROWSER_EXECUTABLE_PATH = "${pkgs.chromium}/bin/chromium";
 
   # Niri configuration is validated by Home Manager at build time.
   wayland.windowManager.niri = {

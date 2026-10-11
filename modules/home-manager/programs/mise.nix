@@ -1,7 +1,21 @@
-{ lib, ... }:
+{
+  lib,
+  inputs,
+  pkgs,
+  isLinux,
+  ...
+}:
 {
   programs = {
-    mise.enable = true;
+    mise = {
+      enable = true;
+      mutableSettings = true;
+      # Bootstrap and dotfile history require the pinned upstream Mise.
+      # Upstream's check phase runs macOS fixture tests on Linux and fails.
+      package = inputs.mise.packages.${pkgs.stdenv.hostPlatform.system}.mise.overrideAttrs (
+        _: lib.optionalAttrs isLinux { doCheck = false; }
+      );
+    };
     nushell.extraConfig = lib.mkMerge [
       (lib.mkOrder 500 ''
         # Home Manager generates mise's Nushell integration in a Nix build

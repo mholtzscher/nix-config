@@ -45,11 +45,11 @@ Completion requires both the package and its executable updater. `scripts/update
 
 ## Add Agent Skills
 
-1. Add the upstream repository as a `flake = false` input in `flake.nix`.
-2. Add its source and enabled skill ID in `modules/home-manager/agents/agent-skills.nix`, using the existing target setup.
-3. Validate using `docs/NIX_WORKFLOW.md`.
-
-Skill input URLs follow upstream's default branch unless the user explicitly requests a release tag or revision. `flake.lock` records the resolved revision for reproducibility; the binary package's version does not determine the skill input's URL.
+Agent skills are managed outside Nix by the `agent-skills` Mise bootstrap plugin
+in `mholtzscher/workstation`. Declare only the selected skills in
+`~/.config/mise/config.toml` under `[bootstrap.packages]`, then sync with
+`mise dot sync`. Use `env = "personal"` for personal-only skills. Do not add
+skill inputs or Home Manager ownership here.
 
 ## Add Homebrew Package
 
