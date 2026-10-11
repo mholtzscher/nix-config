@@ -11,8 +11,6 @@
     ./eza.nix
     ./fd.nix
     ./fzf.nix
-    ./gh-dash.nix
-    ./gh.nix
     ./ghostty.nix
     ./git.nix
     ./go.nix
