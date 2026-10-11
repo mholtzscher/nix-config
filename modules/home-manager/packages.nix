@@ -23,7 +23,6 @@ with pkgs;
   httpie
   inputs.melt.packages.${pkgs.stdenv.hostPlatform.system}.default
   jc
-  just
   kdlfmt
   lua
   nil
