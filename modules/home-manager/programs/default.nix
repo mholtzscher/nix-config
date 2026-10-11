@@ -12,7 +12,6 @@
     ./ghostty.nix
     ./git.nix
     ./go.nix
-    ./lazygit.nix
     ./mise.nix
     ./nh.nix
     ./neovim.nix
