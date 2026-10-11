@@ -1,35 +1,21 @@
 {
   pkgs,
+  lib,
+  isDarwin,
   ...
 }:
-let
-  # Shared LSP packages
-  lspPackages = import ../lsp-packages.nix { inherit pkgs; };
-
-in
 {
-  programs.neovim = {
-    enable = true;
-    # package = inputs.neovim-nightly.packages.${pkgs.stdenv.hostPlatform.system}.default;
-    defaultEditor = true;
-    # Pin the new defaults here so Home Manager upgrades stay quiet and explicit.
-    withRuby = false;
-    withPython3 = false;
-    viAlias = true;
-    vimAlias = true;
-    vimdiffAlias = true;
-    initLua = builtins.readFile ../files/neovim/init.lua;
-    # CodeSnap.nvim's prebuilt macOS generator links to Homebrew's pcre2 path.
-    # Provide Nix pcre2 at runtime instead of installing pcre2 via Homebrew.
-    extraWrapperArgs = pkgs.lib.optionals pkgs.stdenv.hostPlatform.isDarwin [
-      "--prefix"
-      "DYLD_LIBRARY_PATH"
-      ":"
-      "${pkgs.lib.getLib pkgs.pcre2}/lib"
-    ];
-    plugins = [
-      pkgs.vimPlugins.nvim-treesitter.withAllGrammars
-    ];
-    extraPackages = lspPackages;
+  # Neovim, its writable config, plugins, and aliases are managed by Mise.
+  # Retain the language servers that still use Nix packaging on the normal PATH.
+  home.packages = import ../lsp-packages.nix { inherit pkgs; };
+  home.sessionVariables = {
+    EDITOR = "nvim";
+    VISUAL = "nvim";
+  };
+  catppuccin.nvim.enable = false;
+
+  # The Mise launcher uses this stable path for CodeSnap's macOS generator.
+  home.file.".local/share/nvim/nix-libs" = lib.mkIf isDarwin {
+    source = "${lib.getLib pkgs.pcre2}/lib";
   };
 }
