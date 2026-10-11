@@ -1,8 +1,0 @@
-{ ... }:
-{
-  programs = {
-    fd = {
-      enable = true;
-    };
-  };
-}

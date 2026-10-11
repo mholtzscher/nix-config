@@ -9,7 +9,6 @@
     ./delta.nix
     ./direnv.nix
     ./eza.nix
-    ./fd.nix
     ./fzf.nix
     ./ghostty.nix
     ./git.nix
@@ -21,7 +20,6 @@
     ./neovim.nix
     ./nushell.nix
     ./podman.nix
-    ./ripgrep.nix
     ./ssh.nix
     ./starship.nix
     ./uv.nix

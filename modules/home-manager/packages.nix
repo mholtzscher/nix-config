@@ -23,7 +23,6 @@ with pkgs;
   yt-dlp
 ]
 ++ pkgs.lib.optionals (!isWork) [
-  (pkgs.callPackage ../../pkgs/railway-cli { })
   bruno
   (pkgs.callPackage ../../pkgs/otel-desktop-viewer { })
   tailscale
