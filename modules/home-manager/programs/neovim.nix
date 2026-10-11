@@ -30,15 +30,6 @@ in
     plugins = [
       pkgs.vimPlugins.nvim-treesitter.withAllGrammars
     ];
-    extraPackages = lspPackages ++ [
-      # Neovim-specific extras
-      (pkgs.callPackage ../../../pkgs/mermaid-rs-renderer { }) # mdkite's Rust Mermaid renderer
-      pkgs.kotlin-language-server
-      pkgs.rust-analyzer
-      pkgs.rustfmt
-      pkgs.stylua # lua formatter
-      pkgs.shfmt # bash/sh formatter
-      # pkgs.harper # grammar checker
-    ];
+    extraPackages = lspPackages;
   };
 }

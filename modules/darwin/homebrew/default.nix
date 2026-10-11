@@ -4,9 +4,7 @@
 { ... }:
 {
   nix-homebrew.trust.formulae = [
-    "1jehuang/mmdr/mmdr"
     "FelixKratz/formulae/borders"
-    "JetBrains/utils/kotlin-lsp"
   ];
 
   homebrew = {
@@ -20,15 +18,11 @@
     taps = [
       "hashicorp/tap"
       "FelixKratz/formulae"
-      "jetbrains/utils"
-      "1jehuang/mmdr"
     ];
     brews = [
       "awscli"
       "borders"
-      "JetBrains/utils/kotlin-lsp"
       "mas"
-      "1jehuang/mmdr/mmdr"
       "vite-plus"
     ];
     casks = [

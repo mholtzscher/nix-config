@@ -3,50 +3,10 @@
 { pkgs }:
 with pkgs;
 [
-  # Infrastructure
-  terraform
-  terraform-ls
-  dockerfile-language-server
-  docker-compose-language-service
-  yaml-language-server
-  # marksman
-
-  # Go
-  gopls
-  golangci-lint
-  golangci-lint-langserver
-  delve
-
   # Nix
   nil
   nixfmt
 
-  # Shell
-  bash-language-server
-
-  # Task runners
-  just-lsp
-
-  # Lua
-  lua-language-server
-
-  # Python
-  ruff
-
-  # Config formats
-  taplo # TOML
-
-  # TypeScript / JavaScript
-  svelte-language-server
-  tailwindcss-language-server
-  emmet-language-server
-  typescript
-  oxlint
-  oxfmt
-  eslint_d
-  prettier
-  # biome
-
-  # VSCode language servers (CSS, HTML, JSON, ESLint, Markdown)
+  # Nix extracts current VSCode servers; the npm bundle is older.
   vscode-langservers-extracted
 ]
