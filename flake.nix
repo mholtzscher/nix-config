@@ -49,6 +49,10 @@
       url = "github:mholtzscher/agent-artifacts";
       flake = false;
     };
+    skills-anatomy = {
+      url = "github:wheresryan22/anatomy";
+      flake = false;
+    };
     skills-dmmulroy = {
       url = "github:dmmulroy/.dotfiles";
       flake = false;

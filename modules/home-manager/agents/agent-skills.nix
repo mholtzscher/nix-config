@@ -33,6 +33,11 @@ in
         idPrefix = "anthropic";
       };
 
+      anatomy = {
+        input = "skills-anatomy";
+        idPrefix = "wheresryan22";
+      };
+
       codex = {
         input = "skills-codex";
         subdir = "codex-rs/skills/src/assets/samples";
@@ -117,6 +122,7 @@ in
     };
 
     skills.enable = [
+      "wheresryan22/anatomy"
       # "anthropic/frontend-design"
       "mholtzscher/agent-orchestrator"
       "mholtzscher/classify-code-review"

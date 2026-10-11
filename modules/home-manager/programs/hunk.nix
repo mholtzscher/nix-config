@@ -1,7 +1,8 @@
 # Hunk - review-first terminal diff viewer
-# Uses the hunk flake's home-manager module for proper config and git integration support.
+# Uses the upstream module for configuration and llm-agents for the package.
 {
   inputs,
+  pkgs,
   ...
 }:
 {
@@ -9,6 +10,7 @@
 
   programs.hunk = {
     enable = true;
+    package = inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system}.hunk;
     settings = {
       theme = "catppuccin-mocha";
       mode = "auto";

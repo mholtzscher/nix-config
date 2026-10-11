@@ -17,9 +17,9 @@ let
     model = "openai/gpt-6.1-sol";
     plugins = [
       "@plannotator/opencode"
-      "github:mholtzscher/opencode-plugins#main::path:quota-usage"
+      "@mholtzscher/opencode-quota-usage"
       "@mholtzscher/opencode-workflow-tools"
-      "github:mholtzscher/opencode-plugins#main::path:cache-metrics"
+      "@mholtzscher/opencode-cache-metrics"
       {
         package = "@mholtzscher/opencode-classify";
         options = {
