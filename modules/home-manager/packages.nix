@@ -11,13 +11,10 @@ with pkgs;
   cachix
   codesnap
   inputs.melt.packages.${pkgs.stdenv.hostPlatform.system}.default
-  kdlfmt
   lua
   nil
   nixfmt
   nodejs_24
-  rm-improved
-  slides
   sqlite
   statix
   vim

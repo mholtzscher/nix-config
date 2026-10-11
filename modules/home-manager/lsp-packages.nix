@@ -34,7 +34,6 @@ with pkgs;
   ruff
 
   # Config formats
-  kdlfmt # KDL
   taplo # TOML
 
   # TypeScript / JavaScript
