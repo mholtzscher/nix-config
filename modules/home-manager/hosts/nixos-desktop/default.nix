@@ -124,16 +124,6 @@ in
   # Desktop environment setup is now in modules/nixos/desktop/
   # This file contains only user-specific packages and services
 
-  # Plannotator remote configuration. Herdr panes run nushell, which doesn't
-  # source home.sessionVariables, so set them per-shell.
-  programs.nushell.environmentVariables = {
-    AGENT_BROWSER_EXECUTABLE_PATH = "${pkgs.chromium}/bin/chromium";
-    PLANNOTATOR_REMOTE = "1";
-    PLANNOTATOR_SHARE = "disabled";
-    PLANNOTATOR_URL_HOST = "auto";
-    PLANNOTATOR_PORT = "19432-19463";
-  };
-
   # The npm CLI uses NixOS-compatible Chromium instead of downloading a
   # browser built for an FHS distribution.
   home.sessionVariables.AGENT_BROWSER_EXECUTABLE_PATH = "${pkgs.chromium}/bin/chromium";

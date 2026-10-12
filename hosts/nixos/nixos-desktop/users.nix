@@ -11,6 +11,8 @@ let
   ];
 in
 {
+  # The retained Nix login shell needs its own matching formats plugin.
+  environment.systemPackages = [ pkgs.nushellPlugins.formats ];
   # User configuration
   users.users.${user} = {
     isNormalUser = true;

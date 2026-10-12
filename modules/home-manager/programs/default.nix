@@ -8,7 +8,6 @@
     ./mise.nix
     ./nh.nix
     ./neovim.nix
-    ./nushell.nix
     ./podman.nix
     ./ssh.nix
     ./starship.nix

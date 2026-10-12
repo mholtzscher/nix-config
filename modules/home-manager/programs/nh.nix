@@ -1,7 +1,5 @@
 {
   config,
-  pkgs,
-  lib,
   ...
 }:
 let
@@ -14,10 +12,4 @@ in
     osFlake = nhOsFlake;
     darwinFlake = nhDarwinFlake;
   };
-
-  # Nushell doesn't source home.sessionVariables - set NH_* explicitly
-  programs.nushell.extraConfig = lib.mkAfter ''
-    $env.NH_DARWIN_FLAKE = "${nhDarwinFlake}"
-    $env.NH_OS_FLAKE = "${nhOsFlake}"
-  '';
 }
