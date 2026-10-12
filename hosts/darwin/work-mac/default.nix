@@ -1,12 +1,8 @@
 {
   inputs,
   user,
-  pkgs,
   ...
 }:
-let
-  ghosttyPackage = if pkgs.stdenv.hostPlatform.isDarwin then pkgs.ghostty-bin else pkgs.ghostty;
-in
 {
   imports = [
     ../../../modules/darwin/homebrew/hosts/work-mac.nix
@@ -43,25 +39,5 @@ in
     autoMigrate = true;
   };
 
-  system = {
-    primaryUser = user;
-    defaults = {
-      dock = {
-        persistent-apps = [
-          "/Applications/Arc.app"
-          "/System/Applications/Messages.app"
-          "/Applications/Slack.app"
-          "${ghosttyPackage}/Applications/Ghostty.app"
-          "/Applications/Postico.app"
-          "/Applications/IntelliJ IDEA.app"
-          "/System/Applications/Mail.app"
-          "/System/Applications/Calendar.app"
-          # "/Applications/Todoist.app"
-          "/System/Applications/Music.app"
-          "/Users/michaelholtzcher/Applications/Google Gemini.app"
-          "/Users/michaelholtzcher/Applications/Reclaim.app"
-        ];
-      };
-    };
-  };
+  system.primaryUser = user;
 }

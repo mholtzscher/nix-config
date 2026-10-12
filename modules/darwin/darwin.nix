@@ -22,63 +22,8 @@
     reattach = true;
   };
 
-  system.defaults = {
-    NSGlobalDomain = {
-      AppleKeyboardUIMode = 3;
-      AppleShowAllExtensions = true;
-      InitialKeyRepeat = 15;
-      KeyRepeat = 2;
-    };
-
-    dock = {
-      autohide = true;
-      tilesize = 48;
-      orientation = "left";
-      minimize-to-application = true;
-      show-process-indicators = true;
-      show-recents = false;
-      expose-group-apps = true;
-      wvous-bl-corner = 1;
-      wvous-br-corner = 1;
-      wvous-tl-corner = 1;
-      wvous-tr-corner = 1;
-    };
-
-    finder = {
-      AppleShowAllExtensions = true;
-      ShowPathbar = true;
-      FXEnableExtensionChangeWarning = false;
-      FXPreferredViewStyle = "clmv";
-    };
-
-    trackpad = {
-      Clicking = true;
-    };
-
-    screencapture.location = "~/Downloads/ScreenShots";
-    loginwindow.GuestEnabled = false;
-
-    CustomUserPreferences = {
-      "com.jetbrains.intellij" = {
-        ApplePressAndHoldEnabled = false;
-      };
-      "com.jetbrains.intellij.ce" = {
-        ApplePressAndHoldEnabled = false;
-      };
-      "pl.maketheweb.cleanshotx" = {
-        afterScreenshotActions = [
-          0
-          1
-          2
-        ];
-        afterVideoActions = [
-          0
-          2
-        ];
-      };
-    };
-
-  };
+  # User desktop/app preferences are managed by Mise bootstrap.
+  system.defaults.loginwindow.GuestEnabled = false;
 
   system.activationScripts.applications.text =
     let
