@@ -3,7 +3,6 @@
   imports = [
     ./ghostty.nix
     ./git.nix
-    ./mise.nix
     ./nh.nix
     ./neovim.nix
     ./podman.nix
