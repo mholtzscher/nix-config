@@ -21,14 +21,6 @@ in
   # Disable GUI programs on headless server
   programs.ghostty.enable = lib.mkForce false;
 
-  programs.git = {
-    enable = true;
-    settings.user = {
-      name = "Michael Holtzscher";
-      email = "michael@holtzscher.com";
-    };
-  };
-
   programs.ssh = {
     enable = true;
     settings."nas nas-a nas-b" = {
