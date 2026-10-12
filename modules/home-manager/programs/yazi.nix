@@ -10,7 +10,4 @@
     chafa
     resvg
   ];
-  programs.zsh.initContent = ''
-    source ~/.config/yazi/yy.zsh
-  '';
 }

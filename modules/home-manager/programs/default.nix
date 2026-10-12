@@ -1,8 +1,6 @@
 { ... }:
 {
   imports = [
-    ./atuin.nix
-    ./carapace.nix
     ./ghostty.nix
     ./git.nix
     ./mise.nix
@@ -10,10 +8,8 @@
     ./neovim.nix
     ./podman.nix
     ./ssh.nix
-    ./starship.nix
     ./webapps.nix # NixOS-only (has platform guard inside)
     ./yazi.nix
     ./zsh.nix
-    ./zoxide.nix
   ];
 }
