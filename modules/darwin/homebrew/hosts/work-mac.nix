@@ -2,11 +2,6 @@
 { ... }:
 {
   homebrew = {
-    brews = [
-      "circleci"
-      "ollama"
-      # "opencode"
-    ];
     casks = [
       "jetbrains-toolbox"
       "handy"
