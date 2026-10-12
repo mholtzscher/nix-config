@@ -1,6 +1,5 @@
 {
   pkgs,
-  inputs,
   ...
 }:
 {
@@ -13,8 +12,6 @@
 
     # Work-specific programs and packages
     packages = with pkgs; [
-      aerospace
-      inputs.aerospace-utils.packages.${pkgs.stdenv.hostPlatform.system}.default
       mkalias
       mariadb.client
     ];

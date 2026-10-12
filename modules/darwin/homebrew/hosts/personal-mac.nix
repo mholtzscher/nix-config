@@ -5,10 +5,6 @@
     taps = [
       "wontaeyang/hrm"
     ];
-    brews = [
-      "mole"
-      "pyenv-virtualenv"
-    ];
     casks = [
       "1password"
       # "capacities"

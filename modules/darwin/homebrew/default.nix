@@ -3,10 +3,6 @@
 # Host-specific packages defined in ./hosts/*.nix
 { ... }:
 {
-  nix-homebrew.trust.formulae = [
-    "FelixKratz/formulae/borders"
-  ];
-
   homebrew = {
     enable = true;
     onActivation = {
@@ -17,12 +13,6 @@
     };
     taps = [
       "hashicorp/tap"
-      "FelixKratz/formulae"
-    ];
-    brews = [
-      "borders"
-      "mas"
-      "vite-plus"
     ];
     casks = [
       "arc"

@@ -23,10 +23,6 @@
       flake = false;
     };
     catppuccin.url = "github:catppuccin/nix";
-    aerospace-utils = {
-      url = "github:mholtzscher/aerospace-utils";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     melt = {
       url = "github:mholtzscher/melt";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -57,7 +53,6 @@
       agenix,
       ghostty-shader-playground,
       catppuccin,
-      aerospace-utils,
       melt,
       neovim-nightly,
       llm-agents,
