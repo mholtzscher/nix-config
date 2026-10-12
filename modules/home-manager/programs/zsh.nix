@@ -33,11 +33,6 @@ in
         ''
           ${builtins.readFile ../files/zsh/herdr-nix-status.zsh}
           ${if isWork then workOnboardingScript else ""}
-          ${lib.optionalString (!isWork) ''
-            if [[ -r ${config.age.secrets.atuin-key.path} && $options[zle] = on ]]; then
-              eval "$(${lib.getExe config.programs.atuin.package} init zsh)"
-            fi
-          ''}
         ''
       ];
       sessionVariables = {

@@ -1,27 +1,22 @@
+{ config, lib, ... }:
 {
-  config,
-  lib,
-  isWork,
-  ...
-}:
-{
-  programs = {
-    atuin = {
-      enable = true;
-      # Nushell integration is sourced manually in nushell.nix (it patches
-      # the ctrl+r keybind name), so disable home-manager's default here.
-      # Personal-host zsh integration is guarded in-shell so a cleared
-      # runtime directory does not break the first shell after reboot.
-      enableNushellIntegration = false;
-      enableZshIntegration = isWork;
-      settings = {
-        # Disable sync on work hosts, enable on personal hosts
-        auto_sync = !isWork;
-      }
-      // lib.optionalAttrs (!isWork) {
-        sync_address = "https://atuin.holtzscher.com";
-        key_path = config.age.secrets.atuin-key.path;
-      };
-    };
+  # Mise owns Atuin and the shared, local-only config and theme.
+  catppuccin.atuin.enable = false;
+  programs.zsh.initContent = lib.mkOrder 2100 ''
+    if [[ $options[zle] = on ]]; then
+      eval "$(${lib.getExe config.programs.mise.package} exec -- atuin init zsh)"
+    fi
+  '';
+  programs.nushell = {
+    extraEnv = ''
+      mkdir ~/.cache/atuin
+      ^${lib.getExe config.programs.mise.package} exec -- atuin init nu
+        | str replace 'name: atuin' 'name: atuin_ctrl_r'
+        | save --force ~/.cache/atuin/init.nu
+    '';
+    # Load after fzf so Atuin retains Ctrl-R.
+    extraConfig = lib.mkOrder 2000 ''
+      source ~/.cache/atuin/init.nu
+    '';
   };
 }

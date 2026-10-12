@@ -19,17 +19,6 @@ let
     lib.hm.nushell.mkNushellInline ''
       (let secret = ${ageSecretPath name}; if ($secret | path exists) { open --raw $secret | str trim } else { "" })
     '';
-  atuinNushellConfig =
-    pkgs.runCommand "atuin-nushell-config.nu"
-      {
-        nativeBuildInputs = [ pkgs.writableTmpDirAsHomeHook ];
-      }
-      ''
-        ${lib.getExe config.programs.atuin.package} init nu > "$out"
-        substituteInPlace "$out" \
-          --replace-fail $'name: atuin\n            modifier: control' \
-          $'name: atuin_ctrl_r\n            modifier: control'
-      '';
 in
 {
   programs = {
@@ -57,18 +46,6 @@ in
           $env.FZF_DEFAULT_OPTS_FILE = $"($env.HOME)/.config/fzf/mise-theme.rc"
           source ~/.cache/fzf/init.nu
         '')
-        (lib.mkOrder 2000 (
-          if isWork then
-            ''
-              source ${atuinNushellConfig}
-            ''
-          else
-            ''
-              if ("${config.age.secrets.atuin-key.path}" | path exists) {
-                source ${atuinNushellConfig}
-              }
-            ''
-        ))
       ];
       shellAliases = sharedAliases.shellAliases;
       environmentVariables = {
