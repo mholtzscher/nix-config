@@ -1,99 +1,19 @@
+{ config, lib, ... }:
 {
-  ...
-}:
-{
-  programs = {
-    starship = {
-      enable = true;
-      settings = {
-        format = "$username$hostname$directory$git_branch$git_state$git_status$line_break$character";
-        right_format = "\${env_var.GITHUB_TOKEN}\${env_var.GH_TOKEN}\${env_var.GITHUB_PAT}$aws$direnv";
-
-        add_newline = false;
-
-        fill = {
-          symbol = " ";
-        };
-
-        directory = {
-          style = "blue";
-        };
-
-        env_var.GITHUB_TOKEN = {
-          variable = "GITHUB_TOKEN";
-          format = "[󰊤 TOKEN]($style) ";
-          style = "dimmed blue";
-        };
-
-        env_var.GH_TOKEN = {
-          variable = "GH_TOKEN";
-          format = "[󰊤 GH]($style) ";
-          style = "dimmed green";
-        };
-
-        env_var.GITHUB_PAT = {
-          variable = "GITHUB_PAT";
-          format = "[󰊤 PAT]($style) ";
-          style = "dimmed purple";
-        };
-
-        direnv = {
-          disabled = false;
-          style = "dimmed blue";
-        };
-
-        character = {
-          success_symbol = "[❯](purple)";
-          error_symbol = "[❯](red)";
-          vimcmd_symbol = "[❮](green)";
-        };
-
-        username = {
-          disabled = true;
-        };
-
-        hostname = {
-          disabled = true;
-        };
-
-        git_branch = {
-          format = "[$branch]($style)";
-          style = "bright-black";
-        };
-
-        git_status = {
-          format = "[[(*$conflicted$untracked$modified$staged$renamed$deleted)](218) ($ahead_behind$stashed)]($style)";
-          style = "cyan";
-          conflicted = "​";
-          untracked = "​";
-          modified = "​";
-          staged = "​";
-          renamed = "​";
-          deleted = "​";
-          stashed = "≡";
-        };
-
-        git_state = {
-          format = ''\([$state( $progress_current/$progress_total)]($style)\) '';
-          style = "bright-black";
-        };
-
-        aws = {
-          # format = " [aws](italic) [$profile $region]($style)";
-          symbol = "󰅟 ";
-          format = "[$symbol$profile $region]($style) ";
-          style = "dimmed yellow";
-        };
-
-        mise = {
-          symbol = "󰣖 ";
-          format = "[$symbol$health]($style) ";
-          style = "bold purple";
-          disabled = true;
-          detect_files = [ ".tool-versions" ];
-        };
-
-      };
-    };
+  # Mise owns Starship and its writable config, including the Catppuccin palette.
+  catppuccin.starship.enable = false;
+  programs.zsh.initContent = lib.mkOrder 1900 ''
+    if [[ $TERM != "dumb" ]]; then
+      eval "$(${lib.getExe config.programs.mise.package} exec -- starship init zsh)"
+    fi
+  '';
+  programs.nushell = {
+    extraEnv = ''
+      mkdir ~/.cache/starship
+      ^${lib.getExe config.programs.mise.package} exec -- starship init nu | save --force ~/.cache/starship/init.nu
+    '';
+    extraConfig = lib.mkOrder 1700 ''
+      use ~/.cache/starship/init.nu
+    '';
   };
 }
