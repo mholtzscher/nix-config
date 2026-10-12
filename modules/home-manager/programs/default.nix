@@ -3,7 +3,6 @@
   imports = [
     ./atuin.nix
     ./carapace.nix
-    ./direnv.nix
     ./ghostty.nix
     ./git.nix
     ./mise.nix
