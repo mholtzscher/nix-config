@@ -13,7 +13,6 @@ in
     bandwhich
     dive
     mtr
-    sops
   ];
 
   # Let bare `nh home` commands select Wanda's standalone Home Manager output.

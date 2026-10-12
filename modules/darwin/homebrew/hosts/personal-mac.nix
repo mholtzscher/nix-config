@@ -6,7 +6,6 @@
       "wontaeyang/hrm"
     ];
     brews = [
-      "mockery"
       "mole"
       "pyenv-virtualenv"
     ];

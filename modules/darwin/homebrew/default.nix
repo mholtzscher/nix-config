@@ -20,7 +20,6 @@
       "FelixKratz/formulae"
     ];
     brews = [
-      "awscli"
       "borders"
       "mas"
       "vite-plus"
