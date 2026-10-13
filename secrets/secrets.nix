@@ -21,6 +21,10 @@ in
     recipients."personal-mac"
     recipients."wanda"
   ];
+  "hearth-discord-webhook.age".publicKeys = [
+    recipients."nixos-desktop"
+    recipients."personal-mac"
+  ];
   "hearth-openai-api-key.age".publicKeys = [
     recipients."nixos-desktop"
     recipients."personal-mac"
