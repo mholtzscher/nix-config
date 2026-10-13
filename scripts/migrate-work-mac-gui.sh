@@ -42,10 +42,19 @@ for cask in "${casks[@]}"; do
   fi
 done
 mise -E work bootstrap packages status
-installed=$(brew list --cask)
+# Both managers share Caskroom; `brew list --cask` is not an ownership check.
+caskroom="$(brew --prefix)/Caskroom"
 
 is_brew_owned() {
-  grep -Fxq -- "$1" <<< "$installed"
+  [[ -e "$caskroom/$1/.metadata" || -L "$caskroom/$1/.metadata" ]]
+}
+
+is_mise_owned() {
+  local receipt
+  for receipt in "$caskroom/$1"/*/.mise-cask.toml; do
+    [[ ! -f "$receipt" ]] || return 0
+  done
+  return 1
 }
 
 # A listed cask with a missing bundle needs investigation before uninstalling it.
@@ -123,13 +132,17 @@ for cask in "${casks[@]}"; do
 done
 
 mise -E work bootstrap packages apply --manager brew-cask
-echo "Checking remaining Homebrew casks:"
-remaining=$(brew list --cask)
+echo "Checking ownership receipts:"
 for cask in "${casks[@]}"; do
-  if grep -Fxq -- "$cask" <<< "$remaining"; then
-    echo "$cask still appears in Homebrew; ownership transfer needs investigation." >&2
+  if is_brew_owned "$cask"; then
+    echo "$cask still has Homebrew metadata; ownership transfer needs investigation." >&2
     exit 1
   fi
+  if ! is_mise_owned "$cask"; then
+    echo "$cask has no Mise receipt; ownership transfer needs investigation." >&2
+    exit 1
+  fi
+  echo "$cask: Mise-owned"
 done
 mise -E work bootstrap packages status
 echo "Handoff finished. Launch the apps to verify them; re-enable Raycast launch-at-login if needed."
