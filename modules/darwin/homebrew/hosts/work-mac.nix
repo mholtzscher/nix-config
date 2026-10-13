@@ -2,9 +2,6 @@
 { ... }:
 {
   homebrew = {
-    casks = [
-      "jetbrains-toolbox"
-    ];
     masApps = {
       # Empty for now, but keeping structure for future additions
     };
