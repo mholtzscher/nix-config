@@ -22,7 +22,6 @@
       # "docker-desktop"
       "raycast"
       "slack"
-      "visual-studio-code"
     ];
     masApps = {
       # "Numbers" = 361304891;

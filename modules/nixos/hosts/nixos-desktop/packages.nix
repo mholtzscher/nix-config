@@ -5,7 +5,6 @@
     # Development tools
     gcc
     gnumake
-    vscode
 
     google-chrome
     libnotify
