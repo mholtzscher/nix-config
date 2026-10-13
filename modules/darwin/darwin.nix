@@ -10,11 +10,6 @@
     Minute = 0;
   };
 
-  fonts.packages = [
-    pkgs.nerd-fonts.iosevka
-    pkgs.nerd-fonts.jetbrains-mono
-  ];
-
   programs.zsh.enable = true; # default shell on catalina
 
   security.pam.services.sudo_local = {
