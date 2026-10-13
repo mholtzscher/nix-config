@@ -6,22 +6,13 @@
   homebrew = {
     enable = true;
     onActivation = {
-      # Preserve native apps and their data during the handoff back to Nix.
+      # Preserve native apps and their data during the handoff to Mise.
       cleanup = "none";
       upgrade = true;
       autoUpdate = true;
     };
     taps = [
       "hashicorp/tap"
-    ];
-    casks = [
-      "arc"
-      "cleanshot"
-      "deskpad"
-      "google-chrome"
-      # "docker-desktop"
-      "raycast"
-      "slack"
     ];
     masApps = {
       # "Numbers" = 361304891;
