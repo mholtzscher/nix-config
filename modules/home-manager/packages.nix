@@ -2,6 +2,7 @@
   pkgs,
   inputs,
   isWork ? false,
+  isDarwin,
 }:
 
 with pkgs;
@@ -13,6 +14,8 @@ with pkgs;
   statix
 ]
 ++ pkgs.lib.optionals (!isWork) [
-  bruno
   tailscale
+]
+++ pkgs.lib.optionals (!isWork && !isDarwin) [
+  bruno
 ]

@@ -5,7 +5,6 @@
   home = {
     # Personal Mac-specific programs and packages
     packages = with pkgs; [
-      discord # Personal communication
       # macOS-only packages
       mkalias
       # ollama

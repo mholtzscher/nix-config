@@ -16,6 +16,7 @@
   config,
   inputs,
   isWork,
+  isDarwin,
   ...
 }:
 let
@@ -44,7 +45,14 @@ in
 
   home = {
     stateVersion = "25.05";
-    packages = import ./packages.nix { inherit pkgs inputs isWork; };
+    packages = import ./packages.nix {
+      inherit
+        pkgs
+        inputs
+        isWork
+        isDarwin
+        ;
+    };
 
     file = {
       # Cross-platform config files
