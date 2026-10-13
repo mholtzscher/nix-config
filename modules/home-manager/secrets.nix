@@ -34,6 +34,10 @@
       file = ../../secrets/hearth-openai-api-key.age;
       path = "${config.home.homeDirectory}/.local/share/agenix/hearth-openai-api-key";
     };
+    secrets.hearth-discord-webhook = {
+      file = ../../secrets/hearth-discord-webhook.age;
+      path = "${config.home.homeDirectory}/.local/share/agenix/hearth-discord-webhook";
+    };
     secrets.cloudflare-workers-ai-key =
       lib.mkIf
         (builtins.elem currentSystemName [
