@@ -250,7 +250,6 @@ in
 
   # Desktop-specific programs and packages
   home.packages = with pkgs; [
-    inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system}.opencode2-desktop
     gnused
     localsend # Local network file sharing
     vesktop # Discord client with better Wayland support

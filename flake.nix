@@ -35,7 +35,6 @@
       url = "github:noctalia-dev/noctalia-greeter";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    llm-agents.url = "github:numtide/llm-agents.nix";
     helium = {
       url = "github:AlvaroParker/helium-nix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -54,7 +53,6 @@
       catppuccin,
       melt,
       neovim-nightly,
-      llm-agents,
       helium,
       ...
     }:
