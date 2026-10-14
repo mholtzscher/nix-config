@@ -28,6 +28,13 @@
     zsh.enable = true;
   };
 
+  # PAM sets this before SSH commands run, even without interactive shell init.
+  # Keep Mise-managed tools available to Herdr servers and their plugin processes.
+  environment.sessionVariables.PATH = [
+    "$HOME/.local/bin"
+    "$HOME/.local/share/mise/shims"
+  ];
+
   # Common system packages for all NixOS hosts
   environment.systemPackages = with pkgs; [
     # Essential CLI tools
