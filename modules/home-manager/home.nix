@@ -48,11 +48,8 @@
     };
 
     sessionVariables = {
-      COMPOSE_PROFILES = "default";
       NH_DARWIN_FLAKE = "${config.home.homeDirectory}/.config/nix-config";
       NH_OS_FLAKE = "/home/michael/nix-config";
-
-      PI_FFF_MODE = "override";
     };
   };
 
