@@ -12,7 +12,6 @@
     # Work-specific programs and packages
     packages = with pkgs; [
       mkalias
-      mariadb.client
     ];
   };
 }
