@@ -6,7 +6,4 @@ with pkgs;
   # Nix
   nil
   nixfmt
-
-  # Nix extracts current VSCode servers; the npm bundle is older.
-  vscode-langservers-extracted
 ]

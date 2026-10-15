@@ -1,4 +1,5 @@
-{ isWork, ... }:
+{ isWork, isDarwin, ... }:
 {
-  services.podman.enable = !isWork;
+  # Macs use Docker Desktop via Mise; retain Podman on non-work Linux hosts.
+  services.podman.enable = !isWork && !isDarwin;
 }
