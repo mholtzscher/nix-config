@@ -480,10 +480,6 @@ This is a personal configuration, but feel free to use it as inspiration for you
 - **vicinae**: Modern Wayland app launcher
 - **catppuccin**: Catppuccin color scheme integration
 
-### Resources (non-flake)
-
-- **ghostty-shader-playground**: Ghostty terminal shaders
-
 ---
 
 **Built with** [Nix](https://nixos.org/) • [nix-darwin](https://github.com/LnL7/nix-darwin) • [home-manager](https://github.com/nix-community/home-manager) • [Niri](https://github.com/YaLTeR/niri)

@@ -17,10 +17,6 @@
       url = "github:ryantm/agenix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    ghostty-shader-playground = {
-      url = "github:KroneCorylus/ghostty-shader-playground";
-      flake = false;
-    };
     catppuccin.url = "github:catppuccin/nix";
     melt = {
       url = "github:mholtzscher/melt";
@@ -49,7 +45,6 @@
       nix-homebrew,
       home-manager,
       agenix,
-      ghostty-shader-playground,
       catppuccin,
       melt,
       neovim-nightly,

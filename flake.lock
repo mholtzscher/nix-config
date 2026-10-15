@@ -128,22 +128,6 @@
         "type": "github"
       }
     },
-    "ghostty-shader-playground": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1767540959,
-        "narHash": "sha256-Z3jF76MnyEGQuzfeZNTyOhpGAiGfhm6rnkdeBIpsJck=",
-        "owner": "KroneCorylus",
-        "repo": "ghostty-shader-playground",
-        "rev": "7295ebf717f236f114912ec5de0d8ce91661448f",
-        "type": "github"
-      },
-      "original": {
-        "owner": "KroneCorylus",
-        "repo": "ghostty-shader-playground",
-        "type": "github"
-      }
-    },
     "helium": {
       "inputs": {
         "flake-compat": "flake-compat",
@@ -384,7 +368,6 @@
       "inputs": {
         "agenix": "agenix",
         "catppuccin": "catppuccin",
-        "ghostty-shader-playground": "ghostty-shader-playground",
         "helium": "helium",
         "home-manager": "home-manager",
         "melt": "melt",
