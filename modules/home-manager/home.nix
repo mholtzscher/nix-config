@@ -19,13 +19,6 @@
   isDarwin,
   ...
 }:
-let
-  lazyIdeaVim = pkgs.fetchurl {
-    url = "https://gist.githubusercontent.com/mikeslattery/d2f2562e5bbaa7ef036cf9f5a13deff5/raw/31278677c945d5f7be6f9c1e37a9779542ff1376/.idea-lazy.vim";
-    # Replace with the actual SHA256 hash of the file
-    sha256 = "sha256-WC8jzKir2LRMVOgyNJwDYH26mpIf9UCVTi6wOHdfDXo=";
-  };
-in
 {
   imports = [
     ./agents
@@ -55,15 +48,6 @@ in
     };
 
     file = {
-      # Cross-platform config files
-      "${config.xdg.configHome}/kafkactl/config.yml".source = ./files/kafkactl.yaml;
-      ".ideavimrc".source = ./files/ideavimrc;
-      "bin/pr-diff" = {
-        source = ./files/pr-diff;
-        executable = true;
-      };
-      ".idea-lazy.vim".source = lazyIdeaVim;
-
       "${config.xdg.configHome}/1Password/ssh/agent.toml".source = ./files/1password-agent.toml;
     };
 
