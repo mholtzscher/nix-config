@@ -19,12 +19,4 @@ in
 
   # Disable GUI programs on headless server
   programs.ghostty.enable = lib.mkForce false;
-
-  programs.ssh = {
-    enable = true;
-    settings."nas nas-a nas-b" = {
-      HostName = "nas-a.internal";
-      User = "storage";
-    };
-  };
 }

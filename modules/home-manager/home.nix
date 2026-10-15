@@ -47,10 +47,6 @@
         ;
     };
 
-    file = {
-      "${config.xdg.configHome}/1Password/ssh/agent.toml".source = ./files/1password-agent.toml;
-    };
-
     sessionVariables = {
       COMPOSE_PROFILES = "default";
       NH_DARWIN_FLAKE = "${config.home.homeDirectory}/.config/nix-config";
