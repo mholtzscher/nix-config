@@ -13,7 +13,7 @@ with pkgs;
   nixfmt
   statix
 ]
-++ pkgs.lib.optionals (!isWork) [
+++ pkgs.lib.optionals (!isWork && !isDarwin) [
   tailscale
 ]
 ++ pkgs.lib.optionals (!isWork && !isDarwin) [
