@@ -1,8 +1,4 @@
-"""Run with python3 -m unittest discover -s scripts/tests -v.
-
-All integration data and keys are disposable, non-secret fixtures. Real user
-configuration, credentials, network remotes, and Nix activation are never used.
-"""
+"""Integration checks use disposable age keys and non-secret canary values only."""
 
 import contextlib
 import importlib.util
@@ -12,54 +8,53 @@ import os
 import shutil
 import subprocess
 import tempfile
-import tomllib
 import unittest
 from pathlib import Path
 from unittest.mock import patch
 
-spec = importlib.util.spec_from_file_location(
-    "secrets_mise", Path(__file__).parents[1] / "secrets-mise.py"
-)
+spec = importlib.util.spec_from_file_location("secrets_mise", Path(__file__).parents[1] / "secrets-mise.py")
 helper = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(helper)
 MISE = shutil.which("mise")
-BRIDGE = Path.home() / ".config/mise/agenix-env.sh"
+AGE = subprocess.run([MISE, "which", "age"], capture_output=True, text=True, check=True).stdout.strip() if MISE else None
 
 
-@unittest.skipUnless(
-    MISE and shutil.which("ssh-keygen") and shutil.which("git"),
-    "requires mise, git, ssh-keygen",
-)
-class NativeAgeMigrationTests(unittest.TestCase):
+@unittest.skipUnless(MISE and AGE and shutil.which('ssh-keygen'), 'requires Mise, age, ssh-keygen')
+class PersonalSecrets(unittest.TestCase):
     def setUp(self):
-        self.temporary = tempfile.TemporaryDirectory(
-            prefix="mise-env-test-", dir="/tmp/opencode"
-        )
+        self.temporary = tempfile.TemporaryDirectory(prefix='personal-secrets-', dir='/tmp/opencode')
         self.addCleanup(self.temporary.cleanup)
         self.root = Path(self.temporary.name)
-        self.home = self.root / "personal"
-        self.config = self.home / ".config/mise"
+        self.home = self.root / 'desktop'
+        self.config = self.home / '.config/mise'
         self.config.mkdir(parents=True)
-        self.env = self.environment(self.home, "personal")
-        self.environment_patch = patch.dict(os.environ, self.env, clear=True)
-        self.environment_patch.start()
-        self.addCleanup(self.environment_patch.stop)
-        self.public = []
-        for name in ("personal-mac", "nixos-desktop"):
-            identity = self.home / f".ssh/id_ed25519_agenix_{name}"
-            identity.parent.mkdir(exist_ok=True)
-            subprocess.run(
-                ["ssh-keygen", "-q", "-t", "ed25519", "-N", "", "-f", str(identity)],
-                check=True,
-            )
-            self.public.append(Path(str(identity) + ".pub").read_text().strip())
-        self.profile = self.config / "config.personal-mac.toml"
-        self.profile.write_text(
-            "[vars]\nmac_secret_recipient = " + json.dumps(self.public[0]) + "\n"
-            "mac_secret_recovery_recipient = " + json.dumps(self.public[1]) + "\n"
-            '[settings.age]\nssh_identity_files = ["~/.ssh/id_ed25519_agenix_personal-mac"]\n'
-        )
-        (self.config / "config.toml").write_text("""[settings]
+        self.source = self.root / 'sources'
+        self.source.mkdir()
+        self.keys = {}
+        for host in helper.HOSTS:
+            key = self.home / f'.ssh/id_ed25519_agenix_{host}'
+            key.parent.mkdir(exist_ok=True)
+            subprocess.run(['ssh-keygen', '-q', '-t', 'ed25519', '-N', '', '-f', str(key)], check=True)
+            self.keys[host] = Path(str(key) + '.pub').read_text().strip()
+        self.identity = self.home / '.ssh/id_ed25519_agenix_nixos-desktop'
+        (self.source / 'recipients.nix').write_text('{\n' + '\n'.join(f'"{host}" = {json.dumps(key)};' for host, key in self.keys.items()) + '\n}\n')
+        self.values = {}
+        self.originals = {}
+        for name, variable in helper.SECRETS.items():
+            raw = ('non-secret-canary-' + name + "-a'b\\c\n").encode()
+            if variable == 'KOMODO_DATABASE_ENVIRONMENT':
+                raw = b'POSTGRES_PASSWORD=non-secret-db-fixture\nKOMODO_DATABASE_PASSWORD=non-secret-db-fixture\n'
+            self.values[variable] = raw.decode() if variable == 'KOMODO_DATABASE_ENVIRONMENT' else raw.decode().strip()
+            args = [AGE, '--encrypt']
+            for host, public in self.keys.items():
+                if name not in helper.SHARED or host != 'wanda':
+                    args.extend(['--recipient', public])
+            encrypted = subprocess.run(args, input=raw, capture_output=True, check=True).stdout
+            (self.source / (name + '.age')).write_bytes(encrypted)
+            self.originals[name] = encrypted
+        self.target = self.config / 'config.personal.toml'
+        self.target.write_text('[tools]\n# keep unrelated settings\n[env]\n# Linux keeps Agenix. Native age values in personal-mac override this bridge.\n_.source = { path = "{{env.HOME}}/.config/mise/agenix-env.sh", redact = true }\n')
+        (self.config / 'config.toml').write_text('''[settings]
 experimental = true
 [settings.self_update]
 auto = false
@@ -67,237 +62,106 @@ auto = false
 sync = "manual"
 [dotfiles]
 "~/.config/mise/config.toml" = { mode = "track" }
-"~/.config/mise/config.personal-mac.toml" = { mode = "track" }
-""")
-        (self.config / "miserc.local.toml").write_text('env = ["personal"]\n')
-        self.runtime = self.home / ".runtime/agenix"
-        self.expected = {}
-        for index, (name, path) in enumerate(
-            helper.sources(self.home, self.runtime).items()
-        ):
-            path.parent.mkdir(parents=True, exist_ok=True)
-            # Punctuation and a CRLF exercise exact secret transport and newline
-            # handling without resembling a real provider credential.
-            value = f"non-secret-canary-{index}-a'b\\c $literal"
-            path.write_bytes(value.encode() + b"\r\n")
-            self.expected[name] = value
-        self.origin = self.root / "origin.git"
-        subprocess.run(["git", "init", "--bare", "-q", str(self.origin)], check=True)
-        helper.run_mise(MISE, ["dot", "save"], self.home)
-        helper.run_mise(
-            MISE,
-            ["dot", "origin", "set", str(self.origin), "--sync", "manual", "--yes"],
-            self.home,
-        )
+"~/.config/mise/config.personal.toml" = { mode = "track" }
+''')
+        self.env = self.environment(self.home, 'personal')
+        self.environment_patch = patch.dict(os.environ, self.env, clear=True)
+        self.environment_patch.start()
+        self.addCleanup(self.environment_patch.stop)
 
     def environment(self, home, profile):
         return {
-            "PATH": os.environ["PATH"],
-            "HOME": str(home),
-            "USER": "canary",
-            "LANG": "C.UTF-8",
-            "XDG_CONFIG_HOME": str(home / ".config"),
-            "XDG_DATA_HOME": str(home / ".local/share"),
-            "XDG_STATE_HOME": str(home / ".local/state"),
-            "XDG_CACHE_HOME": str(home / ".cache"),
-            "MISE_CONFIG_DIR": str(home / ".config/mise"),
-            "MISE_DATA_DIR": str(home / ".local/share/mise"),
-            "MISE_STATE_DIR": str(home / ".local/state/mise"),
-            "MISE_CACHE_DIR": str(home / ".cache/mise"),
-            "MISE_SYSTEM_CONFIG_DIR": str(self.root / "system"),
-            "MISE_ENV": profile,
-            "MISE_SELF_UPDATE_AUTO": "false",
-            "GIT_CONFIG_NOSYSTEM": "1",
-            "GIT_AUTHOR_NAME": "Canary",
-            "GIT_AUTHOR_EMAIL": "canary@example.invalid",
-            "GIT_COMMITTER_NAME": "Canary",
-            "GIT_COMMITTER_EMAIL": "canary@example.invalid",
+            'PATH': str(Path(AGE).parent) + ':' + os.environ['PATH'], 'HOME': str(home), 'USER': 'canary', 'LANG': 'C.UTF-8',
+            'XDG_CONFIG_HOME': str(home / '.config'), 'XDG_DATA_HOME': str(home / '.local/share'),
+            'XDG_STATE_HOME': str(home / '.local/state'), 'XDG_CACHE_HOME': str(home / '.cache'),
+            'MISE_CONFIG_DIR': str(home / '.config/mise'), 'MISE_DATA_DIR': str(home / '.local/share/mise'),
+            'MISE_STATE_DIR': str(home / '.local/state/mise'), 'MISE_CACHE_DIR': str(home / '.cache/mise'),
+            'MISE_SYSTEM_CONFIG_DIR': str(self.root / 'system'), 'MISE_ENV': profile,
+            'MISE_SELF_UPDATE_AUTO': 'false', 'GIT_CONFIG_NOSYSTEM': '1',
+            'GIT_AUTHOR_NAME': 'Canary', 'GIT_AUTHOR_EMAIL': 'canary@example.invalid',
+            'GIT_COMMITTER_NAME': 'Canary', 'GIT_COMMITTER_EMAIL': 'canary@example.invalid',
         }
 
-    def import_secrets(self):
+    def stage(self):
         output = io.StringIO()
         with contextlib.redirect_stdout(output):
-            helper.import_existing(MISE, self.home, self.config, self.runtime)
-        for value in self.expected.values():
+            helper.stage(self.target, self.source, self.identity, True)
+        for value in self.values.values():
             self.assertNotIn(value, output.getvalue())
-        return output.getvalue()
 
-    def test_round_trip_publication_profile_isolation_and_originals(self):
-        original = {
-            p: p.read_bytes() for p in helper.sources(self.home, self.runtime).values()
-        }
-        self.assertIn("Imported and verified 10", self.import_secrets())
-        for path, content in original.items():
-            self.assertEqual(path.read_bytes(), content)
-        config = tomllib.loads(self.profile.read_text())
-        helper.validate_encrypted(config)
-        self.assertEqual(self.profile.stat().st_mode & 0o777, 0o600)
-        for value in self.expected.values():
-            self.assertNotIn(value, self.profile.read_text())
-        self.assertEqual(
-            tomllib.loads((self.config / "miserc.local.toml").read_text())["env"],
-            ["personal", "personal-mac"],
-        )
-        actual = helper.resolved(MISE, self.home)
-        for key, value in self.expected.items():
-            self.assertEqual(actual[key], value)
-        output = io.StringIO()
-        with contextlib.redirect_stdout(output):
-            helper.status(MISE, self.home, self.config)
-        self.assertIn("no values printed", output.getvalue())
-        published = subprocess.run(
-            [
-                "git",
-                "--git-dir",
-                str(self.origin),
-                "show",
-                "main:config/config.personal-mac.toml",
-            ],
-            capture_output=True,
-            check=True,
-        ).stdout.decode()
-        self.assertEqual(published, self.profile.read_text())
-        for value in self.expected.values():
-            self.assertNotIn(value, published)
+    def test_stage_preserves_payloads_and_grants_only_approved_wanda_access(self):
+        self.stage()
+        config = helper.load(self.target)
+        self.assertEqual(len(helper.recipients(config)), 3)
+        self.assertNotIn('_.source', self.target.read_text())
+        self.assertIn('# keep unrelated settings', self.target.read_text())
+        self.assertEqual(self.target.stat().st_mode & 0o777, 0o600)
+        for name, variable in helper.SECRETS.items():
+            encrypted = helper.payload(config, variable)
+            self.assertEqual((self.source / (name + '.age')).read_bytes(), self.originals[name])
+            if name not in helper.SHARED:
+                self.assertEqual(encrypted, self.originals[name])
+            else:
+                self.assertNotEqual(encrypted, self.originals[name])
+                before = subprocess.run([AGE, '-d', '-i', str(self.home / '.ssh/id_ed25519_agenix_wanda')], input=self.originals[name], capture_output=True, check=False)
+                self.assertNotEqual(before.returncode, 0)
+            for host in helper.HOSTS:
+                decrypted = subprocess.run([AGE, '-d', '-i', str(self.home / f'.ssh/id_ed25519_agenix_{host}')], input=encrypted, capture_output=True, check=True).stdout.decode()
+                actual = decrypted if variable == 'KOMODO_DATABASE_ENVIRONMENT' else decrypted.strip()
+                self.assertEqual(actual, self.values[variable])
+            self.assertNotIn(self.values[variable], self.target.read_text())
 
-        # Work and personal-Linux readers have no decryption keys. Both must
-        # adopt and then sync normally, without loading the Mac-only values.
-        for name, selected in (("work", "work"), ("linux", "personal")):
-            home = self.root / name
+    def test_all_personal_hosts_decrypt_and_keyless_work_adopts_and_syncs(self):
+        self.stage()
+        origin = self.root / 'origin.git'
+        subprocess.run(['git', 'init', '--bare', '-q', str(origin)], check=True)
+        helper.mise(['dot', 'save'])
+        helper.mise(['dot', 'origin', 'set', str(origin), '--sync', 'manual', '--yes'])
+        for host, profile in [(h, 'personal') for h in helper.HOSTS] + [('work', 'work')]:
+            home = self.root / ('reader-' + host)
             home.mkdir()
-            env = self.environment(home, selected)
-            result = subprocess.run(
-                [MISE, "bootstrap", "--adopt", str(self.origin), "--yes"],
-                env=env,
-                cwd=home,
-                capture_output=True,
-                check=False,
-            )
-            self.assertEqual(result.returncode, 0, result.stderr.decode())
-            values = subprocess.run(
-                [MISE, "env", "--json"],
-                env=env,
-                cwd=home,
-                capture_output=True,
-                check=True,
-            )
-            self.assertFalse(set(self.expected) & json.loads(values.stdout).keys())
-            for command in (("dot", "sync"), ("dot", "pull")):
-                result = subprocess.run(
-                    [MISE, *command],
-                    env=env,
-                    cwd=home,
-                    capture_output=True,
-                    check=False,
-                )
+            if host != 'work':
+                key = home / f'.ssh/id_ed25519_agenix_{host}'
+                key.parent.mkdir()
+                shutil.copyfile(self.home / f'.ssh/id_ed25519_agenix_{host}', key)
+                key.chmod(0o600)
+            env = self.environment(home, profile)
+            for command in [('bootstrap', '--adopt', str(origin), '--yes'), ('dot', 'sync'), ('dot', 'pull')]:
+                result = subprocess.run([MISE, *command], env=env, cwd=home, capture_output=True, check=False)
                 self.assertEqual(result.returncode, 0, result.stderr.decode())
+            result = subprocess.run([MISE, 'env', '--json'], env=env, cwd=home, capture_output=True, check=True)
+            values = json.loads(result.stdout)
+            if host == 'work':
+                self.assertFalse(set(self.values) & values.keys())
+            else:
+                for name, expected in self.values.items():
+                    self.assertEqual(values[name], expected)
+                    self.assertNotIn(helper.RAW + name, values)
 
-        # The desktop's pre-existing recipient can decrypt as a recovery key;
-        # the personal Mac key is not required on the recovery machine.
-        recovery = self.root / "recovery"
-        rc = recovery / ".config/mise"
-        rc.mkdir(parents=True)
-        (rc / "config.toml").write_text((self.config / "config.toml").read_text())
-        (rc / "config.personal-mac.toml").write_text(self.profile.read_text())
-        identity = recovery / ".ssh/id_ed25519"
-        identity.parent.mkdir()
-        shutil.copyfile(self.home / ".ssh/id_ed25519_agenix_nixos-desktop", identity)
-        identity.chmod(0o600)
-        result = subprocess.run(
-            [MISE, "env", "--json"],
-            env=self.environment(recovery, "personal,personal-mac"),
-            cwd=recovery,
-            capture_output=True,
-            check=True,
-        )
-        for key, value in self.expected.items():
-            self.assertEqual(json.loads(result.stdout)[key], value)
-
-    def test_missing_source_leaves_profile_and_default_unchanged(self):
-        original = self.profile.read_bytes()
-        defaults = (self.config / "miserc.local.toml").read_bytes()
-        next(iter(helper.sources(self.home, self.runtime).values())).unlink()
+    def test_sharing_requires_explicit_flag_and_failures_preserve_original_config(self):
+        original = self.target.read_bytes()
         with self.assertRaises(helper.SecretError):
-            self.import_secrets()
-        self.assertEqual(self.profile.read_bytes(), original)
-        self.assertEqual((self.config / "miserc.local.toml").read_bytes(), defaults)
-
-    def test_mismatched_identity_rolls_back_and_does_not_enable(self):
-        original = self.profile.read_bytes()
-        config = original.decode().replace(self.public[0], self.public[1])
-        self.profile.write_text(config)
+            helper.stage(self.target, self.source, self.identity, False)
+        self.assertEqual(self.target.read_bytes(), original)
         with self.assertRaises(helper.SecretError):
-            self.import_secrets()
-        self.assertEqual(self.profile.read_text(), config)
-        self.assertEqual(
-            tomllib.loads((self.config / "miserc.local.toml").read_text())["env"],
-            ["personal"],
-        )
+            helper.stage(self.target, self.source, self.root / 'missing-identity', True)
+        self.assertEqual(self.target.read_bytes(), original)
 
-    def test_repeat_import_refuses_to_overwrite_encrypted_values(self):
-        self.import_secrets()
-        encrypted = self.profile.read_bytes()
-        with self.assertRaises(helper.SecretError):
-            self.import_secrets()
-        self.assertEqual(self.profile.read_bytes(), encrypted)
+    def test_direct_native_edit_and_raw_alias_removal(self):
+        self.stage()
+        args = [AGE, '--encrypt']
+        for key in helper.recipients(helper.load(self.target)):
+            args.extend(['--recipient', key])
+        # Large values remain ordinary age ciphertext, not a compressed format
+        # that the helper could not later rekey.
+        value = b'non-secret-large-rotation-fixture' * 100
+        encrypted = subprocess.run(args, input=value, capture_output=True, check=True).stdout
+        helper.replace_env_payload(self.target, 'KOMODO_API_KEY', encrypted)
+        config = helper.load(self.target)
+        self.assertEqual(helper.payload(config, 'KOMODO_API_KEY'), encrypted)
+        self.assertNotIn(helper.RAW + 'KOMODO_API_KEY', config['vars'])
+        helper.replace_env_payload(self.target, 'NEW_PERSONAL_KEY', encrypted)
+        self.assertIn('NEW_PERSONAL_KEY', helper.names(helper.load(self.target)))
 
-    def test_plaintext_definitions_are_rejected(self):
-        with self.assertRaises(helper.SecretError):
-            helper.validate_encrypted(
-                {"env": {key: "non-secret" for key in self.expected}}
-            )
-
-    def test_oversized_input_is_not_silently_truncated(self):
-        original = self.profile.read_bytes()
-        next(iter(helper.sources(self.home, self.runtime).values())).write_bytes(
-            b"x" * 16384 + b"\ntrailing-data"
-        )
-        with self.assertRaises(helper.SecretError):
-            self.import_secrets()
-        self.assertEqual(self.profile.read_bytes(), original)
-
-    def test_local_profile_update_preserves_other_settings_and_comments(self):
-        local = self.config / "miserc.local.toml"
-        local.write_text(
-            '# machine preferences\nenv = [\n  "personal",\n] # roles\nauto_env = false\n'
-        )
-        _, _, updated = helper.default_profile_update(self.config)
-        self.assertEqual(
-            tomllib.loads(updated.decode()),
-            {"env": ["personal", "personal-mac"], "auto_env": False},
-        )
-        self.assertIn("# machine preferences", updated.decode())
-        self.assertIn("# roles", updated.decode())
-
-    def test_work_default_is_rejected_before_any_import(self):
-        (self.config / "miserc.local.toml").write_text('env = ["work"]\n')
-        original = self.profile.read_bytes()
-        with self.assertRaises(helper.SecretError):
-            self.import_secrets()
-        self.assertEqual(self.profile.read_bytes(), original)
-
-    @unittest.skipUnless(BRIDGE.exists(), "requires shared workstation bridge")
-    def test_linux_bridge_and_native_override_without_files_after_handoff(self):
-        bridge = self.config / "agenix-env.sh"
-        bridge.write_bytes(BRIDGE.read_bytes())
-        personal = self.config / "config.personal.toml"
-        personal.write_text(
-            '[env]\n_.source = { path = "{{env.HOME}}/.config/mise/agenix-env.sh", redact = true }\n'
-        )
-        os.environ["XDG_RUNTIME_DIR"] = str(self.runtime.parent)
-        before = json.loads(
-            helper.run_mise(MISE, ["env", "--json"], self.home, resolve=True)
-        )
-        # The bridge mirrors shell command substitution: CR is left in the
-        # fixture CRLF input, unlike the deliberately normalized native import.
-        self.assertTrue(before["KOMODO_API_KEY"].endswith("\r"))
-        self.import_secrets()
-        for path in helper.sources(self.home, self.runtime).values():
-            path.unlink()
-        actual = helper.resolved(MISE, self.home)
-        for key, value in self.expected.items():
-            self.assertEqual(actual[key], value)
-
-
-if __name__ == "__main__":
+if __name__ == '__main__':
     unittest.main()

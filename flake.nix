@@ -13,10 +13,6 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    agenix = {
-      url = "github:ryantm/agenix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     catppuccin.url = "github:catppuccin/nix";
     melt = {
       url = "github:mholtzscher/melt";
@@ -44,7 +40,6 @@
       nixpkgs,
       nix-homebrew,
       home-manager,
-      agenix,
       catppuccin,
       melt,
       neovim-nightly,

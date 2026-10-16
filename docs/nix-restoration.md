@@ -101,7 +101,7 @@ sudo launchctl bootstrap system /Library/LaunchDaemons/com.tailscale.tailscaled.
 sudo ./result-nix-restoration/sw/bin/darwin-rebuild switch --flake ".#${host}"
 ```
 
-This re-establishes nix-darwin with embedded Home Manager and agenix. Do not
+This re-establishes nix-darwin with embedded Home Manager. Secrets remain in Mise. Do not
 run a separate Mac `home-manager switch`. Preserve the current password-sudo
 session until sudo has been tested from another terminal.
 

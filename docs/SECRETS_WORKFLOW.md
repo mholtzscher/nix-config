@@ -1,35 +1,58 @@
 # Secrets workflow
 
-Read the usage and relevant command implementation in `scripts/secrets` for creation, editing, auditing, host keys, or rekeying. Verify secret declaration/file changes with `./scripts/secrets audit`.
+Personal credentials live as native age ciphertext in
+`~/.config/mise/config.personal.toml`, shared by the desktop, personal Mac, and
+Wanda. The work profile does not load them. Agenix is no longer a runtime or
+editing dependency. Never print resolved values or commit plaintext credentials.
 
-## Personal Mac: native Mise environment values
+## Commands
 
-`./scripts/secrets mise-import` is a user-run handoff from the existing Agenix
-files to native age-encrypted `[env]` values in
-`~/.config/mise/config.personal-mac.toml`. It requires the personal Mac's existing
-identity, retains the desktop as a recovery recipient, verifies every decrypted
-value without printing it, and only then adds `personal-mac` alongside `personal`
-in that Mac's untracked `miserc.local.toml`. It saves and syncs ciphertext only.
-It does not remove Agenix or change its files. Do not run the import as an agent.
+Use `./scripts/secrets` for all secret work:
 
-`./scripts/secrets mise-status` verifies resolution without printing values.
-After import, `./scripts/secrets edit` on the personal Mac prompts for a native
-Mise secret with hidden input; it does not update the Linux `.age` source.
-The native helper uses Mise and Python, not Nix, so it remains usable after Nix
-is retired. Back up the identity independently of the configuration repository.
+- `list`: list environment-variable names, never values.
+- `audit`: check all fourteen native age payloads and public recipients without
+  decrypting them. Run after declaration or encrypted-source changes.
+- `edit [NAME]`: choose a secret and enter its replacement through hidden input.
+  Uses age to write a native Mise ciphertext value, then saves and syncs it.
+  Agents must not run interactive value edits.
+- `edit NAME --from-file PATH`: user-run multiline input. File contents travel
+  through stdin, never arguments/logs.
+- `create NAME`: add an encrypted environment value using the same hidden input.
+- `rekey [--identity PATH]`: re-encrypt current Mise payloads to the configured
+  public recipients. Plaintext travels only through a pipe between age processes;
+  no plaintext temporary files or values enter the helper's output.
 
-Shared consumers read environment variables. `config.personal.toml` supplies an
-`agenix-env.sh` bridge on hosts still using Agenix; the later `personal-mac`
-profile overrides those values on the personal Mac. The work profile loads
-neither source. Restart long-running agent applications after changing secret
-delivery so their servers inherit the new environment.
+The personal Mise profile installs `age`; the helper uses only Mise, age, and
+Python, not Nix. Keep identity keys out of tracking and back them up separately.
+The existing `~/.ssh/id_ed25519_agenix_<host>` names remain valid age identities;
+the historical filename does not require Agenix. Do not delete or rotate those
+keys as part of removing Nix/Agenix.
 
-## Build and rewrite gotchas
+## Runtime environment
 
-- If a build must pass before real values exist, use the helper to encrypt non-secret placeholder content. Do not write plaintext into `.age` files. The user replaces placeholders through the editor workflow in `AGENTS.md`; agenix decrypts at activation, so replacing values needs no rebuild.
-- Run `git add` for new `.age` files before evaluation. Flakes ignore untracked files.
-- Treat `secrets/secrets.nix` as script-rewritten data. For manual declaration edits, match `write_rules_from_tsv` in `scripts/secrets`; rewrites discard comments.
+All personal hosts use the existing `personal` profile; there is no additional
+Mac profile or enable/validator step. Strict native age decryption loads the
+encrypted `[vars]`, and redacted `[env]` aliases expose the credentials. The
+multiline database environment is preserved exactly; scalar credentials have
+editor-added surrounding whitespace removed. Restart long-running agent
+applications after changing delivery or rotating a value.
 
-## pi MCP servers and containers
+MCP configuration lives in `mholtzscher/workstation`. Pi uses `${NAME}` references;
+OpenCode's local MCP processes inherit environment variables. Container commands
+forward named variables with bare `-e VAR`, not inline values.
 
-AI configuration now lives in `mholtzscher/workstation`. Before wiring secret-backed MCP environment variables or container forwarding, read `unifi-network` and `komodo` in that repository's `home@default/.pi/agent/mcp.json` for the native `${NAME}` substitution and bare `-e VAR` patterns. OpenCode's local MCP processes inherit credential variables directly. Also read `config/agenix-env.sh` and the declarations and Darwin runtime-path comments in `modules/home-manager/secrets.nix`. Extend script-generated entries to preserve the explicit paths the bridge requires; do not reduce them to the bare `file` form.
+Komodo's existing configuration and persistent files are outside this migration.
+They are not regenerated, moved, or deleted.
+
+## One-time migration
+
+`./scripts/secrets stage --share-personal` stages the fourteen archived `.age`
+payloads into the existing personal config. The explicit flag authorizes adding
+Wanda to the four formerly restricted credentials. Only those four payloads are
+stream-re-encrypted; the other ten ciphertexts are copied unchanged. Original
+encrypted files and recipient metadata in `secrets/` remain recovery material,
+not the active source of truth. Do not stage again after editing live Mise values.
+Agents may run this ciphertext-only/streaming operation without viewing values.
+
+Remove Agenix through each host's normal user-run Nix switch only after the Mise
+configuration has been restored. Never run a switch as an agent.
