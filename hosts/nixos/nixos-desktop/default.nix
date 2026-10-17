@@ -147,7 +147,11 @@
   };
 
   # Enable Docker containers
-  virtualisation.docker.enable = true;
+  virtualisation.docker = {
+    enable = true;
+    # Testcontainers needs startup logs that journald does not expose through Docker here.
+    logDriver = "json-file";
+  };
 
   # Performance tuning for gaming
   powerManagement.cpuFreqGovernor = "performance";
