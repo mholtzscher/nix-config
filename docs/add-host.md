@@ -5,8 +5,7 @@ Reference for adding Darwin, NixOS, and standalone home-manager hosts.
 ## Darwin Host
 
 1. Create `hosts/darwin/<hostname>/default.nix`
-2. Create `modules/home-manager/hosts/<hostname>/default.nix`
-3. Add host to `flake.nix`
+2. Add host to `flake.nix`
 
 ```nix
 darwinConfigurations."Host-Name" = lib.mkSystem {
@@ -19,8 +18,8 @@ darwinConfigurations."Host-Name" = lib.mkSystem {
 ```
 
 - Match the macOS hostname key with the machine hostname
-- Put machine-specific user config in `modules/home-manager/hosts/<hostname>/`
-- Validate with `nix flake check`
+- Manage user tools and dotfiles in Mise; Darwin hosts do not import Home Manager
+- Validate with `./scripts/agent-validate.sh Host-Name`
 
 ## NixOS Host
 

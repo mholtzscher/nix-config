@@ -28,18 +28,10 @@
       systemFunc =
         if isDarwin then inputs.nix-darwin.lib.darwinSystem else inputs.nixpkgs.lib.nixosSystem;
 
-      # Select appropriate home-manager module
-      homeManagerModule =
-        if isDarwin then
-          inputs.home-manager.darwinModules.home-manager
-        else
-          inputs.home-manager.nixosModules.home-manager;
-
       # Common modules shared by both platforms
       commonModules = [
         hostPath
         ../modules/shared
-        homeManagerModule
 
         # Global module arguments - available to all modules
         {
@@ -57,19 +49,6 @@
           // (if isLinux then { inherit graphical gaming; } else { });
         }
 
-        # Home-manager specific module arguments - make variables available without explicit import
-        {
-          home-manager.sharedModules = [
-            {
-              _module.args = {
-                inherit isWork;
-                inherit isDarwin isLinux;
-                currentSystemName = name;
-                currentSystemUser = user;
-              };
-            }
-          ];
-        }
       ];
 
       # Darwin-specific modules
@@ -84,6 +63,19 @@
 
       # NixOS-specific modules
       nixosModules = [
+        inputs.home-manager.nixosModules.home-manager
+        {
+          home-manager.sharedModules = [
+            {
+              _module.args = {
+                inherit isWork;
+                inherit isDarwin isLinux;
+                currentSystemName = name;
+                currentSystemUser = user;
+              };
+            }
+          ];
+        }
         ../modules/nixos
         inputs.catppuccin.nixosModules.catppuccin
 

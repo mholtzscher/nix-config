@@ -10,7 +10,7 @@ A comprehensive, multi-platform Nix flake managing both macOS (Darwin) and NixOS
   - Enable flakes in `~/.config/nix/nix.conf`: `experimental-features = nix-command flakes`
 - **Git**: For cloning and managing the configuration
 - **Nix-Darwin** (macOS only): Automatically managed as a flake input
-- **Home-Manager**: Automatically managed as a flake input
+- **Home-Manager** (Linux only): Automatically managed as a flake input; Macs use Mise for user configuration
 
 ## Managed Systems
 
@@ -78,8 +78,6 @@ A comprehensive, multi-platform Nix flake managing both macOS (Darwin) and NixOS
 │       │   ├── firefox.nix
 │       │   └── [31 more...]
 │       ├── hosts/               # Host-specific user configs
-│       │   ├── personal-mac.nix
-│       │   ├── work-mac.nix
 │       │   └── nixos-desktop/   # Desktop user packages & config
 │       │       └── default.nix
 │       └── files/               # Dotfiles
@@ -91,9 +89,9 @@ A comprehensive, multi-platform Nix flake managing both macOS (Darwin) and NixOS
 
 ```bash
 # Validate configuration
-darwin-rebuild build --flake ~/.config/nix-config
+darwin-rebuild build --flake ~/.config/nix-config#Michaels-M1-Max
 
-# Using aliases
+# Mise-managed helpers select the personal/work Mac profile
 nb   # Validate
 nup  # Apply (preferred; do not use switch directly)
 ```
@@ -168,24 +166,11 @@ This config uses a unified `lib.mkSystem` helper that handles both Darwin and Ni
 1. Create `hosts/darwin/hostname.nix`:
 
 ```nix
-{ pkgs, inputs, user, ... }:
+{ user, ... }:
 {
   users.users.${user} = {
     name = user;
     home = "/Users/${user}";
-  };
-
-  home-manager = {
-    useGlobalPkgs = true;
-    useUserPackages = true;
-    backupFileExtension = "backup";
-    extraSpecialArgs = { inherit inputs; };
-    users.${user} = { ... }: {
-      imports = [
-        ../../modules/home-manager/home.nix
-        ../../modules/home-manager/hosts/hostname.nix
-      ];
-    };
   };
 
   system = {
@@ -201,7 +186,7 @@ This config uses a unified `lib.mkSystem` helper that handles both Darwin and Ni
 }
 ```
 
-2. Create `modules/home-manager/hosts/hostname.nix` for host-specific programs/settings
+2. Manage user tools and dotfiles in Mise; Macs do not use Home Manager.
 3. Add to `flake.nix`:
 
 ```nix
@@ -385,7 +370,7 @@ nf <file>.nix                               # Format nix file
 
 ## Important Notes
 
-- **Never run `darwin-rebuild switch` directly** — Validate with `nb`, then apply with `nup`
+- **Only the user applies Nix changes** — Validate with `nb`, then apply with `nup` (which uses `darwin-rebuild` on Macs)
 - **Platform guards are critical** - Always use for platform-specific features
 - **Host configs override shared** - Use `lib.mkDefault` in shared configs
 - **Git tree dirty warnings** - Normal during development, commit changes for clean builds

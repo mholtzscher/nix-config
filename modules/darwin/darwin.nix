@@ -1,4 +1,10 @@
-{ pkgs, config, ... }:
+{
+  pkgs,
+  lib,
+  config,
+  currentSystemUser,
+  ...
+}:
 {
   nixpkgs.hostPlatform = "aarch64-darwin";
 
@@ -31,6 +37,33 @@
 
   # User desktop/app preferences are managed by Mise bootstrap.
   system.defaults.loginwindow.GuestEnabled = false;
+
+  # Home Manager no longer activates on Macs. Remove only its known home links,
+  # never regular files, unexpected links, application bundles, or font files.
+  system.activationScripts.postActivation.text = lib.mkAfter ''
+    retiredHmHome=${lib.escapeShellArg config.users.users.${currentSystemUser}.home}
+    for retiredHmRelative in \
+      '.cache/.keep' \
+      '.local/state/.keep' \
+      'Applications/Home Manager Apps' \
+      'Library/Fonts/.home-manager-fonts-version'; do
+      retiredHmPath="$retiredHmHome/$retiredHmRelative"
+      if [[ -L "$retiredHmPath" ]]; then
+        retiredHmTarget=$(readlink "$retiredHmPath")
+        case "$retiredHmTarget" in
+          /nix/store/*-home-manager-files/"$retiredHmRelative"|/nix/store/*-home-manager-generation/home-files/"$retiredHmRelative")
+            if [[ -v DRY_RUN ]]; then
+              printf >&2 'Would remove retired Home Manager link: %s\n' "$retiredHmPath"
+            else
+              printf >&2 'Removing retired Home Manager link: %s\n' "$retiredHmPath"
+              rm -- "$retiredHmPath"
+            fi
+            ;;
+        esac
+      fi
+    done
+    unset retiredHmHome retiredHmRelative retiredHmPath retiredHmTarget
+  '';
 
   system.activationScripts.applications.text =
     let

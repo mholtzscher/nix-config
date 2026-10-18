@@ -2,6 +2,8 @@
 
 Quick routing guide for common edits.
 
+Mac user tools and dotfiles are managed by Mise. Home Manager instructions below apply to Linux only.
+
 ## Add Cross-Platform Program
 
 1. Create `modules/home-manager/programs/<program>.nix`

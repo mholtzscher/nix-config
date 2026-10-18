@@ -16,7 +16,7 @@ Reference for repo structure and module flow.
 - `modules/darwin/`: macOS system modules
 - `modules/nixos/`: NixOS system modules
 - `modules/shared/`: shared system-level modules
-- `modules/home-manager/`: cross-platform user config
+- `modules/home-manager/`: Linux user config; Macs use Mise
 - `pkgs/`: custom packages
 
 ## Hosts
@@ -60,7 +60,7 @@ modules/
 - `modules/nixos/nixos.nix`: core NixOS services and system config
 - `modules/nixos/hosts/<host>/`: host-specific NixOS modules
 - `modules/home-manager/home.nix`: shared home-manager entrypoint
-- `modules/home-manager/programs/`: reusable cross-platform program modules
+- `modules/home-manager/programs/`: reusable Linux user program modules
 - `modules/home-manager/hosts/<host>/`: host-specific user config
 - `modules/home-manager/files/`: managed dotfiles and assets
 
@@ -73,13 +73,13 @@ modules/
 
 ## Module Flow
 
-- Darwin: host -> `modules/shared` -> home-manager -> `modules/darwin`
+- Darwin: host -> `modules/shared` -> `modules/darwin` (no Home Manager)
 - NixOS: host -> `modules/shared` -> home-manager -> `modules/nixos` -> optional graphical modules
 - Standalone Linux: host -> `mkHome` -> home-manager modules only
 
 ## Notes
 
-- Mise bootstrap manages Mac apps and fonts outside Nix; no Homebrew installation is required.
+- Mise manages Mac user tools, apps, fonts, and dotfiles outside Nix; neither Home Manager nor Homebrew is required.
 - Put shared user programs in `modules/home-manager/programs/`
 - Put machine-specific behavior under `modules/*/hosts/<host>/`
 - Prefer platform guards for OS differences, host modules for machine differences

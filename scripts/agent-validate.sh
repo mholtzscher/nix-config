@@ -11,9 +11,15 @@ echo "Format OK."
 OS="$(uname -s)"
 
 if [[ "$OS" == "Darwin" ]]; then
-  echo "→ nh darwin build -q --no-nom"
-  nh darwin build -q --no-nom
-  echo "Build OK. Apply: nh darwin switch"
+  HOST="${1:-}"
+  if [[ -z "$HOST" ]]; then
+    echo "Usage: $0 <Darwin flake host>" >&2
+    echo "Hosts: Michaels-M1-Max, Michael-Holtzscher-Work" >&2
+    exit 1
+  fi
+  echo "→ darwin-rebuild build --flake .#$HOST"
+  darwin-rebuild build --flake ".#$HOST"
+  echo "Build OK. Apply: sudo /run/current-system/sw/bin/darwin-rebuild switch --flake $PWD#$HOST"
   exit 0
 fi
 

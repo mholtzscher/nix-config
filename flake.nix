@@ -17,10 +17,6 @@
       url = "github:mholtzscher/melt";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    neovim-nightly = {
-      url = "github:nix-community/neovim-nightly-overlay";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     noctalia.url = "github:noctalia-dev/noctalia/cachix";
     noctalia-greeter = {
       url = "github:noctalia-dev/noctalia-greeter";
@@ -40,7 +36,6 @@
       home-manager,
       catppuccin,
       melt,
-      neovim-nightly,
       helium,
       ...
     }:
