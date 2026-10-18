@@ -417,7 +417,7 @@ nf <file>.nix                               # Format nix file
 
 ### System Configs
 
-- **macOS**: Nix daemon/GC, Touch ID sudo, and login policy; Mise owns desktop preferences
+- **macOS**: Nix daemon/GC and its environment bridge; Mise owns desktop preferences, native Touch ID sudo, and guest-login policy
 - **NixOS**: Greetd login, PipeWire audio, NetworkManager, SSH hardening, fail2ban
 
 ### Package Management

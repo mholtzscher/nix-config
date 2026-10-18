@@ -30,13 +30,9 @@
     fi
   '';
 
-  security.pam.services.sudo_local = {
-    touchIdAuth = true;
-    reattach = true;
-  };
-
-  # User desktop/app preferences are managed by Mise bootstrap.
-  system.defaults.loginwindow.GuestEnabled = false;
+  # Mise owns the native sudo_local file and system-wide guest-login policy.
+  # Explicitly disable management: the nix-darwin option defaults to enabled.
+  security.pam.services.sudo_local.enable = false;
 
   # Home Manager no longer activates on Macs. Remove only its known home links,
   # never regular files, unexpected links, application bundles, or font files.

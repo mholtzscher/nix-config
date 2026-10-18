@@ -56,7 +56,7 @@ modules/
     files/
 ```
 
-- `modules/darwin/darwin.nix`: macOS defaults
+- `modules/darwin/darwin.nix`: remaining Mac Nix plumbing; preferences and security policy live in Mise
 - `modules/nixos/nixos.nix`: core NixOS services and system config
 - `modules/nixos/hosts/<host>/`: host-specific NixOS modules
 - `modules/home-manager/home.nix`: shared home-manager entrypoint

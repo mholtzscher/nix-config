@@ -19,7 +19,8 @@ Mac user tools and dotfiles are managed by Mise. Home Manager instructions below
 
 ## Modify System Settings
 
-- macOS defaults: `modules/darwin/darwin.nix`
+- macOS preferences and security policy: Mise bootstrap; `mise run macos:security` applies native Touch ID sudo and disabled guest login
+- Remaining Mac Nix plumbing: `modules/darwin/darwin.nix`
 - Shared Nix settings: `modules/shared/nix-settings.nix`
 - Core NixOS services/packages: `modules/nixos/nixos.nix`
 - NixOS host-specific desktop/services: `modules/nixos/hosts/<hostname>/`
