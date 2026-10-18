@@ -4,10 +4,6 @@
   ...
 }:
 {
-  imports = [
-    ../../../modules/darwin/homebrew/hosts/personal-mac.nix
-  ];
-
   users.users.${user} = {
     name = user;
     home = "/Users/${user}";
@@ -27,16 +23,6 @@
           ../../../modules/home-manager/hosts/personal-mac
         ];
       };
-  };
-
-  nix-homebrew = {
-    enable = true;
-    # Apple Silicon Only
-    # enableRosetta = true;
-    # User owning the Homebrew prefix
-    inherit user;
-
-    autoMigrate = true;
   };
 
   system.primaryUser = user;

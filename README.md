@@ -52,11 +52,6 @@ A comprehensive, multi-platform Nix flake managing both macOS (Darwin) and NixOS
 │   ├── darwin/                  # macOS system defaults
 │   │   ├── default.nix          # Entry point
 │   │   └── darwin.nix           # System defaults (dock, finder, etc.)
-│   ├── homebrew/                # Homebrew package management (macOS only)
-│   │   ├── default.nix          # Common packages across all macOS hosts
-│   │   └── hosts/               # Host-specific Homebrew packages
-│   │       ├── personal-mac.nix
-│   │       └── work-mac.nix
 │   ├── nixos/                   # NixOS-only modules
 │   │   ├── default.nix
 │   │   ├── fonts.nix            # Fonts (cross-NixOS)
@@ -175,10 +170,6 @@ This config uses a unified `lib.mkSystem` helper that handles both Darwin and Ni
 ```nix
 { pkgs, inputs, user, ... }:
 {
-  imports = [
-    ../../modules/homebrew/hosts/hostname.nix  # Create this for host-specific packages
-  ];
-
   users.users.${user} = {
     name = user;
     home = "/Users/${user}";
@@ -197,13 +188,6 @@ This config uses a unified `lib.mkSystem` helper that handles both Darwin and Ni
     };
   };
 
-  nix-homebrew = {
-    enable = true;
-    enableRosetta = true;  # For Apple Silicon
-    inherit user;
-    autoMigrate = true;
-  };
-
   system = {
     primaryUser = user;
     defaults = {
@@ -217,9 +201,8 @@ This config uses a unified `lib.mkSystem` helper that handles both Darwin and Ni
 }
 ```
 
-2. Create `modules/homebrew/hosts/hostname.nix` for host-specific Homebrew packages
-3. Create `modules/home-manager/hosts/hostname.nix` for host-specific programs/settings
-4. Add to `flake.nix`:
+2. Create `modules/home-manager/hosts/hostname.nix` for host-specific programs/settings
+3. Add to `flake.nix`:
 
 ```nix
 darwinConfigurations."System-Hostname" = lib.mkSystem {
@@ -449,14 +432,15 @@ nf <file>.nix                               # Format nix file
 
 ### System Configs
 
-- **macOS**: Dock, Finder, Trackpad settings, Homebrew package management
+- **macOS**: Nix daemon/GC, Touch ID sudo, and login policy; Mise owns desktop preferences
 - **NixOS**: Greetd login, PipeWire audio, NetworkManager, SSH hardening, fail2ban
 
 ### Package Management
 
-- **Homebrew** (macOS): Declarative package, cask, and app store integration via nix-homebrew
-  - Common packages: taps, brews, casks, masApps across all macOS hosts
-  - Host-specific: Personal and Work Mac custom packages
+- **Mise** (macOS): Apps and fonts declared under `[bootstrap.packages]` in `mholtzscher/workstation`
+  - Shared and personal/work configuration selects the packages for each Mac
+  - Mise installs `brew-cask:` packages directly; Homebrew itself is not required
+  - This Nix flake does not provision Homebrew or run Brew updates
 
 ## License
 
@@ -473,7 +457,6 @@ This is a personal configuration, but feel free to use it as inspiration for you
 - **nixpkgs**: NixOS/nixpkgs (unstable channel)
 - **nix-darwin**: macOS system management
 - **home-manager**: User environment management
-- **nix-homebrew**: Declarative Homebrew on macOS
 
 ### Enhancements
 

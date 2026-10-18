@@ -8,7 +8,6 @@
       url = "github:LnL7/nix-darwin";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nix-homebrew.url = "github:zhaofengli-wip/nix-homebrew";
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -38,7 +37,6 @@
       self,
       nix-darwin,
       nixpkgs,
-      nix-homebrew,
       home-manager,
       catppuccin,
       melt,

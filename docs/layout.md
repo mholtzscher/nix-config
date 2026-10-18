@@ -43,7 +43,6 @@ hosts/
 modules/
   darwin/
     darwin.nix
-    homebrew/
   nixos/
     nixos.nix
     hosts/nixos-desktop/
@@ -58,7 +57,6 @@ modules/
 ```
 
 - `modules/darwin/darwin.nix`: macOS defaults
-- `modules/darwin/homebrew/`: Homebrew config, shared and host-specific
 - `modules/nixos/nixos.nix`: core NixOS services and system config
 - `modules/nixos/hosts/<host>/`: host-specific NixOS modules
 - `modules/home-manager/home.nix`: shared home-manager entrypoint
@@ -75,12 +73,13 @@ modules/
 
 ## Module Flow
 
-- Darwin: host -> `modules/shared` -> home-manager -> `modules/darwin` -> `modules/darwin/homebrew` -> `nix-homebrew`
+- Darwin: host -> `modules/shared` -> home-manager -> `modules/darwin`
 - NixOS: host -> `modules/shared` -> home-manager -> `modules/nixos` -> optional graphical modules
 - Standalone Linux: host -> `mkHome` -> home-manager modules only
 
 ## Notes
 
+- Mise bootstrap manages Mac apps and fonts outside Nix; no Homebrew installation is required.
 - Put shared user programs in `modules/home-manager/programs/`
 - Put machine-specific behavior under `modules/*/hosts/<host>/`
 - Prefer platform guards for OS differences, host modules for machine differences

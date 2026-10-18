@@ -10,7 +10,19 @@
     Minute = 0;
   };
 
-  programs.zsh.enable = true; # default shell on catalina
+  # Use macOS /bin/zsh; Mise owns interactive shell configuration.
+  programs.zsh.enable = false;
+
+  # Keep Nix profiles available without installing Nix Zsh or its global rc files.
+  environment.etc."zshenv".text = ''
+    if [[ -o rcs && -z ''${__NIX_DARWIN_SET_ENVIRONMENT_DONE-} ]]; then
+      . ${config.system.build.setEnvironment}
+    fi
+
+    if [[ -r /etc/zshenv.local ]]; then
+      source /etc/zshenv.local
+    fi
+  '';
 
   security.pam.services.sudo_local = {
     touchIdAuth = true;

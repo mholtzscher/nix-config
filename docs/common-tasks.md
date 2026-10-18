@@ -27,8 +27,7 @@ Quick routing guide for common edits.
 
 - Shared Nix packages: `modules/home-manager/packages.nix`
 - Host-specific user packages: `modules/home-manager/hosts/<hostname>/default.nix`
-- Shared Homebrew packages: `modules/darwin/homebrew/default.nix`
-- Host-specific Homebrew packages: `modules/darwin/homebrew/hosts/<hostname>.nix`
+- Mac apps/fonts: `[bootstrap.packages]` in the shared or personal/work Mise config
 
 ## Add Custom Packages
 
@@ -51,11 +50,11 @@ in `mholtzscher/workstation`. Declare only the selected skills in
 `mise dot sync`. Use `env = "personal"` for personal-only skills. Do not add
 skill inputs or Home Manager ownership here.
 
-## Add Homebrew Package
+## Add Mac App or Font
 
-1. Edit shared or host-specific Homebrew module
-2. Add package to `taps`, `brews`, `casks`, or `masApps`
-3. Validate with `nix flake check`
+1. Add a `brew-cask:` entry under `[bootstrap.packages]` in the appropriate Mise config.
+2. Restrict Mac-only entries with `os = "macos"`; preserve personal/work selection.
+3. Use `adopt = true` for existing apps. Mise installs casks directly without Homebrew.
 
 ## Add Managed Files
 

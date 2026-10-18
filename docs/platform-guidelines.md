@@ -16,7 +16,7 @@ Examples:
 ## Where Things Go
 
 - macOS system config: `modules/darwin/`
-- Homebrew config: `modules/darwin/homebrew/`
+- Mac apps/fonts: Mise `[bootstrap.packages]`, outside this Nix repository
 - NixOS system config: `modules/nixos/`
 - Shared user config: `modules/home-manager/`
 - Machine-specific overrides: `modules/*/hosts/<hostname>/`
