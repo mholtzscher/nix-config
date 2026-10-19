@@ -3,25 +3,15 @@ set -euo pipefail
 
 cd "$(dirname "$0")/.."
 
+if [[ "$(uname -s)" == "Darwin" ]]; then
+  echo "Mac Nix targets are retired. Manage Macs with Mise; validate this flake on Linux." >&2
+  exit 1
+fi
+
 echo "→ Running nixfmt on all *.nix files..."
 find . -name '*.nix' -not -path './.direnv/*' -print0 | xargs -0 nixfmt
 
 echo "Format OK."
-
-OS="$(uname -s)"
-
-if [[ "$OS" == "Darwin" ]]; then
-  HOST="${1:-}"
-  if [[ -z "$HOST" ]]; then
-    echo "Usage: $0 <Darwin flake host>" >&2
-    echo "Hosts: Michaels-M1-Max, Michael-Holtzscher-Work" >&2
-    exit 1
-  fi
-  echo "→ darwin-rebuild build --flake .#$HOST"
-  darwin-rebuild build --flake ".#$HOST"
-  echo "Build OK. Apply: sudo /run/current-system/sw/bin/darwin-rebuild switch --flake $PWD#$HOST"
-  exit 0
-fi
 
 if [[ -f /etc/NIXOS ]]; then
   echo "→ nh os build -q --no-nom"

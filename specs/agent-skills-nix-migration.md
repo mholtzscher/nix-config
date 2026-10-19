@@ -1,5 +1,8 @@
 # Migrate agent skill management to `agent-skills-nix`
 
+> Historical spec, not current setup instructions. Skills are now managed by
+> Mise and this flake targets Linux only. See `README.md` and `docs/NIX_WORKFLOW.md`.
+
 ## Goal
 Replace the current manual per-agent skill wiring with a single declarative `agent-skills-nix` setup that installs one shared skill bundle for both pi and opencode across all hosts, while keeping the existing repo-local skill content as the source of truth.
 

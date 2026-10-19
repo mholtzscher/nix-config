@@ -1,5 +1,9 @@
 # Return to the pre-Mise configuration
 
+Historical recovery reference only. The current flake is Linux-only, and both
+Macs are managed by Mise without Nix. These commands require the historical
+configuration tree; they are not instructions for the current checkout.
+
 Baseline: `2636695` (2026-10-09 10:52 Central), before Mise migration history
 began that afternoon. The restoration is a new commit, not rewritten history.
 The previous Nix tree remains on `recovery/pre-nix-restoration-20261010`.

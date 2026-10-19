@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# Historical recovery helper for docs/nix-restoration.md, not current Mac setup.
 # One-time handoff preparation. Never applies Nix or modifies secret files.
 set -euo pipefail
 

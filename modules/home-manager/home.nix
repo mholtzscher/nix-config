@@ -1,19 +1,8 @@
-# Cross-platform home-manager configuration
-# This module works on both macOS (darwin) and NixOS (linux)
-#
-# Platform Detection:
-# - Use `isDarwin` / `isLinux` module arguments (preferred)
-# - Use `lib.optionalAttrs` for conditional attribute sets (files)
-# - Use `lib.mkIf` for conditional options (programs, activation)
-#
-# Examples:
-# - Files: home.file = { ... } // lib.optionalAttrs isDarwin { ... };
-# - Activation: activation = lib.mkIf isDarwin { ... };
-# - Programs: config = lib.mkIf isDarwin { programs.foo = { ... }; };
+# Shared Linux Home Manager configuration (NixOS desktop and Wanda).
+# Legacy platform arguments remain available for existing Linux modules.
 
 {
   pkgs,
-  config,
   inputs,
   isWork,
   isDarwin,
@@ -47,7 +36,6 @@
     };
 
     sessionVariables = {
-      NH_DARWIN_FLAKE = "${config.home.homeDirectory}/.config/nix-config";
       NH_OS_FLAKE = "/home/michael/nix-config";
     };
   };

@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# Historical recovery helper for docs/nix-restoration.md, not current Mac setup.
 # Archive foreign Mise links only where the built Home Manager owns a path.
 # Reads link metadata, not file contents. Never applies Nix.
 set -euo pipefail
@@ -40,4 +41,4 @@ find -H "$gen_files" -type l -print0 |
   done
 
 echo "Original link targets and all regular files were left unchanged."
-echo "Apply the restored nix-darwin configuration yourself."
+echo "Apply the already-built historical Nix configuration yourself."

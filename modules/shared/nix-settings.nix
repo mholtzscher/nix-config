@@ -5,7 +5,7 @@
   ...
 }:
 {
-  # Cross-platform nix configuration settings
+  # NixOS package manager settings
   # Extracted from flake.nix to reduce duplication
 
   # Allow unfree packages (like Discord, Obsidian, etc.)
@@ -18,7 +18,7 @@
   };
 
   # Set Git commit hash for version tracking
-  # Works on both darwin (darwin-version) and NixOS (nixos-version)
+  # Reported by nixos-version.
   system.configurationRevision = self.rev or self.dirtyRev or null;
 
   # Nix package manager settings

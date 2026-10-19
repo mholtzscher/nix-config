@@ -1,11 +1,6 @@
 { inputs, self, ... }:
 {
-  # Unified helper function to create system configurations for Darwin, NixOS, and standalone home-manager
-  # Inspired by mitchellh/nixos-config unified system builder
-  #
-  # Darwin Usage:
-  #   mkSystem { name = "personal-mac"; system = "aarch64-darwin"; darwin = true; hostPath = ./hosts/darwin/personal-mac.nix; user = "michael"; }
-  #
+  # Builders for NixOS and standalone Linux Home Manager configurations.
   # NixOS Usage:
   #   mkSystem { name = "desktop"; system = "x86_64-linux"; hostPath = ./hosts/nixos/desktop.nix; user = "michael"; graphical = true; gaming = true; }
   mkSystem =
@@ -14,21 +9,16 @@
       system,
       hostPath,
       user ? "michael",
-      darwin ? false,
       graphical ? true,
       gaming ? false,
       isWork ? false,
     }:
     let
-      # Heuristics for platform detection
-      isDarwin = darwin;
-      isLinux = !darwin;
+      # Keep the shared module argument contract; all Nix hosts are now Linux.
+      isDarwin = false;
+      isLinux = true;
 
-      # Select appropriate system builder function
-      systemFunc =
-        if isDarwin then inputs.nix-darwin.lib.darwinSystem else inputs.nixpkgs.lib.nixosSystem;
-
-      # Common modules shared by both platforms
+      # Base NixOS modules and their shared argument contract.
       commonModules = [
         hostPath
         ../modules/shared
@@ -45,20 +35,10 @@
               inputs
               isWork
               ;
-          }
-          // (if isLinux then { inherit graphical gaming; } else { });
+            inherit graphical gaming;
+          };
         }
 
-      ];
-
-      # Darwin-specific modules
-      darwinModules = [
-        ../modules/darwin
-        {
-          # Used for backwards compatibility, please read the changelog before changing.
-          # $ darwin-rebuild changelog
-          system.stateVersion = 5;
-        }
       ];
 
       # NixOS-specific modules
@@ -82,23 +62,20 @@
       ]
       ++ (if graphical then [ ../modules/nixos/hosts/nixos-desktop ] else [ ]);
 
-      # Combine platform-specific modules with common modules
-      allModules = commonModules ++ (if isDarwin then darwinModules else nixosModules);
+      allModules = commonModules ++ nixosModules;
     in
-    systemFunc (
-      {
-        specialArgs = {
-          inherit
-            inputs
-            self
-            user
-            isWork
-            ;
-        };
-        modules = allModules;
-      }
-      // (if isLinux then { inherit system; } else { })
-    );
+    inputs.nixpkgs.lib.nixosSystem {
+      inherit system;
+      specialArgs = {
+        inherit
+          inputs
+          self
+          user
+          isWork
+          ;
+      };
+      modules = allModules;
+    };
 
   # Standalone home-manager configuration for non-NixOS Linux hosts (Ubuntu, Debian, etc.)
   # This creates a home-manager configuration that can be activated without NixOS.

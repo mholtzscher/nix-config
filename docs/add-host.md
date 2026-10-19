@@ -1,25 +1,8 @@
 # Add Host
 
-Reference for adding Darwin, NixOS, and standalone home-manager hosts.
+Reference for adding NixOS and standalone Linux Home Manager hosts.
 
-## Darwin Host
-
-1. Create `hosts/darwin/<hostname>/default.nix`
-2. Add host to `flake.nix`
-
-```nix
-darwinConfigurations."Host-Name" = lib.mkSystem {
-  name = "friendly-name";
-  system = "aarch64-darwin";
-  darwin = true;
-  hostPath = ./hosts/darwin/hostname;
-  user = "username";
-};
-```
-
-- Match the macOS hostname key with the machine hostname
-- Manage user tools and dotfiles in Mise; Darwin hosts do not import Home Manager
-- Validate with `./scripts/agent-validate.sh Host-Name`
+Macs are managed through Mise in `mholtzscher/workstation`; do not add Darwin targets here.
 
 ## NixOS Host
 
@@ -48,7 +31,7 @@ nixos-generate-config --root /mnt --show-hardware-config > hosts/nixos/hostname/
 - `graphical = true` enables graphical host modules and UI-related inputs
 - `graphical = false` keeps the host headless
 - `gaming = true` exposes the flag to modules; modules opt in explicitly
-- Validate with `nix flake check`
+- Validate per `docs/NIX_WORKFLOW.md`
 
 ## Standalone Home-Manager Host
 
@@ -94,11 +77,11 @@ home-manager switch --flake .#hostname
 ```
 
 - Disable GUI-only programs in host config if the machine is headless
-- Validate with `nix flake check`
+- Validate per `docs/NIX_WORKFLOW.md`
 
 ## Placement Rules
 
-- Cross-platform user config: `modules/home-manager/programs/`
+- Shared Linux user config: `modules/home-manager/programs/`
 - Host-specific user config: `modules/home-manager/hosts/<hostname>/`
 - Host-specific NixOS system config: `modules/nixos/hosts/<hostname>/`
 - Mac apps/fonts: Mise `[bootstrap.packages]`, outside this Nix repository

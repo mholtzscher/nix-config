@@ -1,13 +1,9 @@
 {
-  description = "Multi-platform Nix flake for Darwin and NixOS systems";
+  description = "NixOS and standalone Linux Home Manager configurations";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkgs-master.url = "github:NixOS/nixpkgs/master";
-    nix-darwin = {
-      url = "github:LnL7/nix-darwin";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -31,7 +27,6 @@
   outputs =
     inputs@{
       self,
-      nix-darwin,
       nixpkgs,
       home-manager,
       catppuccin,
@@ -44,27 +39,6 @@
       lib = import ./lib { inherit inputs self; };
     in
     {
-      darwinConfigurations = {
-        # Personal Mac (M1 Max)
-        "Michaels-M1-Max" = lib.mkSystem {
-          name = "personal-mac";
-          system = "aarch64-darwin";
-          darwin = true;
-          hostPath = ./hosts/darwin/personal-mac;
-          user = "michael";
-        };
-
-        # Work Mac
-        "Michael-Holtzscher-Work" = lib.mkSystem {
-          name = "work-mac";
-          system = "aarch64-darwin";
-          darwin = true;
-          hostPath = ./hosts/darwin/work-mac;
-          user = "michaelholtzcher";
-          isWork = true;
-        };
-      };
-
       nixosConfigurations = {
         # NixOS Desktop
         nixos-desktop = lib.mkSystem {

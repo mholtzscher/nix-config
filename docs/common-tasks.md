@@ -4,23 +4,22 @@ Quick routing guide for common edits.
 
 Mac user tools and dotfiles are managed by Mise. Home Manager instructions below apply to Linux only.
 
-## Add Cross-Platform Program
+## Add Shared Linux Program
 
 1. Create `modules/home-manager/programs/<program>.nix`
 2. Import it in `modules/home-manager/programs/default.nix`
-3. Use platform guards if only one OS should receive it
-4. Validate with `nix flake check`
+3. Use host modules or capability flags for host-specific behavior
+4. Validate with `./scripts/agent-validate.sh` per `docs/NIX_WORKFLOW.md`
 
 ## Add Host-Specific Program or Setting
 
 - User-level: edit `modules/home-manager/hosts/<hostname>/default.nix`
 - NixOS system-level: edit `modules/nixos/hosts/<hostname>/`
-- Validate with `nix flake check`
+- Validate per `docs/NIX_WORKFLOW.md`
 
 ## Modify System Settings
 
 - macOS preferences and security policy: Mise bootstrap; `mise run macos:security` applies native Touch ID sudo and disabled guest login
-- Remaining Mac Nix plumbing: `modules/darwin/darwin.nix`
 - Shared Nix settings: `modules/shared/nix-settings.nix`
 - Core NixOS services/packages: `modules/nixos/nixos.nix`
 - NixOS host-specific desktop/services: `modules/nixos/hosts/<hostname>/`
@@ -67,5 +66,5 @@ skill inputs or Home Manager ownership here.
 
 ## Validation Rule
 
-- For config changes, use `nix flake check`
+- For config changes, follow `docs/NIX_WORKFLOW.md` and run `./scripts/agent-validate.sh`
 - Do not apply changes from the agent; user runs apply commands

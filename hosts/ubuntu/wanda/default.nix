@@ -2,10 +2,10 @@
 # Headless services host + NAS gateway
 #
 # Activation:
-#   nix run home-manager -- switch --flake ~/.config/nix-config#wanda
+#   nh home switch /home/michael/nix-config#wanda
 #
 # Or with the flake installed:
-#   home-manager switch --flake ~/.config/nix-config#wanda
+#   home-manager switch --flake /home/michael/nix-config#wanda
 { pkgs, inputs, ... }:
 {
   imports = [

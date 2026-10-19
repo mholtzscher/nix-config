@@ -1,453 +1,134 @@
-# Multi-Platform Nix Configuration
+# Linux Nix Configuration
 
-A comprehensive, multi-platform Nix flake managing both macOS (Darwin) and NixOS systems with shared and host-specific configurations.
+NixOS and standalone Linux Home Manager configurations. The personal and work
+Macs have moved entirely to [mholtzscher/workstation](https://github.com/mholtzscher/workstation)
+with Mise; they do not require Nix or nix-darwin.
+
+## Managed Hosts
+
+| Host | Configuration | Role |
+| --- | --- | --- |
+| `nixos-desktop` | `nixosConfigurations.nixos-desktop` | Niri/Noctalia desktop, development, gaming, and NVIDIA support |
+| `wanda` | `homeConfigurations.wanda` | Standalone Home Manager on Ubuntu |
+
+`homeConfigurations."michael@wanda"` aliases Wanda for `nh` auto-detection.
+
+## Ownership
+
+- **NixOS** manages the desktop's OS, services, compositor, gaming integration, and hardware settings.
+- **Home Manager** manages Linux-specific user integration and remaining Nix packages.
+- **Mise/workstation** manages development runtimes, most CLIs, editor configuration,
+  shell startup files, agent tools, and other writable dotfiles across machines.
+- **Macs** use Mise for apps, fonts, preferences, and native security policy. There
+  are no Mac hosts, Darwin builders, or nix-darwin inputs in this flake.
+
+Mise installs `brew:` and `brew-cask:` packages directly, without requiring the
+Homebrew CLI. The `/opt/homebrew` prefix still holds packages and must not be deleted.
 
 ## Prerequisites
 
-- **Nix**: Installed with flakes support enabled
-  - macOS: Install via `curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix | sh -s -- install`
-  - NixOS: Included by default
-  - Enable flakes in `~/.config/nix/nix.conf`: `experimental-features = nix-command flakes`
-- **Git**: For cloning and managing the configuration
-- **Nix-Darwin** (macOS only): Automatically managed as a flake input
-- **Home-Manager** (Linux only): Automatically managed as a flake input; Macs use Mise for user configuration
-
-## Managed Systems
-
-### macOS (Darwin)
-
-- **Personal M1 Max** (`Michaels-M1-Max`) - Personal development machine
-- **Work Mac** (`Michael-Holtzscher-Work`) - Work machine
-
-### NixOS
-
-- **Desktop** (`nixos-desktop`) - Gaming and development workstation with Niri compositor
-
-## Features
-
-- **Multi-Platform Support** - Single flake manages both macOS and NixOS
-- **Host-Specific Configs** - Per-host customization (git email, programs, etc.)
-- **Platform Guards** - Conditional config for macOS-only or Linux-only features
-- **Comprehensive Programs** - Extensive program modules and utilities via home-manager
-- **Niri Compositor** - Scrollable tiling Wayland compositor with shared configs
-- **Gaming Optimized** - Steam, gamemode, performance tuning, NVIDIA support
-- **Security Hardened** - SSH key-only auth, fail2ban, restricted firewall
-- **Shared Modules** - DRY principle with reusable cross-platform modules
-- **Automatic GC** - Weekly garbage collection (Sundays 2AM, 30-day retention)
+- Nix with `nix-command` and `flakes` enabled on Linux; NixOS includes Nix.
+- Git for the repository.
+- Home Manager is provided by the flake input.
 
 ## Structure
 
-```
-├── flake.nix                    # Root flake defining all hosts
-├── lib/
-│   └── default.nix              # Helper functions for system creation
-├── hosts/
-│   ├── darwin/                  # macOS-specific hosts
-│   │   ├── personal-mac.nix
-│   │   └── work-mac.nix
-│   └── nixos/                   # NixOS-specific hosts
-│       ├── nixos-desktop.nix
-│       └── hardware-configuration.nix
-├── modules/
-│   ├── darwin/                  # macOS system defaults
-│   │   ├── default.nix          # Entry point
-│   │   └── darwin.nix           # System defaults (dock, finder, etc.)
-│   ├── nixos/                   # NixOS-only modules
-│   │   ├── default.nix
-│   │   ├── fonts.nix            # Fonts (cross-NixOS)
-│   │   ├── nixos.nix            # System config (boot, services, etc.)
-│   │   └── hosts/               # Host-specific NixOS system config
-│   │       └── nixos-desktop/   # Desktop environment modules
-│   │           ├── default.nix  # Entry point
-│   │           ├── composition.nix # Niri + Waybar
-│   │           ├── launcher.nix # Vicinae app launcher
-│   │           ├── gaming.nix   # Gaming (Steam, MangoHud, etc.)
-│   │           ├── theme.nix    # GTK/Qt theming & dark mode
-│   │           └── webapps.nix  # Web apps as native apps
-│   ├── shared/                  # Cross-platform modules
-│   │   ├── default.nix
-│   │   ├── nix-settings.nix     # Nix config (flakes, gc, etc.)
-│   │   └── users.nix
-│   └── home-manager/            # Cross-platform home-manager
-│       ├── home.nix             # Main config with platform guards
-│       ├── packages.nix         # Platform-aware package list
-│       ├── shared-aliases.nix   # Shared shell aliases
-│       ├── programs/            # 34 cross-platform program modules
-│       │   ├── git.nix
-│       │   ├── zsh.nix
-│       │   ├── firefox.nix
-│       │   └── [31 more...]
-│       ├── hosts/               # Host-specific user configs
-│       │   └── nixos-desktop/   # Desktop user packages & config
-│       │       └── default.nix
-│       └── files/               # Dotfiles
+```text
+flake.nix                         # Inputs and Linux host declarations
+lib/default.nix                   # mkSystem (NixOS) and mkHome (standalone Linux)
+hosts/
+  nixos/nixos-desktop/             # System entrypoint, hardware, users
+  ubuntu/wanda/                   # Standalone Home Manager entrypoint
+modules/
+  shared/                         # Nix settings and shared system modules
+  nixos/                          # Core NixOS configuration
+    hosts/nixos-desktop/           # Desktop composition, gaming, packages
+  home-manager/
+    home.nix                      # Shared Linux user configuration
+    packages.nix                  # Remaining Nix-managed user packages
+    programs/                     # Reusable Linux user modules
+    hosts/                        # Desktop and Wanda user settings
+    files/                        # Linux-managed assets
+pkgs/                             # Custom packages
+scripts/                          # Validation, updates, and utilities
+docs/                             # Layout, editing, and validation references
 ```
 
-## Quick Start
+## Validate
 
-### macOS (Darwin)
+Follow [docs/NIX_WORKFLOW.md](docs/NIX_WORKFLOW.md):
 
-```bash
-# Validate configuration
-darwin-rebuild build --flake ~/.config/nix-config#Michaels-M1-Max
-
-# Mise-managed helpers select the personal/work Mac profile
-nb   # Validate
-nup  # Apply (preferred; do not use switch directly)
+```sh
+./scripts/agent-validate.sh
 ```
 
-### NixOS
+The script formats all Nix files, then builds the local NixOS system or the
+selected standalone Home Manager configuration. To explicitly select Wanda
+on a non-NixOS Linux machine:
 
-```bash
-# Validate configuration
-nix flake check
-
-# Build configuration
-nixos-rebuild build --flake ~/.config/nix-config#nixos-desktop
-
-# Apply changes
-sudo nixos-rebuild switch --flake ~/.config/nix-config#nixos-desktop
+```sh
+./scripts/agent-validate.sh wanda
 ```
 
-## Adding Programs
+On macOS the script exits before formatting or calling Nix. Validate this
+repository on Linux instead.
 
-### Cross-Platform Program
+## Apply — User Only
 
-1. Create `modules/home-manager/programs/program-name.nix`:
+After validation, the user may apply on the relevant Linux host:
 
-```nix
-{ ... }:
-{
-  programs.program-name = {
-    enable = true;
-    # configuration
-  };
-}
+```sh
+# NixOS desktop
+nh os switch
+
+# Wanda, from this checkout
+nh home switch '.#michael@wanda'
 ```
 
-2. Import in `modules/home-manager/programs/default.nix`
-3. Validate with `darwin-rebuild build` or `nix flake check`
+The Mise-managed `nb` and `nup` helpers select NixOS or standalone Home Manager
+on Linux. Nix maintenance commands and status hooks are not loaded on Macs.
 
-### macOS-Only Program
+Agents never apply Nix changes. `nix flake update` runs only when explicitly requested.
 
-Wrap with platform guard:
+## Mac Workstations
 
-```nix
-{ pkgs, lib, ... }:
-{
-  config = lib.mkIf pkgs.stdenv.hostPlatform.isDarwin {
-    programs.program-name = {
-      enable = true;
-      # macOS-specific config
-    };
-  };
-}
+Mac configuration lives in the writable Mise files, not this checkout:
+
+```sh
+mise dot sync
+mise dot pull
+mise run macos:security -- --check
 ```
 
-### Host-Specific Program
-
-Add to appropriate `modules/home-manager/hosts/*.nix`:
-
-```nix
-{ pkgs, ... }:
-{
-  home.packages = with pkgs; [
-    program-name
-  ];
-}
-```
-
-## Adding New Hosts
-
-This config uses a unified `lib.mkSystem` helper that handles both Darwin and NixOS with proper module loading.
-
-### Darwin Host
-
-1. Create `hosts/darwin/hostname.nix`:
-
-```nix
-{ user, ... }:
-{
-  users.users.${user} = {
-    name = user;
-    home = "/Users/${user}";
-  };
-
-  system = {
-    primaryUser = user;
-    defaults = {
-      dock = {
-        persistent-apps = [
-          # Add desired apps here
-        ];
-      };
-    };
-  };
-}
-```
-
-2. Manage user tools and dotfiles in Mise; Macs do not use Home Manager.
-3. Add to `flake.nix`:
-
-```nix
-darwinConfigurations."System-Hostname" = lib.mkSystem {
-  name = "friendly-name";              # Used in logs and module args
-  system = "aarch64-darwin";           # M1/M2/M3 Macs (or x86_64-darwin for Intel)
-  darwin = true;                       # Required for Darwin
-  hostPath = ./hosts/darwin/hostname.nix;
-  user = "username";                   # macOS username
-  isWork = false;                      # Optional: true for work machine
-};
-```
-
-### NixOS Host
-
-1. Create `hosts/nixos/hostname.nix`:
-
-```nix
-{ pkgs, inputs, user, ... }:
-{
-  imports = [
-    ./hostname-hardware.nix
-  ];
-
-  users.users.${user} = {
-    isNormalUser = true;
-    home = "/home/${user}";
-    extraGroups = [ "wheel" "networkmanager" ];
-    shell = pkgs.zsh;
-    openssh.authorizedKeys.keys = [
-      # Add SSH public keys here
-    ];
-  };
-
-  home-manager = {
-    useGlobalPkgs = true;
-    useUserPackages = true;
-    backupFileExtension = "backup";
-    extraSpecialArgs = { inherit inputs; };
-    users.${user} = { ... }: {
-      imports = [
-        ../../modules/home-manager/home.nix
-        ../../modules/home-manager/hosts/hostname/default.nix
-      ];
-    };
-  };
-}
-```
-
-2. Create `modules/home-manager/hosts/hostname/default.nix` for host-specific user config
-3. Create `modules/nixos/hosts/hostname/` directory for host-specific system config (if needed)
-4. Generate hardware config: `nixos-generate-config --root /mnt --show-hardware-config > hosts/nixos/hostname-hardware.nix`
-5. Add to `flake.nix`:
-
-```nix
-nixosConfigurations.hostname = lib.mkSystem {
-  name = "friendly-name";              # Used in logs and module args
-  system = "x86_64-linux";             # or "aarch64-linux" for ARM
-  hostPath = ./hosts/nixos/hostname.nix;
-  user = "username";                   # NixOS username
-  graphical = true;                    # Load GUI modules (Niri, etc.) - conditional module loading in lib/
-  gaming = false;                      # Optional: true for gaming setup
-};
-```
-
-**Note**: The `graphical` and `gaming` flags automatically control which modules are loaded:
-
-- `graphical = true` → Loads `modules/nixos/hosts/hostname/` (for GUI-based hosts)
-- `graphical = false` → Skips graphical modules (for headless servers)
-
-## Platform Detection Patterns
-
-### Conditional Files
-
-```nix
-home.file = {
-  # Cross-platform files
-  ".config/app/config".source = ./files/config;
-}
-// lib.optionalAttrs pkgs.stdenv.hostPlatform.isDarwin {
-  # macOS-only files
-  "Library/Preferences/com.app.plist".source = ./files/app.plist;
-};
-```
-
-### Conditional Programs
-
-```nix
-config = lib.mkIf pkgs.stdenv.hostPlatform.isDarwin {
-  programs.aerospace.enable = true;
-};
-```
-
-### Conditional Packages
-
-```nix
-home.packages = with pkgs; [
-  # Cross-platform
-  git
-  vim
-]
-++ lib.optionals pkgs.stdenv.hostPlatform.isDarwin [
-  # macOS-only
-  aerospace
-];
-```
-
-## Configuration Guidelines
-
-### When to Use Different Module Types
-
-**Shared Programs** (`modules/home-manager/programs/`):
-
-- Tools that work across macOS and NixOS with minimal differences
-- Use platform guards with `lib.mkIf pkgs.stdenv.hostPlatform.isDarwin` if behavior differs
-- Example: git, zsh, helix, starship
-
-**Host-Specific Configs** (`modules/home-manager/hosts/*/`):
-
-- Machine-specific settings (git email, Discord, work tools)
-- Desktop environment configs (Niri, Waybar, Vicinae for NixOS desktop)
-- Custom packages for specific hosts
-- No platform guards needed (already isolated to host)
-
-**Platform-Specific Only** (use conditional imports):
-
-- Features only relevant to one platform
-- Use `lib.mkIf pkgs.stdenv.hostPlatform.isDarwin` for macOS-only
-- Use `lib.mkIf pkgs.stdenv.hostPlatform.isLinux` for Linux-only
-- Example: Aerospace (macOS), systemd (NixOS)
-
-### Platform-Specific vs Host-Specific
-
-**Platform-specific**: Different between macOS and Linux
-
-- Use: `lib.mkIf pkgs.stdenv.hostPlatform.isDarwin` or `lib.optionalAttrs`
-- Example: Aerospace (macOS), systemd (Linux)
-
-**Host-specific**: Different between individual machines
-
-- Use: `modules/home-manager/hosts/*.nix`
-- Example: Git email, Discord (personal only), work tools
-
-**Both**: Can be both platform AND host-specific
-
-- Example: Aerospace (macOS, both Macs)
-
-### Host Differences
-
-| Feature        | Personal Mac | Work Mac | Desktop  |
-| -------------- | ------------ | -------- | -------- |
-| Aerospace (WM) | Yes          | Yes      | No       |
-| Niri (WM)      | No           | No       | Yes      |
-| Gaming (Steam) | No           | No       | Yes      |
-| Discord        | Yes          | No       | Yes      |
-| Git Email      | Personal     | Work     | Personal |
-| Platform       | macOS        | macOS    | Linux    |
-
-## Documentation
-
-- **[AGENTS.md](./AGENTS.md)** - Comprehensive guidelines for AI agents
-- **[docs/nixos-migration-plan.md](./docs/nixos-migration-plan.md)** - Migration history and plan
-
-## Common Commands
-
-```bash
-# Validate
-nb                                          # Darwin build
-nix flake check                             # Check all platforms
-
-# Apply
-nup                                         # Darwin switch (user only)
-sudo nixos-rebuild switch --flake .#nixos-desktop    # NixOS
-
-# Update
-nfu                                         # Update flake inputs
-
-# Format
-nf <file>.nix                               # Format nix file
-```
-
-## Important Notes
-
-- **Only the user applies Nix changes** — Validate with `nb`, then apply with `nup` (which uses `darwin-rebuild` on Macs)
-- **Platform guards are critical** - Always use for platform-specific features
-- **Host configs override shared** - Use `lib.mkDefault` in shared configs
-- **Git tree dirty warnings** - Normal during development, commit changes for clean builds
-
-## Included Configurations
-
-### Cross-Platform Programs (30 Modules + Utilities)
-
-**Program Modules (home-manager):**
-
-- **Shells**: zsh, nushell
-- **Editors**: neovim (vim mode), vim
-- **Git**: git, gh, gh-dash, lazygit, delta
-- **Terminal**: ghostty, starship
-- **Dev Tools**: bun, go, uv
-- **Cloud**: opencode (CLI for Claude)
-- **Utils**: atuin, bat, bottom, btop, eza, fd, fzf, jq, lazydocker, ripgrep, zoxide
-- **Web**: webapps
-- **System**: ssh, carapace (shell completions)
-
-**Additional Packages:**
-
-- **Languages**: node (nodejs_24), lua
-- **Tools**: ast-grep, dive, dust, grpcurl, httpie, jc, just, kdlfmt, nil, nixfmt, sops, statix, tree-sitter, websocat, wget, yq
-
-**macOS Only:**
-
-- **Window Manager**: aerospace (via Raycast scripts)
-
-### Desktop Environment (NixOS Desktop)
-
-- **Niri**: Scrollable tiling Wayland compositor with vim-style navigation
-- **Waybar**: Minimalist status bar with system metrics and window tracking
-- **Vicinae**: High-performance app launcher with calculator and clipboard history
-- **swaybg**: Wallpaper daemon for Wayland
-- **Greetd/tuigreet**: TUI-based login manager
-
-### Gaming Configuration (NixOS Desktop)
-
-- **Steam**: Full Steam integration with Gamescope session
-- **Performance**: Gamemode, CPU governor, vm.max_map_count tuning
-- **Hardware**: NVIDIA drivers, 32-bit graphics support, Vulkan/OpenGL
-- **KVM Support**: EDID override for display passthrough
-
-### System Configs
-
-- **macOS**: Nix daemon/GC and its environment bridge; Mise owns desktop preferences, native Touch ID sudo, and guest-login policy
-- **NixOS**: Greetd login, PipeWire audio, NetworkManager, SSH hardening, fail2ban
-
-### Package Management
-
-- **Mise** (macOS): Apps and fonts declared under `[bootstrap.packages]` in `mholtzscher/workstation`
-  - Shared and personal/work configuration selects the packages for each Mac
-  - Mise installs `brew-cask:` packages directly; Homebrew itself is not required
-  - This Nix flake does not provision Homebrew or run Brew updates
-
-## License
-
-Personal configuration - use as reference or template.
-
-## Contributing
-
-This is a personal configuration, but feel free to use it as inspiration for your own setup!
+The shared configuration and personal/work profiles select apps and tools.
+`macos:security` maintains native Touch ID sudo with session reattachment and
+disabled guest login. Its `--check` mode verifies without applying policy changes.
+
+## Editing and Adding Hosts
+
+- [docs/common-tasks.md](docs/common-tasks.md): packages, programs, managed files, and custom package updaters.
+- [docs/add-host.md](docs/add-host.md): NixOS and standalone Linux host setup.
+- [docs/layout.md](docs/layout.md): module flow and builder arguments.
+- [docs/platform-guidelines.md](docs/platform-guidelines.md): host boundaries and compatibility platform flags.
+- [docs/CODING_STANDARDS.md](docs/CODING_STANDARDS.md): implementation conventions.
+- [docs/SECRETS_WORKFLOW.md](docs/SECRETS_WORKFLOW.md): secret management through `./scripts/secrets`; never inline plaintext secrets.
+- [AGENTS.md](AGENTS.md): repository safety and required reading.
+
+Existing modules retain `isDarwin = false` and `isLinux = true` for compatibility.
+Use host modules and capability flags for new Linux-specific behavior.
 
 ## Flake Inputs
 
-### Core
+- `nixpkgs`, `nixpkgs-master`: Linux packages.
+- `home-manager`: Linux user environments.
+- `catppuccin`: system and user theming.
+- `melt`: the Linux CLI package.
+- `noctalia`, `noctalia-greeter`: desktop shell and greeter.
+- `helium`: browser packaging.
 
-- **nixpkgs**: NixOS/nixpkgs (unstable channel)
-- **nix-darwin**: macOS system management
-- **home-manager**: User environment management
+Historical migration specs and [the restoration reference](docs/nix-restoration.md)
+are retained for history. Their retired Mac paths are not current configuration.
 
-### Enhancements
+## License and Contributing
 
-- **vicinae**: Modern Wayland app launcher
-- **catppuccin**: Catppuccin color scheme integration
-
----
-
-**Built with** [Nix](https://nixos.org/) • [nix-darwin](https://github.com/LnL7/nix-darwin) • [home-manager](https://github.com/nix-community/home-manager) • [Niri](https://github.com/YaLTeR/niri)
+Personal configuration; use it as reference or inspiration for your own setup.

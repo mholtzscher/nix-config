@@ -1,5 +1,9 @@
 ## Feature: Use Nushell as Ghostty's default shell on all current Ghostty hosts
 
+> Historical spec, not current setup instructions. Mise now owns the shared
+> Ghostty/Nushell configuration and the Macs no longer use Nix. See `README.md`
+> and `docs/NIX_WORKFLOW.md` for current ownership and validation.
+
 ### Problem Statement
 **Who:** Michael using Ghostty on the desktop/laptop hosts managed by this flake.
 **What:** Ghostty should open directly into Nushell instead of inheriting the current account/login shell.

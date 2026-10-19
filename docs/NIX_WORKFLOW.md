@@ -4,10 +4,10 @@
 
 After changes, run `./scripts/agent-validate.sh`. Read the script before running it for platform/host selection and side effects. It formats all Nix files, not just changed files.
 
-On macOS, pass the Darwin flake host explicitly, for example
-`./scripts/agent-validate.sh Michaels-M1-Max` or
-`./scripts/agent-validate.sh Michael-Holtzscher-Work`. It uses `darwin-rebuild build`,
-not `nh`; Home Manager is Linux-only.
+The flake is Linux-only. On NixOS the script builds the local system; on other
+Linux hosts it builds the selected standalone Home Manager host (Wanda is the
+only current one). On macOS it exits before formatting or invoking Nix tools;
+Macs use Mise and no longer have Nix installed.
 
 ## Build failure reports
 

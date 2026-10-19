@@ -1,6 +1,6 @@
 { ... }:
 {
-  # Import all shared modules that work across macOS and NixOS
+  # Shared NixOS system modules; standalone Home Manager has its own entrypoint.
   imports = [
     ./nix-settings.nix
     ./tailscale.nix
