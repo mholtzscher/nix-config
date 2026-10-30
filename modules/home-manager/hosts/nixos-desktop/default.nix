@@ -118,7 +118,18 @@ in
 {
   imports = [
     ./voxtype.nix
+    inputs.rex.homeManagerModules.default
   ];
+
+  # The system SSH configuration supplies the guard without owning ~/.ssh/config.
+  programs.rex.sshGuard = false;
+  services.rex = {
+    enable = true;
+    tailscale = {
+      enable = true;
+      hostname = "rex-nixos-desktop";
+    };
+  };
 
   # NixOS Desktop-specific home-manager configuration
   # Desktop environment setup is now in modules/nixos/desktop/

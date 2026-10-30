@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, inputs, ... }:
 {
   # NixOS Desktop Environment Configuration
   # This module provides a complete desktop environment setup including:
@@ -19,6 +19,14 @@
   boot.kernelModules = [ "sg" ];
 
   users.users.michael.extraGroups = [ "cdrom" ];
+
+  # Keep the personal Rex server available at boot and after logout.
+  users.users.michael.linger = true;
+  programs.ssh.extraConfig = ''
+    Include ${
+      inputs.rex.packages.${pkgs.stdenv.hostPlatform.system}.rex
+    }/share/rex/ssh_config.d/50-rex.conf
+  '';
 
   # Run unpatched dynamically linked binaries built for conventional Linux systems.
   programs.nix-ld.enable = true;
