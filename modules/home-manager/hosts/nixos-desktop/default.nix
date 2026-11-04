@@ -125,6 +125,9 @@ in
   programs.rex.sshGuard = false;
   services.rex = {
     enable = true;
+    # Plain HTTP grants full access; the host firewall restricts it to the LAN.
+    allowAnonymous = true;
+    extraListen = [ "http://0.0.0.0:7777" ];
     tailscale = {
       enable = true;
       hostname = "rex-nixos-desktop";
